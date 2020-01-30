@@ -6,9 +6,6 @@ class Medicamentos extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("MPI Brasil"),
-        ),
         body: Center(
           child: Text("Medicamentos")
         )
