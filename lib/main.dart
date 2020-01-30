@@ -4,7 +4,6 @@ import 'screens/home.dart';
 import 'screens/login.dart';
 import 'screens/medicamentos.dart';
 import 'screens/settings.dart';
-import 'screens/test.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
         '/glossario'    : (context) => Glossario(),
         '/medicamentos' : (context) => Medicamentos(),
         '/settings'     : (context) => Settings(),
-        '/test'         : (context) => TestPage(),
       },
     );
   }
