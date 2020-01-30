@@ -46,19 +46,18 @@ class Login extends StatelessWidget {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(35.0),
+              padding: const EdgeInsets.all(80),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("assets/images/logo.png", fit: BoxFit.contain),
+                  Image.asset("assets/icons/health.png", fit: BoxFit.contain),
                   SizedBox(height: 50.0),
                   usernameField,
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 10.0),
                   passwordField,
                   SizedBox(height: 30.0),
                   loginButton,
-                  SizedBox(height: 30.0),
                 ],
               ),
             ),
