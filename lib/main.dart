@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: <String,WidgetBuilder> {
-        '/'             : (context) => TestPage(),
+        '/'             : (context) => HomePage(),
         '/login'        : (context) => Login(),
-        '/home'         : (context) => HomePage(),
         '/glossario'    : (context) => Glossario(),
         '/medicamentos' : (context) => Medicamentos(),
         '/settings'     : (context) => Settings(),
+        '/test'         : (context) => TestPage(),
       },
     );
   }
