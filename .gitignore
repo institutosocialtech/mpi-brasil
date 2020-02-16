@@ -159,3 +159,5 @@ fabric.properties
 /android/mpi_brasil_android.iml
 /.idea/workspace.xml
 .idea/libraries/Dart_SDK.xml
+assets/data
+ios/Flutter/Flutter.podspec
