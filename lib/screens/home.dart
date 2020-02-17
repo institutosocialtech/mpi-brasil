@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'medicamentos.dart';
 import 'glossario.dart';
 import 'info.dart';
+import 'settings.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -15,9 +16,10 @@ class _HomeState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    Info(),
     Medicamentos(),
     Glossario(),
+    Info(),
+    Settings(),
   ];
 
   @override
@@ -25,47 +27,40 @@ class _HomeState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Image.asset(
-              'assets/icons/health.png',
-              fit: BoxFit.contain
-            ),
-          ),
-          title: Text("MPI Brasil"),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.person),
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              }
-            ),
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
-               },
-            ),
-          ],
+          title: Text('MPI Brasil', style: TextStyle(fontSize: 24)),
+          titleSpacing: 0.0,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+          )
         ),
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black45,
           currentIndex: _currentIndex,
+          elevation: 5,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white70,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black38,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           onTap: onTabTapped,
           items: [
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/health.png', height: 40),
-              title: Text("Home", style: TextStyle(fontSize: 14)),
+              icon: Icon(Icons.home),
+              title: Text("Home"),
             ),
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/drug.png', height: 40),
-              title: Text("Medicamentos", style: TextStyle(fontSize: 14)),
+              icon: Icon(Icons.list),
+              title: Text("Glossário"),
             ),
             BottomNavigationBarItem(
-              icon: Image.asset('assets/icons/agenda.png', height: 40),
-              title: Text("Glossário", style: TextStyle(fontSize: 14)),
+              icon: Icon(Icons.star),
+              title: Text("Favoritos"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text("Configurações"),
             ),
           ],
         ),
