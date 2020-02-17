@@ -12,6 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'MPI Brasil',
+      theme: ThemeData(
+        fontFamily: 'Nunito',
+      ),
       initialRoute: '/',
       routes: <String,WidgetBuilder> {
         '/'             : (context) => HomePage(),
