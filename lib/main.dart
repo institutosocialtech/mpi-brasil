@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MPI Brasil',
       theme: ThemeData(
+        primaryColor: Colors.green,
+        accentColor: Colors.greenAccent,
         fontFamily: 'Nunito',
       ),
       initialRoute: '/',
