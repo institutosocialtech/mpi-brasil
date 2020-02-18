@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/favorites.dart';
 import 'screens/glossario.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
@@ -12,10 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'MPI Brasil',
+      theme: ThemeData(
+        primaryColor: Colors.green,
+        accentColor: Colors.greenAccent,
+        fontFamily: 'Nunito',
+      ),
       initialRoute: '/',
       routes: <String,WidgetBuilder> {
         '/'             : (context) => HomePage(),
         '/login'        : (context) => Login(),
+        '/favorites'    : (context) => Favorites(),
         '/glossario'    : (context) => Glossario(),
         '/medicamentos' : (context) => Medicamentos(),
         '/settings'     : (context) => Settings(),

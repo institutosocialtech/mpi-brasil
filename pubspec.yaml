@@ -71,16 +71,16 @@ flutter:
   #         weight: 700
   #
   fonts:
-    - family: Barlow
+    - family: Nunito
       fonts:
-        - asset: assets/fonts/Barlow-Bold.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Barlow-Italic.ttf
+        - asset: assets/fonts/Nunito-Italic.ttf
           style: italic
-        - asset: assets/fonts/Barlow-BoldItalic.ttf
+        - asset: assets/fonts/Nunito-BoldItalic.ttf
           weight: 700 
           style: italic
-        - asset: assets/fonts/Barlow-Regular.ttf
+        - asset: assets/fonts/Nunito-Regular.ttf
           
 
   # For details regarding fonts from package dependencies,
