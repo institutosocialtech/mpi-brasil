@@ -17,8 +17,8 @@ class _HomeState extends State<HomePage> {
 
   final List<Widget> _children = [
     Medicamentos(),
-    Glossario(),
     Favorites(),
+    Glossario(),
     Settings(),
   ];
 
@@ -51,12 +51,12 @@ class _HomeState extends State<HomePage> {
               title: Text("Home"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_library),
-              title: Text("Glossário"),
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.star),
               title: Text("Favoritos"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_library),
+              title: Text("Glossário"),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
