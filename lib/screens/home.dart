@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'medicamentos.dart';
+import 'favorites.dart';
 import 'glossario.dart';
-import 'info.dart';
 import 'settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeState extends State<HomePage> {
   final List<Widget> _children = [
     Medicamentos(),
     Glossario(),
-    Info(),
+    Favorites(),
     Settings(),
   ];
 
@@ -27,7 +27,7 @@ class _HomeState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('MPI Brasil', style: TextStyle(fontSize: 24)),
+          title: Text('MPI Brasil'),
           titleSpacing: 0.0,
           leading: IconButton(
             icon: Icon(Icons.menu),
