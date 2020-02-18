@@ -25,7 +25,6 @@ class Medicamentos extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              dense: true,
               title: Row(children: <Widget>[
                 Text(medList[index].name),
                 IconButton(icon: Icon(Icons.star_border), color: Colors.orangeAccent, iconSize: 16, padding: EdgeInsets.all(0), onPressed: () {})
