@@ -51,7 +51,7 @@ class _HomeState extends State<HomePage> {
               title: Text("Home"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.local_library),
               title: Text("Glossário"),
             ),
             BottomNavigationBarItem(
