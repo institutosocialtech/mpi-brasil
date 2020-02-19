@@ -5,6 +5,7 @@ import 'screens/favorites.dart';
 import 'screens/glossario.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
+import 'screens/medicamento_info.dart';
 import 'screens/medicamentos.dart';
 import 'screens/settings.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/faq'          : (context) => FAQ(),
         '/glossario'    : (context) => Glossario(),
         '/medicamentos' : (context) => Medicamentos(),
+        '/med_info'     : (context) => MedicamentoInfo(),
         '/settings'     : (context) => Settings(),
       },
     );
