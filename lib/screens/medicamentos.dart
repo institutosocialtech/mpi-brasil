@@ -68,7 +68,9 @@ class Medicamentos extends StatelessWidget {
                       IconButton(icon: Icon(Icons.star_border), color: Colors.orangeAccent, iconSize: 16, padding: EdgeInsets.all(0), onPressed: () {})
                     ]),
                     subtitle: Text(medList[index].description),
-                    trailing: IconButton(icon: Icon(Icons.keyboard_arrow_right), color: Colors.black26, onPressed: () {}),
+                    trailing: IconButton(icon: Icon(Icons.keyboard_arrow_right), color: Colors.black26, onPressed: () {
+                      Navigator.pushNamed(context, '/med_info');
+                    }),
                   );
                 },
               ),
