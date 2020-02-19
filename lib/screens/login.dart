@@ -9,9 +9,9 @@ class Login extends StatelessWidget {
     final usernameField = TextField(
       obscureText: false,
       decoration: InputDecoration(
+        labelText: "Usuário",
         hintText: "Usuário",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
       ),
     );
 
@@ -19,20 +19,20 @@ class Login extends StatelessWidget {
     final passwordField = TextField(
       obscureText: true,
       decoration: InputDecoration(
+        labelText: "Senha",
         hintText: "Senha",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
-        contentPadding: EdgeInsets.all(15),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
       ),
     );
 
     // login button properties
     final loginButton = Material(
         elevation: 2.0,
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(30),
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(5),
         child: MaterialButton(
           onPressed: () {},
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
           child: Text(
             "Entrar",
             style: TextStyle(color: Colors.white),
@@ -46,17 +46,17 @@ class Login extends StatelessWidget {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(80),
+              padding: const EdgeInsets.all(50),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("assets/icons/health.png", fit: BoxFit.contain),
+                  Image.asset("assets/images/logo-green.png", fit: BoxFit.contain),
                   SizedBox(height: 50.0),
                   usernameField,
                   SizedBox(height: 10.0),
                   passwordField,
-                  SizedBox(height: 30.0),
+                  SizedBox(height: 50.0),
                   loginButton,
                 ],
               ),

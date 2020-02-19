@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/drawer.dart';
 import 'medicamentos.dart';
 import 'favorites.dart';
 import 'glossario.dart';
@@ -29,12 +30,9 @@ class _HomeState extends State<HomePage> {
         appBar: AppBar(
           title: Text('MPI Brasil'),
           titleSpacing: 0.0,
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          )
         ),
         body: _children[_currentIndex],
+        drawer: AppDrawer(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           elevation: 5,
