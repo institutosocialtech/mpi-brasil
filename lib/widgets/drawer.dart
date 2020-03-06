@@ -31,6 +31,12 @@ class AppDrawer extends StatelessWidget {
                 Navigator.popAndPushNamed(context, '/about');
               },
             ),
+            ListTile(
+              title: Text('Configurações'),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/settings');
+              },
+            ),
           ],
         ),
       );
