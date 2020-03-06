@@ -42,20 +42,6 @@ class Medicamentos extends StatelessWidget {
             ),
           ),
           Container(
-            height: 30,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text("Tipo"),
-                Text("Nome", style: TextStyle(fontWeight: FontWeight.bold), ),
-              ]
-            ),
-          ),
-          Container(
             height: 540,
             child: ListView.separated(
               itemCount: medList.length,
