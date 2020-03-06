@@ -47,21 +47,17 @@ class Medicamentos extends StatelessWidget {
               itemCount: medList.length,
               separatorBuilder: (BuildContext context, int index) => Divider(),
               itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    title: Row(children: <Widget>[
-                      Text(medList[index].name),
-                      IconButton(icon: Icon(Icons.star_border), color: Colors.orangeAccent, iconSize: 16, padding: EdgeInsets.all(0), onPressed: () {})
-                    ]),
-                    subtitle: Text(medList[index].description),
-                    trailing: IconButton(icon: Icon(Icons.keyboard_arrow_right), color: Colors.black26, onPressed: () {
-                      Navigator.pushNamed(context, '/med_info');
-                    }),
-                  );
-                },
-              ),
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  title: Text(medList[index].name),
+                  subtitle: Text(medList[index].description),
+                  trailing: IconButton(icon: Icon(Icons.star_border), color: Colors.orangeAccent, onPressed: () { print("setFavorite \"" + medList[index].name + "\""); }),
+                  onTap: () { Navigator.pushNamed(context, '/med_info'); },
+                );
+              },
             ),
-          ],
+          ),
+        ],
       ),
     );
   }
