@@ -162,4 +162,5 @@ fabric.properties
 assets/data
 ios/Flutter/Flutter.podspec
 
+# keys
 android/key.properties
