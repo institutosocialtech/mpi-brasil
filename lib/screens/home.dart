@@ -20,7 +20,6 @@ class _HomeState extends State<HomePage> {
     Medicamentos(),
     Favorites(),
     Glossario(),
-    Settings(),
   ];
 
   @override
@@ -55,10 +54,6 @@ class _HomeState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.local_library),
               title: Text("Glossário"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text("Configurações"),
             ),
           ],
         ),
