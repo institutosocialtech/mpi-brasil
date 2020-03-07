@@ -161,3 +161,5 @@ fabric.properties
 .idea/libraries/Dart_SDK.xml
 assets/data
 ios/Flutter/Flutter.podspec
+
+android/key.properties
