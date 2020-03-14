@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/drug.dart';
 
 class MedicamentoInfo extends StatelessWidget {
+  final Drug drug;
+  MedicamentoInfo({Key key, this.drug}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,10 +18,10 @@ class MedicamentoInfo extends StatelessWidget {
         Container(
           child: ListTile(
             title: Text(
-              "Acebutolol",
-              textScaleFactor: 1.4,
+              drug.name,
+              textScaleFactor: 1.5,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text("Antiarritimico e Anti-hipertensivo"),
           ),
           color: Color.fromRGBO(254, 254, 252, 1),
           padding: EdgeInsets.all(10),
@@ -25,22 +29,24 @@ class MedicamentoInfo extends StatelessWidget {
         getBar(),
         ListTile(
           title: Text(
-              "O Lorem padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação como o Aldus PageMaker que incluem versões do Lorem Ipsum."),
-        ),
-        ListTile(
-          title: Text(
-            "MPI independete de condição clínica",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text("SIM"),
-        ),
-        ListTile(
-          title: Text(
             "Classe Farmacológica",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(
-              "Beta-bloqueadores com atividade simpática e para-simpática"),
+          subtitle: Text(drug.type.toString()),
+        ),
+        ListTile(
+          title: Text(
+            "MPI Independente de Condição Clínica",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(drug.avoidIndependently ? "SIM" : "NÃO"),
+        ),
+        ListTile(
+          title: Text(
+            "Racional",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(drug.avoidIndependentlyReason),
         ),
       ],
     );
@@ -50,37 +56,28 @@ class MedicamentoInfo extends StatelessWidget {
 }
 
 Widget getBar() {
-  var bar = Container(
+  return Container(
+    //Scolor: Color.fromRGBO(248, 249, 251, 1),
     child: Row(
-      children: const <Widget>[
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(horizontal:15, vertical: 0),
           child: IconButton(
               icon: Icon(Icons.star),
-              color: Colors.amberAccent,
+              color: Colors.orangeAccent,
               iconSize: 20,
               onPressed: null),
         ),
         Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(horizontal:15, vertical: 0),
           child: IconButton(
-              icon: Icon(Icons.share), iconSize: 20, onPressed: null),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: IconButton(
-              icon: Icon(Icons.info_outline), iconSize: 20, onPressed: null),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: IconButton(
-              icon: Icon(Icons.format_size), iconSize: 20, onPressed: null),
+              icon: Icon(Icons.share),
+              iconSize: 20,
+              onPressed: null),
         ),
       ],
     ),
-    color: Color.fromRGBO(248, 249, 251, 1),
-    padding: EdgeInsets.all(10),
   );
-
-  return bar;
 }
