@@ -1,4 +1,4 @@
-package com.example.mpi_brasil
+package org.pmosocial.mpi_brasil
 
 import android.os.Bundle
 
