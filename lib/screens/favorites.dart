@@ -3,7 +3,7 @@ import '../models/medicamento.dart';
 
 class Favorites extends StatelessWidget {
 
-  List<Medicamento> medList = [];
+  final List<Medicamento> medList = [];
 
   populateMedList() {
     for (int item = 0; item<15; item++) {

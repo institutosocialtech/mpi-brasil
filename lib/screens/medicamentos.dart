@@ -4,7 +4,6 @@ import 'medicamento_info.dart';
 
 class Medicamentos extends StatelessWidget {
   final medList = drugs;
-  var drug;
 
   @override
   Widget build(BuildContext context) {

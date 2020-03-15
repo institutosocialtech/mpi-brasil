@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/glossario.dart';
 
 class Glossario extends StatelessWidget {
-  List<GlossarioItem> glossarioList = [];
+  final List<GlossarioItem> glossarioList = [];
 
   populateGlossarioList() {
     for (int item = 0; item<15; item++) {

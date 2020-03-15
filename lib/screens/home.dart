@@ -3,7 +3,7 @@ import '../widgets/drawer.dart';
 import 'medicamentos.dart';
 import 'favorites.dart';
 import 'glossario.dart';
-import 'settings.dart';
+//import 'settings.dart';
 
 class HomePage extends StatefulWidget {
 
