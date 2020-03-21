@@ -28,4 +28,15 @@ class Drug with ChangeNotifier {
     this.references
   );
 
+  String drugTypesToString() {
+    String types;
+    for (String s in type) {
+      if (types == null)
+        types = s;
+      else
+        types += ", " + s;
+    }
+    return types;
+  }
+
 }

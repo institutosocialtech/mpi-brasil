@@ -37,7 +37,7 @@ class Medicamentos extends StatelessWidget {
                   return ListTile(
                     contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     title: Text(medList[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
-                    subtitle: Text(medList[index].type[0]),
+                    subtitle: Text(medList[index].drugTypesToString()),
                     trailing: IconButton(
                         icon: Icon(Icons.star_border),
                         color: Colors.orangeAccent,
