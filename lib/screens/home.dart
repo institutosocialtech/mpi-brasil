@@ -29,6 +29,7 @@ class _HomeState extends State<HomePage> {
         appBar: AppBar(
           title: Text('MPI Brasil'),
           titleSpacing: 0.0,
+          elevation: 0,
         ),
         body: _children[_currentIndex],
         drawer: AppDrawer(),
