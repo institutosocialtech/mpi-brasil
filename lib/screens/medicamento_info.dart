@@ -12,7 +12,11 @@ class MedicamentoInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("MPI Brasil"),
+        titleSpacing: 0,
+        elevation: 0,
+      ),
       body: ListView(
         children: <Widget>[
           drawTitleBar(drug),
