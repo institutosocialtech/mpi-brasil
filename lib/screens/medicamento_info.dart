@@ -7,7 +7,7 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // Title Font Style
-  final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold);
+  final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold, fontFamily: "Arial");
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +25,11 @@ class MedicamentoInfo extends StatelessWidget {
             subtitle: Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
           ),
           drawAvoidIndependently(drug),
-          ListTile(
-            title: Text("Condições a serem evitadas", style: tileTitle),
-            subtitle: Text(drug.avoidSpecificallyConditions.toString(), textAlign: TextAlign.justify),
-          ),
-          ListTile(
-            title: Text("Alternativas Terapeuticas", style: tileTitle),
-            subtitle: Text(drug.alternatives.toString(), textAlign: TextAlign.justify),
-          ),
-          ListTile(
-            title: Text("Orientações de Desprescrição", style: tileTitle),
-            subtitle: Text(drug.desprescription.toString(), textAlign: TextAlign.justify),
-          ),
-          ListTile(
-            title: Text("Monitorar", style: tileTitle),
-            subtitle: Text(drug.monitoredParameters.toString(), textAlign: TextAlign.justify),
-          ),
-          ListTile(
-            title: Text("Referências", style: tileTitle),
-            subtitle: Text(drug.references.toString(), textAlign: TextAlign.justify),
-          ),
+          drawTile("Condições a serem evitadas", drug.avoidSpecificallyConditions.toString()),
+          drawTile("Alternativas Terapeuticas", drug.alternatives.toString()),
+          drawTile("Orientações de Desprescrição", drug.desprescription.toString()),
+          drawTile("Monitorar", drug.monitoredParameters.toString()),
+          drawTile("Referências", drug.references.toString()),
         ],
       ),
     );
@@ -53,24 +38,27 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Drug Title Bar
   Widget drawTitleBar(Drug drug) {
+
+    TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Arial");
+
     return Container(
+      color: Colors.green,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(drug.name, textScaleFactor: 2, style: tileTitle),
+          Text(drug.name, textScaleFactor: 2, style: headerStyle),
           Row(
             children: <Widget>[
-              IconButton(icon: Icon(Icons.star), color: Colors.orange, iconSize: 24, onPressed: () {},),
-              IconButton(icon: Icon(Icons.share), color: Colors.blueGrey, iconSize: 24, onPressed: () {},),
+              IconButton(icon: Icon(Icons.star), color: Colors.white, iconSize: 24, onPressed: () {},),
+              IconButton(icon: Icon(Icons.share), color: Colors.white, iconSize: 24, onPressed: () {},),
             ],
           ),
         ],
       ),
     );
   }
-
 
   //
   // MPI Reason and Exceptions
@@ -123,6 +111,20 @@ class MedicamentoInfo extends StatelessWidget {
 
     return Column(children: drawList);
 
+  }
+
+  //
+  // Custom ExpansionTile
+  Widget drawTile(String title, String content){
+    return ExpansionTile(
+      title: Text(title, style: tileTitle),
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
+          child: Text(content, textAlign: TextAlign.justify),
+        ),
+      ],
+    );
   }
 
 }
