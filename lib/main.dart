@@ -3,6 +3,7 @@ import 'screens/about.dart';
 import 'screens/faq.dart';
 import 'screens/favorites.dart';
 import 'screens/glossario.dart';
+import 'screens/glossario_info.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
 import 'screens/medicamento_info.dart';
@@ -24,15 +25,16 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: <String,WidgetBuilder> {
-        '/'             : (context) => HomePage(),
-        '/about'        : (context) => About(),
-        '/login'        : (context) => Login(),
-        '/favorites'    : (context) => Favorites(),
-        '/faq'          : (context) => FAQ(),
-        '/glossario'    : (context) => Glossario(),
-        '/medicamentos' : (context) => Medicamentos(),
-        '/med_info'     : (context) => MedicamentoInfo(),
-        '/settings'     : (context) => Settings(),
+        '/'               : (context) => HomePage(),
+        '/about'          : (context) => About(),
+        '/login'          : (context) => Login(),
+        '/favorites'      : (context) => Favorites(),
+        '/faq'            : (context) => FAQ(),
+        '/glossario'      : (context) => Glossario(),
+        '/glossario_info' : (context) => GlossarioInfo(),
+        '/medicamentos'   : (context) => Medicamentos(),
+        '/med_info'       : (context) => MedicamentoInfo(),
+        '/settings'       : (context) => Settings(),
       },
     );
   }
