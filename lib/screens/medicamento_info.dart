@@ -1,3 +1,4 @@
+import 'package:share/share.dart';
 import 'package:flutter/material.dart';
 import '../models/drug.dart';
 
@@ -7,7 +8,8 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // Title Font Style
-  final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold, fontFamily: "Arial");
+  final TextStyle tileTitle =
+      TextStyle(fontWeight: FontWeight.bold, fontFamily: "Arial");
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,15 @@ class MedicamentoInfo extends StatelessWidget {
           drawTitleBar(drug),
           ListTile(
             title: Text("Classe Farmacológica", style: tileTitle),
-            subtitle: Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
+            subtitle:
+                Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
           ),
           drawAvoidIndependently(drug),
-          drawTile("Condições a serem evitadas", drug.avoidSpecificallyConditions.toString()),
+          drawTile("Condições a serem evitadas",
+              drug.avoidSpecificallyConditions.toString()),
           drawTile("Alternativas Terapeuticas", drug.alternatives.toString()),
-          drawTile("Orientações de Desprescrição", drug.desprescription.toString()),
+          drawTile(
+              "Orientações de Desprescrição", drug.desprescription.toString()),
           drawTile("Monitorar", drug.monitoredParameters.toString()),
           drawTile("Referências", drug.references.toString()),
         ],
@@ -38,8 +43,8 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Drug Title Bar
   Widget drawTitleBar(Drug drug) {
-
-    TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Arial");
+    TextStyle headerStyle = TextStyle(
+        color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Arial");
 
     return Container(
       color: Colors.green,
@@ -51,8 +56,20 @@ class MedicamentoInfo extends StatelessWidget {
           Text(drug.name, textScaleFactor: 2, style: headerStyle),
           Row(
             children: <Widget>[
-              IconButton(icon: Icon(Icons.star), color: Colors.white, iconSize: 24, onPressed: () {},),
-              IconButton(icon: Icon(Icons.share), color: Colors.white, iconSize: 24, onPressed: () {},),
+              IconButton(
+                icon: Icon(Icons.star),
+                color: Colors.white,
+                iconSize: 24,
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.share),
+                color: Colors.white,
+                iconSize: 24,
+                onPressed: () {
+                  Share.share("${drug.name}\n${drug.drugTypesToString()}\n${drug.avoidIndependentlyReason}");
+                },
+              ),
             ],
           ),
         ],
@@ -80,7 +97,8 @@ class MedicamentoInfo extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
-                child: Text(drug.avoidIndependentlyReason, textAlign: TextAlign.justify),
+                child: Text(drug.avoidIndependentlyReason,
+                    textAlign: TextAlign.justify),
               ),
             ],
           ),
@@ -94,7 +112,8 @@ class MedicamentoInfo extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
-                child: Text(drug.avoidIndependentlyExceptions, textAlign: TextAlign.justify),
+                child: Text(drug.avoidIndependentlyExceptions,
+                    textAlign: TextAlign.justify),
               ),
             ],
           ),
@@ -110,12 +129,11 @@ class MedicamentoInfo extends StatelessWidget {
     }
 
     return Column(children: drawList);
-
   }
 
   //
   // Custom ExpansionTile
-  Widget drawTile(String title, String content){
+  Widget drawTile(String title, String content) {
     return ExpansionTile(
       title: Text(title, style: tileTitle),
       children: <Widget>[
@@ -126,5 +144,4 @@ class MedicamentoInfo extends StatelessWidget {
       ],
     );
   }
-
 }
