@@ -164,3 +164,6 @@ ios/Flutter/Flutter.podspec
 
 # keys
 android/key.properties
+.flutter-plugins-dependencies
+
+.idea/
