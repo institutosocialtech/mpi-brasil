@@ -1,1 +1,2 @@
-Teste do release text.
+Teste do release text. 
+Update 2.
