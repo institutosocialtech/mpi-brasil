@@ -1,9 +1,12 @@
 //import 'package:share/share.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:mpi_brasil/widgets/alternativesCard.dart';
+import 'package:mpi_brasil/widgets/cardReferences.dart';
 import 'package:mpi_brasil/widgets/conditionCard.dart';
 import 'package:mpi_brasil/widgets/monitorCard.dart';
 import '../models/drug.dart';
+
 
 class MedicamentoInfo extends StatelessWidget {
   final Drug drug;
@@ -31,7 +34,7 @@ class MedicamentoInfo extends StatelessWidget {
           drawAlternatives(drug),
           drawExpansionTile("Orientações de Desprescrição", drug.desprescription.toString()),
           drawDrugMonitor(drug),
-          drawExpansionTile("Referências", drug.references.toString()),
+          drawDrugReferences(drug),
         ],
       ),
     );
@@ -74,7 +77,7 @@ class MedicamentoInfo extends StatelessWidget {
   // MPI Conditions
   Widget drawConditionsTile(Drug drug) {
     List<Widget> conditionTiles = [];
-    
+
     for (DrugAvoidCondition item in drug.avoidConditions) {
       conditionTiles.add(
         Padding(
@@ -107,10 +110,7 @@ class MedicamentoInfo extends StatelessWidget {
       alternativeTiles.add(
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: Card(
-            elevation: 5,
-            child: AlternativesCard(item)
-          ),
+          child: Card(elevation: 5, child: AlternativesCard(item)),
         ),
       );
     }
@@ -125,13 +125,12 @@ class MedicamentoInfo extends StatelessWidget {
       ],
     );
   }
-  
 
-//
+  //
   // MPI Alternatives
   Widget drawDrugMonitor(Drug drug) {
     List<Widget> monitorTiles = [];
-    
+
     if (drug.monitoredParameters.length == 0) {
       return Container();
     }
@@ -140,10 +139,7 @@ class MedicamentoInfo extends StatelessWidget {
       monitorTiles.add(
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: Card(
-            elevation: 5,
-            child: MonitorCard(item)
-          ),
+          child: Card(elevation: 5, child: MonitorCard(item)),
         ),
       );
     }
@@ -158,7 +154,37 @@ class MedicamentoInfo extends StatelessWidget {
       ],
     );
   }
-  
+
+  //
+  // MPI References
+  Widget drawDrugReferences(Drug drug) {
+    List<Widget> referenceTiles = [];
+
+    if (drug.references.length == 0) {
+      return Container();
+    }
+
+    for (DrugReference item in drug.references) {
+      referenceTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: InkWell(child: Card(elevation: 5, child: ReferencesCard(item)), onTap: () => launch(item.url),),
+        ),
+      );
+    }
+
+    return ExpansionTile(
+      title: Text("Referências", style: headerStyle),
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: referenceTiles,
+        ),
+      ],
+    );
+  }
+
+
 
 
   //
@@ -174,5 +200,4 @@ class MedicamentoInfo extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -8,7 +8,7 @@ class Drug with ChangeNotifier {
   final List<DrugAlternatives>  alternatives;
   final String              desprescription;
   final List<DrugMonitor>  monitoredParameters;
-  final Map<String,String>  references;
+  final List<DrugReference>  references;
 
   Drug(
     this.name,
@@ -70,5 +70,15 @@ class DrugMonitor {
   DrugMonitor(
     this.parameter,
     this.description,
+  );
+}
+
+class DrugReference {
+  final String description;
+  final String url;
+
+  DrugReference(
+    this.description,
+    this.url
   );
 }

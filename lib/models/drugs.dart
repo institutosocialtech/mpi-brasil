@@ -26,10 +26,10 @@ var drugs = [
                 "Reduzir 25% à 50% da dose a cada 1-2 semanas. Se o paciente apresentar efeitos adversos graves o antipsicótico pode ser supenso abruptamente.",
                 // List<DrugMonitor> monitoredParameters
                 [ DrugMonitor("parameter", "description")],
-                // <Map> references
-                {
-                  "Oliveira MG, Amorim WW, Oliveira CRB, Coqueiro HL, Gusmão LC, Passos LC. Consenso brasileiro de medicamentos potencialmente inapropriados para idosos. Geriatr Gerontol Aging [Internet]. 2017 Dec;10(4):168–81.":"Disponível em: http://www.ggaging.com/details/397/pt-BR/brazilian-consensus-of-potentially-inappropriate-medication-for-elderly-people",
-                  "Truven Health Analytics: Drugdex® System. Thomson MICROMEDEX, Greenwood Village, Colorado, USA. [citado em: 06 Fev 2015].":"Disponível em: http://www.micromedexsolutions.com."
-                }
+                // List<DrugReference> references
+                [
+                  DrugReference("Oliveira MG, Amorim WW, Oliveira CRB, Coqueiro HL, Gusmão LC, Passos LC. Consenso brasileiro de medicamentos potencialmente inapropriados para idosos. Geriatr Gerontol Aging [Internet]. 2017 Dec;10(4):168–81.", "http://www.ggaging.com/details/397/pt-BR/brazilian-consensus-of-potentially-inappropriate-medication-for-elderly-people"),
+                  DrugReference("Truven Health Analytics: Drugdex® System. Thomson MICROMEDEX, Greenwood Village, Colorado, USA. [citado em: 06 Fev 2015].", "http://www.micromedexsolutions.com"),
+                ]
               ),
             ];

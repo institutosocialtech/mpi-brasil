@@ -167,3 +167,5 @@ android/key.properties
 .flutter-plugins-dependencies
 
 .idea/
+
+pubspec.lock
