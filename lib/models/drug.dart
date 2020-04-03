@@ -2,26 +2,18 @@ import 'package:flutter/foundation.dart';
 
 class Drug with ChangeNotifier {
 
-  final String             name;
-  final List<String>       type;
-  final bool               avoidIndependently;
-  final String             avoidIndependentlyReason;
-  final String             avoidIndependentlyExceptions;
-  final bool               avoidSpecifically;
-  final Map<String,String> avoidSpecificallyConditions;
-  final Map<String,String> alternatives;
-  final String             desprescription;
-  final Map<String,String> monitoredParameters;
-  final Map<String,String> references;
+  final String              name;
+  final List<String>        type;
+  final List<DrugAvoidCondition> avoidConditions;
+  final List<DrugAlternatives>  alternatives;
+  final String              desprescription;
+  final Map<String,String>  monitoredParameters;
+  final Map<String,String>  references;
 
   Drug(
     this.name,
     this.type,
-    this.avoidIndependently,
-    this.avoidIndependentlyReason,
-    this.avoidIndependentlyExceptions,
-    this.avoidSpecifically,
-    this.avoidSpecificallyConditions,
+    this.avoidConditions,
     this.alternatives,
     this.desprescription,
     this.monitoredParameters,
@@ -39,4 +31,33 @@ class Drug with ChangeNotifier {
     return output;
   }
 
+}
+
+class DrugAvoidCondition {
+
+  final bool independent;
+  final String condition;
+  final String description;
+  final String exception;
+
+  DrugAvoidCondition(
+    
+    this.independent,
+    this.condition,
+    this.description,
+    this.exception
+    
+  );
+
+}
+
+
+class DrugAlternatives {
+  final String alternative;
+  final String description;
+
+  DrugAlternatives(
+    this.alternative,
+    this.description
+  );
 }
