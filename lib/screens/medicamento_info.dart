@@ -66,7 +66,7 @@ class MedicamentoInfo extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 24,
                 onPressed: () {
-                  Share.share("${drug.name}\n${drug.drugTypesToString()}\n${drug.avoidIndependentlyReason}");
+                    Share.share("${drug.name}\n\nClasse Farmacológica:\n${drug.drugTypesToString()}\n\nÉ um medicamento potencialmente inapropriado porque:\n${drug.avoidIndependentlyReason}..Saiba mais acessando MPI Brasil link");
                 },
               ),
             ],
