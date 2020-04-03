@@ -1,130 +1,70 @@
 import 'package:flutter/material.dart';
 import '../models/keyword.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class GlossarioInfo extends StatelessWidget {
-  final Keyword verbete;
-
-  GlossarioInfo({Key key, this.verbete}) : super(key: key);
+  final Keyword keyword;
+  GlossarioInfo({Key key, this.keyword}) : super(key: key);
+  final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: getListView(),
+      appBar: AppBar(
+          title: Text('MPI Brasil'),
+          titleSpacing: 0.0,
+          elevation: 0,
+        ),
+      body: ListView(
+        children: <Widget>[
+          drawTitleBar(keyword),
+          ListTile(
+            title: Text("Sinônimos", style: tileTitle),
+            subtitle: keyword.synonyms.length == 0 ? Text("Nenhum") : Text(keyword.synonymsListToString(), textAlign: TextAlign.justify,),
+          ),
+          ListTile(
+            title: Text("Definição", style: tileTitle),
+            subtitle: Text(keyword.definition),
+          ),
+          ListTile(
+            title: Text("Referências", style: tileTitle),
+            subtitle: keyword.source == null ? Text("Indisponível") : Text(keyword.source),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget getListView() {
-    var listView = ListView(
+//
+  // Keyword Title Bar
+  Widget drawTitleBar(Keyword keyword) {
+    TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+
+    return Container(
+      color: Colors.green,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(keyword.word, textScaleFactor: 2, style: headerStyle),
+        ],
+      ),
+    );
+  }
+
+  //
+  // Custom ExpansionTile
+  Widget drawTile(String title, String content) {
+    return ExpansionTile(
+      title: Text(title, style: tileTitle),
       children: <Widget>[
-        Container(
-          child: ListTile(
-            title: Row(
-              children: <Widget>[
-                Flexible(
-                  child: AutoSizeText(
-                    verbete.word.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.justify,
-//                    textScaleFactor: 1.4,
-                  ),
-                ),
-              ],
-            ),
-            subtitle: Row(
-              children: <Widget>[
-                Flexible(
-                  child: verbete.synonyms.isNotEmpty
-                      ? (verbete.synonyms[0].toString().isNotEmpty
-                          ? Text(
-                              verbete.synonyms[0].toString(),
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                              textAlign: TextAlign.justify,
-//                              style: TextStyle(fontSize: 12),
-                            )
-                          : Text(""))
-                      : Text(""),
-                )
-              ],
-            ),
-          ),
-          color: Color.fromRGBO(254, 254, 252, 1),
-          padding: EdgeInsets.all(10),
-        ),
-//        getBar(),
-        ListTile(
-          title: AutoSizeText(
-            "Definition",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Row(
-            children: <Widget>[
-              Flexible(
-                child: AutoSizeText(
-                  verbete.definition,
-                  textAlign: TextAlign.justify,
-                ),
-              )
-            ],
-          ),
-        ),
-        ListTile(
-          title: AutoSizeText(
-            "Source:",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Row(
-            children: <Widget>[
-              Flexible(
-                  child: AutoSizeText(
-                verbete.source,
-                style: TextStyle(fontStyle: FontStyle.italic),
-                textAlign: TextAlign.justify,
-              ))
-            ],
-          ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
+          child: Text(content, textAlign: TextAlign.justify),
         ),
       ],
     );
-
-    return listView;
   }
 }
-//
-//Widget getBar() {
-//  var bar = Container(
-//    child: Row(
-//      children: const <Widget>[
-//        Padding(
-//          padding: EdgeInsets.all(10.0),
-//          child: IconButton(
-//              icon: Icon(Icons.star),
-//              color: Colors.amberAccent,
-//              iconSize: 20,
-//              onPressed: null),
-//        ),
-//        Padding(
-//          padding: EdgeInsets.all(10.0),
-//          child: IconButton(
-//              icon: Icon(Icons.share), iconSize: 20, onPressed: null),
-//        ),
-//        Padding(
-//          padding: EdgeInsets.all(10.0),
-//          child: IconButton(
-//              icon: Icon(Icons.info_outline), iconSize: 20, onPressed: null),
-//        ),
-//        Padding(
-//          padding: EdgeInsets.all(10.0),
-//          child: IconButton(
-//              icon: Icon(Icons.format_size), iconSize: 20, onPressed: null),
-//        ),
-//      ],
-//    ),
-//    color: Color.fromRGBO(248, 249, 251, 1),
-//    padding: EdgeInsets.all(10),
-//  );
-//
-//  return bar;
-//}
+
+

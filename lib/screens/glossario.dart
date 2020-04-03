@@ -34,7 +34,7 @@ class Glossario extends StatelessWidget {
                     title: Text(keywordList[index].word, style: TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Text( keywordList[index].synonymsListToString() ),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => GlossarioInfo(verbete: keywordList[index]),),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GlossarioInfo(keyword: keywordList[index]),),);
                     },
                   );
                 },
