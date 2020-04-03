@@ -5,7 +5,7 @@ import 'package:mpi_brasil/screens/medicamento_info.dart';
 class Favorites extends StatelessWidget {
 
   final medList = drugs;
-  TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {

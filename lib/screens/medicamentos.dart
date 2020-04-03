@@ -4,7 +4,7 @@ import 'medicamento_info.dart';
 
 class Medicamentos extends StatelessWidget {
   final medList = drugs;
-  TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {

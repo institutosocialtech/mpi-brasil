@@ -4,7 +4,7 @@ import './glossario_info.dart';
 
 class Glossario extends StatelessWidget {
   final keywordList = keywords;
-  TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
