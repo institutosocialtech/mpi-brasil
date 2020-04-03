@@ -10,16 +10,21 @@ class GlossarioInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('MPI Brasil'),
-          titleSpacing: 0.0,
-          elevation: 0,
-        ),
+        title: Text('MPI Brasil'),
+        titleSpacing: 0.0,
+        elevation: 0,
+      ),
       body: ListView(
         children: <Widget>[
           drawTitleBar(keyword),
           ListTile(
             title: Text("Sinônimos", style: tileTitle),
-            subtitle: keyword.synonyms.length == 0 ? Text("Nenhum") : Text(keyword.synonymsListToString(), textAlign: TextAlign.justify,),
+            subtitle: keyword.synonyms.length == 0
+                ? Text("Nenhum")
+                : Text(
+                    keyword.synonymsListToString(),
+                    textAlign: TextAlign.justify,
+                  ),
           ),
           ListTile(
             title: Text("Definição", style: tileTitle),
@@ -27,7 +32,9 @@ class GlossarioInfo extends StatelessWidget {
           ),
           ListTile(
             title: Text("Referências", style: tileTitle),
-            subtitle: keyword.source == null ? Text("Indisponível") : Text(keyword.source),
+            subtitle: keyword.source == null
+                ? Text("Indisponível")
+                : Text(keyword.source),
           ),
         ],
       ),
@@ -37,7 +44,8 @@ class GlossarioInfo extends StatelessWidget {
 //
   // Keyword Title Bar
   Widget drawTitleBar(Keyword keyword) {
-    TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+    TextStyle headerStyle =
+        TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
     return Container(
       color: Colors.green,
@@ -46,7 +54,12 @@ class GlossarioInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(keyword.word, textScaleFactor: 2, style: headerStyle),
+          Flexible(
+            child: Text(keyword.word,
+                textScaleFactor: 2,
+                overflow: TextOverflow.ellipsis,
+                style: headerStyle),
+          ),
         ],
       ),
     );
@@ -66,5 +79,3 @@ class GlossarioInfo extends StatelessWidget {
     );
   }
 }
-
-
