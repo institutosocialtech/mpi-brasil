@@ -4,6 +4,7 @@ import 'medicamento_info.dart';
 
 class Medicamentos extends StatelessWidget {
   final medList = drugs;
+  TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -13,19 +14,13 @@ class Medicamentos extends StatelessWidget {
           Container(
               height: 80,
               color: Colors.green,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: TextField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                    prefixIcon: Icon(Icons.search),
-                    suffixIcon: Icon(Icons.mic),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: "Pesquisar por Medicamento",
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text("Medicamentos", textScaleFactor: 2, style: headerStyle),
                   ),
-                ),
+                ],
               ),
             ),
           Expanded(

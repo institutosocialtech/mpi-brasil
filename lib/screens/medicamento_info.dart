@@ -43,8 +43,7 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Drug Title Bar
   Widget drawTitleBar(Drug drug) {
-    TextStyle headerStyle = TextStyle(
-        color: Colors.white, fontWeight: FontWeight.bold, fontFamily: "Arial");
+    TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
     return Container(
       color: Colors.green,
