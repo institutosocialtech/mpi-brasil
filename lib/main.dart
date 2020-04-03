@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'MPI Brasil',
       theme: ThemeData(
         primaryColor: Colors.green,
-        accentColor: Colors.greenAccent,
+        accentColor: Colors.black,
         fontFamily: 'Nunito',
       ),
       initialRoute: '/',
