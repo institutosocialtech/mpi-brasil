@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/drawer.dart';
+import 'inicio.dart';
 import 'medicamentos.dart';
 import 'favorites.dart';
 import 'glossario.dart';
@@ -17,9 +18,10 @@ class _HomeState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
+    Inicio(),
     Medicamentos(),
-    Favorites(),
     Glossario(),
+    Favorites(),
   ];
 
   @override
@@ -49,12 +51,16 @@ class _HomeState extends State<HomePage> {
               title: Text("Home"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              title: Text("Favoritos"),
+              icon: Icon(Icons.local_hospital),
+              title: Text("Medicamentos"),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_library),
               title: Text("Glossário"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.star),
+              title: Text("Favoritos"),
             ),
           ],
         ),
