@@ -1,6 +1,8 @@
 //import 'package:share/share.dart';
 import 'package:flutter/material.dart';
+import 'package:mpi_brasil/widgets/alternativesCard.dart';
 import 'package:mpi_brasil/widgets/conditionCard.dart';
+import 'package:mpi_brasil/widgets/monitorCard.dart';
 import '../models/drug.dart';
 
 class MedicamentoInfo extends StatelessWidget {
@@ -26,11 +28,9 @@ class MedicamentoInfo extends StatelessWidget {
                 Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
           ),
           drawConditionsTile(drug),
-          drawExpansionTile(
-              "Alternativas Terapeuticas", drug.alternatives.toString()),
-          drawExpansionTile(
-              "Orientações de Desprescrição", drug.desprescription.toString()),
-          drawExpansionTile("Monitorar", drug.monitoredParameters.toString()),
+          drawAlternatives(drug),
+          drawExpansionTile("Orientações de Desprescrição", drug.desprescription.toString()),
+          drawDrugMonitor(drug),
           drawExpansionTile("Referências", drug.references.toString()),
         ],
       ),
@@ -71,7 +71,7 @@ class MedicamentoInfo extends StatelessWidget {
   }
 
   //
-  // MPI Reason and Exceptions
+  // MPI Conditions
   Widget drawConditionsTile(Drug drug) {
     List<Widget> conditionTiles = [];
     
@@ -99,14 +99,80 @@ class MedicamentoInfo extends StatelessWidget {
   }
 
   //
+  // MPI Alternatives
+  Widget drawAlternatives(Drug drug) {
+    List<Widget> alternativeTiles = [];
+
+    for (DrugAlternatives item in drug.alternatives) {
+      alternativeTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: Card(
+            elevation: 5,
+            child: AlternativesCard(item)
+          ),
+        ),
+      );
+    }
+
+    return ExpansionTile(
+      title: Text("Alternativas Terapeuticas", style: headerStyle),
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: alternativeTiles,
+        ),
+      ],
+    );
+  }
+  
+
+//
+  // MPI Alternatives
+  Widget drawDrugMonitor(Drug drug) {
+    List<Widget> monitorTiles = [];
+    
+    if (drug.monitoredParameters.length == 0) {
+      return Container();
+    }
+
+    for (DrugMonitor item in drug.monitoredParameters) {
+      monitorTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: Card(
+            elevation: 5,
+            child: MonitorCard(item)
+          ),
+        ),
+      );
+    }
+
+    return ExpansionTile(
+      title: Text("Monitorar", style: headerStyle),
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: monitorTiles,
+        ),
+      ],
+    );
+  }
+  
+
+
+  //
   // Custom ExpansionTile
   Widget drawExpansionTile(String title, String content) {
     return ExpansionTile(
       title: Text(title, style: headerStyle),
+      children: <Widget>[
+        Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
           child: Text(content, textAlign: TextAlign.justify),
         ),
       ],
     );
   }
+
 }

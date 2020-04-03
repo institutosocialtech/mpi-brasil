@@ -18,15 +18,14 @@ var drugs = [
                   DrugAvoidCondition(false, "História de Síncope", "Aumenta o risco de hipotensão ortostática ou bradicardia.", null),
                 ],
                 // Map<String,String> alternatives
-                {
-                  "Delirium":"o uso por curto período de tempo de antipsicóticos (ex. haloperidol e quetiapina) deve ser restrito a indivíduos que estão agitados e são considerados uma ameaça a si ou aos outros e nos quais as medidas não farmacológicas foram ineficazes ou são inapropriadas.",
-                  "Esquizofrenia":"os agentes não anticolinérgicos podem ser aceitáveis ​​(EVITAR clorpromazina, loxapina, olanzapina, perfenazina, trifluoperazina, tioridazina)",
-                  
-                },
+                [
+                  DrugAlternatives("Delirium", "O uso por curto período de tempo de antipsicóticos (ex. haloperidol e quetiapina) deve ser restrito a indivíduos que estão agitados e são considerados uma ameaça a si ou aos outros e nos quais as medidas não farmacológicas foram ineficazes ou são inapropriadas."),
+                  DrugAlternatives("Esquizofrenia", "Os agentes não anticolinérgicos podem ser aceitáveis ​​(EVITAR clorpromazina, loxapina, olanzapina, perfenazina, trifluoperazina, tioridazina)"),
+                ],
                 // String desprescrition
                 "Reduzir 25% à 50% da dose a cada 1-2 semanas. Se o paciente apresentar efeitos adversos graves o antipsicótico pode ser supenso abruptamente.",
-                // <Map> monitoredParameters
-                {},
+                // List<DrugMonitor> monitoredParameters
+                [ DrugMonitor("parameter", "description")],
                 // <Map> references
                 {
                   "Oliveira MG, Amorim WW, Oliveira CRB, Coqueiro HL, Gusmão LC, Passos LC. Consenso brasileiro de medicamentos potencialmente inapropriados para idosos. Geriatr Gerontol Aging [Internet]. 2017 Dec;10(4):168–81.":"Disponível em: http://www.ggaging.com/details/397/pt-BR/brazilian-consensus-of-potentially-inappropriate-medication-for-elderly-people",

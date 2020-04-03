@@ -7,7 +7,7 @@ class Drug with ChangeNotifier {
   final List<DrugAvoidCondition> avoidConditions;
   final List<DrugAlternatives>  alternatives;
   final String              desprescription;
-  final Map<String,String>  monitoredParameters;
+  final List<DrugMonitor>  monitoredParameters;
   final Map<String,String>  references;
 
   Drug(
@@ -59,5 +59,16 @@ class DrugAlternatives {
   DrugAlternatives(
     this.alternative,
     this.description
+  );
+}
+
+
+class DrugMonitor {
+  final String parameter;
+  final String description;
+
+  DrugMonitor(
+    this.parameter,
+    this.description,
   );
 }
