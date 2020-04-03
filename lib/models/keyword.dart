@@ -13,4 +13,16 @@ class Keyword with ChangeNotifier {
     this.definition,
     this.source
   );
+
+  String synonymsListToString() {
+    String output = "";
+
+    for (String s in synonyms) {
+      if (output == "")
+        output = s;
+      else
+        output += ", " + s;
+    }
+    return output;
+  }
 }

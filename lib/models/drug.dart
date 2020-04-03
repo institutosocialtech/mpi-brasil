@@ -29,14 +29,14 @@ class Drug with ChangeNotifier {
   );
 
   String drugTypesToString() {
-    String types;
+    String output = "";
     for (String s in type) {
-      if (types == null)
-        types = s;
+      if (output == "")
+        output = s;
       else
-        types += ", " + s;
+        output += ", " + s;
     }
-    return types;
+    return output;
   }
 
 }
