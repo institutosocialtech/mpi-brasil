@@ -1,11 +1,12 @@
-//import 'package:share/share.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:mpi_brasil/models/drug.dart';
 import 'package:mpi_brasil/widgets/alternativesCard.dart';
 import 'package:mpi_brasil/widgets/cardReferences.dart';
 import 'package:mpi_brasil/widgets/conditionCard.dart';
 import 'package:mpi_brasil/widgets/monitorCard.dart';
-import '../models/drug.dart';
+
 
 
 class MedicamentoInfo extends StatelessWidget {
@@ -63,7 +64,7 @@ class MedicamentoInfo extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 24,
                 onPressed: () {
-                    Share.share("${drug.name}\n\nClasse Farmacológica:\n${drug.drugTypesToString()}\n\nÉ um medicamento potencialmente inapropriado porque:\n${drug.avoidIndependentlyReason}..Saiba mais acessando MPI Brasil link");
+                    Share.share("${drug.name}\n\nClasse Farmacológica:\n${drug.drugTypesToString()}\n\nÉ um medicamento potencialmente inapropriado porque:\n<MPI-Info>.\n\nSaiba mais acessando < MPI Brasil >");
                 },
               ),
               IconButton(icon: Icon(Icons.warning), color: Colors.white, iconSize: 24, onPressed: () {})
