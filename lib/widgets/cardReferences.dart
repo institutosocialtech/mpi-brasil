@@ -13,7 +13,7 @@ class ReferencesCard extends StatelessWidget {
     var widgets = List<Widget>();
 
     widgets.add(Text(
-      item.description,
+      item.titulo,
       textAlign: TextAlign.left,
       style: TextStyle(fontWeight: FontWeight.bold),
     ));

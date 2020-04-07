@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Drug with ChangeNotifier {
-
+  final int                 id;
   final String              name;
   final List<String>        type;
   final List<DrugAvoidCondition> avoidConditions;
@@ -11,6 +11,7 @@ class Drug with ChangeNotifier {
   final List<DrugReference>  references;
 
   Drug(
+    this.id,
     this.name,
     this.type,
     this.avoidConditions,
@@ -35,14 +36,14 @@ class Drug with ChangeNotifier {
 
 class DrugAvoidCondition {
 
-  final bool independent;
+  final int criticalLevel;
   final String condition;
   final String description;
   final String exception;
 
   DrugAvoidCondition(
     
-    this.independent,
+    this.criticalLevel,
     this.condition,
     this.description,
     this.exception
@@ -74,11 +75,17 @@ class DrugMonitor {
 }
 
 class DrugReference {
-  final String description;
+  final String titulo;
+  final String autores;
+  final String editora;
+  final String data;
   final String url;
 
   DrugReference(
-    this.description,
+    this.titulo,
+    this.autores,
+    this.editora,
+    this.data,
     this.url
   );
 }
