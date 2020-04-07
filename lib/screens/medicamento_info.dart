@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:mpi_brasil/models/drug.dart';
-import 'package:mpi_brasil/widgets/alternativesCard.dart';
-import 'package:mpi_brasil/widgets/cardReferences.dart';
-import 'package:mpi_brasil/widgets/conditionCard.dart';
-import 'package:mpi_brasil/widgets/monitorCard.dart';
+import 'package:mpibrasil/models/drug.dart';
+import 'package:mpibrasil/widgets/alternativesCard.dart';
+import 'package:mpibrasil/widgets/cardReferences.dart';
+import 'package:mpibrasil/widgets/conditionCard.dart';
+import 'package:mpibrasil/widgets/monitorCard.dart';
 
 
 
