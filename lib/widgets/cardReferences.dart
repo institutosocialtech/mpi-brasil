@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mpi_brasil/models/drug.dart';
+import 'package:mpibrasil/models/drug.dart';
 
 class ReferencesCard extends StatelessWidget {
   final DrugReference item;

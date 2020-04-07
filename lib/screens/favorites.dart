@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mpi_brasil/models/drugs.dart';
-import 'package:mpi_brasil/screens/medicamento_info.dart';
+import 'package:mpibrasil/models/drugs.dart';
+import 'package:mpibrasil/screens/medicamento_info.dart';
 
 class Favorites extends StatelessWidget {
 

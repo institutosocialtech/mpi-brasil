@@ -156,7 +156,7 @@ fabric.properties
 /.idea/vcs.xml
 /.idea/.gitignore
 /ios/Flutter/flutter_export_environment.sh
-/android/mpi_brasil_android.iml
+/android/mpibrasil_android.iml
 /.idea/workspace.xml
 .idea/libraries/Dart_SDK.xml
 assets/data
