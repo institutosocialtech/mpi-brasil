@@ -1,6 +1,20 @@
 import 'drug.dart';
 
 var drugs = [
+              Drug(4, 'Alfentanila', ['Agente opióide anestésico'],
+                [
+                  DrugAvoidCondition(0, 'Independente de condição clínica', 'Deve-se evitar o uso prolongado de opióides fortes como terapia de primeira linha para dor leve/moderada, pois não segue os princípios da escada analgésica da OMS.', ''),
+                  DrugAvoidCondition(3, 'Constipação Crônica', 'Risco de constipação grave em uso regular ( >2 semanas) sem o uso concomitante de laxantes.', ''),
+                  DrugAvoidCondition(3, 'Demência e Comprometimento Cognitivo', 'Risco de exacerbação do déficit cognitivo.', ''),
+                  DrugAvoidCondition(3, 'História de Quedas/Fraturas', 'Risco de sonolência, hipotensão postural, vertigem.', '')
+                ],
+                [
+                  DrugAlternatives('DOR', 'Usar escada analgésica da dor da Organização Mundial da Saúde (OMS)'),
+                ],
+                '',
+                [ DrugMonitor('Monitorar sinais de dependência, abuso ou uso indevido durante toda terapia.  Em pacientes que recebem cuidados de anestesia monitorados deve-se monitorar saturação de oxigênio, sinais de hipotensão, apneia e obstrução das vias aéreas superiores.  Durante e após o término da cirurgia monitorar sinais e sintomas de depressão respiratória, especialmente durante a iniciação e retirada da terapia, em pacientes idosos, caquéticos ou debilitados, pacientes com DPOC, cor pulmonale, diminuição da reserva respiratória, hipoxia e hipercapnia , ou depressão respiratória pré-existente Sinais vitais para sinais e sintomas de parada respiratória, bradicardia, arritmia ou hipotensão. Monitorar sinais de depressão respiratória, sedação e hipotensão em pacientes com comprometimento hepático ou renal. Monitorar sinais de aumento da pressão intracraniana nos pacientes suscetíveis (aqueles com evidência de aumento da pressão intracraniana ou tumores cerebrais', '. Pacientes com doença do trato biliar, incluindo pancreatite aguda  monitorar exacerbação da doença. Pacientes com história de distúrbios convulsivos monitorar piora do controle de convulsão. Monitorar função renal em pacientes idosos.') ],
+                [ DrugReference('Disponível em:  http://www.ggaging.com/details/397/pt-BR/brazilian-consensus-of-potentially-inappropriate-medication-for-elderly-people  Truven Health Analytics: Drugdex® System. Thomson MICROMEDEX, Greenwood Village, Colorado, USA. [citado em: 06 Fev 2015].','Oliveira MG, Amorim WW, Oliveira CRB, Coqueiro HL, Gusmão LC, Passos LC. Consenso brasileiro de medicamentos potencialmente inapropriados para idosos. Geriatr Gerontol Aging [Internet]. 2017 Dec;10(4):168–81.','','',''), ],
+              ),
               Drug(7, 'Amissulprida', ['Antipsicótico de segunda geração'], 
                     [ 
                       DrugAvoidCondition(0, 'Independente de condição clínica', 'Aumento do risco de acidente vascular cerebral (AVC) e mortalidade.  Deve-se evitar o uso prolongado de antipsicóticos comohipnóticodevido ao risco de confusão mental, hipotensão, efeitos extrapiramidais e quedas.', 'O uso deve ser restrito aos casos nos quais estratégias não farmacológicas tenham falhado ou quando o paciente representa ameaça a si ou a outros.'), 
