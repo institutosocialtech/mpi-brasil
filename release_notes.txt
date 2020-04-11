@@ -1,6 +1,1 @@
-Download the lateste version:
-$FCI_ARTIFACT_LINKS
-
-Build number: $BUILD_NUMBER
-Branch: $FCI_BRANCH
-Commit: $FCI_PROJECT_ID	
+Fixes regressions with CICD
