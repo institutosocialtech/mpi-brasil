@@ -7,7 +7,9 @@ class PainCard extends StatefulWidget {
 
 class _PainCardState extends State {
   final  headerStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final  messageStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   double painLevel = 0;
+  String painHeader = "";
   String painMessage = "";
   Color cardColor;
 
@@ -32,7 +34,7 @@ class _PainCardState extends State {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10,),
                     child: Text("NÍVEL DE DOR", textScaleFactor: 1.5, style: headerStyle,),
                   ),
                 ],
@@ -41,11 +43,19 @@ class _PainCardState extends State {
 
             // Card Body
             Container(
-              height: 200,
+              height: 150,
               color: cardColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(painMessage, textScaleFactor: 1.3, style: headerStyle,),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(painHeader, textAlign: TextAlign.left, textScaleFactor: 1.4, style: headerStyle,),
+                    SizedBox(height: 10,),
+                    Text(painMessage, textAlign: TextAlign.justify, style: messageStyle,),
+                  ],
+                ),
               ),
             ),
 
@@ -62,7 +72,10 @@ class _PainCardState extends State {
                   value: painLevel,
                   activeColor: Colors.black,
                   inactiveColor: Colors.green,
-                  onChanged: (_newPainLevel) => setState(() {painLevel = _newPainLevel; drawPainLevelBody(painLevel); }),
+                  onChanged: (_newPainLevel) => setState(() {
+                    painLevel = _newPainLevel;
+                    drawPainLevelBody(painLevel);
+                  }),
                   label: painLevel.toInt().toString(),
                 ),
               ),
@@ -75,20 +88,21 @@ class _PainCardState extends State {
   }
 
   void drawPainLevelBody(double painLevel) {
-
     if (painLevel >= 0 && painLevel <= 3) {
-      painMessage = "Dor Leve";
+      painHeader = "Dor Leve";
+      painMessage = "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h).";
       cardColor = Colors.green;
     }
     else if (painLevel >= 4 && painLevel <=7) {
-      painMessage = "Dor Moderada";
+      painHeader = "Dor Moderada";
+      painMessage = "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
       cardColor = Colors.orange;
     }
     else if (painLevel >= 8 && painLevel <=10) {
-      painMessage = "Dor Forte";
+      painHeader = "Dor Forte";
+      painMessage = "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
       cardColor = Colors.red;
     }
-
   }
 
 }
