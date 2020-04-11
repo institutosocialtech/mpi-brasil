@@ -16,7 +16,7 @@ class ConditionCard extends StatelessWidget {
     widgets.add(Container(height: 10));
     widgets.add(Text(item.description, textAlign: TextAlign.justify,));
     
-    if (item.exception != null) {
+    if (item.exception != null && item.exception.length > 0) {
       widgets.add(Container(height: 10));
       widgets.add(Text("Exceção", style: TextStyle(fontWeight: FontWeight.bold),));
       widgets.add(Text(item.exception));
