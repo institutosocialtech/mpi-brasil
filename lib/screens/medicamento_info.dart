@@ -6,6 +6,7 @@ import 'package:mpibrasil/widgets/alternativesCard.dart';
 import 'package:mpibrasil/widgets/cardReferences.dart';
 import 'package:mpibrasil/widgets/conditionCard.dart';
 import 'package:mpibrasil/widgets/monitorCard.dart';
+import 'package:mpibrasil/widgets/painCard.dart';
 
 
 
@@ -109,12 +110,17 @@ class MedicamentoInfo extends StatelessWidget {
     List<Widget> alternativeTiles = [];
 
     for (DrugAlternatives item in drug.alternatives) {
+      if (item.alternative.toUpperCase() == "DOR") {
+        alternativeTiles.add(PainCard());
+      } else{
+
       alternativeTiles.add(
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: Card(elevation: 5, child: AlternativesCard(item)),
         ),
       );
+      }
     }
 
     return ExpansionTile(
@@ -129,7 +135,7 @@ class MedicamentoInfo extends StatelessWidget {
   }
 
   //
-  // MPI Alternatives
+  // MPI Monitor
   Widget drawDrugMonitor(Drug drug) {
     List<Widget> monitorTiles = [];
 
