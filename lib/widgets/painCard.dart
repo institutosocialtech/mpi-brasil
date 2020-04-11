@@ -8,8 +8,9 @@ class PainCard extends StatefulWidget {
 class _PainCardState extends State {
   final  headerStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   final  messageStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
-  double painLevel = 0;
+  double painLevel = 1;
   String painHeader = "";
+  String painHeaderDegree = "";
   String painMessage = "";
   Color cardColor;
 
@@ -34,8 +35,12 @@ class _PainCardState extends State {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,),
-                    child: Text("NÍVEL DE DOR", textScaleFactor: 1.5, style: headerStyle,),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      "Escala Analgésica da Dor",
+                      textScaleFactor: 1.5,
+                      style: headerStyle,
+                    ),
                   ),
                 ],
               ),
@@ -43,7 +48,7 @@ class _PainCardState extends State {
 
             // Card Body
             Container(
-              height: 150,
+              height: 200,
               color: cardColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -51,9 +56,33 @@ class _PainCardState extends State {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Text(painHeader, textAlign: TextAlign.left, textScaleFactor: 1.4, style: headerStyle,),
-                    SizedBox(height: 10,),
-                    Text(painMessage, textAlign: TextAlign.justify, style: messageStyle,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          painHeader,
+                          textAlign: TextAlign.left,
+                          textScaleFactor: 1.4,
+                          style: headerStyle,
+                        ),
+                        Text(
+                          painHeaderDegree,
+                          textAlign: TextAlign.right,
+                          textScaleFactor: 1.4,
+                          style: headerStyle,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Text(
+                      painMessage,
+                      textAlign: TextAlign.justify,
+                      textScaleFactor: 1.1,
+                      style: messageStyle,
+                    ),
                   ],
                 ),
               ),
@@ -61,26 +90,50 @@ class _PainCardState extends State {
 
             // Card Slider
             Container(
-              height: 50,
+              height: 80,
               color: Colors.black12,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Slider(
-                  min: 0,
-                  max: 10,
-                  divisions: 10,
-                  value: painLevel,
-                  activeColor: Colors.black,
-                  inactiveColor: Colors.green,
-                  onChanged: (_newPainLevel) => setState(() {
-                    painLevel = _newPainLevel;
-                    drawPainLevelBody(painLevel);
-                  }),
-                  label: painLevel.toInt().toString(),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        activeTrackColor: Colors.black,
+                        inactiveTrackColor: Colors.black12,
+                        thumbColor: Colors.black,
+                        overlayColor: Colors.black12,
+                        tickMarkShape: RoundSliderTickMarkShape(),
+                        activeTickMarkColor: Colors.black,
+                        inactiveTickMarkColor: Colors.black12,
+                        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                        valueIndicatorColor: Colors.black54,
+                        valueIndicatorTextStyle: TextStyle(color: Colors.white),
+                      ),
+                      child: Slider(
+                        min: 1,
+                        max: 10,
+                        divisions: 9,
+                        value: painLevel,
+                        onChanged: (_newPainLevel) => setState(() {
+                          painLevel = _newPainLevel;
+                          drawPainLevelBody(painLevel);
+                        }),
+                        label: painLevel.toInt().toString(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(10, (index) => Text((index+1).toString())),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            
           ],
         ),
       ),
@@ -88,21 +141,24 @@ class _PainCardState extends State {
   }
 
   void drawPainLevelBody(double painLevel) {
-    if (painLevel >= 0 && painLevel <= 3) {
+    if (painLevel >= 1 && painLevel <= 3) {
       painHeader = "Dor Leve";
-      painMessage = "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h).";
+      painHeaderDegree = "1º Degrau";
+      painMessage =
+          "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h).";
       cardColor = Colors.green;
-    }
-    else if (painLevel >= 4 && painLevel <=7) {
+    } else if (painLevel >= 4 && painLevel <= 7) {
       painHeader = "Dor Moderada";
-      painMessage = "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
+      painHeaderDegree = "2º Degrau";
+      painMessage =
+          "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
       cardColor = Colors.orange;
-    }
-    else if (painLevel >= 8 && painLevel <=10) {
+    } else if (painLevel >= 8 && painLevel <= 10) {
       painHeader = "Dor Forte";
-      painMessage = "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
+      painHeaderDegree = "3º Degrau";
+      painMessage =
+          "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
       cardColor = Colors.red;
     }
   }
-
 }
