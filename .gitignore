@@ -167,5 +167,6 @@ android/key.properties
 .flutter-plugins-dependencies
 
 .idea/
+.vscode/
 
 pubspec.lock
