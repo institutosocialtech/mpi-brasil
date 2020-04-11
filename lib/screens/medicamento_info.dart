@@ -192,6 +192,10 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Custom ExpansionTile
   Widget drawExpansionTile(String title, String content) {
+    if (content.length == 0){
+      return Container();
+    }
+
     return ExpansionTile(
       title: Text(title, style: headerStyle),
       children: <Widget>[
