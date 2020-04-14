@@ -66,7 +66,17 @@ class MedicamentoInfo extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 24,
                 onPressed: () {
-                    Share.share("${drug.name}\n\nClasse Farmacológica:\n${drug.drugTypesToString()}\n\nÉ um medicamento potencialmente inapropriado porque:\n<MPI-Info>.\n\nSaiba mais acessando < MPI Brasil >");
+                  
+                  String shareCondicoes = "";
+                  for (DrugAvoidCondition c in drug.avoid_conditions) {
+                    shareCondicoes += "* ${c.condition}\n";
+                  }
+
+                  Share.share(
+                    "${drug.name}" +
+                    "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
+                    "\n\nCondições a serem evitadas:\n${shareCondicoes}" +
+                    "\nAcesse em: https://mpibrasil.codemagic.app");
                 },
               ),
               IconButton(icon: Icon(Icons.warning), color: Colors.white, iconSize: 24, onPressed: () {})
