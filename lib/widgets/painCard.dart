@@ -90,7 +90,7 @@ class _PainCardState extends State {
 
             // Card Slider
             Container(
-              height: 80,
+              height: 100,
               color: Colors.black12,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -108,7 +108,7 @@ class _PainCardState extends State {
                         activeTickMarkColor: Colors.black,
                         inactiveTickMarkColor: Colors.black12,
                         valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                        valueIndicatorColor: Colors.black54,
+                        valueIndicatorColor: Colors.black45,
                         valueIndicatorTextStyle: TextStyle(color: Colors.white),
                       ),
                       child: Slider(
@@ -120,7 +120,7 @@ class _PainCardState extends State {
                           painLevel = _newPainLevel;
                           drawPainLevelBody(painLevel);
                         }),
-                        label: painLevel.toInt().toString(),
+                        label: getPainLevelLabel(painLevel),
                       ),
                     ),
                     Padding(
@@ -128,6 +128,15 @@ class _PainCardState extends State {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: List.generate(10, (index) => Text((index+1).toString())),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 5, 12, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Escala Verbal Numérica", textScaleFactor: 0.8,),
+                        ],
                       ),
                     ),
                   ],
@@ -142,23 +151,38 @@ class _PainCardState extends State {
 
   void drawPainLevelBody(double painLevel) {
     if (painLevel >= 1 && painLevel <= 3) {
+      cardColor = Colors.green;
       painHeader = "Dor Leve";
       painHeaderDegree = "1º Degrau";
       painMessage =
           "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h).";
-      cardColor = Colors.green;
     } else if (painLevel >= 4 && painLevel <= 7) {
+      cardColor = Colors.orange;
       painHeader = "Dor Moderada";
       painHeaderDegree = "2º Degrau";
       painMessage =
           "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
-      cardColor = Colors.orange;
     } else if (painLevel >= 8 && painLevel <= 10) {
-      painHeader = "Dor Forte";
+      cardColor = Colors.red;
+      painHeader = "Dor Intensa";
       painHeaderDegree = "3º Degrau";
       painMessage =
           "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
-      cardColor = Colors.red;
     }
+  }
+
+  String getPainLevelLabel(double painLevel) {
+    String label;
+
+    if (painLevel >= 1 && painLevel <= 3) {
+      label = "Leve";
+    }
+    else if (painLevel >=4 && painLevel <=7) {
+      label = "Moderada";
+    }
+    else if (painLevel >=8 && painLevel <= 10) {
+      label = "Intensa";
+    }
+    return label;
   }
 }
