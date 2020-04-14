@@ -24,20 +24,22 @@ class MedicamentoInfo extends StatelessWidget {
         titleSpacing: 0,
         elevation: 0,
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           drawTitleBar(drug),
-          SizedBox(height: 20),
-          ListTile(
-            title: Text("Classe Farmacológica", style: headerStyle),
-            subtitle:
-                Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
+          Expanded(
+            child: ListView(children: <Widget>[
+              ListTile(
+                title: Text("Classe Farmacológica", style: headerStyle),
+                subtitle: Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
+              ),
+              drawConditionsTile(drug),
+              drawAlternatives(drug),
+              drawExpansionTile("Orientações de Desprescrição", drug.desprescription.toString()),
+              drawDrugMonitor(drug),
+              drawDrugReferences(drug),
+            ]),
           ),
-          drawConditionsTile(drug),
-          drawAlternatives(drug),
-          drawExpansionTile("Orientações de Desprescrição", drug.desprescription.toString()),
-          drawDrugMonitor(drug),
-          drawDrugReferences(drug),
         ],
       ),
     );
