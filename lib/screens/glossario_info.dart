@@ -17,18 +17,16 @@ class GlossarioInfo extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           drawTitleBar(keyword),
-          ListTile(
-            title: Text("Sinônimos", style: tileTitle),
-            subtitle: keyword.synonyms.length == 0
-                ? Text("Nenhum")
-                : Text(
-                    keyword.synonymsListToString(),
-                    textAlign: TextAlign.justify,
-                  ),
-          ),
+          SizedBox(height: 20),
           ListTile(
             title: Text("Definição", style: tileTitle),
-            subtitle: Text(keyword.definition),
+            subtitle: Text(keyword.definition, textAlign: TextAlign.justify,),
+          ),
+          keyword.synonyms.length == 0
+            ? Container()
+            : ListTile(
+              title: Text("Sinônimos", style: tileTitle),
+              subtitle: Text(keyword.synonymsListToString(), textAlign: TextAlign.justify,),
           ),
           ListTile(
             title: Text("Referências", style: tileTitle),
@@ -51,13 +49,13 @@ class GlossarioInfo extends StatelessWidget {
       color: Colors.green,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Flexible(
-            child: Text(keyword.word,
-                textScaleFactor: 2,
-                overflow: TextOverflow.ellipsis,
+            child: Text(keyword.word.toUpperCase(),
+                textScaleFactor: 1.5,
+                textAlign: TextAlign.left,
                 style: headerStyle),
           ),
         ],
