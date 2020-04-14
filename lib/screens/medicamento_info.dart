@@ -125,7 +125,7 @@ class MedicamentoInfo extends StatelessWidget {
     }
 
     return ExpansionTile(
-      title: Text("Alternativas Terapeuticas", style: headerStyle),
+      title: Text("Alternativas Terapêuticas", style: headerStyle),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
