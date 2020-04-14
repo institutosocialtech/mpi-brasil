@@ -27,6 +27,7 @@ class MedicamentoInfo extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           drawTitleBar(drug),
+          SizedBox(height: 20),
           ListTile(
             title: Text("Classe Farmacológica", style: headerStyle),
             subtitle:
