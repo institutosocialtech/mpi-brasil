@@ -81,7 +81,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawConditionsTile(Drug drug) {
     List<Widget> conditionTiles = [];
 
-    for (DrugAvoidCondition item in drug.avoidConditions) {
+    for (DrugAvoidCondition item in drug.avoid_conditions) {
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
@@ -139,11 +139,11 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawDrugMonitor(Drug drug) {
     List<Widget> monitorTiles = [];
 
-    if (drug.monitoredParameters.length == 0) {
+    if (drug.monitored_parameters.length == 0) {
       return Container();
     }
 
-    for (DrugMonitor item in drug.monitoredParameters) {
+    for (DrugMonitor item in drug.monitored_parameters) {
       monitorTiles.add(
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 5),

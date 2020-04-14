@@ -1,25 +1,35 @@
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'drug.g.dart'; //where the json parser for this class will be generated
+
+@JsonSerializable(explicitToJson: true)
 class Drug with ChangeNotifier {
-  final int                 id;
+  final String                 id;
   final String              name;
   final List<String>        type;
-  final List<DrugAvoidCondition> avoidConditions;
+  final List<DrugAvoidCondition> avoid_conditions;
   final List<DrugAlternatives>  alternatives;
   final String              desprescription;
-  final List<DrugMonitor>  monitoredParameters;
+  final List<DrugMonitor>  monitored_parameters;
   final List<DrugReference>  references;
 
   Drug(
     this.id,
     this.name,
     this.type,
-    this.avoidConditions,
+    this.avoid_conditions,
     this.alternatives,
     this.desprescription,
-    this.monitoredParameters,
+    this.monitored_parameters,
     this.references
   );
+
+
+  factory Drug.fromJson(Map<String, dynamic> json) => _$DrugFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DrugToJson(this);
+
 
   String drugTypesToString() {
     String output = "";
@@ -34,6 +44,7 @@ class Drug with ChangeNotifier {
 
 }
 
+@JsonSerializable()
 class DrugAvoidCondition {
 
   final int criticalLevel;
@@ -49,9 +60,14 @@ class DrugAvoidCondition {
     this.exception
     
   );
+    factory DrugAvoidCondition.fromJson(Map<String, dynamic> json) => _$DrugAvoidConditionFromJson(json);
+
+    Map<String, dynamic> toJson() => _$DrugAvoidConditionToJson(this);
 
 }
 
+
+@JsonSerializable()
 
 class DrugAlternatives {
   final String alternative;
@@ -61,8 +77,14 @@ class DrugAlternatives {
     this.alternative,
     this.description
   );
+    factory DrugAlternatives.fromJson(Map<String, dynamic> json) => _$DrugAlternativesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DrugAlternativesToJson(this);
+
 }
 
+
+@JsonSerializable()
 
 class DrugMonitor {
   final String parameter;
@@ -72,7 +94,13 @@ class DrugMonitor {
     this.parameter,
     this.description,
   );
+    factory DrugMonitor.fromJson(Map<String, dynamic> json) => _$DrugMonitorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DrugMonitorToJson(this);
+
 }
+
+@JsonSerializable()
 
 class DrugReference {
   final String titulo;
@@ -88,4 +116,8 @@ class DrugReference {
     this.data,
     this.url
   );
+    factory DrugReference.fromJson(Map<String, dynamic> json) => _$DrugReferenceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DrugReferenceToJson(this);
+
 }

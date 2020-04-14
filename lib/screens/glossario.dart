@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/models/keyword.dart';
 import '../models/keywords.dart';
 import './glossario_info.dart';
 
@@ -8,6 +9,10 @@ class Glossario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    for (Keyword keyword in keywordList){
+      print(keyword.printJson());
+    }
+
     return Scaffold(
       body: Column(
         children: <Widget>[
