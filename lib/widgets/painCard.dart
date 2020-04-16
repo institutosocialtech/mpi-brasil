@@ -26,13 +26,12 @@ class _PainCardState extends State {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-
             // Card Header
             Container(
               height: 40,
               color: Colors.black,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -42,6 +41,13 @@ class _PainCardState extends State {
                       style: headerStyle,
                     ),
                   ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: Colors.white,
+                    ),
+                    onPressed: () { showPainInfo(); },
+                  )
                 ],
               ),
             ),
@@ -176,13 +182,30 @@ class _PainCardState extends State {
 
     if (painLevel >= 1 && painLevel <= 3) {
       label = "Leve";
-    }
-    else if (painLevel >=4 && painLevel <=7) {
+    } else if (painLevel >= 4 && painLevel <= 7) {
       label = "Moderada";
-    }
-    else if (painLevel >=8 && painLevel <= 10) {
+    } else if (painLevel >= 8 && painLevel <= 10) {
       label = "Intensa";
     }
     return label;
+  }
+
+  void showPainInfo() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Fonte:"),
+            content: Text("Escada Analgésica da Dor\nOrganização Mundial de Saúde."),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Fechar"),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
