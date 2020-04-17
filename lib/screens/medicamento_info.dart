@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/models/report_problem.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mpibrasil/models/drug.dart';
@@ -8,12 +9,11 @@ import 'package:mpibrasil/widgets/conditionCard.dart';
 import 'package:mpibrasil/widgets/monitorCard.dart';
 import 'package:mpibrasil/widgets/painCard.dart';
 
-
-
 class MedicamentoInfo extends StatelessWidget {
   final Drug drug;
   MedicamentoInfo({Key key, this.drug}) : super(key: key);
-  final medTitleStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final medTitleStyle =
+      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   final headerStyle = TextStyle(fontWeight: FontWeight.bold);
 
   @override
@@ -26,16 +26,18 @@ class MedicamentoInfo extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          drawTitleBar(drug),
+          drawTitleBar(drug, context),
           Expanded(
             child: ListView(children: <Widget>[
               ListTile(
                 title: Text("Classe Farmacológica", style: headerStyle),
-                subtitle: Text(drug.drugTypesToString(), textAlign: TextAlign.justify),
+                subtitle: Text(drug.drugTypesToString(),
+                    textAlign: TextAlign.justify),
               ),
               drawConditionsTile(drug),
               drawAlternatives(drug),
-              drawExpansionTile("Orientações de Desprescrição", drug.desprescription.toString()),
+              drawExpansionTile("Orientações de Desprescrição",
+                  drug.desprescription.toString()),
               drawDrugMonitor(drug),
               drawDrugReferences(drug),
             ]),
@@ -47,7 +49,7 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // Drug Title Bar
-  Widget drawTitleBar(Drug drug) {
+  Widget drawTitleBar(Drug drug, BuildContext context) {
     return Container(
       color: Colors.green,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -68,20 +70,26 @@ class MedicamentoInfo extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 24,
                 onPressed: () {
-                  
                   String shareCondicoes = "";
                   for (DrugAvoidCondition c in drug.avoid_conditions) {
                     shareCondicoes += "* ${c.condition}\n";
                   }
 
-                  Share.share(
-                    "${drug.name}" +
-                    "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
-                    "\n\nCondições a serem evitadas:\n${shareCondicoes}" +
-                    "\nAcesse em: https://mpibrasil.codemagic.app");
+                  Share.share("${drug.name}" +
+                      "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
+                      "\n\nCondições a serem evitadas:\n${shareCondicoes}" +
+                      "\nAcesse em: https://mpibrasil.codemagic.app");
                 },
               ),
-              IconButton(icon: Icon(Icons.warning), color: Colors.white, iconSize: 24, onPressed: () {})
+              IconButton(
+                icon: Icon(Icons.report_problem),
+                color: Colors.white,
+                iconSize: 24,
+                onPressed: () async {
+                  final action = await ReportProblem.reportProblemAction(
+                      context, "${drug.name}");
+                },
+              )
             ],
           ),
         ],
@@ -125,14 +133,13 @@ class MedicamentoInfo extends StatelessWidget {
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
-      } else{
-
-      alternativeTiles.add(
-        Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: Card(elevation: 5, child: AlternativesCard(item)),
-        ),
-      );
+      } else {
+        alternativeTiles.add(
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+            child: Card(elevation: 5, child: AlternativesCard(item)),
+          ),
+        );
       }
     }
 
@@ -189,7 +196,10 @@ class MedicamentoInfo extends StatelessWidget {
       referenceTiles.add(
         Padding(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: InkWell(child: Card(elevation: 5, child: ReferencesCard(item)), onTap: () => launch(item.url),),
+          child: InkWell(
+            child: Card(elevation: 5, child: ReferencesCard(item)),
+            onTap: () => launch(item.url),
+          ),
         ),
       );
     }
@@ -205,13 +215,10 @@ class MedicamentoInfo extends StatelessWidget {
     );
   }
 
-
-
-
   //
   // Custom ExpansionTile
   Widget drawExpansionTile(String title, String content) {
-    if (content.length == 0){
+    if (content.length == 0) {
       return Container();
     }
 
