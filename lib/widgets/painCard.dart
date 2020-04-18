@@ -54,7 +54,7 @@ class _PainCardState extends State {
 
             // Card Body
             Container(
-              height: 200,
+              height: 220,
               color: cardColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -77,7 +77,7 @@ class _PainCardState extends State {
                           textAlign: TextAlign.right,
                           textScaleFactor: 1.4,
                           style: headerStyle,
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -96,7 +96,7 @@ class _PainCardState extends State {
 
             // Card Slider
             Container(
-              height: 100,
+              height: 120,
               color: Colors.black12,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -137,11 +137,11 @@ class _PainCardState extends State {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 5, 12, 0),
+                      padding: const EdgeInsets.fromLTRB(12, 10, 12, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Escala Verbal Numérica", textScaleFactor: 0.8,),
+                          Text("Escala Verbal Numérica", textScaleFactor: 1.2,),
                         ],
                       ),
                     ),
@@ -161,19 +161,19 @@ class _PainCardState extends State {
       painHeader = "Dor Leve";
       painHeaderDegree = "1º Degrau";
       painMessage =
-          "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h).";
+          "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h). Se necessário medicamentos adjuvantes podem ser associados.";
     } else if (painLevel >= 4 && painLevel <= 7) {
       cardColor = Colors.orange;
       painHeader = "Dor Moderada";
       painHeaderDegree = "2º Degrau";
       painMessage =
-          "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
+          "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples e/ou adjuvantes podem ser associados ou mantidos.";
     } else if (painLevel >= 8 && painLevel <= 10) {
       cardColor = Colors.red;
       painHeader = "Dor Intensa";
       painHeaderDegree = "3º Degrau";
       painMessage =
-          "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples podem ser associados ou mantidos.";
+          "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples e/ou adjuvantes podem ser associados ou mantidos.";
     }
   }
 
@@ -195,8 +195,11 @@ class _PainCardState extends State {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Fonte:"),
-            content: Text("Escada Analgésica da Dor\nOrganização Mundial de Saúde."),
+            title: Text(""),
+            content: Text(
+              "Dor Aguda e Agudização da Dor Crônica: Usar a escada de forma descendente, ou seja, usar o terceiro ou segundo degrau nos primeiros dias e, após resolução da causa de base (ex: cirurgia, trauma, etc.), ir descendo a escada analgésica da OMS.\n\n" +
+              "Dor Crônica: Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
+              "Fonte: Escada Analgésica da Dor (Organização Mundial de Saúde)"),
             actions: <Widget>[
               FlatButton(
                 child: Text("Fechar"),
