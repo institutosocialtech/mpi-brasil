@@ -37,7 +37,7 @@ dev_dependencies:
   # flutter_native_splash: ^0.1.9
   flutter_test:
     sdk: flutter
-  json_serializable: ^3.3.0
+  # flutter pub run build_runner build  --delete-conflicting-outputs
   build_runner: ^1.8.1 # automatically generate json classes
 
 

@@ -86,8 +86,7 @@ class MedicamentoInfo extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 24,
                 onPressed: () async {
-                  final action = await ReportProblem.reportProblemAction(
-                      context, "${drug.name}");
+                  await ReportProblem().reportProblemAction(context, "${drug.name}");
                 },
               )
             ],

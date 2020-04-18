@@ -9,9 +9,9 @@ class Glossario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    for (Keyword keyword in keywordList){
-      print(keyword.printJson());
-    }
+    // for (Keyword keyword in keywordList){
+    //   print(keyword.printJson());
+    // }
 
     return Scaffold(
       body: Column(

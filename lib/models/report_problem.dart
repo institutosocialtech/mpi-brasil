@@ -13,43 +13,37 @@ enum ReportProblemAction {
 ReportProblemAction value;
 
 class ReportProblem {
-  static Future<ReportProblemAction> reportProblemAction(
-    BuildContext context,
-    String drugName,
-  ) async {
+
+  Future<void> reportProblemAction( BuildContext context, String drugName) async {
     final action = await showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Report a Problem"),
+          title: Text("Informar um problema."),
           content: Container(
             height: 240,
             child: RadioButtonGroup(
               labels: <String>[
-                "Incomplete Information",
-                "Wrong Information",
-                "Option 3",
-                "Option 4",
-                "Others",
+                "Informação incompleta",
+                "Informação incorreta",
+                "Dificil visualização",
+                "Outro problema",
               ],
               activeColor: Colors.green,
               onSelected: (String selected) {
                 switch (selected) {
-                  case "Incomplete Information":
+                  case "Informação incompleta":
                     value = ReportProblemAction.INCOMP_INFO;
                     break;
-                  case "Wrong Information":
+                  case "Informação incorreta":
                     value = ReportProblemAction.WRONG_INFO;
                     break;
-                  case "Option 3":
+                  case "Dificil visualização":
                     value = ReportProblemAction.TYPE3;
                     break;
-                  case "Option 4":
-                    value = ReportProblemAction.TYPE4;
-                    break;
-                  case "Others":
+                  case "Outro problema":
                     value = ReportProblemAction.OTHER;
                     break;
                   default:
@@ -64,7 +58,7 @@ class ReportProblem {
               onPressed: () =>
                   Navigator.of(context).pop(ReportProblemAction.CANCEL),
               child: const Text(
-                "No",
+                "Cancelar",
                 style: TextStyle(color: Colors.green),
               ),
             ),
@@ -73,7 +67,7 @@ class ReportProblem {
               color: Colors.green,
               onPressed: () => Navigator.of(context).pop(value),
               child: const Text(
-                "Send",
+                "Enviar",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -93,20 +87,14 @@ class ReportProblem {
     } else if (action == ReportProblemAction.OTHER) {
       print(action);
       final MailOptions mailOptions = MailOptions(
-        body: 'Teel us about what wrong with $drugName... ',
+        body: 'As informações do medicamento $drugName apresentam o seguinte problema: ',
         // subject: "${drug.name}",
-        subject: "Error with ${drugName}",
-        recipients: ['yagocunhamartins@gmail.com'],
+        subject: "Detectado um problema com o medicamento ${drugName}",
+        recipients: ['mpibrasil@pmosocial.org'],
         isHTML: true,
-        bccRecipients: ['yagocunhamartins@gmail.com'],
-        ccRecipients: ['yagocunhamartins@gmail.com'],
-        // attachments: [
-        //   'path/to/image.png',
-        // ],
       );
 
-      await FlutterMailer.send(mailOptions);
+      FlutterMailer.send(mailOptions);
     }
-    value = null;
   }
 }
