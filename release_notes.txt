@@ -1,1 +1,1 @@
-Fixes regressions with CICD
+Versão 18/04/2020

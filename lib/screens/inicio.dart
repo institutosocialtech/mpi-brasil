@@ -27,6 +27,7 @@ class Inicio extends StatelessWidget {
         Expanded(child: Container(
           child: Image.asset("assets/images/logo-green.png"),
         )),
+        Text("versão 28/04/2020"),
       ],
     );
   }
