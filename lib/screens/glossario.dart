@@ -2,13 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:mpibrasil/models/keyword.dart';
 import '../models/keywords.dart';
 import './glossario_info.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class Glossario extends StatelessWidget {
   final keywordList = keywords;
   final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final url = "https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json";
+
+// void loadDatabase() async {
+//     try{
+//       for (Keyword keyword in keywordList){
+//         final response = await http.post(url,
+//         body: json.encode(keyword.toJson()  ));
+//         // print(json.decode(response.body)['name']);
+//       }
+
+//     }catch(error){
+//       throw(error);
+//     }
+//   }
+//fetch
+  // void fetchDatabase() async {
+  //     try{
+  //       final response = await http.get(url);
+  //       print(json.decode(response.body));
+  //     }catch(error){
+  //       throw(error);
+  //     }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // loadDatabase();
     // for (Keyword keyword in keywordList){
     //   print(keyword.printJson());
     // }

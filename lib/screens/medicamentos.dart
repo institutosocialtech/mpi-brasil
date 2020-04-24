@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
 import '../models/drugs.dart';
+import '../models/drug.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'medicamento_info.dart';
 
 class Medicamentos extends StatelessWidget {
   final medList = drugs;
   final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final url = "https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json";
+
+
+
+  //   // load
+  // void loadDatabase() async {
+  //   try{
+  //     for (Drug drug in medList){
+  //       final response = await http.post(url,
+  //       body: json.encode(drug.toJson()  ));
+  //       // print(json.decode(response.body)['name']);
+  //     }
+
+  //   }catch(error){
+  //     throw(error);
+  //   }
+  // }
+
+  //fetch
+  // void fetchDatabase() async {
+  //     try{
+  //       final response = await http.get(url);
+  //       print(json.decode(response.body));
+  //     }catch(error){
+  //       throw(error);
+  //     }
+  // }
+
+
 
   @override
   Widget build(BuildContext context) {
+    // loadDatabase();
+
+
     return Scaffold(
       body: Column(
         children: <Widget>[
