@@ -1,22 +1,34 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import '../models/keyword.dart';
 
 class Keywords with ChangeNotifier {
 
-	List<Keyword> _keywords = [
-    Keyword("0","Bloqueadores de canal de cálcio", [], "São um grupo heterogêneo de drogas, divididos em quatro principais famílias: os diidropiridínicos, as fenilalquilaminas, os benzotiazepínicos e o tetralol. Essas drogas desempenham ações distintas sobre o sistema cardiovascular, podendo ser mais específicas e potentes na musculatura vascular arterial sistêmica, coronariana e miocárdica, ou no sistema de condução cardíaca. Diidropiridínicos: nifedipina, anlodipino, nitrendipina, iacidipina, felodipina, isradipina e nisoldipina. Fenilalquilamina: verapamil. Benzotiazepínico: diltiazem. Tetralol: mibefradil.", "Unknown" ),
-    Keyword("1","Hipotensão ortostática",[],"Ou hipotensão postural, ocorre quando o paciente move-se da posição deitada para a sentada ou em pé e apresenta queda na pressão arterial sistólica de pelo menos 20 mmHg ou queda na pressão arterial diastólica de pelo menos 10 mmHg ou sintomas de hipoperfusão cerebral, como tontura e síncope.", "Unknown" ),
-    Keyword("2","Gastroenterite infecciosa grave",[],"É a inflamação do revestimento do estômago e dos intestinos de origem infecciosa, que se manifesta predominantemente por sintomas do trato gastrointestinal alto (anorexia, náusea, vômito), diarreia e desconforto abdominal.", "Unknown" ),
-    Keyword("3","Discinesia tardia",[],"Disordem neurológica caracterizada por movimentos involutários não controlados especialmente da boca, lingua, tronco, membros e ocorre especialmente como efeito adverso do uso prolongado de medicamentos que bloqueiam os receptores dopaminérgicos, sendo mais frequente em idosos e mulheres, e sua prevalência aumenta com o tempo de tratamento.", "Unknown" ),
-    Keyword("4","Dellirium",[],"Uma condição também conhecida como estado confusional agudo é uma alteração cognitiva definida por início agudo, curso flutuante, distúrbios da consciência, atenção, orientação, memória, pensamento, percepção e comportamento distúrbio mental caracterizado por confusão, fala desordenada e alucinações.", "Unknown" ),
-    Keyword("5","Ataxia",[],"Ou incoordenação, é a incapacidade para coordenar os músculos na execução de movimentos voluntários.", "Unknown" ),
-    Keyword("6","Desprescrição",[],"Reduzir a dose ou retirarada de medicamento que é considerado potencialmente danoso ou não benefico ao paciente.", "Unknown" ),
-    Keyword("7","Inibidores da enzima conversora de angiotensina",['iECA'],"São fármacos usados no tratamento da hipertensão arterial, que inibem a enzima conversora da angiotensina que converte a angiotensina I em angiotensina II. A angiotensina II é um potente vasoconstritor e estimula a produção de aldosterona, a qual promove retenção de sódio e água nos túbulos renais, aumentado a volemia. A enzima conversora da angiotensina é estimulada pela renina secretada pelos rins, em resposta à diminuição da sua perfusão sanguínea. Ao inibir essa enzima, os IECAs produzem vasodilatação periférica, diminuindo a pressão arterial. Medicamentos que fazem parte dessa classe: captopril, cilazapril, enalapril, fosinopril, lisinopril, ramipril e perindopril.", "Unknown" ),
-    Keyword("8","Antidepressivos tricílicos",[],"O mecanismo de ação comum aos antidepressivos tricíclicos em nível pré-sináptico é o bloqueio de recaptura de monoaminas, principalmente norepinefrina (NE) e serotonina (5-HT), em menor proporção dopamina (DA). Aminas terciárias inibem preferencialmente a recaptura de 5-HT e secundárias a de NE . Atualmente se considera não haver diferenças significativas quanto à seletividade do bloqueio de recaptura pré-sináptico. A atividade pós-sináptica varia de acordo com o sistema neurotransmissor envolvido e geralmente é responsável pelos efeitos colaterais. Os ADTs bloqueiam receptores muscarínicos (colinérgicos), histaminérgicos de tipo 1, a2 e b-adrenérgicos, serotonérgicos diversos e mais raramente dopaminérgicos. Essas ações não se correlacionam necessariamente com efeito antidepressivo, mas com efeitos colaterais. O bloqueio do receptor 5-HT1 contribuiria para o efeito terapêutico. Medicamentos que fazem parte dessa classe: amitriplina, nortriptilina, clomipramina, desipramina, imipramina e doxepina.", "Unknown" ),
-  ];
+	List<Keyword> _keywords = [];
 
 	List<Keyword> get keywords {
+    if (_keywords.length == 0) {
+      fetchKeywordsFromDB();
+    }
 		return [..._keywords];
 	}
+
+  void fetchKeywordsFromDB() async {
+    const url = 'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json';
+
+    print("loading keyword db...");
+    final response = await http.get(url, headers: {"Accept": "application/json"});
+
+    if (response.statusCode == 200) {
+        print("keyword db loaded, filling list!");
+        Map<String,dynamic> map = json.decode(response.body);
+        map.forEach((String dbID, dynamic values) => _keywords.add(Keyword.fromJson(values)));
+    } else {
+      print("error loading keywords: " + response.statusCode.toString());
+    }
+    print("done loading keywords.");
+    notifyListeners();
+  }
 
 }
