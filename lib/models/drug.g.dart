@@ -8,25 +8,25 @@ part of 'drug.dart';
 
 Drug _$DrugFromJson(Map<String, dynamic> json) {
   return Drug(
-    json['id'] as String,
-    json['name'] as String,
-    (json['type'] as List)?.map((e) => e as String)?.toList(),
-    (json['avoid_conditions'] as List)
+    id: json['id'] as String,
+    name: json['name'] as String,
+    type: (json['type'] as List)?.map((e) => e as String)?.toList(),
+    avoid_conditions: (json['avoid_conditions'] as List)
         ?.map((e) => e == null
             ? null
             : DrugAvoidCondition.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    (json['alternatives'] as List)
+    alternatives: (json['alternatives'] as List)
         ?.map((e) => e == null
             ? null
             : DrugAlternatives.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['desprescription'] as String,
-    (json['monitored_parameters'] as List)
+    desprescription: json['desprescription'] as String,
+    monitored_parameters: (json['monitored_parameters'] as List)
         ?.map((e) =>
             e == null ? null : DrugMonitor.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    (json['references'] as List)
+    references: (json['references'] as List)
         ?.map((e) => e == null
             ? null
             : DrugReference.fromJson(e as Map<String, dynamic>))

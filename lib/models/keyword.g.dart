@@ -8,11 +8,11 @@ part of 'keyword.dart';
 
 Keyword _$KeywordFromJson(Map<String, dynamic> json) {
   return Keyword(
-    json['id'] as String,
-    json['word'] as String,
-    (json['synonyms'] as List)?.map((e) => e as String)?.toList(),
-    json['definition'] as String,
-    json['source'] as String,
+    id: json['id'] as String,
+    word: json['word'] as String,
+    synonyms: (json['synonyms'] as List)?.map((e) => e as String)?.toList(),
+    definition: json['definition'] as String,
+    source: json['source'] as String,
   );
 }
 
