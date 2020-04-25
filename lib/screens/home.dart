@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/keywords.dart';
+import '../screens/inicio.dart';
+import '../screens/favorites.dart';
+import '../screens/glossario.dart';
+import '../screens/medicamentos.dart';
 import '../widgets/drawer.dart';
-import 'inicio.dart';
-import 'medicamentos.dart';
-import 'favorites.dart';
-import 'glossario.dart';
-//import 'settings.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -20,7 +21,7 @@ class _HomeState extends State<HomePage> {
   final List<Widget> _children = [
     Inicio(),
     Medicamentos(),
-    Glossario(),
+    ChangeNotifierProvider(create: (ctx) => Keywords(), child: Glossario()),
     Favorites(),
   ];
 
