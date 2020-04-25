@@ -14,7 +14,7 @@ class Drug with ChangeNotifier {
   final List<DrugMonitor>  monitored_parameters;
   final List<DrugReference>  references;
 
-  Drug(
+  Drug({
     this.id,
     this.name,
     this.type,
@@ -23,7 +23,7 @@ class Drug with ChangeNotifier {
     this.desprescription,
     this.monitored_parameters,
     this.references
-  );
+  });
 
 
   factory Drug.fromJson(Map<String, dynamic> json) => _$DrugFromJson(json);
