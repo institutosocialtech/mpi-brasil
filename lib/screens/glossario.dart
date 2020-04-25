@@ -1,44 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:mpibrasil/models/keyword.dart';
-import '../models/keywords.dart';
-import './glossario_info.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../models/keyword.dart';
+import '../screens/glossario_info.dart';
 
 
 class Glossario extends StatelessWidget {
-  final keywordList = keywords;
-  final TextStyle headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
   final url = "https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json";
+  final headerStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
-// void loadDatabase() async {
-//     try{
-//       for (Keyword keyword in keywordList){
-//         final response = await http.post(url,
-//         body: json.encode(keyword.toJson()  ));
-//         // print(json.decode(response.body)['name']);
-//       }
+  //fetch
+  Future<List<Keyword>> fetchKeywords() async {
+    var data = [];
+    print("loading keyword db...");
+    final response = await http.get(url, headers: {"Accept": "application/json"});
 
-//     }catch(error){
-//       throw(error);
-//     }
-//   }
-//fetch
-  // void fetchDatabase() async {
-  //     try{
-  //       final response = await http.get(url);
-  //       print(json.decode(response.body));
-  //     }catch(error){
-  //       throw(error);
-  //     }
-  // }
+    if (response.statusCode == 200) {
+        print("keyword db loaded, filling list!");
+        Map<String,dynamic> map = json.decode(response.body);
+        map.forEach((key, value) => data.add(Keyword.fromJson(value)));
+    } else {
+      print("error loading keywords: " + response.statusCode.toString());
+    }
+    print("done loading keywords.");
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // loadDatabase();
-    // for (Keyword keyword in keywordList){
-    //   print(keyword.printJson());
-    // }
+    var keywordList = [];
 
     return Scaffold(
       body: Column(
