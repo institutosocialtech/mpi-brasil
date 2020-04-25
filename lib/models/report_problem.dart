@@ -89,7 +89,7 @@ class ReportProblem {
       final MailOptions mailOptions = MailOptions(
         body: 'As informações do medicamento $drugName apresentam o seguinte problema: ',
         // subject: "${drug.name}",
-        subject: "Detectado um problema com o medicamento ${drugName}",
+        subject: "Detectado um problema com o medicamento $drugName",
         recipients: ['mpibrasil@pmosocial.org'],
         isHTML: true,
       );

@@ -77,7 +77,7 @@ class MedicamentoInfo extends StatelessWidget {
 
                   Share.share("${drug.name}" +
                       "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
-                      "\n\nCondições a serem evitadas:\n${shareCondicoes}" +
+                      "\n\nCondições a serem evitadas:\n$shareCondicoes" +
                       "\nAcesse em: https://mpibrasil.codemagic.app");
                 },
               ),
