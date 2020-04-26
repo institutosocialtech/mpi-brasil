@@ -8,24 +8,28 @@ part of 'drug.dart';
 
 Drug _$DrugFromJson(Map<String, dynamic> json) {
   return Drug(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    type: (json['type'] as List)?.map((e) => e as String)?.toList(),
-    avoid_conditions: (json['avoid_conditions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : DrugAvoidCondition.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    alternatives: (json['alternatives'] as List)
-        ?.map((e) => e == null
-            ? null
-            : DrugAlternatives.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    id: json['name'] as String,
+    name: json['active_ingredient'] as String,
+    type: (json['classes'] as List)?.map((e) => e as String)?.toList(),
+    avoid_conditions: (json['clinical_conditions_to_avoid'] as List)
+            ?.map((e) => e == null
+                ? null
+                : DrugAvoidCondition.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
+    alternatives: (json['alternative_therapies'] as List)
+            ?.map((e) => e == null
+                ? null
+                : DrugAlternatives.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
     desprescription: json['desprescription'] as String,
     monitored_parameters: (json['monitored_parameters'] as List)
-        ?.map((e) =>
-            e == null ? null : DrugMonitor.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) => e == null
+                ? null
+                : DrugMonitor.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
     references: (json['references'] as List)
         ?.map((e) => e == null
             ? null
@@ -35,12 +39,13 @@ Drug _$DrugFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$DrugToJson(Drug instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'type': instance.type,
-      'avoid_conditions':
+      'name': instance.id,
+      'active_ingredient': instance.name,
+      'classes': instance.type,
+      'clinical_conditions_to_avoid':
           instance.avoid_conditions?.map((e) => e?.toJson())?.toList(),
-      'alternatives': instance.alternatives?.map((e) => e?.toJson())?.toList(),
+      'alternative_therapies':
+          instance.alternatives?.map((e) => e?.toJson())?.toList(),
       'desprescription': instance.desprescription,
       'monitored_parameters':
           instance.monitored_parameters?.map((e) => e?.toJson())?.toList(),
@@ -49,62 +54,56 @@ Map<String, dynamic> _$DrugToJson(Drug instance) => <String, dynamic>{
 
 DrugAvoidCondition _$DrugAvoidConditionFromJson(Map<String, dynamic> json) {
   return DrugAvoidCondition(
-    json['criticalLevel'] as int,
-    json['condition'] as String,
-    json['description'] as String,
-    json['exception'] as String,
+    json['critical_level'] as int,
+    json['title_condition_to_avoid'] as String,
+    json['description_condition_to_avoid'] as String,
+    json['exception_condition_to_avoid'] as String,
   );
 }
 
 Map<String, dynamic> _$DrugAvoidConditionToJson(DrugAvoidCondition instance) =>
     <String, dynamic>{
-      'criticalLevel': instance.criticalLevel,
-      'condition': instance.condition,
-      'description': instance.description,
-      'exception': instance.exception,
+      'critical_level': instance.criticalLevel,
+      'title_condition_to_avoid': instance.condition,
+      'description_condition_to_avoid': instance.description,
+      'exception_condition_to_avoid': instance.exception,
     };
 
 DrugAlternatives _$DrugAlternativesFromJson(Map<String, dynamic> json) {
   return DrugAlternatives(
-    json['alternative'] as String,
-    json['description'] as String,
+    json['alternative_therapy_title'] as String,
+    json['alternative_therapy_description'] as String,
   );
 }
 
 Map<String, dynamic> _$DrugAlternativesToJson(DrugAlternatives instance) =>
     <String, dynamic>{
-      'alternative': instance.alternative,
-      'description': instance.description,
+      'alternative_therapy_title': instance.alternative,
+      'alternative_therapy_description': instance.description,
     };
 
 DrugMonitor _$DrugMonitorFromJson(Map<String, dynamic> json) {
   return DrugMonitor(
-    json['parameter'] as String,
-    json['description'] as String,
+    json['monitor_title'] as String,
+    json['monitor_description'] as String,
   );
 }
 
 Map<String, dynamic> _$DrugMonitorToJson(DrugMonitor instance) =>
     <String, dynamic>{
-      'parameter': instance.parameter,
-      'description': instance.description,
+      'monitor_title': instance.parameter,
+      'monitor_description': instance.description,
     };
 
 DrugReference _$DrugReferenceFromJson(Map<String, dynamic> json) {
   return DrugReference(
-    json['titulo'] as String,
-    json['autores'] as String,
-    json['editora'] as String,
-    json['data'] as String,
-    json['url'] as String,
+    json['reference_title'] as String,
+    json['reference_url'] as String,
   );
 }
 
 Map<String, dynamic> _$DrugReferenceToJson(DrugReference instance) =>
     <String, dynamic>{
-      'titulo': instance.titulo,
-      'autores': instance.autores,
-      'editora': instance.editora,
-      'data': instance.data,
-      'url': instance.url,
+      'reference_title': instance.titulo,
+      'reference_url': instance.url,
     };

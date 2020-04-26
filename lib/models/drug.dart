@@ -5,13 +5,21 @@ part 'drug.g.dart'; //where the json parser for this class will be generated
 
 @JsonSerializable(explicitToJson: true)
 class Drug with ChangeNotifier {
-  final String                 id;
-  final String              name;
+  @JsonKey(name: 'name')
+  final String id;
+  @JsonKey(name: 'active_ingredient')
+  final String name;
+  @JsonKey(name: 'classes')
   final List<String>        type;
+  @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: [])
   final List<DrugAvoidCondition> avoid_conditions;
+  @JsonKey(name: 'alternative_therapies', defaultValue: [])
   final List<DrugAlternatives>  alternatives;
-  final String              desprescription;
+  @JsonKey(name: 'desprescription')
+  final String desprescription;
+  @JsonKey(name: 'monitored_parameters', defaultValue: [])
   final List<DrugMonitor>  monitored_parameters;
+  @JsonKey(name: 'references')
   final List<DrugReference>  references;
 
   Drug({
@@ -27,7 +35,6 @@ class Drug with ChangeNotifier {
 
 
   factory Drug.fromJson(Map<String, dynamic> json) => _$DrugFromJson(json);
-
   Map<String, dynamic> toJson() => _$DrugToJson(this);
 
 
@@ -46,10 +53,13 @@ class Drug with ChangeNotifier {
 
 @JsonSerializable()
 class DrugAvoidCondition {
-
+  @JsonKey(name: 'critical_level')
   final int criticalLevel;
+  @JsonKey(name: 'title_condition_to_avoid')
   final String condition;
+  @JsonKey(name: 'description_condition_to_avoid')
   final String description;
+  @JsonKey(name: 'exception_condition_to_avoid')
   final String exception;
 
   DrugAvoidCondition(
@@ -70,7 +80,9 @@ class DrugAvoidCondition {
 @JsonSerializable()
 
 class DrugAlternatives {
+  @JsonKey(name: 'alternative_therapy_title')
   final String alternative;
+  @JsonKey(name: 'alternative_therapy_description')
   final String description;
 
   DrugAlternatives(
@@ -87,7 +99,9 @@ class DrugAlternatives {
 @JsonSerializable()
 
 class DrugMonitor {
+  @JsonKey(name: 'monitor_title')
   final String parameter;
+  @JsonKey(name: 'monitor_description')
   final String description;
 
   DrugMonitor(
@@ -103,21 +117,17 @@ class DrugMonitor {
 @JsonSerializable()
 
 class DrugReference {
+  @JsonKey(name: 'reference_title')
   final String titulo;
-  final String autores;
-  final String editora;
-  final String data;
+  @JsonKey(name: 'reference_url')
   final String url;
 
   DrugReference(
     this.titulo,
-    this.autores,
-    this.editora,
-    this.data,
     this.url
   );
-    factory DrugReference.fromJson(Map<String, dynamic> json) => _$DrugReferenceFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DrugReferenceToJson(this);
+    factory DrugReference.fromJson(Map<String, dynamic> json) => _$DrugReferenceFromJson(json);
+    Map<String, dynamic> toJson() => _$DrugReferenceToJson(this);
 
 }
