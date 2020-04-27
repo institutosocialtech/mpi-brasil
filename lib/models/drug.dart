@@ -11,13 +11,13 @@ class Drug with ChangeNotifier {
   final String name;
   @JsonKey(name: 'classes')
   final List<String>        type;
-  @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: [])
+  @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: null)
   final List<DrugAvoidCondition> avoid_conditions;
-  @JsonKey(name: 'alternative_therapies', defaultValue: [])
+  @JsonKey(name: 'alternative_therapies', defaultValue: null)
   final List<DrugAlternatives>  alternatives;
   @JsonKey(name: 'desprescription')
   final String desprescription;
-  @JsonKey(name: 'monitored_parameters', defaultValue: [])
+  @JsonKey(name: 'monitored_parameters', defaultValue: null)
   final List<DrugMonitor>  monitored_parameters;
   @JsonKey(name: 'references')
   final List<DrugReference>  references;

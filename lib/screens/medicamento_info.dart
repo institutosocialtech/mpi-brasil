@@ -36,8 +36,7 @@ class MedicamentoInfo extends StatelessWidget {
               ),
               drawConditionsTile(drug),
               drawAlternatives(drug),
-              drawExpansionTile("Orientações de Desprescrição",
-                  drug.desprescription.toString()),
+              drawExpansionTile("Orientações de Desprescrição", drug.desprescription),
               drawDrugMonitor(drug),
               drawDrugReferences(drug),
             ]),
@@ -129,6 +128,9 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawAlternatives(Drug drug) {
     List<Widget> alternativeTiles = [];
 
+    if (drug.alternatives == null)
+      return Container();
+
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
@@ -158,7 +160,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawDrugMonitor(Drug drug) {
     List<Widget> monitorTiles = [];
 
-    if (drug.monitored_parameters.length == 0) {
+    if (drug.monitored_parameters == null) {
       return Container();
     }
 
@@ -187,7 +189,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawDrugReferences(Drug drug) {
     List<Widget> referenceTiles = [];
 
-    if (drug.references.length == 0) {
+    if (drug.references == null) {
       return Container();
     }
 
@@ -217,7 +219,7 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Custom ExpansionTile
   Widget drawExpansionTile(String title, String content) {
-    if (content.length == 0) {
+    if (content == null) {
       return Container();
     }
 

@@ -12,24 +12,20 @@ Drug _$DrugFromJson(Map<String, dynamic> json) {
     name: json['active_ingredient'] as String,
     type: (json['classes'] as List)?.map((e) => e as String)?.toList(),
     avoid_conditions: (json['clinical_conditions_to_avoid'] as List)
-            ?.map((e) => e == null
-                ? null
-                : DrugAvoidCondition.fromJson(e as Map<String, dynamic>))
-            ?.toList() ??
-        [],
+        ?.map((e) => e == null
+            ? null
+            : DrugAvoidCondition.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     alternatives: (json['alternative_therapies'] as List)
-            ?.map((e) => e == null
-                ? null
-                : DrugAlternatives.fromJson(e as Map<String, dynamic>))
-            ?.toList() ??
-        [],
+        ?.map((e) => e == null
+            ? null
+            : DrugAlternatives.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     desprescription: json['desprescription'] as String,
     monitored_parameters: (json['monitored_parameters'] as List)
-            ?.map((e) => e == null
-                ? null
-                : DrugMonitor.fromJson(e as Map<String, dynamic>))
-            ?.toList() ??
-        [],
+        ?.map((e) =>
+            e == null ? null : DrugMonitor.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     references: (json['references'] as List)
         ?.map((e) => e == null
             ? null
