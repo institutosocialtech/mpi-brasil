@@ -24,7 +24,7 @@ class Favorites extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child:
-                      Text("Favoritos", textScaleFactor: 2, style: headerStyle),
+                      Text("Favoritos".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),

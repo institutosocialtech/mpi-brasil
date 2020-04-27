@@ -26,7 +26,7 @@ class Glossario extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Glossário", textScaleFactor: 2, style: headerStyle),
+                  child: Text("Glossário".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),

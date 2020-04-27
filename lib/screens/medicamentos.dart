@@ -25,8 +25,8 @@ class Medicamentos extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Medicamentos",
-                      textScaleFactor: 2, style: headerStyle),
+                  child: Text("Medicamentos".toUpperCase(),
+                      textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
