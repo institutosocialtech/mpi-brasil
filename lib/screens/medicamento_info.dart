@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/models/report_problem.dart';
-import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mpibrasil/models/drug.dart';
 import 'package:mpibrasil/widgets/alternativesCard.dart';
@@ -8,6 +6,7 @@ import 'package:mpibrasil/widgets/cardReferences.dart';
 import 'package:mpibrasil/widgets/conditionCard.dart';
 import 'package:mpibrasil/widgets/monitorCard.dart';
 import 'package:mpibrasil/widgets/painCard.dart';
+import '../widgets/floatingMenu.dart';
 
 class MedicamentoInfo extends StatelessWidget {
   final Drug drug;
@@ -30,19 +29,20 @@ class MedicamentoInfo extends StatelessWidget {
           Expanded(
             child: ListView(children: <Widget>[
               ListTile(
-                title: Text("Classe Farmacológica", style: headerStyle),
-                subtitle: Text(drug.drugTypesToString(),
-                    textAlign: TextAlign.justify),
-              ),
+                  title: Text("Classe Farmacológica", style: headerStyle),
+                  subtitle: Text(drug.drugTypesToString(),
+                      textAlign: TextAlign.justify)),
               drawConditionsTile(drug),
               drawAlternatives(drug),
-              drawExpansionTile("Orientações de Desprescrição", drug.desprescription),
+              drawExpansionTile(
+                  "Orientações de Desprescrição", drug.desprescription),
               drawDrugMonitor(drug),
               drawDrugReferences(drug),
             ]),
           ),
         ],
       ),
+      floatingActionButton: FloatingMenu(drug: drug),
     );
   }
 
@@ -56,40 +56,8 @@ class MedicamentoInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(drug.name.toUpperCase(), textScaleFactor: 1.5, style: medTitleStyle),
-          Row(
-            children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.star),
-                  color: Colors.white,
-                  iconSize: 24,
-                  onPressed: () {}),
-              IconButton(
-                icon: Icon(Icons.share),
-                color: Colors.white,
-                iconSize: 24,
-                onPressed: () {
-                  String shareCondicoes = "";
-                  for (DrugAvoidCondition c in drug.avoid_conditions) {
-                    shareCondicoes += "* ${c.condition}\n";
-                  }
-
-                  Share.share("${drug.name}" +
-                      "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
-                      "\n\nCondições a serem evitadas:\n$shareCondicoes" +
-                      "\nAcesse em: https://mpibrasil.codemagic.app");
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.report_problem),
-                color: Colors.white,
-                iconSize: 24,
-                onPressed: () async {
-                  await ReportProblem().reportProblemAction(context, "${drug.name}");
-                },
-              )
-            ],
-          ),
+          Text(drug.name.toUpperCase(),
+              textScaleFactor: 1.5, style: medTitleStyle),
         ],
       ),
     );
