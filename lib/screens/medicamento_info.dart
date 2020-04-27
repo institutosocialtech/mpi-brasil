@@ -101,6 +101,10 @@ class MedicamentoInfo extends StatelessWidget {
     List<Widget> conditionTiles = [];
 
     for (DrugAvoidCondition item in drug.avoid_conditions) {
+      if (item.criticalLevel == 1){
+        continue;
+      }
+
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
