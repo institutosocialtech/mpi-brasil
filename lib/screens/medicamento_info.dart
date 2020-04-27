@@ -56,7 +56,7 @@ class MedicamentoInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(drug.name, textScaleFactor: 2, style: medTitleStyle),
+          Text(drug.name.toUpperCase(), textScaleFactor: 1.5, style: medTitleStyle),
           Row(
             children: <Widget>[
               IconButton(
