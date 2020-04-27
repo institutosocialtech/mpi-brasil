@@ -11,13 +11,7 @@ class MonitorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var widgets = List<Widget>();
-
-    widgets.add(Text(
-      item.parameter,
-      textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.bold),
-    ));
-    widgets.add(Container(height: 10));
+    
     widgets.add(Text(item.description, textAlign: TextAlign.justify,));
 
     return Padding(
