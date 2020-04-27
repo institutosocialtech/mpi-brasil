@@ -17,7 +17,7 @@ class AlternativesCard extends StatelessWidget {
       textAlign: TextAlign.left,
       style: TextStyle(fontWeight: FontWeight.bold),
     ));
-    widgets.add(Container(height: 10));
+    widgets.add(SizedBox(height: 10));
     widgets.add(Text(item.description, textAlign: TextAlign.justify,));
 
     return Padding(
