@@ -22,7 +22,7 @@ class GlossarioInfo extends StatelessWidget {
             title: Text("Definição", style: tileTitle),
             subtitle: Text(keyword.definition, textAlign: TextAlign.justify,),
           ),
-          keyword.synonyms.length == 0
+          keyword.synonyms == null
             ? Container()
             : ListTile(
               title: Text("Sinônimos", style: tileTitle),

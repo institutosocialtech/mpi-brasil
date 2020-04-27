@@ -57,7 +57,7 @@ class KeywordList extends StatelessWidget {
               keywords[index].word,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(keywords[index].synonymsListToString()),
+            subtitle: keywords[index].synonyms == null ? null : Text(keywords[index].synonymsListToString()),
             onTap: () {
               Navigator.push(
                 context,

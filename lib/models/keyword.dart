@@ -9,7 +9,7 @@ class Keyword with ChangeNotifier {
   final String id;
   @JsonKey(name: 'word')
   final String word;
-  @JsonKey(name: 'synonyms', defaultValue: [])
+  @JsonKey(name: 'synonyms', defaultValue: null)
   final List<String> synonyms;
   @JsonKey(name: 'definition')
   final String definition;

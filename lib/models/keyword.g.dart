@@ -10,8 +10,7 @@ Keyword _$KeywordFromJson(Map<String, dynamic> json) {
   return Keyword(
     id: json['name'] as String,
     word: json['word'] as String,
-    synonyms:
-        (json['synonyms'] as List)?.map((e) => e as String)?.toList() ?? [],
+    synonyms: (json['synonyms'] as List)?.map((e) => e as String)?.toList(),
     definition: json['definition'] as String,
     source: json['source'] as String,
   );
