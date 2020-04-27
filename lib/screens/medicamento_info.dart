@@ -100,8 +100,10 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawConditionsTile(Drug drug) {
     List<Widget> conditionTiles = [];
 
+    if (drug.avoid_conditions == null) return Container();
+
     for (DrugAvoidCondition item in drug.avoid_conditions) {
-      if (item.criticalLevel == 1){
+      if (item.criticalLevel == 1) {
         continue;
       }
 
@@ -132,8 +134,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawAlternatives(Drug drug) {
     List<Widget> alternativeTiles = [];
 
-    if (drug.alternatives == null)
-      return Container();
+    if (drug.alternatives == null) return Container();
 
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
@@ -164,9 +165,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawDrugMonitor(Drug drug) {
     List<Widget> monitorTiles = [];
 
-    if (drug.monitored_parameters == null) {
-      return Container();
-    }
+    if (drug.monitored_parameters == null) return Container();
 
     for (DrugMonitor item in drug.monitored_parameters) {
       monitorTiles.add(
@@ -193,9 +192,7 @@ class MedicamentoInfo extends StatelessWidget {
   Widget drawDrugReferences(Drug drug) {
     List<Widget> referenceTiles = [];
 
-    if (drug.references == null) {
-      return Container();
-    }
+    if (drug.references == null) return Container();
 
     for (DrugReference item in drug.references) {
       referenceTiles.add(
@@ -223,9 +220,7 @@ class MedicamentoInfo extends StatelessWidget {
   //
   // Custom ExpansionTile
   Widget drawExpansionTile(String title, String content) {
-    if (content == null) {
-      return Container();
-    }
+    if (content == null) return Container();
 
     return ExpansionTile(
       title: Text(title, style: headerStyle),
