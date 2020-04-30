@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/drugs.dart';
-import '../providers/keywords.dart';
 import '../screens/inicio.dart';
 import '../screens/favorites.dart';
 import '../screens/glossario.dart';
@@ -21,9 +18,9 @@ class _HomeState extends State<HomePage> {
 
   final List<Widget> _children = [
     Inicio(),
-    ChangeNotifierProvider(create: (ctx) => Drugs(), child: Medicamentos()),
-    ChangeNotifierProvider(create: (ctx) => Keywords(), child: Glossario()),
-    ChangeNotifierProvider(create: (ctx) => Drugs(), child: Favorites()),
+    Medicamentos(),
+    Glossario(),
+    Favorites(),
   ];
 
   @override
