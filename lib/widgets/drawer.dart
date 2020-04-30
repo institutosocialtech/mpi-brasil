@@ -16,7 +16,7 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               title: Text('Login'),
               onTap: () {
-                Navigator.popAndPushNamed(context, '/login');
+                Navigator.popAndPushNamed(context, '/auth');
               },
             ),
             ListTile(
