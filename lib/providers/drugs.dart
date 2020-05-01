@@ -11,6 +11,7 @@ class Drugs with ChangeNotifier {
     if (_drugs.length == 0) {
       fetchMedsFromDB();
     }
+    _drugs.sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()) );
     return [..._drugs];
   }
 

@@ -11,6 +11,7 @@ class Keywords with ChangeNotifier {
     if (_keywords.length == 0) {
       fetchKeywordsFromDB();
     }
+    _keywords.sort((a,b) => a.word.toUpperCase().compareTo(b.word.toUpperCase()));
 		return [..._keywords];
 	}
 
