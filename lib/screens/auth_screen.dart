@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/models/http_exception.dart';
 import 'package:provider/provider.dart';
+import '../models/http_exception.dart';
 import '../providers/auth.dart';
+
+enum AuthMode { SignUp, Login }
 
 class AuthScreen extends StatelessWidget {
   @override
@@ -71,6 +73,7 @@ class _AuthCardState extends State<AuthCard> {
   final _passwordController = TextEditingController();
   var _isLoading = false;
 
+  AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -107,10 +110,17 @@ class _AuthCardState extends State<AuthCard> {
     });
 
     try {
-      await Provider.of<Auth>(context, listen: false).login(
-        _authData['email'],
-        _authData['password'],
-      );
+      if (_authMode == AuthMode.Login) {
+        await Provider.of<Auth>(context, listen: false).login(
+          _authData['email'],
+          _authData['password'],
+        );
+      } else {
+        await Provider.of<Auth>(context, listen: false).signup(
+          _authData['email'],
+          _authData['password'],
+        );
+      }
     } on HttpException catch (error) {
       var errorMessage = 'A autenticação falhou!';
 
@@ -120,6 +130,9 @@ class _AuthCardState extends State<AuthCard> {
           break;
         case "EMAIL_NOT_FOUND":
           errorMessage = 'Email não encontrado!';
+          break;
+        case "EMAIL_EXISTS":
+          errorMessage = 'Email já cadastrado!';
           break;
         case "INVALID_PASSWORD":
           errorMessage = 'Senha incorreta!';
@@ -139,7 +152,7 @@ class _AuthCardState extends State<AuthCard> {
     });
   }
 
-  String validateEntry(String type, String value) {
+  String _validateEntry(String type, String value) {
     switch (type) {
       case 'email':
         if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
@@ -148,6 +161,21 @@ class _AuthCardState extends State<AuthCard> {
       case 'password':
         if (value.isEmpty) return 'Digite sua Senha!';
         break;
+    }
+    return null;
+  }
+
+  void _switchAuthMode() {
+    if (_authMode == AuthMode.Login) {
+      setState(() {
+        _authMode = AuthMode.SignUp;
+        _formKey.currentState.reset();
+      });
+    } else {
+      setState(() {
+        _authMode = AuthMode.Login;
+        _formKey.currentState.reset();
+      });
     }
   }
 
@@ -166,10 +194,10 @@ class _AuthCardState extends State<AuthCard> {
             ),
             elevation: 8,
             child: Container(
-              height: 360,
-              constraints: BoxConstraints(minHeight: 360),
+              height: 420,
+              constraints: BoxConstraints(minHeight: 420),
               width: deviceSize.width * 0.85,
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -186,10 +214,10 @@ class _AuthCardState extends State<AuthCard> {
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 10),
                           ),
-                          validator: (value) => validateEntry('email', value),
+                          validator: (value) => _validateEntry('email', value),
                           onSaved: (value) => _authData['email'] = value,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         TextFormField(
                           obscureText: true,
                           controller: _passwordController,
@@ -199,17 +227,36 @@ class _AuthCardState extends State<AuthCard> {
                                 EdgeInsets.symmetric(horizontal: 10),
                           ),
                           validator: (value) =>
-                              validateEntry('password', value),
+                              _validateEntry('password', value),
                           onSaved: (value) => _authData['password'] = value,
                         ),
+                        if (_authMode == AuthMode.SignUp)
+                          TextFormField(
+                            enabled: _authMode == AuthMode.SignUp,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: "Verificar Senha",
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
+                            ),
+                            validator: _authMode == AuthMode.SignUp
+                                ? (value) {
+                                    if (value.isEmpty ||
+                                        value != _passwordController.text)
+                                      return 'Senha não confere!';
+                                  }
+                                : null,
+                          ),
                       ],
                     ),
 
                     // signIn button section
                     Column(children: <Widget>[
-                      SizedBox(height: 20),
+                      SizedBox(height: 5),
                       RaisedButton(
-                        child: Text("Entrar"),
+                        child: Text(_authMode == AuthMode.Login
+                            ? 'Entrar'
+                            : 'Cadastrar'),
                         onPressed: _submit,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -219,9 +266,18 @@ class _AuthCardState extends State<AuthCard> {
                         color: Colors.green,
                         textColor: Colors.white,
                       ),
-                      SizedBox(height: 10),
-                      Text("Primeiro acesso? Cadastre aqui!"),
-                      Text("Esqueci minha senha"),
+                      SizedBox(height: 5),
+                      InkWell(
+                        child: Text(_authMode == AuthMode.Login
+                            ? 'Primeiro acesso? Cadastre aqui!'
+                            : 'Já possui cadastro? Faça o Login'),
+                        onTap: () => _switchAuthMode(),
+                      ),
+                      if (_authMode == AuthMode.Login)
+                        InkWell(
+                          child: Text("Esqueci minha senha"),
+                          onTap: () => print('forgotPassword'),
+                        ),
                     ]),
                   ],
                 ),
