@@ -27,26 +27,28 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Drugs()),
         ChangeNotifierProvider.value(value: Keywords()),
       ],
-      child: MaterialApp(
-        title: 'MPI Brasil',
-        theme: ThemeData(
-          primaryColor: Colors.green,
-          accentColor: Colors.black,
-          fontFamily: 'Nunito',
+      child: Consumer<Auth>(
+        builder: (context, auth, _) => MaterialApp(
+          title: 'MPI Brasil',
+          theme: ThemeData(
+            primaryColor: Colors.green,
+            accentColor: Colors.black,
+            fontFamily: 'Nunito',
+          ),
+          home: auth.isAuth ? HomePage() : AuthScreen(),
+          routes: <String, WidgetBuilder>{
+            '/about': (context) => About(),
+            '/auth': (context) => AuthScreen(),
+            '/favorites': (context) => Favorites(),
+            '/faq': (context) => FAQ(),
+            '/glossario': (context) => Glossario(),
+            '/glossario_info': (context) => GlossarioInfo(),
+            '/home': (context) => HomePage(),
+            '/medicamentos': (context) => Medicamentos(),
+            '/med_info': (context) => MedicamentoInfo(),
+            '/settings': (context) => Settings(),
+          },
         ),
-        initialRoute: '/auth',
-        routes: <String, WidgetBuilder>{
-          '/': (context) => HomePage(),
-          '/about': (context) => About(),
-          '/auth': (context) => AuthScreen(),
-          '/favorites': (context) => Favorites(),
-          '/faq': (context) => FAQ(),
-          '/glossario': (context) => Glossario(),
-          '/glossario_info': (context) => GlossarioInfo(),
-          '/medicamentos': (context) => Medicamentos(),
-          '/med_info': (context) => MedicamentoInfo(),
-          '/settings': (context) => Settings(),
-        },
       ),
     );
   }

@@ -112,7 +112,7 @@ class _AuthCardState extends State<AuthCard> {
         _authData['password'],
       );
     } on HttpException catch (error) {
-      var errorMessage = 'A autenticação falhou';
+      var errorMessage = 'A autenticação falhou!';
 
       switch (error.toString()) {
         case "INVALID_EMAIL":
