@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/models/http_exception.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 
@@ -75,6 +76,25 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
 
+  void _showErrorDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Erro"),
+              content: Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Text(message),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("OK")),
+              ],
+            ));
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
       // invalid
@@ -86,10 +106,33 @@ class _AuthCardState extends State<AuthCard> {
       _isLoading = true;
     });
 
-    await Provider.of<Auth>(context, listen: false).login(
-      _authData['email'],
-      _authData['password'],
-    );
+    try {
+      await Provider.of<Auth>(context, listen: false).login(
+        _authData['email'],
+        _authData['password'],
+      );
+    } on HttpException catch (error) {
+      var errorMessage = 'A autenticação falhou';
+
+      switch (error.toString()) {
+        case "INVALID_EMAIL":
+          errorMessage = 'Email inválido!';
+          break;
+        case "EMAIL_NOT_FOUND":
+          errorMessage = 'Email não encontrado!';
+          break;
+        case "INVALID_PASSWORD":
+          errorMessage = 'Senha incorreta!';
+          break;
+        case "USER_DISABLED":
+          errorMessage = 'Conta desativada por um administrador!';
+          break;
+      }
+      _showErrorDialog(errorMessage);
+    } catch (error) {
+      const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
+      _showErrorDialog(errorMessage);
+    }
 
     setState(() {
       _isLoading = false;
