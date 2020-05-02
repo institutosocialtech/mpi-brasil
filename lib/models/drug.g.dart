@@ -67,6 +67,9 @@ Map<String, dynamic> _$DrugAvoidConditionToJson(DrugAvoidCondition instance) =>
 
 DrugAlternatives _$DrugAlternativesFromJson(Map<String, dynamic> json) {
   return DrugAlternatives(
+    DrugAlternatives._stringToInt(
+            json['alternative_therapy_order'] as String) ??
+        1,
     json['alternative_therapy_title'] as String,
     json['alternative_therapy_description'] as String,
   );
@@ -74,6 +77,8 @@ DrugAlternatives _$DrugAlternativesFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$DrugAlternativesToJson(DrugAlternatives instance) =>
     <String, dynamic>{
+      'alternative_therapy_order':
+          DrugAlternatives._stringFromInt(instance.order),
       'alternative_therapy_title': instance.alternative,
       'alternative_therapy_description': instance.description,
     };

@@ -104,6 +104,8 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.alternatives == null) return Container();
 
+    drug.alternatives.sort( (a, b) => a.order.compareTo(b.order) );
+
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
