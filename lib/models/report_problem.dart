@@ -13,8 +13,8 @@ enum ReportProblemAction {
 ReportProblemAction value;
 
 class ReportProblem {
-
-  Future<void> reportProblemAction( BuildContext context, String drugName) async {
+  Future<void> reportProblemAction(
+      BuildContext context, String drugName) async {
     final action = await showDialog(
       context: context,
       barrierDismissible: true,
@@ -26,22 +26,26 @@ class ReportProblem {
             height: 240,
             child: RadioButtonGroup(
               labels: <String>[
-                "Informação incompleta",
-                "Informação incorreta",
-                "Dificil visualização",
-                "Outro problema",
+                "Atualização do Conteúdo",
+                "Ortografia do Conteúdo",
+                "Problema de Qualidade ",
+                "Erro na Aplicação",
+                "Outros ",
               ],
               activeColor: Colors.green,
               onSelected: (String selected) {
                 switch (selected) {
-                  case "Informação incompleta":
+                  case "Atualização do Conteúdo":
                     value = ReportProblemAction.INCOMP_INFO;
                     break;
-                  case "Informação incorreta":
+                  case "Ortográfia do Conteúdo":
                     value = ReportProblemAction.WRONG_INFO;
                     break;
-                  case "Dificil visualização":
+                  case "Problema de Qualidade":
                     value = ReportProblemAction.TYPE3;
+                    break;
+                  case "Erro na Aplicação":
+                    value = ReportProblemAction.TYPE4;
                     break;
                   case "Outro problema":
                     value = ReportProblemAction.OTHER;
@@ -87,7 +91,8 @@ class ReportProblem {
     } else if (action == ReportProblemAction.OTHER) {
       print(action);
       final MailOptions mailOptions = MailOptions(
-        body: 'As informações do medicamento $drugName apresentam o seguinte problema: ',
+        body:
+            'As informações do medicamento $drugName apresentam o seguinte problema: ',
         // subject: "${drug.name}",
         subject: "Detectado um problema com o medicamento $drugName",
         recipients: ['mpibrasil@pmosocial.org'],
