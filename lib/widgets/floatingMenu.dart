@@ -50,10 +50,6 @@ class FloatingMenu extends StatelessWidget {
             if (drug.avoid_conditions != null) {
               shareCondicoes = "\n\nCondições a serem evitadas:";
               for (DrugAvoidCondition c in drug.avoid_conditions) {
-                // TODO: remover hack depois
-                if (c.criticalLevel == 1) {
-                  continue;
-                }
                 shareCondicoes += "\n* ${c.condition}";
               }
             }

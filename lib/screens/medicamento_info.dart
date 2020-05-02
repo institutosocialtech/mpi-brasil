@@ -70,11 +70,8 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.avoid_conditions == null) return Container();
 
+    drug.avoid_conditions.sort((a,b) => a.criticalLevel.compareTo(b.criticalLevel));
     for (DrugAvoidCondition item in drug.avoid_conditions) {
-      if (item.criticalLevel == 1) {
-        continue;
-      }
-
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
