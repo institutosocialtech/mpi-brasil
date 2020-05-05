@@ -80,18 +80,23 @@ class DrugAvoidCondition {
 @JsonSerializable()
 
 class DrugAlternatives {
+  @JsonKey(name: 'alternative_therapy_order', defaultValue: 1, fromJson: _stringToInt, toJson: _stringFromInt)
+  final int order;
   @JsonKey(name: 'alternative_therapy_title')
   final String alternative;
   @JsonKey(name: 'alternative_therapy_description')
   final String description;
 
   DrugAlternatives(
+    this.order,
     this.alternative,
     this.description
   );
     factory DrugAlternatives.fromJson(Map<String, dynamic> json) => _$DrugAlternativesFromJson(json);
 
   Map<String, dynamic> toJson() => _$DrugAlternativesToJson(this);
+  static int _stringToInt(String number) => number == null ? null : int.parse(number);
+  static String _stringFromInt(int number) => number?.toString();
 
 }
 

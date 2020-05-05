@@ -70,11 +70,8 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.avoid_conditions == null) return Container();
 
+    drug.avoid_conditions.sort((a,b) => a.criticalLevel.compareTo(b.criticalLevel));
     for (DrugAvoidCondition item in drug.avoid_conditions) {
-      if (item.criticalLevel == 1) {
-        continue;
-      }
-
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
@@ -103,6 +100,8 @@ class MedicamentoInfo extends StatelessWidget {
     List<Widget> alternativeTiles = [];
 
     if (drug.alternatives == null) return Container();
+
+    drug.alternatives.sort( (a, b) => a.order.compareTo(b.order) );
 
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
