@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mpibrasil/models/drug.dart';
-// import 'package:mpibrasil/widgets/alternativesCard.dart';
 import 'package:mpibrasil/widgets/cardReferences.dart';
 import 'package:mpibrasil/widgets/conditionCard.dart';
 import 'package:mpibrasil/widgets/monitorCard.dart';
@@ -114,14 +113,16 @@ class MedicamentoInfo extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
             child: Card(
                 elevation: 5,
-                child: Column(children: [
+                child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(children: [
                   Text(
                     item.alternative,
                     textAlign: TextAlign.left,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   MarkdownBody(data: item.description),
-                ])),
+                ]))),
           ),
         );
       }
