@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mpibrasil/models/drug.dart';
-import 'package:mpibrasil/widgets/alternativesCard.dart';
+// import 'package:mpibrasil/widgets/alternativesCard.dart';
 import 'package:mpibrasil/widgets/cardReferences.dart';
 import 'package:mpibrasil/widgets/conditionCard.dart';
 import 'package:mpibrasil/widgets/monitorCard.dart';
 import 'package:mpibrasil/widgets/painCard.dart';
 import '../widgets/floatingMenu.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class MedicamentoInfo extends StatelessWidget {
   final Drug drug;
@@ -70,7 +71,8 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.avoid_conditions == null) return Container();
 
-    drug.avoid_conditions.sort((a,b) => a.criticalLevel.compareTo(b.criticalLevel));
+    drug.avoid_conditions
+        .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
     for (DrugAvoidCondition item in drug.avoid_conditions) {
       conditionTiles.add(
         Padding(
@@ -101,7 +103,7 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.alternatives == null) return Container();
 
-    drug.alternatives.sort( (a, b) => a.order.compareTo(b.order) );
+    drug.alternatives.sort((a, b) => a.order.compareTo(b.order));
 
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
@@ -110,7 +112,16 @@ class MedicamentoInfo extends StatelessWidget {
         alternativeTiles.add(
           Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-            child: Card(elevation: 5, child: AlternativesCard(item)),
+            child: Card(
+                elevation: 5,
+                child: Column(children: [
+                  Text(
+                    item.alternative,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  MarkdownBody(data: item.description),
+                ])),
           ),
         );
       }

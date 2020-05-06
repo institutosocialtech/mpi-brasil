@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/models/drug.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
 
 class AlternativesCard extends StatelessWidget {
   final DrugAlternatives item;
-
   AlternativesCard(
     this.item,
   );
@@ -18,7 +19,8 @@ class AlternativesCard extends StatelessWidget {
       style: TextStyle(fontWeight: FontWeight.bold),
     ));
     widgets.add(SizedBox(height: 10));
-    widgets.add(Text(item.description, textAlign: TextAlign.justify,));
+    // widgets.add(Text(item.description, textAlign: TextAlign.justify,));
+    widgets.add(Center(child: MarkdownBody(data: item.description)));
 
     return Padding(
       padding: EdgeInsets.all(20),
