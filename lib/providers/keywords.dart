@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:diacritic/diacritic.dart';
 import '../models/keyword.dart';
 
 class Keywords with ChangeNotifier {
@@ -11,7 +12,7 @@ class Keywords with ChangeNotifier {
     if (_keywords.length == 0) {
       fetchKeywordsFromDB();
     }
-    _keywords.sort((a,b) => a.word.toUpperCase().compareTo(b.word.toUpperCase()));
+    _keywords.sort((a,b) => removeDiacritics(a.word).toUpperCase().compareTo(removeDiacritics(b.word).toUpperCase()));
 		return [..._keywords];
 	}
 

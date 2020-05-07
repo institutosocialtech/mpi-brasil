@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mpibrasil/models/drug.dart';
-import 'package:mpibrasil/widgets/alternativesCard.dart';
 import 'package:mpibrasil/widgets/cardReferences.dart';
-import 'package:mpibrasil/widgets/conditionCard.dart';
-import 'package:mpibrasil/widgets/monitorCard.dart';
 import 'package:mpibrasil/widgets/painCard.dart';
 import '../widgets/floatingMenu.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class MedicamentoInfo extends StatelessWidget {
   final Drug drug;
+
   MedicamentoInfo({Key key, this.drug}) : super(key: key);
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
@@ -70,15 +69,36 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.avoid_conditions == null) return Container();
 
-    drug.avoid_conditions.sort((a,b) => a.criticalLevel.compareTo(b.criticalLevel));
+    drug.avoid_conditions
+        .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
     for (DrugAvoidCondition item in drug.avoid_conditions) {
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: Card(
-            elevation: 5,
-            child: ConditionCard(item),
-          ),
+              elevation: 5,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: item.exception != null
+                    ? Column(children: <Widget>[
+                        Text(item.condition,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        MarkdownBody(data: item.description),
+                        SizedBox(height: 10),
+                        Text("Exceção",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        MarkdownBody(data: item.exception),
+                      ])
+                    : Column(children: <Widget>[
+                        Text(item.condition,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        MarkdownBody(data: item.description),
+                      ]),
+              )),
         ),
       );
     }
@@ -101,7 +121,7 @@ class MedicamentoInfo extends StatelessWidget {
 
     if (drug.alternatives == null) return Container();
 
-    drug.alternatives.sort( (a, b) => a.order.compareTo(b.order) );
+    drug.alternatives.sort((a, b) => a.order.compareTo(b.order));
 
     for (DrugAlternatives item in drug.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
@@ -110,7 +130,16 @@ class MedicamentoInfo extends StatelessWidget {
         alternativeTiles.add(
           Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-            child: Card(elevation: 5, child: AlternativesCard(item)),
+            child: Card(
+                elevation: 5,
+                child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(children: [
+                      Text(item.alternative,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      MarkdownBody(data: item.description),
+                    ]))),
           ),
         );
       }
@@ -135,12 +164,20 @@ class MedicamentoInfo extends StatelessWidget {
     if (drug.monitored_parameters == null) return Container();
 
     for (DrugMonitor item in drug.monitored_parameters) {
-      monitorTiles.add(
-        Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: Card(elevation: 5, child: MonitorCard(item)),
+      monitorTiles.add(Padding(
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: <Widget>[
+                MarkdownBody(data: item.description)
+              ],
+            ),
+          ),
         ),
-      );
+      ));
     }
 
     return ExpansionTile(
@@ -194,7 +231,7 @@ class MedicamentoInfo extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
-          child: Text(content, textAlign: TextAlign.justify),
+          child: MarkdownBody(data: content),
         ),
       ],
     );
