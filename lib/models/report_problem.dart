@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
-enum ReportProblemAction {
-  CANCEL,
-  INCOMP_INFO,
-  WRONG_INFO,
-  TYPE3,
-  TYPE4,
-  OTHER
-}
+enum ReportProblemAction { CANCEL, UPDATE_INFO, WRONG_INFO, ERROR_APP, OTHER }
 ReportProblemAction value;
 
 class ReportProblem {
@@ -21,14 +14,18 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Informar um problema."),
+          title: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Informar um Problema",
+                textAlign: TextAlign.justify,
+              )),
           content: Container(
-            height: 240,
+            height: 200,
             child: RadioButtonGroup(
               labels: <String>[
                 "Atualização do Conteúdo",
                 "Ortografia do Conteúdo",
-                "Problema de Qualidade ",
                 "Erro na Aplicação",
                 "Outros ",
               ],
@@ -36,16 +33,13 @@ class ReportProblem {
               onSelected: (String selected) {
                 switch (selected) {
                   case "Atualização do Conteúdo":
-                    value = ReportProblemAction.INCOMP_INFO;
+                    value = ReportProblemAction.UPDATE_INFO;
                     break;
                   case "Ortográfia do Conteúdo":
                     value = ReportProblemAction.WRONG_INFO;
                     break;
-                  case "Problema de Qualidade":
-                    value = ReportProblemAction.TYPE3;
-                    break;
                   case "Erro na Aplicação":
-                    value = ReportProblemAction.TYPE4;
+                    value = ReportProblemAction.ERROR_APP;
                     break;
                   case "Outro problema":
                     value = ReportProblemAction.OTHER;
@@ -80,13 +74,11 @@ class ReportProblem {
       },
     );
 
-    if (action == ReportProblemAction.INCOMP_INFO) {
+    if (action == ReportProblemAction.UPDATE_INFO) {
       print(action);
     } else if (action == ReportProblemAction.WRONG_INFO) {
       print(action);
-    } else if (action == ReportProblemAction.TYPE3) {
-      print(action);
-    } else if (action == ReportProblemAction.TYPE4) {
+    } else if (action == ReportProblemAction.ERROR_APP) {
       print(action);
     } else if (action == ReportProblemAction.OTHER) {
       print(action);
