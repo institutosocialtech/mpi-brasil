@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/screens/terms_use.dart';
 import 'package:mpibrasil/screens/privacy_policy.dart';
-import 'package:mpibrasil/screens/license.dart';
 
 class About extends StatelessWidget {
   final medTitleStyle =
@@ -46,52 +45,75 @@ class AboutList extends StatelessWidget {
         child: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
-        ListTile(
-            title: Text(
-              'App MPI Brasil',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () => showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Container(
-                      color: Colors.green,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("O que é o App MPI Brasil",
-                              style: medTitleStyle),
-                        ],
-                      ),
+        Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/logo-green.png",
+                    fit: BoxFit.fill,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            ' MPI Brasil',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            '2.0.25',
+                            style: TextStyle(
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            ' PMSOCIAL © 2019 Company',
+                            style: TextStyle(
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
                     ),
-                    // Text("O que é o App MPI Brasil"),
-                    content: Text(
-                      " É um instrumento de busca rápida sobre os MPI disponíveis no Brasil, auxiliando o médico no momento da tomada de decisão sobre qual medicamento seria mais apropriado para o paciente idoso. Além de listar os medicamentos considerados MPI, o aplicativo traz informações se o medicamento é MPI independente de condição clínica, se sim, qual o racional para isto e as situações de uso tidas como exceções. Cita se há alguma condição clínica específica que o medicamento deve ser evitado, quais as alternativas terapêuticas mais apropriadas disponíveis e, quando um medicamento não pode ser suspenso subitamente, dá as orientações de desmame (desprescrição). Além disso, caso seja necessário utilizar o MPI, o aplicativo fornece as orientações de monitoramento para tornar o uso do MPI mais seguro. Por fim, as referências bibliográficas utilizadas para cada MPI são disponibilizadas. Há também um glossário de termos médicos utilizados no aplicativo para melhor compreensão.",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  );
-                })),
-        Divider(),
-        ListTile(
-          title: Text(
-            'Versão',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(
-            "2.1",
-            style: TextStyle(
-              fontSize: 15,
+                  ),
+                ],
+              ),
             ),
-            textAlign: TextAlign.justify,
-          ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                ' O Aplicativo MPI Brasil é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.\n  Este aplicativo foi desenvolvido pelo Instituto PMO Social, juntamente com a Universidade Federal da Bahia (UFBA), por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela Universidade Estadual do Sudoeste da Bahia (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+          ],
         ),
+        
         Divider(),
         ListTile(
           title: Text(
@@ -102,20 +124,10 @@ class AboutList extends StatelessWidget {
               icon: Icon(Icons.keyboard_arrow_right),
               color: Colors.grey,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => License(),
-                  ),
-                );
+                showLicensePage(context: context);
               }),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => License(),
-              ),
-            );
+            showLicensePage(context: context);
           },
         ),
         Divider(),
