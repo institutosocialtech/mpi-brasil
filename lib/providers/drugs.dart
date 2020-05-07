@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/drug.dart';
+import 'package:diacritic/diacritic.dart';
 
 class Drugs with ChangeNotifier {
 
@@ -11,7 +12,7 @@ class Drugs with ChangeNotifier {
     if (_drugs.length == 0) {
       fetchMedsFromDB();
     }
-    _drugs.sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()) );
+    _drugs.sort((a, b) => removeDiacritics(a.name).toUpperCase().compareTo(removeDiacritics(b.name).toUpperCase()) );
     return [..._drugs];
   }
 
