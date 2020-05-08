@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.black,
             fontFamily: 'Nunito',
           ),
-          home: auth.isAuth ? HomePage() : AuthScreen(),
+          // home: auth.isAuth ? HomePage() : AuthScreen(),
+          home: HomePage(),
           routes: <String, WidgetBuilder>{
             '/about': (context) => About(),
             '/auth': (context) => AuthScreen(),
