@@ -25,9 +25,8 @@ class Inicio extends StatelessWidget {
               ),
             ),
         Expanded(child: Container(
-          child: Image.asset("assets/images/logo-green.png"),
+          child: Image.asset("assets/images/logo.jpg"),
         )),
-        Text("Data 07/05/2020"),
       ],
     );
   }

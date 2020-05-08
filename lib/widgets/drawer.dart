@@ -8,12 +8,12 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              'MPI Brasil',
-              style: TextStyle(color: Colors.white),
+            child: Image.asset(
+              "assets/images/logo.jpg",
+              fit: BoxFit.fitHeight,
             ),
             decoration: BoxDecoration(
-              color: Colors.green,
+              color: Colors.white,
             ),
           ),
           ListTile(

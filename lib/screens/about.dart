@@ -48,14 +48,18 @@ class AboutList extends StatelessWidget {
         Column(
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(left:20, top: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/logo-green.png",
-                    fit: BoxFit.fill,
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(
+                      "assets/images/logo.jpg",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                   Expanded(
                     child: Column(
@@ -101,7 +105,7 @@ class AboutList extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Text(
                 ' O Aplicativo MPI Brasil é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.\n  Este aplicativo foi desenvolvido pelo Instituto PMO Social, juntamente com a Universidade Federal da Bahia (UFBA), por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela Universidade Estadual do Sudoeste da Bahia (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.',
                 style: TextStyle(
@@ -113,7 +117,6 @@ class AboutList extends StatelessWidget {
             ),
           ],
         ),
-        
         Divider(),
         ListTile(
           title: Text(
