@@ -48,8 +48,9 @@ class MedDetails extends StatelessWidget {
   // Med Title Bar
   Widget drawTitleBar(Med med, BuildContext context) {
     return Container(
+      height: 80,
       color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

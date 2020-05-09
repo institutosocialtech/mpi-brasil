@@ -14,6 +14,12 @@ class FavoritesOverview extends StatelessWidget {
     final favorites = favoriteData.meds;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('MPI Brasil'),
+        titleSpacing: 0.0,
+        elevation: 0,
+      ),
+
       body: Column(
         children: <Widget>[
           Container(
@@ -22,7 +28,7 @@ class FavoritesOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child:
                       Text("Favoritos".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),

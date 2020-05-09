@@ -64,7 +64,7 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.report_problem),
           backgroundColor: Colors.green,
-          label: 'Reportar Erro',
+          label: 'Reportar erro',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
             await ReportProblem().reportProblemAction(context, "${med.name}");

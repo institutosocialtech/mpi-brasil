@@ -17,13 +17,14 @@ class AboutPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
+            height: 80,
             color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Sobre", textScaleFactor: 1.5, style: medTitleStyle),
+                Text("Sobre".toUpperCase(), textScaleFactor: 1.5, style: medTitleStyle),
               ],
             ),
           ),

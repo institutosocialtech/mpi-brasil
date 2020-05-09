@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -27,7 +28,44 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.question_answer,
+                AntDesign.search1
+            ),
+            title: Text('Buscar'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/search');
+            },
+          ),
+
+          ListTile(
+            leading: Icon(
+                AntDesign.medicinebox
+            ),
+            title: Text('Medicamentos'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/meds_overview');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              AntDesign.book,
+            ),
+            title: Text('Glossário'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/keywords_overview');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              MaterialIcons.favorite_border,
+            ),
+            title: Text('Favoritos'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/favorites_overview');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              SimpleLineIcons.question,
             ),
             title: Text('FAQ'),
             onTap: () {
@@ -36,7 +74,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.info,
+              SimpleLineIcons.info,
             ),
             title: Text('Sobre'),
             onTap: () {

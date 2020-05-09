@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Nunito',
           ),
           // home: auth.isAuth ? HomePage() : AuthScreen(),
-          home: HomePage(),
+          home: SearchPage(),
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),

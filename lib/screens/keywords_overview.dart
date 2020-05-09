@@ -16,6 +16,12 @@ class KeywordsOverview extends StatelessWidget {
     final keywords = keywordsData.keywords;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('MPI Brasil'),
+        titleSpacing: 0.0,
+        elevation: 0,
+      ),
+
       body: Column(
         children: <Widget>[
           // Header
@@ -25,7 +31,7 @@ class KeywordsOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Glossário".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],

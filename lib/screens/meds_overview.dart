@@ -16,6 +16,12 @@ class MedsOverview extends StatelessWidget {
     final meds = medsData.meds;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('MPI Brasil'),
+        titleSpacing: 0.0,
+        elevation: 0,
+      ),
+
       body: Column(
         children: <Widget>[
           Container(
@@ -24,7 +30,7 @@ class MedsOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Medicamentos".toUpperCase(),
                       textScaleFactor: 1.5, style: headerStyle),
                 ),

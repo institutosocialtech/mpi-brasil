@@ -46,8 +46,9 @@ class KeywordDetails extends StatelessWidget {
         TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
     return Container(
+      height: 80,
       color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
