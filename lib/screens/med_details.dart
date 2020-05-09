@@ -104,7 +104,7 @@ class MedDetails extends StatelessWidget {
     }
 
     return ExpansionTile(
-      title: Text("Condições a Serem Evitadas", style: headerStyle),
+      title: Text("Quando evitar este MPI", style: headerStyle),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
