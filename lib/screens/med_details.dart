@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:mpibrasil/models/drug.dart';
-import 'package:mpibrasil/widgets/cardReferences.dart';
-import 'package:mpibrasil/widgets/painCard.dart';
-import '../widgets/floatingMenu.dart';
+import 'package:mpibrasil/models/med.dart';
+import 'package:mpibrasil/widgets/pain_card.dart';
+import '../widgets/floating_menu.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class MedicamentoInfo extends StatelessWidget {
-  final Drug drug;
+class MedDetails extends StatelessWidget {
+  final Med med;
 
-  MedicamentoInfo({Key key, this.drug}) : super(key: key);
+  MedDetails({Key key, this.med}) : super(key: key);
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   final headerStyle = TextStyle(fontWeight: FontWeight.bold);
@@ -24,30 +23,30 @@ class MedicamentoInfo extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          drawTitleBar(drug, context),
+          drawTitleBar(med, context),
           Expanded(
             child: ListView(children: <Widget>[
               ListTile(
                   title: Text("Classe Farmacológica", style: headerStyle),
-                  subtitle: Text(drug.drugTypesToString(),
+                  subtitle: Text(med.medTypesToString(),
                       textAlign: TextAlign.justify)),
-              drawConditionsTile(drug),
-              drawAlternatives(drug),
+              drawConditionsTile(med),
+              drawAlternatives(med),
               drawExpansionTile(
-                  "Orientações de Desprescrição", drug.desprescription),
-              drawDrugMonitor(drug),
-              drawDrugReferences(drug),
+                  "Orientações de Desprescrição", med.desprescription),
+              drawMedMonitor(med),
+              drawMedReferences(med),
             ]),
           ),
         ],
       ),
-      floatingActionButton: FloatingMenu(drug: drug),
+      floatingActionButton: FloatingMenu(med: med),
     );
   }
 
   //
-  // Drug Title Bar
-  Widget drawTitleBar(Drug drug, BuildContext context) {
+  // Med Title Bar
+  Widget drawTitleBar(Med med, BuildContext context) {
     return Container(
       color: Colors.green,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -55,7 +54,7 @@ class MedicamentoInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(drug.name.toUpperCase(),
+          Text(med.name.toUpperCase(),
               textScaleFactor: 1.5, style: medTitleStyle),
         ],
       ),
@@ -64,14 +63,14 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // MPI Conditions
-  Widget drawConditionsTile(Drug drug) {
+  Widget drawConditionsTile(Med med) {
     List<Widget> conditionTiles = [];
 
-    if (drug.avoid_conditions == null) return Container();
+    if (med.conditionsToAvoid == null) return Container();
 
-    drug.avoid_conditions
+    med.conditionsToAvoid
         .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
-    for (DrugAvoidCondition item in drug.avoid_conditions) {
+    for (MedAvoidCondition item in med.conditionsToAvoid) {
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
@@ -81,7 +80,7 @@ class MedicamentoInfo extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 child: item.exception != null
                     ? Column(children: <Widget>[
-                        Text(item.condition,
+                        Text(item.name,
                             textAlign: TextAlign.left,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
@@ -92,7 +91,7 @@ class MedicamentoInfo extends StatelessWidget {
                         MarkdownBody(data: item.exception),
                       ])
                     : Column(children: <Widget>[
-                        Text(item.condition,
+                        Text(item.name,
                             textAlign: TextAlign.left,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
@@ -116,14 +115,14 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // MPI Alternatives
-  Widget drawAlternatives(Drug drug) {
+  Widget drawAlternatives(Med med) {
     List<Widget> alternativeTiles = [];
 
-    if (drug.alternatives == null) return Container();
+    if (med.alternatives == null) return Container();
 
-    drug.alternatives.sort((a, b) => a.order.compareTo(b.order));
+    med.alternatives.sort((a, b) => a.order.compareTo(b.order));
 
-    for (DrugAlternatives item in drug.alternatives) {
+    for (MedAlternatives item in med.alternatives) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
       } else {
@@ -158,12 +157,12 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // MPI Monitor
-  Widget drawDrugMonitor(Drug drug) {
+  Widget drawMedMonitor(Med med) {
     List<Widget> monitorTiles = [];
 
-    if (drug.monitored_parameters == null) return Container();
+    if (med.parametersToMonitor == null) return Container();
 
-    for (DrugMonitor item in drug.monitored_parameters) {
+    for (MedMonitor item in med.parametersToMonitor) {
       monitorTiles.add(Padding(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
         child: Card(
@@ -171,9 +170,7 @@ class MedicamentoInfo extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: <Widget>[
-                MarkdownBody(data: item.description)
-              ],
+              children: <Widget>[MarkdownBody(data: item.description)],
             ),
           ),
         ),
@@ -193,21 +190,28 @@ class MedicamentoInfo extends StatelessWidget {
 
   //
   // MPI References
-  Widget drawDrugReferences(Drug drug) {
+  Widget drawMedReferences(Med med) {
     List<Widget> referenceTiles = [];
 
-    if (drug.references == null) return Container();
+    if (med.references == null) return Container();
 
-    for (DrugReference item in drug.references) {
-      referenceTiles.add(
-        Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: InkWell(
-            child: Card(elevation: 5, child: ReferencesCard(item)),
-            onTap: () => launch(item.url),
+    for (MedReference item in med.references) {
+      referenceTiles.add(Padding(
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+        child: InkWell(
+          child: Card(
+            elevation: 5,
+            child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  item.title,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
           ),
+          onTap: () => launch(item.url),
         ),
-      );
+      ));
     }
 
     return ExpansionTile(

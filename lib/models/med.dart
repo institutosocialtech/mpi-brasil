@@ -1,46 +1,46 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'drug.g.dart'; //where the json parser for this class will be generated
+part 'med.g.dart'; //where the json parser for this class will be generated
 
 @JsonSerializable(explicitToJson: true)
-class Drug with ChangeNotifier {
+class Med with ChangeNotifier {
   @JsonKey(name: 'name')
   final String id;
   @JsonKey(name: 'active_ingredient')
   final String name;
   @JsonKey(name: 'classes')
-  final List<String>        type;
+  final List<String>        classification;
   @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: null)
-  final List<DrugAvoidCondition> avoid_conditions;
+  final List<MedAvoidCondition> conditionsToAvoid;
   @JsonKey(name: 'alternative_therapies', defaultValue: null)
-  final List<DrugAlternatives>  alternatives;
+  final List<MedAlternatives>  alternatives;
   @JsonKey(name: 'desprescription')
   final String desprescription;
   @JsonKey(name: 'monitored_parameters', defaultValue: null)
-  final List<DrugMonitor>  monitored_parameters;
+  final List<MedMonitor>  parametersToMonitor;
   @JsonKey(name: 'references')
-  final List<DrugReference>  references;
+  final List<MedReference>  references;
 
-  Drug({
+  Med({
     this.id,
     this.name,
-    this.type,
-    this.avoid_conditions,
+    this.classification,
+    this.conditionsToAvoid,
     this.alternatives,
     this.desprescription,
-    this.monitored_parameters,
+    this.parametersToMonitor,
     this.references
   });
 
 
-  factory Drug.fromJson(Map<String, dynamic> json) => _$DrugFromJson(json);
-  Map<String, dynamic> toJson() => _$DrugToJson(this);
+  factory Med.fromJson(Map<String, dynamic> json) => _$MedFromJson(json);
+  Map<String, dynamic> toJson() => _$MedToJson(this);
 
 
-  String drugTypesToString() {
+  String medTypesToString() {
     String output = "";
-    for (String s in type) {
+    for (String s in classification) {
       if (output == "")
         output = s;
       else
@@ -52,34 +52,34 @@ class Drug with ChangeNotifier {
 }
 
 @JsonSerializable()
-class DrugAvoidCondition {
+class MedAvoidCondition {
   @JsonKey(name: 'critical_level')
   final int criticalLevel;
   @JsonKey(name: 'title_condition_to_avoid')
-  final String condition;
+  final String name;
   @JsonKey(name: 'description_condition_to_avoid')
   final String description;
   @JsonKey(name: 'exception_condition_to_avoid')
   final String exception;
 
-  DrugAvoidCondition(
+  MedAvoidCondition(
     
     this.criticalLevel,
-    this.condition,
+    this.name,
     this.description,
     this.exception
     
   );
-    factory DrugAvoidCondition.fromJson(Map<String, dynamic> json) => _$DrugAvoidConditionFromJson(json);
+    factory MedAvoidCondition.fromJson(Map<String, dynamic> json) => _$MedAvoidConditionFromJson(json);
 
-    Map<String, dynamic> toJson() => _$DrugAvoidConditionToJson(this);
+    Map<String, dynamic> toJson() => _$MedAvoidConditionToJson(this);
 
 }
 
 
 @JsonSerializable()
 
-class DrugAlternatives {
+class MedAlternatives {
   @JsonKey(name: 'alternative_therapy_order', defaultValue: 1, fromJson: _stringToInt, toJson: _stringFromInt)
   final int order;
   @JsonKey(name: 'alternative_therapy_title')
@@ -87,14 +87,14 @@ class DrugAlternatives {
   @JsonKey(name: 'alternative_therapy_description')
   final String description;
 
-  DrugAlternatives(
+  MedAlternatives(
     this.order,
     this.alternative,
     this.description
   );
-    factory DrugAlternatives.fromJson(Map<String, dynamic> json) => _$DrugAlternativesFromJson(json);
+    factory MedAlternatives.fromJson(Map<String, dynamic> json) => _$MedAlternativesFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DrugAlternativesToJson(this);
+  Map<String, dynamic> toJson() => _$MedAlternativesToJson(this);
   static int _stringToInt(String number) => number == null ? null : int.parse(number);
   static String _stringFromInt(int number) => number?.toString();
 
@@ -103,36 +103,36 @@ class DrugAlternatives {
 
 @JsonSerializable()
 
-class DrugMonitor {
+class MedMonitor {
   @JsonKey(name: 'monitor_title')
   final String parameter;
   @JsonKey(name: 'monitor_description')
   final String description;
 
-  DrugMonitor(
+  MedMonitor(
     this.parameter,
     this.description,
   );
-    factory DrugMonitor.fromJson(Map<String, dynamic> json) => _$DrugMonitorFromJson(json);
+    factory MedMonitor.fromJson(Map<String, dynamic> json) => _$MedMonitorFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DrugMonitorToJson(this);
+  Map<String, dynamic> toJson() => _$MedMonitorToJson(this);
 
 }
 
 @JsonSerializable()
 
-class DrugReference {
+class MedReference {
   @JsonKey(name: 'reference_title')
-  final String titulo;
+  final String title;
   @JsonKey(name: 'reference_url')
   final String url;
 
-  DrugReference(
-    this.titulo,
+  MedReference(
+    this.title,
     this.url
   );
 
-    factory DrugReference.fromJson(Map<String, dynamic> json) => _$DrugReferenceFromJson(json);
-    Map<String, dynamic> toJson() => _$DrugReferenceToJson(this);
+    factory MedReference.fromJson(Map<String, dynamic> json) => _$MedReferenceFromJson(json);
+    Map<String, dynamic> toJson() => _$MedReferenceToJson(this);
 
 }

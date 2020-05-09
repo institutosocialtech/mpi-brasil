@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../screens/inicio.dart';
-import '../screens/favorites.dart';
-import '../screens/glossario.dart';
-import '../screens/medicamentos.dart';
+import '../screens/search.dart';
+import '../screens/favorites_overview.dart';
+import '../screens/keywords_overview.dart';
+import '../screens/meds_overview.dart';
 import '../widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,10 +17,10 @@ class _HomeState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    Inicio(),
-    Medicamentos(),
-    Glossario(),
-    Favorites(),
+    SearchPage(),
+    MedsOverview(),
+    KeywordsOverview(),
+    FavoritesOverview(),
   ];
 
   @override

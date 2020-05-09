@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/screens/search.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
-import 'providers/drugs.dart';
+import 'providers/meds.dart';
 import 'providers/keywords.dart';
 
 import 'screens/about.dart';
-import 'screens/auth_screen.dart';
+import 'screens/login.dart';
 import 'screens/faq.dart';
-import 'screens/favorites.dart';
-import 'screens/glossario.dart';
-import 'screens/glossario_info.dart';
+import 'screens/favorites_overview.dart';
+import 'screens/keywords_overview.dart';
+import 'screens/keyword_details.dart';
 import 'screens/home.dart';
-import 'screens/medicamento_info.dart';
-import 'screens/medicamentos.dart';
+import 'screens/med_details.dart';
+import 'screens/meds_overview.dart';
 import 'screens/settings.dart';
 
 void main() => runApp(MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Auth()),
-        ChangeNotifierProvider.value(value: Drugs()),
+        ChangeNotifierProvider.value(value: Meds()),
         ChangeNotifierProvider.value(value: Keywords()),
       ],
       child: Consumer<Auth>(
@@ -38,16 +39,17 @@ class MyApp extends StatelessWidget {
           // home: auth.isAuth ? HomePage() : AuthScreen(),
           home: HomePage(),
           routes: <String, WidgetBuilder>{
-            '/about': (context) => About(),
-            '/auth': (context) => AuthScreen(),
-            '/favorites': (context) => Favorites(),
-            '/faq': (context) => FAQ(),
-            '/glossario': (context) => Glossario(),
-            '/glossario_info': (context) => GlossarioInfo(),
+            '/about': (context) => AboutPage(),
+            '/auth': (context) => LoginPage(),
+            '/favorites_overview': (context) => FavoritesOverview(),
+            '/faq': (context) => FAQPage(),
+            '/keywords_overview': (context) => KeywordsOverview(),
+            '/keyword_details': (context) => KeywordDetails(),
             '/home': (context) => HomePage(),
-            '/medicamentos': (context) => Medicamentos(),
-            '/med_info': (context) => MedicamentoInfo(),
-            '/settings': (context) => Settings(),
+            '/search': (context) => SearchPage(),
+            '/meds_overview': (context) => MedsOverview(),
+            '/med_details': (context) => MedDetails(),
+            '/settings': (context) => SettingsPage(),
           },
         ),
       ),

@@ -7,7 +7,7 @@ ReportProblemAction value;
 
 class ReportProblem {
   Future<void> reportProblemAction(
-      BuildContext context, String drugName) async {
+      BuildContext context, String medName) async {
     final action = await showDialog(
       context: context,
       barrierDismissible: true,
@@ -84,9 +84,9 @@ class ReportProblem {
       print(action);
       final MailOptions mailOptions = MailOptions(
         body:
-            'As informações do medicamento $drugName apresentam o seguinte problema: ',
-        // subject: "${drug.name}",
-        subject: "Detectado um problema com o medicamento $drugName",
+            'As informações do medicamento $medName apresentam o seguinte problema: ',
+        // subject: "${med.name}",
+        subject: "Detectado um problema com o medicamento $medName",
         recipients: ['mpibrasil@pmosocial.org'],
         isHTML: true,
       );

@@ -27,14 +27,6 @@ class License extends StatelessWidget {
               ],
             ),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return new StuffInTiles(listOfTiles[index]);
-          //     },
-          //     itemCount: listOfTiles.length,
-          //   ),
-          // ),
         ],
       ),
     );

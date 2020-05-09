@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import '../models/http_exception.dart';
 import '../providers/auth.dart';
 
-enum AuthMode { SignUp, Login }
+enum AuthMode { SIGNUP, LOGIN }
 
-class AuthScreen extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -73,7 +73,7 @@ class _AuthCardState extends State<AuthCard> {
   final _passwordController = TextEditingController();
   var _isLoading = false;
 
-  AuthMode _authMode = AuthMode.Login;
+  AuthMode _authMode = AuthMode.LOGIN;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -110,7 +110,7 @@ class _AuthCardState extends State<AuthCard> {
     });
 
     try {
-      if (_authMode == AuthMode.Login) {
+      if (_authMode == AuthMode.LOGIN) {
         await Provider.of<Auth>(context, listen: false).login(
           _authData['email'],
           _authData['password'],
@@ -166,14 +166,14 @@ class _AuthCardState extends State<AuthCard> {
   }
 
   void _switchAuthMode() {
-    if (_authMode == AuthMode.Login) {
+    if (_authMode == AuthMode.LOGIN) {
       setState(() {
-        _authMode = AuthMode.SignUp;
+        _authMode = AuthMode.SIGNUP;
         _formKey.currentState.reset();
       });
     } else {
       setState(() {
-        _authMode = AuthMode.Login;
+        _authMode = AuthMode.LOGIN;
         _formKey.currentState.reset();
       });
     }
@@ -230,16 +230,16 @@ class _AuthCardState extends State<AuthCard> {
                               _validateEntry('password', value),
                           onSaved: (value) => _authData['password'] = value,
                         ),
-                        if (_authMode == AuthMode.SignUp)
+                        if (_authMode == AuthMode.SIGNUP)
                           TextFormField(
-                            enabled: _authMode == AuthMode.SignUp,
+                            enabled: _authMode == AuthMode.SIGNUP,
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: "Verificar Senha",
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
                             ),
-                            validator: _authMode == AuthMode.SignUp
+                            validator: _authMode == AuthMode.SIGNUP
                                 ? (value) {
                                     if (value.isEmpty ||
                                         value != _passwordController.text)
@@ -254,7 +254,7 @@ class _AuthCardState extends State<AuthCard> {
                     Column(children: <Widget>[
                       SizedBox(height: 5),
                       RaisedButton(
-                        child: Text(_authMode == AuthMode.Login
+                        child: Text(_authMode == AuthMode.LOGIN
                             ? 'Entrar'
                             : 'Cadastrar'),
                         onPressed: _submit,
@@ -268,12 +268,12 @@ class _AuthCardState extends State<AuthCard> {
                       ),
                       SizedBox(height: 5),
                       InkWell(
-                        child: Text(_authMode == AuthMode.Login
+                        child: Text(_authMode == AuthMode.LOGIN
                             ? 'Primeiro acesso? Cadastre aqui!'
                             : 'Já possui cadastro? Faça o Login'),
                         onTap: () => _switchAuthMode(),
                       ),
-                      if (_authMode == AuthMode.Login)
+                      if (_authMode == AuthMode.LOGIN)
                         InkWell(
                           child: Text("Esqueci minha senha"),
                           onTap: () => print('forgotPassword'),

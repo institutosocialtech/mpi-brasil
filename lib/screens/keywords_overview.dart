@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/drug.dart';
-import '../providers/drugs.dart';
-import '../screens/medicamento_info.dart';
+import '../models/keyword.dart';
+import '../providers/keywords.dart';
+import '../screens/keyword_details.dart';
 
-class Medicamentos extends StatelessWidget {
+class KeywordsOverview extends StatelessWidget {
   final headerStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
@@ -12,12 +12,13 @@ class Medicamentos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final drugsData = Provider.of<Drugs>(context);
-    final drugs = drugsData.drugs;
+    final keywordsData = Provider.of<Keywords>(context);
+    final keywords = keywordsData.keywords;
 
     return Scaffold(
       body: Column(
         children: <Widget>[
+          // Header
           Container(
             height: 80,
             color: Colors.green,
@@ -25,48 +26,43 @@ class Medicamentos extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Medicamentos".toUpperCase(),
-                      textScaleFactor: 1.5, style: headerStyle),
+                  child: Text("Glossário".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
-          Expanded(child: DrugList(drugs: drugs)),
+          // Content
+          Expanded(child: KeywordList(keywords: keywords)),
         ],
       ),
     );
   }
 }
 
-class DrugList extends StatelessWidget {
-  const DrugList({Key key, @required this.drugs}) : super(key: key);
-  final List<Drug> drugs;
+class KeywordList extends StatelessWidget {
+  const KeywordList({Key key, @required this.keywords}) : super(key: key);
+
+  final List<Keyword> keywords;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.separated(
-        itemCount: drugs.length,
+        itemCount: keywords.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
-              drugs[index].name,
+              keywords[index].word,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(drugs[index].drugTypesToString()),
-            trailing: IconButton(
-                icon: Icon(Icons.star_border),
-                color: Colors.orangeAccent,
-                onPressed: () {
-                  print("setFavorite \"" + drugs[index].name + "\"");
-                }),
+            subtitle: keywords[index].synonyms == null ? null : Text(keywords[index].synonymsListToString()),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MedicamentoInfo(drug: drugs[index]),
+                  builder: (context) => KeywordDetails(keyword: keywords[index]),
                 ),
               );
             },

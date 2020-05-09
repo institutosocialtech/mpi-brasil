@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/drug.dart';
-import '../providers/drugs.dart';
-import '../screens/medicamento_info.dart';
+import '../models/med.dart';
+import '../providers/meds.dart';
+import '../screens/med_details.dart';
 
-class Favorites extends StatelessWidget {
-  final headerStyle =
-      TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+class MedsOverview extends StatelessWidget {
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final favoriteData = Provider.of<Drugs>(context);
-    final favorites = favoriteData.drugs;
+    final medsData = Provider.of<Meds>(context);
+    final meds = medsData.meds;
 
     return Scaffold(
       body: Column(
@@ -23,44 +25,48 @@ class Favorites extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child:
-                      Text("Favoritos".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
+                  child: Text("Medicamentos".toUpperCase(),
+                      textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
-          Expanded(child: FavoriteList(favorites: favorites)),
+          Expanded(child: MedList(meds: meds)),
         ],
       ),
     );
   }
 }
 
-class FavoriteList extends StatelessWidget {
-  const FavoriteList({Key key, @required this.favorites}) : super(key: key);
-  final List<Drug> favorites;
+class MedList extends StatelessWidget {
+  const MedList({Key key, @required this.meds}) : super(key: key);
+  final List<Med> meds;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.separated(
-        itemCount: favorites.length,
+        itemCount: meds.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
-              favorites[index].name,
+              meds[index].name,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(favorites[index].drugTypesToString()),
+            subtitle: Text(meds[index].medTypesToString()),
             trailing: IconButton(
-                icon: Icon(Icons.star), color: Colors.orange, onPressed: () {}),
+                icon: Icon(Icons.star_border),
+                color: Colors.orangeAccent,
+                onPressed: () {
+                  print("setFavorite \"" + meds[index].name + "\"");
+                }),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MedicamentoInfo(drug: favorites[index]),
+                  builder: (context) => MedDetails(med: meds[index]),
                 ),
               );
             },

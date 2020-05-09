@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:mpibrasil/screens/terms_use.dart';
+import 'package:mpibrasil/screens/terms_of_use.dart';
 import 'package:mpibrasil/screens/privacy_policy.dart';
 
-class About extends StatelessWidget {
+class AboutPage extends StatelessWidget {
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   @override
@@ -146,7 +146,7 @@ class AboutList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TermsUse(),
+                    builder: (context) => TermsOfUsePage(),
                   ),
                 );
               }),
@@ -154,7 +154,7 @@ class AboutList extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TermsUse(),
+                builder: (context) => TermsOfUsePage(),
               ),
             );
           },

@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/keyword.dart';
-import '../providers/keywords.dart';
-import '../screens/glossario_info.dart';
+import '../models/med.dart';
+import '../providers/meds.dart';
+import '../screens/med_details.dart';
 
-class Glossario extends StatelessWidget {
-  final headerStyle = TextStyle(
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
-  );
+class FavoritesOverview extends StatelessWidget {
+  final headerStyle =
+      TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
-    final keywordsData = Provider.of<Keywords>(context);
-    final keywords = keywordsData.keywords;
+    final favoriteData = Provider.of<Meds>(context);
+    final favorites = favoriteData.meds;
 
     return Scaffold(
       body: Column(
         children: <Widget>[
-          // Header
           Container(
             height: 80,
             color: Colors.green,
@@ -26,43 +23,44 @@ class Glossario extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Glossário".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
+                  child:
+                      Text("Favoritos".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
-          // Content
-          Expanded(child: KeywordList(keywords: keywords)),
+          Expanded(child: FavoriteList(favorites: favorites)),
         ],
       ),
     );
   }
 }
 
-class KeywordList extends StatelessWidget {
-  const KeywordList({Key key, @required this.keywords}) : super(key: key);
-
-  final List<Keyword> keywords;
+class FavoriteList extends StatelessWidget {
+  const FavoriteList({Key key, @required this.favorites}) : super(key: key);
+  final List<Med> favorites;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.separated(
-        itemCount: keywords.length,
+        itemCount: favorites.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
-              keywords[index].word,
+              favorites[index].name,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: keywords[index].synonyms == null ? null : Text(keywords[index].synonymsListToString()),
+            subtitle: Text(favorites[index].medTypesToString()),
+            trailing: IconButton(
+                icon: Icon(Icons.star), color: Colors.orange, onPressed: () {}),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => GlossarioInfo(keyword: keywords[index]),
+                  builder: (context) => MedDetails(med: favorites[index]),
                 ),
               );
             },

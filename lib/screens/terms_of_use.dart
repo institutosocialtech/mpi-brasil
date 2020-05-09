@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-class TermsUse extends StatelessWidget {
+class TermsOfUsePage extends StatelessWidget {
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
 

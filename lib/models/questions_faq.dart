@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class QuestionsFaq {
   QuestionsFaq(this.title, this.subtitle);
 

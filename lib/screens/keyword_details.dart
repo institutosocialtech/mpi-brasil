@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/keyword.dart';
 
-class GlossarioInfo extends StatelessWidget {
+class KeywordDetails extends StatelessWidget {
   final Keyword keyword;
-  GlossarioInfo({Key key, this.keyword}) : super(key: key);
+  KeywordDetails({Key key, this.keyword}) : super(key: key);
   final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold);
 
   @override

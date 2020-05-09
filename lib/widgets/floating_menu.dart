@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:share/share.dart';
-import '../models/report_problem.dart';
-import '../models/drug.dart';
+import 'report_problem.dart';
+import '../models/med.dart';
 
 class FloatingMenu extends StatelessWidget {
-  final Drug drug;
-  FloatingMenu({Key key, this.drug}) : super(key: key);
+  final Med med;
+  FloatingMenu({Key key, this.med}) : super(key: key);
 
   Widget build(BuildContext context) {
     return SpeedDial(
       // both default to 16
       marginRight: 18,
       marginBottom: 20,
-      animatedIcon: AnimatedIcons.menu_close,
+      animatedIcon: AnimatedIcons.menu_arrow,
       animatedIconTheme: IconThemeData(size: 22.0),
       // this is ignored if animatedIcon is non null
       // child: Icon(Icons.add),
@@ -47,14 +47,14 @@ class FloatingMenu extends StatelessWidget {
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
             String shareCondicoes = "";
-            if (drug.avoid_conditions != null) {
+            if (med.conditionsToAvoid != null) {
               shareCondicoes = "\n\nCondições a serem evitadas:";
-              for (DrugAvoidCondition c in drug.avoid_conditions) {
-                shareCondicoes += "\n* ${c.condition}";
+              for (MedAvoidCondition c in med.conditionsToAvoid) {
+                shareCondicoes += "\n* ${c.name}";
               }
             }
-            Share.share("${drug.name}" +
-                "\n\nClasse Farmacológica:\n${drug.drugTypesToString()}" +
+            Share.share("${med.name}" +
+                "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
                 "$shareCondicoes" +
                 "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
           },
@@ -67,7 +67,7 @@ class FloatingMenu extends StatelessWidget {
           label: 'Reportar Erro',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
-            await ReportProblem().reportProblemAction(context, "${drug.name}");
+            await ReportProblem().reportProblemAction(context, "${med.name}");
           },
         ),
       ],

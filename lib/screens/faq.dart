@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class FAQ extends StatelessWidget {
+class FAQPage extends StatelessWidget {
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
 
