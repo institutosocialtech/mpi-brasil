@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   final medTitleStyle =
@@ -29,7 +29,10 @@ class PrivacyPolicy extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Markdown(data:privacyPolicy),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: MarkdownWidget(data:privacyPolicy, styleConfig: StyleConfig(pConfig: PConfig(selectable: false))),
+            ),
           ),
         ],
       ),

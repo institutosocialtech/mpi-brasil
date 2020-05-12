@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 
 class FAQPage extends StatelessWidget {
   final medTitleStyle =
@@ -68,7 +68,7 @@ class StuffInTiles extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: <Widget>[MarkdownBody(data: item.title)],
+              children: MarkdownGenerator(data: item.title, styleConfig: StyleConfig(pConfig: PConfig(selectable: false))).widgets,
             ),
           ),
         ),

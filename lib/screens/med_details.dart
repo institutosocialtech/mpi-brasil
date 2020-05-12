@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 import 'package:mpibrasil/models/med.dart';
 import 'package:mpibrasil/widgets/pain_card.dart';
-import '../widgets/floating_menu.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:mpibrasil/widgets/floating_menu.dart';
 
 class MedDetails extends StatelessWidget {
   final Med med;
@@ -15,6 +15,7 @@ class MedDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(med.toJson());
     return Scaffold(
       appBar: AppBar(
         title: Text("MPI Brasil"),
@@ -72,6 +73,25 @@ class MedDetails extends StatelessWidget {
     med.conditionsToAvoid
         .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
     for (MedAvoidCondition item in med.conditionsToAvoid) {
+      List<Widget> conditions = [];
+      conditions.add(Text(item.name,
+          textAlign: TextAlign.left,
+          style: TextStyle(fontWeight: FontWeight.bold)));
+      conditions.add(SizedBox(height: 10));
+      conditions.addAll(MarkdownGenerator(
+              data: item.description,
+              styleConfig: StyleConfig(pConfig: PConfig(selectable: false)))
+          .widgets);
+      conditions.add(SizedBox(height: 10));
+      if (item.exception != null) {
+        conditions.add(
+            Text("Exceção", style: TextStyle(fontWeight: FontWeight.bold)));
+        conditions.addAll(MarkdownGenerator(
+                data: item.exception,
+                styleConfig: StyleConfig(pConfig: PConfig(selectable: false)))
+            .widgets);
+      }
+
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
@@ -79,25 +99,7 @@ class MedDetails extends StatelessWidget {
               elevation: 5,
               child: Padding(
                 padding: EdgeInsets.all(20),
-                child: item.exception != null
-                    ? Column(children: <Widget>[
-                        Text(item.name,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        MarkdownBody(data: item.description),
-                        SizedBox(height: 10),
-                        Text("Exceção",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        MarkdownBody(data: item.exception),
-                      ])
-                    : Column(children: <Widget>[
-                        Text(item.name,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        MarkdownBody(data: item.description),
-                      ]),
+                child: Column(children: conditions),
               )),
         ),
       );
@@ -134,12 +136,17 @@ class MedDetails extends StatelessWidget {
                 elevation: 5,
                 child: Padding(
                     padding: EdgeInsets.all(20),
-                    child: Column(children: [
-                      Text(item.alternative,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      MarkdownBody(data: item.description),
-                    ]))),
+                    child: Column(
+                      children: [
+                        Text(item.alternative,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontWeight: FontWeight.bold))
+                      ]..addAll(MarkdownGenerator(
+                              data: item.description,
+                              styleConfig: StyleConfig(
+                                  pConfig: PConfig(selectable: false)))
+                          .widgets),
+                    ))),
           ),
         );
       }
@@ -171,7 +178,11 @@ class MedDetails extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: <Widget>[MarkdownBody(data: item.description)],
+              children: MarkdownGenerator(
+                      data: item.description,
+                      styleConfig:
+                          StyleConfig(pConfig: PConfig(selectable: false)))
+                  .widgets,
             ),
           ),
         ),
@@ -231,14 +242,20 @@ class MedDetails extends StatelessWidget {
   Widget drawExpansionTile(String title, String content) {
     if (content == null) return Container();
 
-    return ExpansionTile(
-      title: Text(title, style: headerStyle),
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 40, 25),
-          child: MarkdownBody(data: content),
-        ),
-      ],
-    );
+    return ExpansionTile(title: Text(title, style: headerStyle), children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+        child: Card(
+            elevation: 5,
+            child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                    children: MarkdownGenerator(
+                            data: content,
+                            styleConfig: StyleConfig(
+                                pConfig: PConfig(selectable: false)))
+                        .widgets))),
+      )
+    ]);
   }
 }
