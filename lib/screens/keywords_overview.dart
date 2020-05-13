@@ -4,11 +4,40 @@ import '../models/keyword.dart';
 import '../providers/keywords.dart';
 import '../screens/keyword_details.dart';
 
-class KeywordsOverview extends StatelessWidget {
+class KeywordsOverview extends StatefulWidget {
+  @override
+  _KeywordsOverviewState createState() => _KeywordsOverviewState();
+}
+
+class _KeywordsOverviewState extends State<KeywordsOverview> {
+  var _isInit = true;
+  var _isLoading = false;
+
   final headerStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
   );
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Keywords>(context).fetchKeywordsFromDB().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +50,6 @@ class KeywordsOverview extends StatelessWidget {
         titleSpacing: 0.0,
         elevation: 0,
       ),
-
       body: Column(
         children: <Widget>[
           // Header
@@ -31,14 +59,24 @@ class KeywordsOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Text("Glossário".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Text("Glossário".toUpperCase(),
+                      textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
           // Content
-          Expanded(child: KeywordList(keywords: keywords)),
+          Expanded(
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                    )
+                  : KeywordList(keywords: keywords)),
         ],
       ),
     );
@@ -63,12 +101,15 @@ class KeywordList extends StatelessWidget {
               keywords[index].word,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: keywords[index].synonyms == null ? null : Text(keywords[index].synonymsListToString()),
+            subtitle: keywords[index].synonyms == null
+                ? null
+                : Text(keywords[index].synonymsListToString()),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => KeywordDetails(keyword: keywords[index]),
+                  builder: (context) =>
+                      KeywordDetails(keyword: keywords[index]),
                 ),
               );
             },

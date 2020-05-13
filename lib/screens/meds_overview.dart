@@ -4,11 +4,40 @@ import '../models/med.dart';
 import '../providers/meds.dart';
 import '../screens/med_details.dart';
 
-class MedsOverview extends StatelessWidget {
+class MedsOverview extends StatefulWidget {
+  @override
+  _MedsOverviewState createState() => _MedsOverviewState();
+}
+
+class _MedsOverviewState extends State<MedsOverview> {
+  var _isInit = true;
+  var _isLoading = false;
+
   final headerStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
   );
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Meds>(context).fetchMedsFromDB().then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +50,6 @@ class MedsOverview extends StatelessWidget {
         titleSpacing: 0.0,
         elevation: 0,
       ),
-
       body: Column(
         children: <Widget>[
           Container(
@@ -30,14 +58,23 @@ class MedsOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Medicamentos".toUpperCase(),
                       textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
-          Expanded(child: MedList(meds: meds)),
+          Expanded(
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                    )
+                  : MedList(meds: meds)),
         ],
       ),
     );
