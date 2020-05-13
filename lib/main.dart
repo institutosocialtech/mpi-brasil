@@ -24,9 +24,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: Auth()),
-        ChangeNotifierProvider.value(value: Meds()),
-        ChangeNotifierProvider.value(value: Keywords()),
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Meds>(
+          update: (ctx, auth, previous) => Meds(
+            auth.token,
+            previous == null ? [] : previous.meds,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, Keywords>(
+          update: (ctx, auth, previous) => Keywords(
+            auth.token,
+            previous == null ? [] : previous.keywords,
+          ),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -36,8 +48,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.black,
             fontFamily: 'Nunito',
           ),
-          // home: auth.isAuth ? HomePage() : AuthScreen(),
-          home: SearchPage(),
+          home: auth.isAuth ? SearchPage() : LoginPage(),
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),

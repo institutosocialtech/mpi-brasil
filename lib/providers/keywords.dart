@@ -1,36 +1,46 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:diacritic/diacritic.dart';
+import 'package:http/http.dart' as http;
 import '../models/keyword.dart';
 
 class Keywords with ChangeNotifier {
+  List<Keyword> _keywords = [];
+  String authToken;
 
-	List<Keyword> _keywords = [];
+  Keywords(this.authToken, this._keywords);
 
-	List<Keyword> get keywords {
-    if (_keywords.length == 0) {
-      fetchKeywordsFromDB();
-    }
-    _keywords.sort((a,b) => removeDiacritics(a.word).toUpperCase().compareTo(removeDiacritics(b.word).toUpperCase()));
-		return [..._keywords];
-	}
-
-  void fetchKeywordsFromDB() async {
-    const url = 'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json';
-
-    print("loading keyword db...");
-    final response = await http.get(url, headers: {"Accept": "application/json"});
-
-    if (response.statusCode == 200) {
-        print("keyword db loaded, filling list!");
-        Map<String,dynamic> map = json.decode(response.body);
-        map.forEach((String dbID, dynamic values) => _keywords.add(Keyword.fromJson(values)));
-    } else {
-      print("error loading keywords: " + response.statusCode.toString());
-    }
-    print("done loading keywords.");
-    notifyListeners();
+  List<Keyword> get keywords {
+    return [..._keywords];
   }
 
+  Future<void> fetchKeywordsFromDB() async {
+    var url =
+        'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json?auth=$authToken';
+
+    try {
+      print("loading keyword db...");
+      final response = await http.get(url);
+      final data = json.decode(response.body) as Map<String, dynamic>;
+
+      if (data == null) {
+        print("error loading keywords: " + response.statusCode.toString());
+        return;
+      }
+
+      print("keyword db loaded, filling list!");
+      final List<Keyword> loadedKeywords = [];
+      data.forEach((key, value) => loadedKeywords.add(Keyword.fromJson(value)));
+      
+      loadedKeywords.sort((a, b) => removeDiacritics(a.word)
+          .toUpperCase()
+          .compareTo(removeDiacritics(b.word).toUpperCase()));
+      _keywords = loadedKeywords;
+
+      print("done loading keywords.");
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
 }

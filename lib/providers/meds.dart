@@ -1,36 +1,46 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:http/http.dart' as http;
 import '../models/med.dart';
-import 'package:diacritic/diacritic.dart';
 
 class Meds with ChangeNotifier {
-
   List<Med> _meds = [];
+  final String authToken;
+
+  Meds(this.authToken, this._meds);
 
   List<Med> get meds {
-    if (_meds.length == 0) {
-      fetchMedsFromDB();
-    }
-    _meds.sort((a, b) => removeDiacritics(a.name).toUpperCase().compareTo(removeDiacritics(b.name).toUpperCase()) );
     return [..._meds];
   }
 
-  void fetchMedsFromDB() async {
-    const url = 'https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json';
+  Future<void> fetchMedsFromDB() async {
+    var url =
+        'https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json?auth=$authToken';
 
-    print("loading med db...");
-    final response = await http.get(url, headers: {"Accept": "application/json"});
+    try {
+      print("loading med db...");
+      final response = await http.get(url);
+      final data = json.decode(response.body) as Map<String, dynamic>;
 
-    if (response.statusCode == 200) {
-        print("med db loaded, filling list!");
-        Map<String,dynamic> map = json.decode(response.body);
-        map.forEach((key, value) => _meds.add(Med.fromJson(value)));
-    } else {
-      print("error loading meds: " + response.statusCode.toString());
+      if (data == null) {
+        print("error loading meds: " + response.statusCode.toString());
+        return;
+      }
+
+      print("med db loaded, filling list!");
+      List<Med> loadedMeds = [];
+      data.forEach((key, value) => loadedMeds.add(Med.fromJson(value)));
+
+      loadedMeds.sort((a, b) => removeDiacritics(a.name)
+          .toUpperCase()
+          .compareTo(removeDiacritics(b.name).toUpperCase()));
+      _meds = loadedMeds;
+
+      print("done loading meds.");
+      notifyListeners();
+    } catch (error) {
+      throw (error);
     }
-    print("done loading meds.");
-    notifyListeners();
   }
-  
 }
