@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/screens/search.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -15,7 +14,9 @@ import 'screens/keyword_details.dart';
 import 'screens/home.dart';
 import 'screens/med_details.dart';
 import 'screens/meds_overview.dart';
+import 'screens/search.dart';
 import 'screens/settings.dart';
+import 'screens/splashscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,13 +29,13 @@ class MyApp extends StatelessWidget {
           value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Meds>(
-          update: (ctx, auth, previous) => Meds(
+          update: (context, auth, previous) => Meds(
             auth.token,
             previous == null ? [] : previous.meds,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Keywords>(
-          update: (ctx, auth, previous) => Keywords(
+          update: (context, auth, previous) => Keywords(
             auth.token,
             previous == null ? [] : previous.keywords,
           ),
@@ -48,7 +49,15 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.black,
             fontFamily: 'Nunito',
           ),
-          home: auth.isAuth ? SearchPage() : LoginPage(),
+          home: auth.isAuth
+              ? SearchPage()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (context, authResult) =>
+                      authResult.connectionState == ConnectionState.waiting
+                          ? SplashScreen()
+                          : LoginPage(),
+                ),
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),
