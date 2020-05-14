@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth.dart';
+
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -18,28 +21,23 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.tag_faces,
-            ),
-            title: Text('Login'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/auth');
-            },
-          ),
-          ListTile(
-            leading: Icon(
-                AntDesign.search1
-            ),
+            leading: Icon(AntDesign.search1),
             title: Text('Buscar'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/search');
             },
           ),
-
           ListTile(
             leading: Icon(
-                AntDesign.medicinebox
+              MaterialIcons.favorite_border,
             ),
+            title: Text('Favoritos'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/favorites_overview');
+            },
+          ),
+          ListTile(
+            leading: Icon(AntDesign.medicinebox),
             title: Text('Medicamentos'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/meds_overview');
@@ -56,11 +54,11 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              MaterialIcons.favorite_border,
+              Icons.settings,
             ),
-            title: Text('Favoritos'),
+            title: Text('Configurações'),
             onTap: () {
-              Navigator.popAndPushNamed(context, '/favorites_overview');
+              Navigator.popAndPushNamed(context, '/settings');
             },
           ),
           ListTile(
@@ -83,11 +81,13 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.settings,
+              Icons.exit_to_app,
             ),
-            title: Text('Configurações'),
+            title: Text('Sair'),
             onTap: () {
-              Navigator.popAndPushNamed(context, '/settings');
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/');
+              Provider.of<Auth>(context, listen: false).logout();
             },
           ),
         ],
