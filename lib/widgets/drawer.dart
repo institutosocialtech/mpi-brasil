@@ -63,24 +63,6 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              SimpleLineIcons.question,
-            ),
-            title: Text('FAQ'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/faq');
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              SimpleLineIcons.info,
-            ),
-            title: Text('Sobre'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/about');
-            },
-          ),
-          ListTile(
-            leading: Icon(
               Icons.exit_to_app,
             ),
             title: Text('Sair'),
