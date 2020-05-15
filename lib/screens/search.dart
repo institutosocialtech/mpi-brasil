@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
     else {
       final filtered_meds = meds
           .where((element) =>
-              element.name.toUpperCase().contains(query.toUpperCase()))
+              removeDiacritics(element.name).toUpperCase().contains(removeDiacritics(query).toUpperCase()))
           .toList();
       if (filtered_meds.isEmpty){
           return Column(
