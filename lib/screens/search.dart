@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/med.dart';
 import '../providers/meds.dart';
 import '../screens/med_details.dart';
+import 'package:diacritic/diacritic.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   var _isInit = true;
   var _isLoading = false;
+  Widget resultPane = Center(child: Image.asset("assets/images/logo.jpg"));
+
 
   @override
   void didChangeDependencies() {
@@ -30,8 +33,66 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
   }
 
+  Widget drawResults(BuildContext context, String query) {
+      final medsData = Provider.of<Meds>(context);
+    final meds = medsData.meds;
+
+    if (query == null || query.isEmpty)
+      return Center(child: Image.asset("assets/images/logo.jpg"));
+    else {
+      final filtered_meds = meds
+          .where((element) =>
+              element.name.toUpperCase().contains(query.toUpperCase()))
+          .toList();
+      if (filtered_meds.isEmpty){
+          return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  // Center(child: Image.asset("assets/images/logo.jpg")),
+                  Center(child: Text("não foram encontrados resultados para o termo pesquisado.")),
+                ],
+              );
+      }
+      // debug
+      // print(filtered_meds.map((e) => e.name).toList());
+
+      return Container(
+        child: ListView.separated(
+          itemCount: filtered_meds.length,
+          separatorBuilder: (BuildContext context, int index) => Divider(),
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              title: Text(
+                filtered_meds[index].name,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(filtered_meds[index].medTypesToString()),
+              trailing: IconButton(
+                  icon: Icon(Icons.star_border),
+                  color: Colors.orangeAccent,
+                  onPressed: () {
+                    print("setFavorite \"" + filtered_meds[index].name + "\"");
+                  }),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MedDetails(med: filtered_meds[index]),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      );
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('MPI Brasil'),
@@ -42,6 +103,11 @@ class _SearchPageState extends State<SearchPage> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: TextField(
+              onChanged: (query) {               
+                setState((){
+                  resultPane = drawResults(context, query);
+                });
+              },
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(10),
                 border:
@@ -57,32 +123,16 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: Container(
         child: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Center(child: Image.asset("assets/images/logo.jpg")),
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Center(child: CircularProgressIndicator()),
+                  Text("Carregando dados..."),
+                ],
+              )
+            : resultPane,
       ),
       drawer: AppDrawer(),
     );
-  }
-}
-
-class MPISearch extends SearchDelegate<Med> {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [Container()];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return Container();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Container();
   }
 }
