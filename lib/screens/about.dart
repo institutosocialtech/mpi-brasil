@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:mpibrasil/screens/terms_of_use.dart';
-import 'package:mpibrasil/screens/privacy_policy.dart';
+import 'package:mpibrasil/screens/terms_of_use_page.dart';
+import 'package:mpibrasil/screens/privacy_policy_page.dart';
 
 class AboutPage extends StatelessWidget {
   final medTitleStyle =
@@ -173,7 +173,7 @@ class AboutList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PrivacyPolicy(),
+                    builder: (context) => PrivacyPolicyPage(),
                   ),
                 );
               }),
@@ -181,7 +181,7 @@ class AboutList extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PrivacyPolicy(),
+                builder: (context) => PrivacyPolicyPage(),
               ),
             );
           },
