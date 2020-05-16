@@ -33,16 +33,6 @@ class SettingsPage extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   leading: Icon(
-                    SimpleLineIcons.question,
-                  ),
-                  title: Text('FAQ'),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/faq');
-                  },
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(
                     SimpleLineIcons.info,
                   ),
                   title: Text('Sobre'),

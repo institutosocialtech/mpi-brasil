@@ -3,7 +3,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 
-
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,27 +43,28 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
-              AntDesign.book,
-            ),
+            leading: Icon(AntDesign.book),
             title: Text('Glossário'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/keywords_overview');
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.settings,
-            ),
+            leading: Icon(AntDesign.setting),
             title: Text('Configurações'),
             onTap: () {
               Navigator.popAndPushNamed(context, '/settings');
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.exit_to_app,
-            ),
+            leading: Icon(AntDesign.question),
+            title: Text('FAQ'),
+            onTap: () {
+              Navigator.pushNamed(context, '/faq');
+            },
+          ),
+          ListTile(
+            leading: Icon(AntDesign.logout),
             title: Text('Sair'),
             onTap: () {
               Navigator.pop(context);
