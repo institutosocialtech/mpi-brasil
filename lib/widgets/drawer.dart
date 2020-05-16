@@ -12,7 +12,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Image.asset(
-              "assets/images/logo.jpg",
+              "assets/images/logo.png",
               fit: BoxFit.fitHeight,
             ),
             decoration: BoxDecoration(

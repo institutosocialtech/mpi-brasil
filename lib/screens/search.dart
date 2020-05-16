@@ -14,7 +14,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   var _isInit = true;
   var _isLoading = false;
-  Widget resultPane = Center(child: Image.asset("assets/images/logo.jpg"));
+  Widget resultPane = Center(child: Image.asset("assets/images/logo.png"));
 
 
   @override
@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
     final meds = medsData.meds;
 
     if (query == null || query.isEmpty)
-      return Center(child: Image.asset("assets/images/logo.jpg"));
+      return Center(child: Image.asset("assets/images/logo.png"));
     else {
       final filtered_meds = meds
           .where((element) =>
@@ -48,7 +48,7 @@ class _SearchPageState extends State<SearchPage> {
           return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  // Center(child: Image.asset("assets/images/logo.jpg")),
+                  // Center(child: Image.asset("assets/images/logo.png")),
                   Center(child: Text("não foram encontrados resultados para o termo pesquisado.")),
                 ],
               );
