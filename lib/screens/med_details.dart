@@ -28,15 +28,19 @@ class MedDetails extends StatelessWidget {
           Expanded(
             child: ListView(children: <Widget>[
               ListTile(
-                  title: Text("Classe Farmacológica", style: headerStyle),
-                  subtitle: Text(med.medTypesToString(),
-                      textAlign: TextAlign.justify)),
+                title: Text("Classe Farmacológica", style: headerStyle),
+                subtitle: Text(
+                  med.medTypesToString(),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
               drawConditionsTile(med),
               drawAlternatives(med),
               drawExpansionTile(
                   "Orientações de Desprescrição", med.desprescription),
               drawMedMonitor(med),
               drawMedReferences(med),
+              SizedBox(height: 100),
             ]),
           ),
         ],
@@ -104,7 +108,7 @@ class MedDetails extends StatelessWidget {
         ),
       );
     }
-
+    conditionTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text("Quando evitar este MPI", style: headerStyle),
       children: <Widget>[
@@ -151,7 +155,7 @@ class MedDetails extends StatelessWidget {
         );
       }
     }
-
+    alternativeTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text("Alternativas Terapêuticas", style: headerStyle),
       children: <Widget>[
@@ -188,7 +192,7 @@ class MedDetails extends StatelessWidget {
         ),
       ));
     }
-
+    monitorTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text("Monitorar", style: headerStyle),
       children: <Widget>[
@@ -225,7 +229,7 @@ class MedDetails extends StatelessWidget {
         ),
       ));
     }
-
+    referenceTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text("Referências", style: headerStyle),
       children: <Widget>[
@@ -245,16 +249,25 @@ class MedDetails extends StatelessWidget {
     return ExpansionTile(title: Text(title, style: headerStyle), children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-        child: Card(
-            elevation: 5,
-            child: Padding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Card(
+              elevation: 5,
+              child: Padding(
                 padding: EdgeInsets.all(20),
                 child: Column(
-                    children: MarkdownGenerator(
-                            data: content,
-                            styleConfig: StyleConfig(
-                                pConfig: PConfig(selectable: false)))
-                        .widgets))),
+                  children: MarkdownGenerator(
+                    data: content,
+                    styleConfig:
+                        StyleConfig(pConfig: PConfig(selectable: false)),
+                  ).widgets,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
       )
     ]);
   }
