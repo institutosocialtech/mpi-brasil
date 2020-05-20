@@ -16,7 +16,6 @@ class _SearchPageState extends State<SearchPage> {
   var _isLoading = false;
   Widget resultPane = Center(child: Image.asset("assets/images/logo.png"));
 
-
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -34,24 +33,27 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget drawResults(BuildContext context, String query) {
-      final medsData = Provider.of<Meds>(context);
+    final medsData = Provider.of<Meds>(context);
     final meds = medsData.meds;
 
     if (query == null || query.isEmpty)
       return Center(child: Image.asset("assets/images/logo.png"));
     else {
       final filtered_meds = meds
-          .where((element) =>
-              removeDiacritics(element.name).toUpperCase().contains(removeDiacritics(query).toUpperCase()))
+          .where((element) => removeDiacritics(element.name)
+              .toUpperCase()
+              .contains(removeDiacritics(query).toUpperCase()))
           .toList();
-      if (filtered_meds.isEmpty){
-          return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  // Center(child: Image.asset("assets/images/logo.png")),
-                  Center(child: Text("não foram encontrados resultados para o termo pesquisado.")),
-                ],
-              );
+      if (filtered_meds.isEmpty) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            // Center(child: Image.asset("assets/images/logo.png")),
+            Center(
+                child: Text(
+                    "não foram encontrados resultados para o termo pesquisado.")),
+          ],
+        );
       }
       // debug
       // print(filtered_meds.map((e) => e.name).toList());
@@ -87,12 +89,10 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
     }
-    
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('MPI Brasil'),
@@ -103,8 +103,8 @@ class _SearchPageState extends State<SearchPage> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: TextField(
-              onChanged: (query) {               
-                setState((){
+              onChanged: (query) {
+                setState(() {
                   resultPane = drawResults(context, query);
                 });
               },
@@ -126,7 +126,11 @@ class _SearchPageState extends State<SearchPage> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Center(child: CircularProgressIndicator()),
+                  Center(
+                      child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                  )),
                   Text("Carregando dados..."),
                 ],
               )
