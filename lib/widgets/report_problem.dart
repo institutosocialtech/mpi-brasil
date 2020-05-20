@@ -6,49 +6,46 @@ enum ReportProblemAction { CANCEL, UPDATE_INFO, WRONG_INFO, ERROR_APP, OTHER }
 ReportProblemAction value;
 
 class ReportProblem {
-  Future<void> reportProblemAction(
-      BuildContext context, String medName) async {
+  Future<void> reportProblemAction(BuildContext context, String medName) async {
     final action = await showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Informar um Problema",
-                textAlign: TextAlign.justify,
-              )),
-          content: Container(
-            height: 200,
-            child: RadioButtonGroup(
-              labels: <String>[
-                "Atualização do Conteúdo",
-                "Ortografia do Conteúdo",
-                "Erro na Aplicação",
-                "Outros ",
-              ],
-              activeColor: Colors.green,
-              onSelected: (String selected) {
-                switch (selected) {
-                  case "Atualização do Conteúdo":
-                    value = ReportProblemAction.UPDATE_INFO;
-                    break;
-                  case "Ortográfia do Conteúdo":
-                    value = ReportProblemAction.WRONG_INFO;
-                    break;
-                  case "Erro na Aplicação":
-                    value = ReportProblemAction.ERROR_APP;
-                    break;
-                  case "Outro problema":
-                    value = ReportProblemAction.OTHER;
-                    break;
-                  default:
-                    value = ReportProblemAction.CANCEL;
-                }
-              },
-            ),
+          title: Text("Informar um Problema"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              RadioButtonGroup(
+                labels: <String>[
+                  "Atualização do Conteúdo",
+                  "Ortografia do Conteúdo",
+                  "Erro na Aplicação",
+                  "Outros ",
+                ],
+                activeColor: Colors.green,
+                onSelected: (String selected) {
+                  switch (selected) {
+                    case "Atualização do Conteúdo":
+                      value = ReportProblemAction.UPDATE_INFO;
+                      break;
+                    case "Ortográfia do Conteúdo":
+                      value = ReportProblemAction.WRONG_INFO;
+                      break;
+                    case "Erro na Aplicação":
+                      value = ReportProblemAction.ERROR_APP;
+                      break;
+                    case "Outro problema":
+                      value = ReportProblemAction.OTHER;
+                      break;
+                    default:
+                      value = ReportProblemAction.CANCEL;
+                  }
+                },
+              ),
+            ],
           ),
           actions: <Widget>[
             //Cancel Button
