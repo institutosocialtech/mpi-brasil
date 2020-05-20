@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:markdown_widget/markdown_generator.dart';
 
 class PainCard extends StatefulWidget {
   @override
@@ -191,19 +192,26 @@ class _PainCardState extends State {
   }
 
   void showPainInfo() {
+    var popupMessage =
+        "**Dor Aguda e Agudização da Dor Crônica:** Usar a escada de forma descendente, ou seja, usar o terceiro ou segundo degrau nos primeiros dias e, após resolução da causa de base (ex: cirurgia, trauma, etc.), ir descendo a escada analgésica da OMS.\n\n" +
+        "**Dor Crônica:** Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
+        "**Fonte:** Escada Analgésica da Dor\n(Organização Mundial de Saúde)";
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(""),
-            content: Text(
-              "Dor Aguda e Agudização da Dor Crônica: Usar a escada de forma descendente, ou seja, usar o terceiro ou segundo degrau nos primeiros dias e, após resolução da causa de base (ex: cirurgia, trauma, etc.), ir descendo a escada analgésica da OMS.\n\n" +
-              "Dor Crônica: Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
-              "Fonte: Escada Analgésica da Dor (Organização Mundial de Saúde)"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: MarkdownGenerator(data: popupMessage).widgets,
+            ),
             actions: <Widget>[
               FlatButton(
                 child: Text("Fechar"),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
