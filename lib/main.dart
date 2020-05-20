@@ -15,7 +15,6 @@ import 'screens/home.dart';
 import 'screens/med_details.dart';
 import 'screens/meds_overview.dart';
 import 'screens/search.dart';
-import 'screens/settings.dart';
 import 'screens/splashscreen.dart';
 
 void main() => runApp(MyApp());
@@ -69,7 +68,6 @@ class MyApp extends StatelessWidget {
             '/search': (context) => SearchPage(),
             '/meds_overview': (context) => MedsOverview(),
             '/med_details': (context) => MedDetails(),
-            '/settings': (context) => SettingsPage(),
           },
         ),
       ),

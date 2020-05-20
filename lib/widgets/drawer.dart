@@ -50,10 +50,10 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(AntDesign.setting),
-            title: Text('Configurações'),
+            leading: Icon(AntDesign.info),
+            title: Text('Sobre'),
             onTap: () {
-              Navigator.popAndPushNamed(context, '/settings');
+              Navigator.pushNamed(context, '/about');
             },
           ),
           ListTile(
