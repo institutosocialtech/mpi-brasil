@@ -13,31 +13,31 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Informar um Problema"),
+          title: Text("Reportar um erro:"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               RadioButtonGroup(
                 labels: <String>[
-                  "Atualização do Conteúdo",
-                  "Ortografia do Conteúdo",
-                  "Erro na Aplicação",
-                  "Outros ",
+                  "Informação",
+                  "Ortografia",
+                  "Bug",
+                  "Outros",
                 ],
                 activeColor: Colors.green,
                 onSelected: (String selected) {
                   switch (selected) {
-                    case "Atualização do Conteúdo":
+                    case "Informação":
                       value = ReportProblemAction.UPDATE_INFO;
                       break;
-                    case "Ortográfia do Conteúdo":
+                    case "Ortografia":
                       value = ReportProblemAction.WRONG_INFO;
                       break;
-                    case "Erro na Aplicação":
+                    case "Bug":
                       value = ReportProblemAction.ERROR_APP;
                       break;
-                    case "Outro problema":
+                    case "Outros":
                       value = ReportProblemAction.OTHER;
                       break;
                     default:
