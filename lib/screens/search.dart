@@ -55,9 +55,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         );
       }
-      // debug
-      // print(filtered_meds.map((e) => e.name).toList());
-
+      
       return Container(
         child: ListView.separated(
           itemCount: filtered_meds.length,
