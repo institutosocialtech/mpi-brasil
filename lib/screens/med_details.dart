@@ -15,7 +15,6 @@ class MedDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(med.toJson());
     return Scaffold(
       appBar: AppBar(
         title: Text("MPI Brasil"),
