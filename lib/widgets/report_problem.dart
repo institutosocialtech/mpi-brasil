@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 
-enum ReportProblemAction { CANCEL, UPDATE_INFO, WRONG_INFO, ERROR_APP, OTHER }
-ReportProblemAction value;
+enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
 class ReportProblem {
-  Future<void> reportProblemAction(BuildContext context, String medName) async {
+  ReportAction _reportAction;
+
+  Future<void> showReportDialog(BuildContext context, String medName) async {
     final action = await showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
@@ -29,19 +30,17 @@ class ReportProblem {
                 onSelected: (String selected) {
                   switch (selected) {
                     case "Informação":
-                      value = ReportProblemAction.UPDATE_INFO;
+                      _reportAction = ReportAction.MED_INFO;
                       break;
                     case "Ortografia":
-                      value = ReportProblemAction.WRONG_INFO;
+                      _reportAction = ReportAction.TEXT_TYPO;
                       break;
                     case "Bug":
-                      value = ReportProblemAction.ERROR_APP;
+                      _reportAction = ReportAction.APP_BUG;
                       break;
                     case "Outros":
-                      value = ReportProblemAction.OTHER;
+                      _reportAction = ReportAction.OTHER;
                       break;
-                    default:
-                      value = ReportProblemAction.CANCEL;
                   }
                 },
               ),
@@ -50,45 +49,54 @@ class ReportProblem {
           actions: <Widget>[
             //Cancel Button
             FlatButton(
-              onPressed: () =>
-                  Navigator.of(context).pop(ReportProblemAction.CANCEL),
-              child: const Text(
-                "Cancelar",
-                style: TextStyle(color: Colors.green),
-              ),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Cancelar", style: TextStyle(color: Colors.green)),
             ),
             //Send Button
-            RaisedButton(
+            FlatButton(
               color: Colors.green,
-              onPressed: () => Navigator.of(context).pop(value),
-              child: const Text(
-                "Enviar",
-                style: TextStyle(color: Colors.white),
-              ),
+              onPressed: () => Navigator.of(context).pop(_reportAction),
+              child: Text("Enviar", style: TextStyle(color: Colors.white)),
             ),
           ],
         );
       },
     );
 
-    if (action == ReportProblemAction.UPDATE_INFO) {
-      print(action);
-    } else if (action == ReportProblemAction.WRONG_INFO) {
-      print(action);
-    } else if (action == ReportProblemAction.ERROR_APP) {
-      print(action);
-    } else if (action == ReportProblemAction.OTHER) {
-      print(action);
-      final MailOptions mailOptions = MailOptions(
-        body:
-            'As informações do medicamento $medName apresentam o seguinte problema: ',
-        // subject: "${med.name}",
-        subject: "Detectado um problema com o medicamento $medName",
-        recipients: ['mpibrasil@pmosocial.org'],
-        isHTML: true,
-      );
+    switch (action) {
+      case ReportAction.MED_INFO:
+        print("$action [$medName]");
+        break;
 
-      FlutterMailer.send(mailOptions);
+      case ReportAction.TEXT_TYPO:
+        print("$action [$medName]");
+        break;
+
+      case ReportAction.APP_BUG:
+        print("$action [$medName]");
+        break;
+
+      case ReportAction.OTHER:
+        print("$action [$medName]");
+        final mailOptions = MailOptions(
+          body:
+              'As informações do medicamento $medName apresentam o seguinte problema: ',
+          subject: "Detectado um problema com o medicamento $medName",
+          recipients: ['mpibrasil@pmosocial.org'],
+          isHTML: true,
+        );
+        FlutterMailer.send(mailOptions);
+        break;
+
+      // do nothing if the user clicks cancel
+      default:
+        return;
     }
+
+    // display report info
+    final snackbar = SnackBar(
+      content: Text("Obrigado por contribuir com a app!"),
+    );
+    Scaffold.of(context).showSnackBar(snackbar);
   }
 }
