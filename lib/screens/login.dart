@@ -276,7 +276,7 @@ class _AuthCardState extends State<AuthCard> {
                       if (_authMode == AuthMode.LOGIN)
                         InkWell(
                           child: Text("Esqueci minha senha"),
-                          onTap: () => print('forgotPassword'),
+                          onTap: () => Navigator.pushNamed(context, '/forgot_password'),
                         ),
                     ]),
                   ],
