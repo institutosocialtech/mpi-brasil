@@ -14,9 +14,13 @@ class Meds with ChangeNotifier {
     return [..._meds];
   }
 
-  Future<void> fetchMedsFromDB() async {
+  Future<void> fetchMedsFromDB({force: false}) async {
     var url =
         'https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json?auth=$authToken';
+
+    if (!(force || _meds.length == 0)) {
+      return;
+    }
 
     try {
       print("loading med db...");

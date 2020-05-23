@@ -14,9 +14,13 @@ class Keywords with ChangeNotifier {
     return [..._keywords];
   }
 
-  Future<void> fetchKeywordsFromDB() async {
+  Future<void> fetchKeywordsFromDB({force: false}) async {
     var url =
         'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json?auth=$authToken';
+
+    if (!(force || _keywords.length == 0)) {
+      return;
+    }
 
     try {
       print("loading keyword db...");
@@ -31,7 +35,7 @@ class Keywords with ChangeNotifier {
       print("keyword db loaded, filling list!");
       final List<Keyword> loadedKeywords = [];
       data.forEach((key, value) => loadedKeywords.add(Keyword.fromJson(value)));
-      
+
       loadedKeywords.sort((a, b) => removeDiacritics(a.word)
           .toUpperCase()
           .compareTo(removeDiacritics(b.word).toUpperCase()));
