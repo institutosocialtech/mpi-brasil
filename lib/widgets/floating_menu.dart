@@ -67,7 +67,7 @@ class FloatingMenu extends StatelessWidget {
           label: 'Reportar erro',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
-            await ReportProblem().reportProblemAction(context, "${med.name}");
+            await ReportProblem().showReportDialog(context, "${med.name}");
           },
         ),
       ],
