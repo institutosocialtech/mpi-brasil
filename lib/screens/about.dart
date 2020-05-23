@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/screens/terms_of_use_page.dart';
 import 'package:mpibrasil/screens/privacy_policy_page.dart';
+import 'package:mpibrasil/screens/equipe_page.dart';
 
 class AboutPage extends StatelessWidget {
   final medTitleStyle =
@@ -156,6 +157,32 @@ class AboutList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => TermsOfUsePage(),
+              ),
+            );
+          },
+        ),
+        Divider(),
+        ListTile(
+          title: Text(
+            'Quem Somos/Equipe',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          trailing: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              color: Colors.grey,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EquipePage(),
+                  ),
+                );
+              }),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EquipePage(),
               ),
             );
           },
