@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/screens/forgot_password.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),
+            '/forgot_password': (context) => ForgotPassword(),
             '/favorites_overview': (context) => FavoritesOverview(),
             '/faq': (context) => FAQPage(),
             '/keywords_overview': (context) => KeywordsOverview(),
