@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:markdown_widget/markdown_generator.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 
 class PainCard extends StatefulWidget {
   @override
@@ -206,7 +206,7 @@ class _PainCardState extends State {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: MarkdownGenerator(data: popupMessage).widgets,
+              children: MarkdownGenerator(data: popupMessage, styleConfig: StyleConfig(pConfig: PConfig(selectable: false, textConfig: TextConfig(textAlign: TextAlign.justify)))).widgets,
             ),
             actions: <Widget>[
               FlatButton(

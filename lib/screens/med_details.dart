@@ -83,7 +83,10 @@ class MedDetails extends StatelessWidget {
       conditions.add(SizedBox(height: 10));
       conditions.addAll(MarkdownGenerator(
               data: item.description,
-              styleConfig: StyleConfig(pConfig: PConfig(selectable: false)))
+              styleConfig: StyleConfig(
+                  pConfig: PConfig(
+                      selectable: false,
+                      textConfig: TextConfig(textAlign: TextAlign.justify))))
           .widgets);
       conditions.add(SizedBox(height: 10));
       if (item.exception != null) {
@@ -91,7 +94,10 @@ class MedDetails extends StatelessWidget {
             Text("Exceção", style: TextStyle(fontWeight: FontWeight.bold)));
         conditions.addAll(MarkdownGenerator(
                 data: item.exception,
-                styleConfig: StyleConfig(pConfig: PConfig(selectable: false)))
+                styleConfig: StyleConfig(
+                    pConfig: PConfig(
+                        selectable: false,
+                        textConfig: TextConfig(textAlign: TextAlign.justify))))
             .widgets);
       }
 
@@ -145,10 +151,24 @@ class MedDetails extends StatelessWidget {
                             textAlign: TextAlign.left,
                             style: TextStyle(fontWeight: FontWeight.bold))
                       ]..addAll(MarkdownGenerator(
-                              data: item.description,
-                              styleConfig: StyleConfig(
-                                  pConfig: PConfig(selectable: false)))
-                          .widgets),
+                          data: item.description,
+                          styleConfig: StyleConfig(
+                              pConfig: PConfig(
+                                selectable: false,
+                                textConfig:
+                                    TextConfig(textAlign: TextAlign.justify),
+                              ),
+                              olConfig: OlConfig(
+                                indexWidget: (deep, index) {
+                                  index++;
+                                  return Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Text(
+                                      index < 10 ? '  $index.' : '$index.',
+                                    ),
+                                  );
+                                },
+                              ))).widgets),
                     ))),
           ),
         );
@@ -183,8 +203,11 @@ class MedDetails extends StatelessWidget {
             child: Column(
               children: MarkdownGenerator(
                       data: item.description,
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
+                      styleConfig: StyleConfig(
+                          pConfig: PConfig(
+                              selectable: false,
+                              textConfig:
+                                  TextConfig(textAlign: TextAlign.justify))))
                   .widgets,
             ),
           ),
@@ -258,8 +281,22 @@ class MedDetails extends StatelessWidget {
                 child: Column(
                   children: MarkdownGenerator(
                     data: content,
-                    styleConfig:
-                        StyleConfig(pConfig: PConfig(selectable: false)),
+                    styleConfig: StyleConfig(
+                        pConfig: PConfig(
+                          selectable: false,
+                          textConfig: TextConfig(textAlign: TextAlign.justify),
+                        ),
+                        olConfig: OlConfig(
+                          indexWidget: (deep, index) {
+                            index++;
+                            return Container(
+                              margin: EdgeInsets.only(left: 5, right: 5),
+                              child: Text(
+                                index < 10 ? '  $index.' : '$index.',
+                              ),
+                            );
+                          },
+                        )),
                   ).widgets,
                 ),
               ),

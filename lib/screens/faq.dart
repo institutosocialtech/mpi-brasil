@@ -71,7 +71,7 @@ class StuffInTiles extends StatelessWidget {
               children: MarkdownGenerator(
                       data: item.question,
                       styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
+                          StyleConfig(pConfig: PConfig(selectable: false, textConfig: TextConfig(textAlign: TextAlign.justify))))
                   .widgets,
             ),
           ),
