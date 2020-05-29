@@ -60,7 +60,6 @@ class TermsOfUsePage extends StatelessWidget {
         txtNoTermination +
         txtSurvive +
         txtContact;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('MPI Brasil'),
@@ -81,30 +80,31 @@ class TermsOfUsePage extends StatelessWidget {
               ],
             ),
           ),
-           Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: MarkdownWidget(
-                  data: termsOfUse,
-                  styleConfig: StyleConfig(
-                      pConfig: PConfig(
-                        selectable: false,
-                        textConfig: TextConfig(textAlign: TextAlign.justify),
-                      ),
-                      olConfig: OlConfig(
-                        indexWidget: (deep, index) {
-                          index++;
-                          return Container(
-                            margin: EdgeInsets.only(left: 5, right: 5),
-                            child: Text(
-                              index < 10 ? '  $index.' : '$index.',
-                            ),
-                          );
-                        },
-                      )),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: MarkdownWidget(
+                data: termsOfUse,
+                styleConfig: StyleConfig(
+                  pConfig: PConfig(
+                    selectable: false,
+                    textConfig: TextConfig(textAlign: TextAlign.justify),
+                  ),
+                  olConfig: OlConfig(
+                    indexWidget: (deep, index) {
+                      index++;
+                      return Container(
+                        margin: EdgeInsets.only(left: 5, right: 5),
+                        child: Text(
+                          index < 10 ? '  $index.' : '$index.',
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
