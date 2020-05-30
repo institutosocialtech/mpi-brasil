@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/http_exception.dart';
+import '../providers/auth.dart';
 
 class ForgotPassword extends StatelessWidget {
   @override
@@ -96,10 +98,19 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
 
     // send request
     try {
-      // TODO: firebase connection
-      
+      await Provider.of<Auth>(context, listen: false).forgotPassword(email);
+      // success msg
+      final snackbar = SnackBar(
+        content: Text("Solicitação enviada, por favor verifique seu email!"),
+      );
+      Scaffold.of(context).showSnackBar(snackbar);
     } on HttpException catch (error) {
       var errorMessage = 'Falha ao tentar recuperar a senha!';
+
+      if (error.toString() == "EMAIL_NOT_FOUND") {
+        errorMessage = "O endereço de email digitado não está cadastrado!";
+      }
+
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage = 'Erro desconhecido';

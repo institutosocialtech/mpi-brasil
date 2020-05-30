@@ -127,4 +127,23 @@ class Auth with ChangeNotifier {
     final timeToExpiry = _expirationDate.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
+
+  Future<void> forgotPassword(String email) async {
+    const url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+
+    try {
+      final response = await http.post(url,
+          body: json.encode({'requestType': "PASSWORD_RESET", 'email': email}));
+
+      final responseData = json.decode(response.body);
+
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
 }
