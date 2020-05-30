@@ -83,6 +83,7 @@ flutter:
     - assets/images/partners/pmosocial/
     - assets/images/partners/ufba/
     - assets/images/partners/uesb/
+    - assets/undraw/
    
    
   # An image asset can refer to one or more resolution-specific "variants", see
