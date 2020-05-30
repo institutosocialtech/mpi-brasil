@@ -103,25 +103,26 @@ class UesbTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**Universidade Estadual do Sudoeste da Bahia**',
+                      data:
+                          '**Universidade Estadual do Sudoeste da Bahia (UESB)**',
                       styleConfig:
                           StyleConfig(pConfig: PConfig(selectable: false)))
                   .widgets,
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                      data: '**(UESB)**',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
-                  .widgets,
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
+          //   },
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: MarkdownGenerator(
+          //             data: '**(UESB)**',
+          //             styleConfig:
+          //                 StyleConfig(pConfig: PConfig(selectable: false)))
+          //         .widgets,
+          //   ),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,12 +131,14 @@ class UesbTextImageSide extends StatelessWidget {
                 onTap: () {
                   launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
                 },
-                child: SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: Image.asset(
-                    "assets/images/partners/uesb/logo_uesb.png",
-                    fit: BoxFit.scaleDown,
+                child: Center(
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: Image.asset(
+                      "assets/images/partners/uesb/logo_uesb.png",
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
               ),
@@ -187,7 +190,7 @@ class UfbaTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**Universidade Federal da Bahia**',
+                      data: '**Universidade Federal da Bahia (UFBA)**',
                       styleConfig:
                           StyleConfig(pConfig: PConfig(selectable: false)))
                   .widgets,
@@ -200,10 +203,13 @@ class UfbaTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**(UFBA)**',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
-                  .widgets,
+                  data:
+                      'Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA)',
+                  styleConfig: StyleConfig(
+                    pConfig: PConfig(
+                        selectable: false,
+                        textConfig: TextConfig(textAlign: TextAlign.center)),
+                  )).widgets,
             ),
           ),
           Row(
@@ -211,7 +217,7 @@ class UfbaTextImageSide extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 7.0),
                 child: GestureDetector(
                   onTap: () {
                     launch('http://ims.ufba.br/');
@@ -221,7 +227,7 @@ class UfbaTextImageSide extends StatelessWidget {
                     height: 150,
                     child: Image.asset(
                       "assets/images/partners/ufba/logo_ufba.png",
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
@@ -337,7 +343,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**(Instituto PMO Social)**',
+                      data: '**(PMO Social)**',
                       styleConfig:
                           StyleConfig(pConfig: PConfig(selectable: false)))
                   .widgets,
@@ -347,16 +353,20 @@ class PmoSocialTextImageSide extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: () {
-                  launch('http://www.pmosocial.org/');
-                },
-                child: SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: Image.asset(
-                    "assets/images/partners/pmosocial/logo_pmosocial.png",
-                    fit: BoxFit.scaleDown,
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    launch('http://www.pmosocial.org/');
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: Image.asset(
+                      "assets/images/partners/pmosocial/logo_pmo.png",
+                      // "assets/images/partners/pmosocial/logo_pmosocial.png",
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
               ),
@@ -382,13 +392,16 @@ class PmoSocialTextImageSide extends StatelessWidget {
                           ),
                         ),
 
-                        GestureDetector(
-                          onTap: () {
-                            launch(
-                                'https://sites.google.com/site/danielporto/');
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10.0),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left:7.0),
+                        //   child:
+                           GestureDetector(
+                            onTap: () {
+                              launch(
+                                  'https://sites.google.com/site/danielporto/');
+                            },
+                            // child: Padding(
+                            // padding: const EdgeInsets.only(left:10.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: MarkdownGenerator(
@@ -398,8 +411,9 @@ class PmoSocialTextImageSide extends StatelessWidget {
                                           pConfig: PConfig(selectable: false)))
                                   .widgets,
                             ),
+                            // ),
                           ),
-                        ),
+                        // ),
                         GestureDetector(
                           onTap: () {
                             launch('http://github.com/diego-ch');
