@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:markdown_widget/config/style_config.dart';
 import 'package:mpibrasil/screens/terms_of_use_page.dart';
 import 'package:mpibrasil/screens/privacy_policy_page.dart';
 import 'package:mpibrasil/screens/equipe_page.dart';
+import 'package:markdown_widget/markdown_generator.dart';
 
 class AboutPage extends StatelessWidget {
   final medTitleStyle =
@@ -25,7 +27,8 @@ class AboutPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Sobre".toUpperCase(), textScaleFactor: 1.5, style: medTitleStyle),
+                Text("Sobre".toUpperCase(),
+                    textScaleFactor: 1.5, style: medTitleStyle),
               ],
             ),
           ),
@@ -41,6 +44,10 @@ class AboutPage extends StatelessWidget {
 class AboutList extends StatelessWidget {
   final medTitleStyle =
       TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final introduction =
+      'O **Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.';
+  final development =
+      'Este aplicativo foi desenvolvido pelo **Instituto PMO Social**, juntamente com a **Universidade Federal da Bahia (UFBA)**, por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia (UESB)**, por meio do Curso de Medicina, Campus de Vitória da Conquista.';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +57,7 @@ class AboutList extends StatelessWidget {
         Column(
           children: [
             Container(
-              padding: EdgeInsets.only(left:20, top: 20, right: 20),
+              padding: EdgeInsets.only(left: 20, top: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,16 +114,22 @@ class AboutList extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                ' O Aplicativo MPI Brasil é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.\n  Este aplicativo foi desenvolvido pelo Instituto PMO Social, juntamente com a Universidade Federal da Bahia (UFBA), por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela Universidade Estadual do Sudoeste da Bahia (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: <Widget>[
+                    ...MarkdownGenerator(
+                        data: introduction,).widgets,
+                    ...MarkdownGenerator(
+                        data: development,
+                        styleConfig: StyleConfig(
+                          pConfig: PConfig(
+                            selectable: false,
+                            textConfig:
+                                TextConfig(textAlign: TextAlign.justify),
+                          ),
+                        )).widgets,
+                  ],
+                )),
           ],
         ),
         Divider(),
