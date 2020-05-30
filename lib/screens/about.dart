@@ -58,10 +58,8 @@ class AboutList extends StatelessWidget {
                   SizedBox(
                     width: 100,
                     height: 100,
-                    child: Image.asset(
-                      "assets/images/logo.jpg",
-                      fit: BoxFit.fill,
-                    ),
+                    child:
+                        Image.asset("assets/images/logo.png", fit: BoxFit.fill),
                   ),
                   Expanded(
                     child: Column(

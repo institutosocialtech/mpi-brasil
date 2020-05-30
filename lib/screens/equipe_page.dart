@@ -91,7 +91,7 @@ class UesbTextImageSide extends StatelessWidget {
                 width: 150,
                 height: 150,
                 child: Image.asset(
-                  "assets/images/partners/uesb/logouesb.png",
+                  "assets/images/partners/uesb/logo_uesb.png",
                   fit: BoxFit.scaleDown,
                 ),
               ),
@@ -144,7 +144,7 @@ class UfbaTextImageSide extends StatelessWidget {
                 width: 150,
                 height: 150,
                 child: Image.asset(
-                  "assets/images/partners/ufba/ufbalogo.png",
+                  "assets/images/partners/ufba/logo_ufba.png",
                   fit: BoxFit.scaleDown,
                 ),
               ),
@@ -198,7 +198,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 width: 150,
                 height: 150,
                 child: Image.asset(
-                  "assets/images/partners/pmosocial/logo.png",
+                  "assets/images/partners/pmosocial/logo_pmosocial.png",
                   fit: BoxFit.scaleDown,
                 ),
               ),
@@ -409,7 +409,7 @@ Widget PmoSocialIcon() {
     child: Container(
       alignment: Alignment.center,
       child: Image.asset(
-        "assets/images/partners/pmosocial/logo.png",
+        "assets/images/partners/pmosocial/logo_pmosocial.png",
         width: 300,
         height: 100,
       ),
@@ -440,7 +440,7 @@ Widget UfbaIcon() {
           child: Container(
             alignment: Alignment.center,
             child: Image.asset(
-              "assets/images/partners/ufba/ufbalogo.png",
+              "assets/images/partners/ufba/logo_ufba.png",
               width: 300,
               height: 100,
             ),
@@ -529,7 +529,7 @@ Widget UesbIcon() {
           child: Container(
             alignment: Alignment.center,
             child: Image.asset(
-              "assets/images/partners/uesb/logouesb.png",
+              "assets/images/partners/uesb/logo_uesb.png",
               width: 300,
               height: 100,
             ),
