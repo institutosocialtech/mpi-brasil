@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/screens/terms_of_use_page.dart';
 import 'package:mpibrasil/screens/privacy_policy_page.dart';
 import 'package:mpibrasil/screens/equipe_page.dart';
+import 'package:markdown_widget/markdown_widget.dart';
+import 'package:markdown_widget/markdown_generator.dart';
 
 class AboutPage extends StatelessWidget {
   final medTitleStyle =
@@ -25,7 +29,8 @@ class AboutPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Sobre".toUpperCase(), textScaleFactor: 1.5, style: medTitleStyle),
+                Text("Sobre".toUpperCase(),
+                    textScaleFactor: 1.5, style: medTitleStyle),
               ],
             ),
           ),
@@ -50,7 +55,7 @@ class AboutList extends StatelessWidget {
         Column(
           children: [
             Container(
-              padding: EdgeInsets.only(left:20, top: 20, right: 20),
+              padding: EdgeInsets.only(left: 20, top: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,17 +112,85 @@ class AboutList extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                ' O Aplicativo MPI Brasil é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.\n  Este aplicativo foi desenvolvido pelo Instituto PMO Social, juntamente com a Universidade Federal da Bahia (UFBA), por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela Universidade Estadual do Sudoeste da Bahia (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+              padding: const EdgeInsets.all(20),
+              child: RichText(
                 textAlign: TextAlign.justify,
+                text: TextSpan(
+                  style: new TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' O Aplicativo MPI Brasil',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                        text:
+                            ' é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.\n\n'),
+                    TextSpan(
+                        text:
+                            ' O Aplicativo MPI Brasil foi desenvolvido pelo '),
+                    TextSpan(
+                        text:
+                            'Instituto de Gestão de Projetos Sociais (PMO Social)',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: ', juntamente com a '),
+                    TextSpan(
+                        text: 'Universidade Federal da Bahia (UFBA)',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text:
+                            ' por meio do Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) e a '),
+                    TextSpan(
+                        text:
+                            'Universidade Estadual do Sudoeste da Bahia (UESB)',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text:
+                            ' por meio do Curso de Medicina, Campus de Vitória da Conquista.'),
+                  ],
+                ),
               ),
+              // child: Column(
+              //   crossAxisAlignment: CrossAxisAlignment.stretch,
+              //   children: MarkdownGenerator(
+              //           data:
+              //               ' **O Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica. \n\n O Aplicativo MPI Brasil foi desenvolvido pelo **Instituto de Gestão de Projetos Sociais (PMO Social)**, juntamente com a  **Universidade Federal da Bahia (UFBA)** por meio do Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) e a **Universidade Estadual do Sudoeste da Bahia (UESB)** por meio do Curso de Medicina, Campus de Vitória da Conquista.',
+              //           styleConfig:
+              //               StyleConfig(pConfig: PConfig(selectable: false)))
+              //       .widgets,
+              // ),
             ),
           ],
+        ),
+        Divider(),
+        ListTile(
+          title: Text(
+            'Equipe',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          trailing: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              color: Colors.grey,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EquipePage(),
+                  ),
+                );
+              }),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EquipePage(),
+              ),
+            );
+          },
         ),
         Divider(),
         ListTile(
@@ -157,32 +230,6 @@ class AboutList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => TermsOfUsePage(),
-              ),
-            );
-          },
-        ),
-        Divider(),
-        ListTile(
-          title: Text(
-            'Quem Somos/Equipe',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          trailing: IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EquipePage(),
-                  ),
-                );
-              }),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EquipePage(),
               ),
             );
           },
@@ -241,7 +288,6 @@ class AboutList extends StatelessWidget {
               recipients: ['mpibrasil@pmosocial.org'],
               isHTML: true,
             );
-
             FlutterMailer.send(mailOptions);
           },
         ),
