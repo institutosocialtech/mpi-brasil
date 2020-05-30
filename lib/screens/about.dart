@@ -118,7 +118,14 @@ class AboutList extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     ...MarkdownGenerator(
-                        data: introduction,).widgets,
+                        data: introduction,
+                        styleConfig: StyleConfig(
+                          pConfig: PConfig(
+                            selectable: false,
+                            textConfig:
+                                TextConfig(textAlign: TextAlign.justify),
+                          ),
+                        )).widgets,
                     ...MarkdownGenerator(
                         data: development,
                         styleConfig: StyleConfig(
@@ -131,6 +138,32 @@ class AboutList extends StatelessWidget {
                   ],
                 )),
           ],
+        ),
+        Divider(),
+        ListTile(
+          title: Text(
+            'Equipe',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          trailing: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              color: Colors.grey,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EquipePage(),
+                  ),
+                );
+              }),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EquipePage(),
+              ),
+            );
+          },
         ),
         Divider(),
         ListTile(
@@ -170,32 +203,6 @@ class AboutList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => TermsOfUsePage(),
-              ),
-            );
-          },
-        ),
-        Divider(),
-        ListTile(
-          title: Text(
-            'Quem Somos/Equipe',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          trailing: IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EquipePage(),
-                  ),
-                );
-              }),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EquipePage(),
               ),
             );
           },
