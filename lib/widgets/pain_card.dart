@@ -201,7 +201,7 @@ class _PainCardState extends State {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(""),
+            title: Text("Informações"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -210,6 +210,7 @@ class _PainCardState extends State {
             ),
             actions: <Widget>[
               FlatButton(
+                color: Colors.green,
                 child: Text("Fechar"),
                 onPressed: () {
                   Navigator.of(context).pop();
