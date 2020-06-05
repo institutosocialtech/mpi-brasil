@@ -50,7 +50,7 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(AntDesign.info),
+            leading: Icon(AntDesign.infocirlceo),
             title: Text('Sobre'),
             onTap: () {
               Navigator.pushNamed(context, '/about');
