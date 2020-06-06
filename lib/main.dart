@@ -10,6 +10,7 @@ import 'screens/login.dart';
 import 'screens/faq.dart';
 import 'screens/favorites_overview.dart';
 import 'screens/forgot_password.dart';
+import 'screens/loading_screen.dart';
 import 'screens/keywords_overview.dart';
 import 'screens/keyword_details.dart';
 import 'screens/home.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Nunito',
           ),
           home: auth.isAuth
-              ? SearchPage()
+              ? LoadingScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (context, authResult) =>
