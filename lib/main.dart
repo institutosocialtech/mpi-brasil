@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/screens/forgot_password.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
@@ -10,11 +9,13 @@ import 'screens/about.dart';
 import 'screens/login.dart';
 import 'screens/faq.dart';
 import 'screens/favorites_overview.dart';
+import 'screens/forgot_password.dart';
 import 'screens/keywords_overview.dart';
 import 'screens/keyword_details.dart';
 import 'screens/home.dart';
 import 'screens/med_details.dart';
 import 'screens/meds_overview.dart';
+import 'screens/onboarding.dart';
 import 'screens/search.dart';
 import 'screens/splashscreen.dart';
 
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
             '/search': (context) => SearchPage(),
             '/meds_overview': (context) => MedsOverview(),
             '/med_details': (context) => MedDetails(),
+            '/onboarding': (context) => OnboardingScreen(),
           },
         ),
       ),
