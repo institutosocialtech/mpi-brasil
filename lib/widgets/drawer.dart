@@ -53,14 +53,14 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(AntDesign.infocirlceo),
             title: Text('Sobre'),
             onTap: () {
-              Navigator.pushNamed(context, '/about');
+              Navigator.popAndPushNamed(context, '/about');
             },
           ),
           ListTile(
             leading: Icon(AntDesign.question),
             title: Text('FAQ'),
             onTap: () {
-              Navigator.pushNamed(context, '/faq');
+              Navigator.popAndPushNamed(context, '/faq');
             },
           ),
           ListTile(
