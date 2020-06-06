@@ -29,12 +29,14 @@ class MyApp extends StatelessWidget {
           value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Meds>(
+          create: null,
           update: (context, auth, previous) => Meds(
             auth.token,
             previous == null ? [] : previous.meds,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Keywords>(
+          create: null,
           update: (context, auth, previous) => Keywords(
             auth.token,
             previous == null ? [] : previous.keywords,
