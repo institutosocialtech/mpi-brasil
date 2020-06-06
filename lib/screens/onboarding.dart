@@ -5,9 +5,9 @@ class OnboardingScreen extends StatelessWidget {
   final pages = [
     // sobre a app
     PageViewModel(
-      title: 'O que somos?',
+      title: 'O que é o MPI Brasil?',
       body:
-          'Um instrumento de busca rápida sobre medicamentos potencialmente inapropriados para idosos disponíveis no brasil.',
+          'É um instrumento de busca de informações sobre medicamentos potencialmente inapropriados para idosos (MPI) disponíveis no Brasil, baseados em evidências científicas.',
       image: Center(child: Image.asset('assets/undraw/mobile_app.png', height: 175)),
     ),
 
@@ -15,29 +15,35 @@ class OnboardingScreen extends StatelessWidget {
     PageViewModel(
       title: 'Qual a nossa finalidade?',
       body:
-          'Buscamos auxiliar profissionais de saúde na tomada de decisão clínica.',
+          'Buscamos auxiliar profissionais de saúde na tomada de decisão clínica e na realização da escolha do medicamento mais apropriado para cada doença específica e para cada paciente em particular.',
       image: Center(child: Image.asset('assets/undraw/doctors.png', height: 175)),
     ),
 
     // medicamentos
     PageViewModel(
-      title: 'Sobre os Medicamentos',
+      title: 'Medicamentos Inapropriados',
       body:
-          'Saiba como utilizar os medicamentos de acordo com a condição clinica, as orientações de monitoramento, de desprescrição e alternativas terapêuticas apropriadas.',
+          'Acesse as principais informações sobre MPI de acordo com a condição clinica do paciente, com orientações de desprescrição e alternativas terapêuticas mais seguras.',
       image: Center(child: Image.asset('assets/undraw/medical_care.png', height: 175)),
+    ),
+
+    PageViewModel(
+      title: 'E se o MPI for necessário?',
+      body: 'Se mesmo assim, o uso do medicamento inapropriado for necessário, obtenha informações de monitoramento para tornar a farmacoterapia mais segura!',
+      image: Center(child: Image.asset('assets/undraw/medicine.png', height: 175)),
     ),
 
     // glossario
     PageViewModel(
       title: 'Ficou com dúvida?',
-      body: 'Consulte o nosso glossário com mais informações.',
+      body: 'Consulte a FAQ no menu principal do aplicativo.',
       image: Center(child: Image.asset('assets/undraw/questions.png', height: 175)),
     ),
 
     // fim
     PageViewModel(
       title: 'Pronto!',
-      body: 'Você agora pode utilizar o nosso aplicativo.',
+      body: 'Agora você pode utilizar o nosso aplicativo.',
       image: Center(child: Image.asset('assets/undraw/chore_list.png', height: 175)),
     ),
   ];
