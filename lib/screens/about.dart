@@ -117,7 +117,7 @@ class AboutList extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            ' PMSOCIAL © 2019 Company',
+                            ' PMOSOCIAL © 2019 Company',
                             style: TextStyle(
                               // fontWeight: FontWeight.bold,
                               fontSize: 12,
