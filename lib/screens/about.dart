@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:markdown_widget/config/style_config.dart';
-import 'package:mpibrasil/screens/terms_of_use_page.dart';
-import 'package:mpibrasil/screens/privacy_policy_page.dart';
-import 'package:mpibrasil/screens/equipe_page.dart';
 import 'package:markdown_widget/markdown_generator.dart';
+import 'package:markdown_widget/config/style_config.dart';
+
+import '../screens/onboarding.dart';
+import '../screens/terms_of_use_page.dart';
+import '../screens/privacy_policy_page.dart';
+import '../screens/equipe_page.dart';
 
 class AboutPage extends StatelessWidget {
   final medTitleStyle =
@@ -48,8 +50,11 @@ class AboutList extends StatelessWidget {
       'O **Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.';
   final development =
       'Este aplicativo foi desenvolvido pelo **Instituto PMO Social**, juntamente com a **Universidade Federal da Bahia (UFBA)**, por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia (UESB)**, por meio do Curso de Medicina, Campus de Vitória da Conquista.';
+
   @override
   Widget build(BuildContext context) {
+    var tapCount = 0;
+
     return Container(
         child: ListView(
       padding: EdgeInsets.zero,
@@ -65,8 +70,23 @@ class AboutList extends StatelessWidget {
                   SizedBox(
                     width: 100,
                     height: 100,
-                    child:
-                        Image.asset("assets/images/logo.png", fit: BoxFit.fill),
+                    child: InkWell(
+                      child: Image.asset("assets/images/logo.png",
+                          fit: BoxFit.fill),
+                      onTap: () {
+                        if (tapCount == 4) {
+                          tapCount = 0;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OnboardingScreen()),
+                          );
+                        }
+                        else {
+                          tapCount++;
+                        }
+                      },
+                    ),
                   ),
                   Expanded(
                     child: Column(
