@@ -23,7 +23,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(AntDesign.search1),
             title: Text('Buscar'),
             onTap: () {
-              Navigator.popAndPushNamed(context, '/search');
+              // close drawer
+              Navigator.pop(context);
             },
           ),
           // ListTile(
