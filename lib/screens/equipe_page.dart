@@ -153,10 +153,10 @@ class UesbTextImageSide extends StatelessWidget {
                               launch('http://lattes.cnpq.br/6211832014875307');
                             },
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: MarkdownGenerator(
                                       data:
-                                          ' \n**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
+                                          '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
                                       styleConfig: StyleConfig(
                                           pConfig: PConfig(selectable: false)))
                                   .widgets,
@@ -204,13 +204,16 @@ class UfbaTextImageSide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
                   data:
-                      'Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA)',
+                      'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
                   styleConfig: StyleConfig(
                     pConfig: PConfig(
                         selectable: false,
                         textConfig: TextConfig(textAlign: TextAlign.center)),
                   )).widgets,
             ),
+          ),
+          SizedBox(
+            height: 10
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -243,10 +246,10 @@ class UfbaTextImageSide extends StatelessWidget {
                           launch('http://lattes.cnpq.br/7413684305204869');
                         },
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                                   data:
-                                      '\n**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
+                                      '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
                                   styleConfig: StyleConfig(
                                       pConfig: PConfig(selectable: false)))
                               .widgets,
@@ -257,7 +260,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           launch('http://lattes.cnpq.br/3049611000844978');
                         },
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                                   data:
                                       '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
@@ -271,7 +274,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           launch('http://lattes.cnpq.br/9147688530868098');
                         },
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                                   data:
                                       '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
@@ -285,7 +288,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           launch('http://lattes.cnpq.br/0159826112943067');
                         },
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                                   data:
                                       '**Yago Martins**\nEstudante do Curso de Engenharia da Computação e Desenvolvedor Colaborador',
@@ -382,10 +385,10 @@ class PmoSocialTextImageSide extends StatelessWidget {
                                 'https://www.linkedin.com/in/wilnara-amorim');
                           },
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
                                     data:
-                                        '\n**Wilnara Amorim**\nGerente de Projetos Sociais',
+                                        '**Wilnara Amorim**\nGerente de Projetos Sociais',
                                     styleConfig: StyleConfig(
                                         pConfig: PConfig(selectable: false)))
                                 .widgets,
@@ -395,31 +398,31 @@ class PmoSocialTextImageSide extends StatelessWidget {
                         // Padding(
                         //   padding: const EdgeInsets.only(left:7.0),
                         //   child:
-                           GestureDetector(
-                            onTap: () {
-                              launch(
-                                  'https://sites.google.com/site/danielporto/');
-                            },
-                            // child: Padding(
-                            // padding: const EdgeInsets.only(left:10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: MarkdownGenerator(
-                                      data:
-                                          '**Daniel Porto**\nGerente de Projetos de Tecnologia',
-                                      styleConfig: StyleConfig(
-                                          pConfig: PConfig(selectable: false)))
-                                  .widgets,
-                            ),
-                            // ),
+                        GestureDetector(
+                          onTap: () {
+                            launch(
+                                'https://sites.google.com/site/danielporto/');
+                          },
+                          // child: Padding(
+                          // padding: const EdgeInsets.only(left:10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: MarkdownGenerator(
+                                    data:
+                                        '**Daniel Porto**\nGerente de Projetos de Tecnologia',
+                                    styleConfig: StyleConfig(
+                                        pConfig: PConfig(selectable: false)))
+                                .widgets,
                           ),
+                          // ),
+                        ),
                         // ),
                         GestureDetector(
                           onTap: () {
                             launch('http://github.com/diego-ch');
                           },
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
                                     data:
                                         '**Diego Porto**\nDesenvolvedor Colaborador',
