@@ -177,6 +177,8 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       validator: (value) {
                         if (value.isEmpty || !value.contains('@'))
                           return 'Email Inválido!';
+                        else
+                          return null;
                       },
                       onSaved: (value) => email = value,
                     ),

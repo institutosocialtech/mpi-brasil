@@ -244,6 +244,8 @@ class _AuthCardState extends State<AuthCard> {
                                     if (value.isEmpty ||
                                         value != _passwordController.text)
                                       return 'Senha não confere!';
+                                    else
+                                      return null;
                                   }
                                 : null,
                           ),
