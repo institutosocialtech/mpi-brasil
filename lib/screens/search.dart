@@ -47,14 +47,21 @@ class _SearchPageState extends State<SearchPage> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            // Center(child: Image.asset("assets/images/logo.png")),
             Center(
-                child: Text(
-                    "não foram encontrados resultados para o termo pesquisado.")),
+              child: Column(
+                children: <Widget>[
+                  Image.asset(
+                    "assets/undraw/doctors.png",
+                    width: 128,
+                  ),
+                  Text("Não foram encontrados resultados\npara o termo pesquisado",textAlign: TextAlign.center,),
+                ],
+              ),
+            ),
           ],
         );
       }
-      
+
       return Container(
         child: ListView.separated(
           itemCount: filtered_meds.length,
@@ -119,6 +126,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: Container(
+        color: Colors.white,
         child: _isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
