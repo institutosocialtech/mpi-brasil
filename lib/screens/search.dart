@@ -38,12 +38,12 @@ class _SearchPageState extends State<SearchPage> {
     if (query == null || query.isEmpty)
       return Center(child: Image.asset("assets/images/logo.png"));
     else {
-      final filtered_meds = meds
+      final filteredMeds = meds
           .where((element) => removeDiacritics(element.name)
               .toUpperCase()
               .contains(removeDiacritics(query).toUpperCase()))
           .toList();
-      if (filtered_meds.isEmpty) {
+      if (filteredMeds.isEmpty) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -64,27 +64,27 @@ class _SearchPageState extends State<SearchPage> {
 
       return Container(
         child: ListView.separated(
-          itemCount: filtered_meds.length,
+          itemCount: filteredMeds.length,
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
               title: Text(
-                filtered_meds[index].name,
+                filteredMeds[index].name,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(filtered_meds[index].medTypesToString()),
+              subtitle: Text(filteredMeds[index].medTypesToString()),
               trailing: IconButton(
                   icon: Icon(Icons.star_border),
                   color: Colors.orangeAccent,
                   onPressed: () {
-                    print("setFavorite \"" + filtered_meds[index].name + "\"");
+                    print("setFavorite \"" + filteredMeds[index].name + "\"");
                   }),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MedDetails(med: filtered_meds[index]),
+                    builder: (context) => MedDetails(med: filteredMeds[index]),
                   ),
                 );
               },
