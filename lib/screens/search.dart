@@ -1,9 +1,9 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 import '../providers/meds.dart';
 import '../screens/med_details.dart';
-import 'package:diacritic/diacritic.dart';
+import '../widgets/drawer.dart';
 
 class SearchPage extends StatefulWidget {
   @override
