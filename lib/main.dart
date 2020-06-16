@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
           create: null,
           update: (context, auth, previous) => Meds(
             auth.token,
+            auth.userId,
             previous == null ? [] : previous.meds,
           ),
         ),
