@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'report_problem.dart';
 import '../models/med.dart';
+import '../providers/meds.dart';
+import '../widgets/report_problem.dart';
 
 class FloatingMenu extends StatelessWidget {
   final Med med;
@@ -13,7 +15,7 @@ class FloatingMenu extends StatelessWidget {
       // both default to 16
       marginRight: 18,
       marginBottom: 20,
-      animatedIcon: AnimatedIcons.menu_arrow,
+      animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0),
       // this is ignored if animatedIcon is non null
       // child: Icon(Icons.add),
@@ -33,11 +35,12 @@ class FloatingMenu extends StatelessWidget {
       children: [
         // favoritar
         SpeedDialChild(
-            child: Icon(Icons.favorite),
-            backgroundColor: Colors.green,
-            label: 'Favorito',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('favorito pressed')),
+          child: med.isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+          backgroundColor: Colors.green,
+          label: med.isFavorite ? 'Remover favorito' : 'Adicionar favorito',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () => Provider.of<Meds>(context).toggleFavorite(med.id),
+        ),
 
         // compartilhar
         SpeedDialChild(
