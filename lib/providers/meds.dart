@@ -33,8 +33,13 @@ class Meds with ChangeNotifier {
       }
 
       print("med db loaded, filling list!");
+
       List<Med> loadedMeds = [];
-      data.forEach((key, value) => loadedMeds.add(Med.fromJson(value)));
+      data.forEach((firebaseId, value) {
+        // insert firebase id
+        value['id'] = firebaseId;
+        loadedMeds.add(Med.fromJson(value));
+      });
 
       loadedMeds.sort((a, b) => removeDiacritics(a.name)
           .toUpperCase()

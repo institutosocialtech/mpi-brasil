@@ -34,7 +34,11 @@ class Keywords with ChangeNotifier {
 
       print("keyword db loaded, filling list!");
       final List<Keyword> loadedKeywords = [];
-      data.forEach((key, value) => loadedKeywords.add(Keyword.fromJson(value)));
+      data.forEach((firebaseId, value) {
+        // insert firebaseId
+        value['id'] = firebaseId;
+        loadedKeywords.add(Keyword.fromJson(value));
+      });
 
       loadedKeywords.sort((a, b) => removeDiacritics(a.word)
           .toUpperCase()
