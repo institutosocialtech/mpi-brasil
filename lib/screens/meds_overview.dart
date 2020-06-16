@@ -92,6 +92,9 @@ class MedList extends StatelessWidget {
         itemCount: meds.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
+          bool isFavorite =
+              Provider.of<Meds>(context).isFavorite(meds[index].id);
+
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
@@ -100,11 +103,12 @@ class MedList extends StatelessWidget {
             ),
             subtitle: Text(meds[index].medTypesToString()),
             trailing: IconButton(
-                icon: Icon(Icons.star_border),
-                color: Colors.orangeAccent,
-                onPressed: () {
-                  print("setFavorite \"" + meds[index].name + "\"");
-                }),
+              icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              color: Colors.orangeAccent,
+              onPressed: () {
+                Provider.of<Meds>(context).toggleFavorite(meds[index].id);
+              },
+            ),
             onTap: () {
               Navigator.push(
                 context,
