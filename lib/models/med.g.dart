@@ -8,9 +8,10 @@ part of 'med.dart';
 
 Med _$MedFromJson(Map<String, dynamic> json) {
   return Med(
-    id: json['name'] as String,
+    id: json['id'] as String,
     name: json['active_ingredient'] as String,
-    classification: (json['classes'] as List)?.map((e) => e as String)?.toList(),
+    classification:
+        (json['classes'] as List)?.map((e) => e as String)?.toList(),
     conditionsToAvoid: (json['clinical_conditions_to_avoid'] as List)
         ?.map((e) => e == null
             ? null
@@ -34,7 +35,7 @@ Med _$MedFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$MedToJson(Med instance) => <String, dynamic>{
-      'name': instance.id,
+      'id': instance.id,
       'active_ingredient': instance.name,
       'classes': instance.classification,
       'clinical_conditions_to_avoid':

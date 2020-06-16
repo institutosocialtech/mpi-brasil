@@ -5,7 +5,7 @@ part 'med.g.dart'; //where the json parser for this class will be generated
 
 @JsonSerializable(explicitToJson: true)
 class Med with ChangeNotifier {
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'id')
   final String id;
   @JsonKey(name: 'active_ingredient')
   final String name;

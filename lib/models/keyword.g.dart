@@ -8,7 +8,7 @@ part of 'keyword.dart';
 
 Keyword _$KeywordFromJson(Map<String, dynamic> json) {
   return Keyword(
-    id: json['name'] as String,
+    id: json['id'] as String,
     word: json['word'] as String,
     synonyms: (json['synonyms'] as List)?.map((e) => e as String)?.toList(),
     definition: json['definition'] as String,
@@ -17,7 +17,7 @@ Keyword _$KeywordFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$KeywordToJson(Keyword instance) => <String, dynamic>{
-      'name': instance.id,
+      'id': instance.id,
       'word': instance.word,
       'synonyms': instance.synonyms,
       'definition': instance.definition,
