@@ -10,17 +10,19 @@ class Med with ChangeNotifier {
   @JsonKey(name: 'active_ingredient')
   final String name;
   @JsonKey(name: 'classes')
-  final List<String>        classification;
+  final List<String> classification;
   @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: null)
   final List<MedAvoidCondition> conditionsToAvoid;
   @JsonKey(name: 'alternative_therapies', defaultValue: null)
-  final List<MedAlternatives>  alternatives;
+  final List<MedAlternatives> alternatives;
   @JsonKey(name: 'desprescription')
   final String desprescription;
   @JsonKey(name: 'monitored_parameters', defaultValue: null)
-  final List<MedMonitor>  parametersToMonitor;
+  final List<MedMonitor> parametersToMonitor;
   @JsonKey(name: 'references')
-  final List<MedReference>  references;
+  final List<MedReference> references;
+  @JsonKey(name: 'isFavorite')
+  bool isFavorite;
 
   Med({
     this.id,
@@ -30,13 +32,12 @@ class Med with ChangeNotifier {
     this.alternatives,
     this.desprescription,
     this.parametersToMonitor,
-    this.references
+    this.references,
+    this.isFavorite = false,
   });
-
 
   factory Med.fromJson(Map<String, dynamic> json) => _$MedFromJson(json);
   Map<String, dynamic> toJson() => _$MedToJson(this);
-
 
   String medTypesToString() {
     String output = "";

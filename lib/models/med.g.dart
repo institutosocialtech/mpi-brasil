@@ -31,6 +31,7 @@ Med _$MedFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : MedReference.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    isFavorite: json['isFavorite'] as bool,
   );
 }
 
@@ -46,6 +47,7 @@ Map<String, dynamic> _$MedToJson(Med instance) => <String, dynamic>{
       'monitored_parameters':
           instance.parametersToMonitor?.map((e) => e?.toJson())?.toList(),
       'references': instance.references?.map((e) => e?.toJson())?.toList(),
+      'isFavorite': instance.isFavorite,
     };
 
 MedAvoidCondition _$MedAvoidConditionFromJson(Map<String, dynamic> json) {
