@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../providers/userpreferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -10,9 +13,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future _checkFirstBoot() async {
     final appPrefs = await SharedPreferences.getInstance();
     bool _firstBoot = (appPrefs.getBool('firstBoot') ?? true);
+    Provider.of<UserPreferences>(context).fetchUserData();
 
     if (_firstBoot) {
-      print("first boot!");
       await appPrefs.setBool('firstBoot', false);
       Navigator.pushReplacementNamed(context, '/onboarding');
     } else {
