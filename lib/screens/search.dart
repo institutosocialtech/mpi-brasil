@@ -2,6 +2,7 @@ import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/meds.dart';
+import '../providers/userpreferences.dart';
 import '../screens/med_details.dart';
 import '../widgets/drawer.dart';
 
@@ -67,6 +68,8 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: filteredMeds.length,
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemBuilder: (BuildContext context, int index) {
+            var isFavorite = Provider.of<UserPreferences>(context).isFavorite(filteredMeds[index].id);
+
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
               title: Text(
@@ -75,10 +78,10 @@ class _SearchPageState extends State<SearchPage> {
               ),
               subtitle: Text(filteredMeds[index].medTypesToString()),
               trailing: IconButton(
-                  icon: Icon(Icons.star_border),
+                  icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
                   color: Colors.orangeAccent,
                   onPressed: () {
-                    print("setFavorite \"" + filteredMeds[index].name + "\"");
+                    Provider.of<UserPreferences>(context).toggleFavorite(filteredMeds[index].id);
                   }),
               onTap: () {
                 Navigator.push(
