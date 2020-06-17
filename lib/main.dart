@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/auth.dart';
-import 'providers/meds.dart';
 import 'providers/keywords.dart';
+import 'providers/meds.dart';
+import 'providers/userpreferences.dart';
 
 import 'screens/about.dart';
 import 'screens/login.dart';
@@ -29,6 +30,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, UserPreferences>(
+          create: null,
+          update: (context, auth, previous) => UserPreferences(
+            auth.token,
+            auth.userId,
+            previous == null ? null : previous.user,
+          ),
         ),
         ChangeNotifierProxyProvider<Auth, Meds>(
           create: null,

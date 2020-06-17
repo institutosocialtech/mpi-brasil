@@ -21,9 +21,7 @@ class Med with ChangeNotifier {
   final List<MedMonitor> parametersToMonitor;
   @JsonKey(name: 'references')
   final List<MedReference> references;
-  @JsonKey(name: 'isFavorite')
-  bool isFavorite;
-
+  
   Med({
     this.id,
     this.name,
@@ -32,8 +30,7 @@ class Med with ChangeNotifier {
     this.alternatives,
     this.desprescription,
     this.parametersToMonitor,
-    this.references,
-    this.isFavorite = false,
+    this.references
   });
 
   factory Med.fromJson(Map<String, dynamic> json) => _$MedFromJson(json);
