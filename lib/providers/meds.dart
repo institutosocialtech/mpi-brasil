@@ -7,9 +7,8 @@ import '../models/med.dart';
 class Meds with ChangeNotifier {
   List<Med> _meds = [];
   final String authToken;
-  final String userId;
 
-  Meds(this.authToken, this.userId, this._meds);
+  Meds(this.authToken, this._meds);
 
   List<Med> get meds {
     return [..._meds];
