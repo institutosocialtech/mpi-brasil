@@ -21,11 +21,11 @@ class UserPreferences with ChangeNotifier {
     try {
       print('loading user preferences...');
       final response = await http.get(url);
-      final responseData = json.decode(response.body) as Map<String, dynamic>;
+      var responseData = json.decode(response.body) as Map<String, dynamic>;
 
       if (responseData == null) {
-        print('failed to load user preferences');
-        return;
+        print('new user detected, initializing preferences.'); // todo: handle this during user sign up
+        responseData = new Map<String,dynamic>();
       }
 
       print('done loading user preferences.');
