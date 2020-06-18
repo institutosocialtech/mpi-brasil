@@ -29,6 +29,9 @@ class UserPreferences with ChangeNotifier {
       }
 
       print('done loading user preferences.');
+      // include userId before importing userPreferences
+      responseData['id'] = userId;
+      // import other preferences from the db json reply
       _user = User.fromJson(responseData);
     } catch (error) {
       throw (error);
