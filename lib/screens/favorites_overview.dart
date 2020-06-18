@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/med.dart';
 import '../providers/meds.dart';
+import '../providers/userpreferences.dart';
 import '../screens/med_details.dart';
 
 class FavoritesOverview extends StatelessWidget {
@@ -10,16 +11,12 @@ class FavoritesOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteData = Provider.of<Meds>(context);
-    final favorites = favoriteData.meds;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('MPI Brasil'),
         titleSpacing: 0.0,
         elevation: 0,
       ),
-
       body: Column(
         children: <Widget>[
           Container(
@@ -28,51 +25,87 @@ class FavoritesOverview extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child:
-                      Text("Favoritos".toUpperCase(), textScaleFactor: 1.5, style: headerStyle),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Text("Favoritos".toUpperCase(),
+                      textScaleFactor: 1.5, style: headerStyle),
                 ),
               ],
             ),
           ),
-          Expanded(child: FavoriteList(favorites: favorites)),
+          Expanded(child: FavoriteList()),
         ],
       ),
     );
   }
 }
 
-class FavoriteList extends StatelessWidget {
-  const FavoriteList({Key key, @required this.favorites}) : super(key: key);
-  final List<Med> favorites;
+class FavoriteList extends StatefulWidget {
+  @override
+  _FavoriteListState createState() => _FavoriteListState();
+}
 
+class _FavoriteListState extends State<FavoriteList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.separated(
-        itemCount: favorites.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20),
-            title: Text(
-              favorites[index].name,
-              style: TextStyle(fontWeight: FontWeight.bold),
+    List<Med> _favorites = [];
+    final medList = Provider.of<Meds>(context).meds;
+    final userPreferences = Provider.of<UserPreferences>(context);
+
+    for (Med med in medList) {
+      if (userPreferences.isFavorite(med.id)) {
+        _favorites.add(med);
+      }
+    }
+
+    return _favorites.isEmpty
+        ? Container(
+            color: Colors.white,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset("assets/undraw/doctors.png", width: 128),
+                  Text(
+                    "Não foram encontrados medicamentos favoritos.",
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-            subtitle: Text(favorites[index].medTypesToString()),
-            trailing: IconButton(
-                icon: Icon(Icons.star), color: Colors.orange, onPressed: () {}),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MedDetails(med: favorites[index]),
-                ),
-              );
-            },
+          )
+        : Container(
+            child: ListView.separated(
+              itemCount: _favorites.length,
+              separatorBuilder: (BuildContext context, int index) => Divider(),
+              itemBuilder: (BuildContext context, int index) {
+                var med = _favorites[index];
+
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  title: Text(
+                    med.name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(med.medTypesToString()),
+                  trailing: IconButton(
+                    icon: Icon(Icons.star),
+                    color: Colors.orangeAccent,
+                    onPressed: () {
+                      userPreferences.toggleFavorite(med.id);
+                    },
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MedDetails(med: med),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 }

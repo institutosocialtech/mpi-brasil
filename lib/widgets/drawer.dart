@@ -27,15 +27,13 @@ class AppDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          // ListTile(
-          //   leading: Icon(
-          //     MaterialIcons.favorite_border,
-          //   ),
-          //   title: Text('Favoritos'),
-          //   onTap: () {
-          //     Navigator.popAndPushNamed(context, '/favorites_overview');
-          //   },
-          // ),
+          ListTile(
+            leading: Icon(AntDesign.staro),
+            title: Text('Favoritos'),
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/favorites_overview');
+            },
+          ),
           ListTile(
             leading: Icon(AntDesign.medicinebox),
             title: Text('Medicamentos'),
