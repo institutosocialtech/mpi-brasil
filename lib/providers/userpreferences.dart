@@ -98,8 +98,5 @@ class UserPreferences with ChangeNotifier {
         throw (error);
       }
     }
-
-    // update user data from the api;
-    fetchUserData();
   }
 }
