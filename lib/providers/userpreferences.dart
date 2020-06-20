@@ -49,6 +49,34 @@ class UserPreferences with ChangeNotifier {
   }
 
   //
+  // update user data
+  //
+  Future<void> updateUserData(
+      String name, String occupation, DateTime birthDate) async {
+    var url =
+        'https://mpibrasil.firebaseio.com/users/$userId.json?auth=$authToken';
+
+    print('updating user data...');
+    try {
+      // make the api call to update user preferences
+      final response = await http.put(
+        url,
+        body: json.encode({
+          'name': name,
+          'occupation': occupation,
+          'birth_date': birthDate.toString(),
+        }),
+      );
+      final responseData = json.decode(response.body);
+
+      // todo: handle api errors
+    } catch (error) {
+      throw (error);
+    }
+    notifyListeners();
+  }
+
+  //
   // check favorite status
   //
   bool isFavorite(String medId) {
