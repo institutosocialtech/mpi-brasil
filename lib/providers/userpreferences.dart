@@ -127,4 +127,21 @@ class UserPreferences with ChangeNotifier {
       }
     }
   }
+
+  Future<void> sendReport(String medName, String errorType) {
+    var url = 'https://mpibrasil.firebaseio.com/app_reports.json?auth=$authToken';
+    try {
+      http.post(
+        url,
+        body: json.encode({
+          'user': userId,
+          'med': medName,
+          'error_type': errorType,
+          'date': DateTime.now().toString(),
+        }),
+      );
+    } catch (error) {
+      throw (error);
+    }
+  }
 }

@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:provider/provider.dart';
+import '../providers/userpreferences.dart';
 
 enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
@@ -65,19 +68,18 @@ class ReportProblem {
 
     switch (action) {
       case ReportAction.MED_INFO:
-        print("$action [$medName]");
+        Provider.of<UserPreferences>(context).sendReport(medName, 'MED_INFO');
         break;
 
       case ReportAction.TEXT_TYPO:
-        print("$action [$medName]");
+        Provider.of<UserPreferences>(context).sendReport(medName, 'TEXT_TYPO');
         break;
 
       case ReportAction.APP_BUG:
-        print("$action [$medName]");
+        Provider.of<UserPreferences>(context).sendReport(medName, 'APP_BUG');
         break;
 
       case ReportAction.OTHER:
-        print("$action [$medName]");
         final mailOptions = MailOptions(
           body:
               'As informações do medicamento $medName apresentam o seguinte problema: ',
