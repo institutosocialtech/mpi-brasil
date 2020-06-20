@@ -20,6 +20,7 @@ import 'screens/meds_overview.dart';
 import 'screens/onboarding.dart';
 import 'screens/search.dart';
 import 'screens/splashscreen.dart';
+import 'screens/userprofile_overview.dart';
 
 void main() => runApp(MyApp());
 
@@ -74,16 +75,17 @@ class MyApp extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),
-            '/forgot_password': (context) => ForgotPassword(),
-            '/favorites_overview': (context) => FavoritesOverview(),
             '/faq': (context) => FAQPage(),
-            '/keywords_overview': (context) => KeywordsOverview(),
-            '/keyword_details': (context) => KeywordDetails(),
+            '/favorites_overview': (context) => FavoritesOverview(),
+            '/forgot_password': (context) => ForgotPassword(),
             '/home': (context) => HomePage(),
-            '/search': (context) => SearchPage(),
-            '/meds_overview': (context) => MedsOverview(),
+            '/keyword_details': (context) => KeywordDetails(),
+            '/keywords_overview': (context) => KeywordsOverview(),
             '/med_details': (context) => MedDetails(),
+            '/meds_overview': (context) => MedsOverview(),
             '/onboarding': (context) => OnboardingScreen(),
+            '/profile_setup': (context) => UserProfileOverview(),
+            '/search': (context) => SearchPage(),
           },
         ),
       ),

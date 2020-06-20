@@ -13,9 +13,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future _checkFirstBoot() async {
     final appPrefs = await SharedPreferences.getInstance();
     bool _firstBoot = (appPrefs.getBool('firstBoot') ?? true);
-    Provider.of<UserPreferences>(context).fetchUserData();
+    
+    var userPreferences = Provider.of<UserPreferences>(context);
+    await userPreferences.fetchUserData();
 
-    if (_firstBoot) {
+    if (userPreferences.user.name == null) {
+      print('loading profile setup...');
+      await appPrefs.setBool('firstBoot', false);
+      Navigator.pushReplacementNamed(context, '/profile_setup');
+    }
+
+    else if (_firstBoot) {
       await appPrefs.setBool('firstBoot', false);
       Navigator.pushReplacementNamed(context, '/onboarding');
     } else {
