@@ -171,6 +171,7 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       obscureText: false,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: "Email",
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
                       ),
