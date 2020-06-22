@@ -1,6 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class FAQ {
+  String question;
+  String answer;
+
+  FAQ(this.question, this.answer);
+}
 
 class FAQPage extends StatelessWidget {
   final medTitleStyle =
@@ -28,156 +36,96 @@ class FAQPage extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return new StuffInTiles(listOfQuestions[index]);
-              },
-              itemCount: listOfQuestions.length,
-            ),
-          ),
+          Expanded(child: FAQList()),
         ],
       ),
     );
   }
 }
 
-class StuffInTiles extends StatelessWidget {
-  final ItemFaq questionsAndAnswer;
-  StuffInTiles(this.questionsAndAnswer);
+class FAQList extends StatelessWidget {
+  // static faq list
+  final List<FAQ> faqList = [
+    new FAQ(
+      'Como podemos definir uma prescrição inapropriada?',
+      'Uma prescrição inapropriada abrange o uso de medicamentos que apresentam um risco significativo de evento adverso, quando há evidência de alternativa igual ou mais efetiva e com menor risco para tratar a mesma condição.',
+    ),
+    new FAQ(
+      'Como prescrever um medicamento apropriado?',
+      'A escolha do medicamento apropriado para cada doença em particular é um processo complexo, pois é essencial que a prescrição seja clinicamente efetiva, segura e tenha uma relação de custo-benefício satisfatória. É necessário contrabalancear a experiência clínica do prescritor e as melhores evidências científicas.',
+    ),
+    new FAQ(
+      'O que é o Consenso Brasileiro de Medicamentos Potencialmente Inapropriados para idosos?',
+      'É um instrumento para detecção de MPI adaptados à realidade brasileira, que divide estes medicamentos em dois grupos:\n\n- MPI independente de condição clínica.\n- MPI a depender de condição clínica.\n\nFoi elaborado através da Técnica Delphi com especialistas nacionais, utilizando como referências principais duas listas internacionais de MPI.',
+    ),
+    new FAQ(
+      'O que são as Reações Adversas a Medicamentos (RAMs)?',
+      'Reação adversa a medicamento é uma resposta nociva e não intencional e que ocorre em doses normalmente utilizadas no homem, para profilaxia, diagnóstico ou tratamento de uma doença ou para modificações de funções fisiológicas. Na assistência ao paciente idoso, é importante ficar atento ao uso de medicamentos, pois muitos fármacos comumente prescritos levam à RAMs potencialmente ameaçadoras à vida ou incapacitantes.',
+    ),
+    new FAQ(
+      'O que é polifarmácia?',
+      'Não há um consenso na literatura, no entanto, a polifarmácia é frequentemente definida como o uso rotineiro de cinco ou mais medicamentos. Alguns autores se referem a polifarmácia como o uso de um número de medicamentos maior do que o clinicamente indicado.',
+    ),
+    new FAQ(
+      'O que é desprescrição?',
+      'A desprescrição é o processo de redução gradual, interrupção, descontinuação ou retirada de medicamentos, com o objetivo de gerenciar a polifarmácia e melhorar os resultados',
+    ),
+    new FAQ(
+      'Como posso contribuir com a informação?',
+      'Sugerindo correções, adicionando medicamentos, informando erros e outras informações.\n\nContacte-nos pelo email: [mpibrasil@pmosocial.org](mailto:mpibrasil@pmosocial.org)',
+    ),
+    new FAQ('Como posso acessar o código?',
+        'O App MPI Brasil é disponibilizado no repositório do GitHub, e foi desenvolvido sob a Licença MIT. Esta licença de código aberto segue incluída no repositório e permite que outras pessoas usem, contribuam, alterem e distribuam livremente o código do aplicativo MPI Brasil. Para obter mais informações sobre esta licença, acesse:\n\nhttps://github.com/pmosocial/mpi-brasil/blob/master/LICENSE'),
+    new FAQ(
+      'Como posso contribuir com a aplicação?',
+      'Através do repositório do projeto disponível em: https://github.com/pmosocial/mpi-brasil',
+    ),
+    new FAQ(
+        'Quais as Instituições envolvidas no desenvolvimento do aplicativo MPI Brasil?',
+        'Este aplicativo (segunda versão) foi desenvolvido  pelo **Instituto de Gestão de Projetos Sociais** (Instituto PMO Social), juntamente com a **Universidade Federal da Bahia** (UFBA), por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia** (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.'),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(questionsAndAnswer);
-  }
-
-  Widget _buildTiles(ItemFaq t) {
-    List<Widget> monitorTiles = [];
-    if (t.answer.isEmpty) {
-      return new ListTile(
-          dense: true,
-          isThreeLine: false,
-          selected: false,
-          title: new Text(t.question));
-    }
-    for (ItemFaq item in t.answer) {
-      monitorTiles.add(Padding(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-        child: Card(
+    return ListView.builder(
+      itemCount: faqList.length,
+      itemBuilder: (BuildContext context, index) {
+        var faq = faqList[index];
+        return Card(
           elevation: 5,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: MarkdownGenerator(
-                      data: item.question,
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false, textConfig: TextConfig(textAlign: TextAlign.justify))))
-                  .widgets,
-            ),
+          margin: EdgeInsets.fromLTRB(15, 10, 15, 5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-      ));
-    }
-    return new ExpansionTile(
-      key: new PageStorageKey<int>(3),
-      title: new Text(
-        t.question,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: monitorTiles,
-        ),
-      ],
+          child: ExpansionTile(
+            title: Text(
+              faq.question,
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: MarkdownGenerator(
+                    data: faq.answer,
+                    styleConfig: StyleConfig(
+                      pConfig: PConfig(
+                        selectable: false,
+                        textConfig: TextConfig(textAlign: TextAlign.justify),
+                        linkStyle: TextStyle(
+                            color: Colors.green, fontWeight: FontWeight.bold),
+                        onLinkTap: (link) => launch(link),
+                      ),
+                    ),
+                  ).widgets,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
-
-class ItemFaq {
-  String question;
-  List<ItemFaq> answer;
-  ItemFaq(this.question, [this.answer = const <ItemFaq>[]]);
-}
-
-List<ItemFaq> listOfQuestions = <ItemFaq>[
-  new ItemFaq(
-    'Como podemos definir uma prescrição inapropriada?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' Uma prescrição inapropriada abrange o uso de medicamentos que apresentam um risco significativo de evento adverso, quando há evidência de alternativa igual ou mais efetiva e com menor risco para tratar a mesma condição.'),
-    ],
-  ),
-  new ItemFaq(
-    'Como prescrever um medicamento apropriado?',
-    <ItemFaq>[
-      new ItemFaq(
-          " A escolha do medicamento apropriado para cada doença em particular é um processo complexo, pois é essencial que a prescrição seja clinicamente efetiva, segura e tenha uma relação de custo-benefício satisfatória. É necessário contrabalancear a experiência clínica do prescritor e as melhores evidências científicas."),
-    ],
-  ),
-  new ItemFaq(
-    'O que é o Consenso Brasileiro de Medicamentos Potencialmente Inapropriados para idosos?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' É um instrumento para detecção de MPI adaptados à realidade brasileira, que divide estes medicamentos em dois grupos:\n\n   - MPI independente de condição clínica.\n   - MPI a depender de condição clínica.\n\n Foi elaborado através da Técnica Delphi com especialistas nacionais, utilizando como referências principais duas listas internacionais de MPI.'),
-    ],
-  ),
-  new ItemFaq(
-    'O que são as Reações Adversas a Medicamentos (RAMs)?',
-    <ItemFaq>[
-      new ItemFaq(
-          " Reação adversa a medicamento é uma resposta nociva e não intencional e que ocorre em doses normalmente utilizadas no homem, para profilaxia, diagnóstico ou tratamento de uma doença ou para modificações de funções fisiológicas. Na assistência ao paciente idoso, é importante ficar atento ao uso de medicamentos, pois muitos fármacos comumente prescritos levam à RAMs potencialmente ameaçadoras à vida ou incapacitantes."),
-    ],
-  ),
-  new ItemFaq(
-    'O que é polifarmácia?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' Não há um consenso na literatura, no entanto, a polifarmácia é frequentemente definida como o uso rotineiro de cinco ou mais medicamentos. Alguns autores se referem a polifarmácia como o uso de um número de medicamentos maior do que o clinicamente indicado.'),
-    ],
-  ),
-  new ItemFaq(
-    'O que é desprescrição?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' A desprescrição é o processo de redução gradual, interrupção, descontinuação ou retirada de medicamentos, com o objetivo de gerenciar a polifarmácia e melhorar os resultados'),
-    ],
-  ),
-  new ItemFaq(
-    'Como posso acessar o código?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' O App MPI Brasil é disponibilizado no repositório do GitHub, e foi desenvolvido sob a Licença MIT . Esta licença de código aberto segue incluída no repositório e permite que outras pessoas usem, contribuam, alterem e distribuam livremente o código do aplicativo MPI Brasil. Para obter mais informações sobre esta licença MIT, acesse: https://github.com/pmosocial/mpi-brasil/blob/master/LICENSE'),
-    ],
-  ),
-  new ItemFaq(
-    'Como posso contribuir com a informação?',
-    <ItemFaq>[
-      new ItemFaq(
-          ' Sugerindo correções, adicionando medicamentos, informando erros e outras informações. Contacte-nos pelo email **mpibrasil@pmosocial.org**'),
-    ],
-  ),
-  new ItemFaq(
-    "Como posso contribuir com a aplicação?",
-    <ItemFaq>[
-      new ItemFaq(
-          " Através do repositório do projeto disponível em: https://github.com/pmosocial/mpi-brasil"),
-    ],
-  ),
-  new ItemFaq(
-    "Quais as Instituições envolvidas no desenvolvimento do aplicativo MPI Brasil?",
-    <ItemFaq>[
-      new ItemFaq(
-          " Este aplicativo (segunda versão) foi desenvolvido  pelo Instituto de Gestão de Projetos Sociais (Instituto PMO Social), juntamente com a Universidade Federal da Bahia (UFBA), por meio do Instituto Multidisciplinar em Saúde- Campus Anísio Teixeira (IMS-CAT/UFBA) e pela Universidade Estadual do Sudoeste da Bahia (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista."),
-    ],
-  ),
-  // new ItemFaq(
-  //   "",
-  //   <ItemFaq>[
-  //     new ItemFaq(
-  //         ""),
-  //   ],
-  // ),
-];
