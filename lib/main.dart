@@ -20,6 +20,7 @@ import 'screens/meds_overview.dart';
 import 'screens/onboarding.dart';
 import 'screens/search.dart';
 import 'screens/splashscreen.dart';
+import 'screens/terms_of_use_page.dart';
 import 'screens/userprofile_overview.dart';
 
 void main() => runApp(MyApp());
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
             '/onboarding': (context) => OnboardingScreen(),
             '/profile_setup': (context) => UserProfileOverview(),
             '/search': (context) => SearchPage(),
+            '/tos': (context) => TermsOfUsePage(),
           },
         ),
       ),
