@@ -88,13 +88,13 @@ class MedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       child: ListView.separated(
         itemCount: meds.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
-          var isFavorite = Provider.of<UserPreferences>(context).isFavorite(meds[index].id);
+          var isFavorite =
+              Provider.of<UserPreferences>(context).isFavorite(meds[index].id);
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
@@ -106,7 +106,22 @@ class MedList extends StatelessWidget {
               icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
               color: Colors.orangeAccent,
               onPressed: () {
-                Provider.of<UserPreferences>(context).toggleFavorite(meds[index].id);
+                Provider.of<UserPreferences>(context)
+                    .toggleFavorite(meds[index].id);
+                if (isFavorite) {
+                  final snackbar = SnackBar(
+                    content: Text('"${meds[index].name}" removido dos favoritos.'),
+                    action: SnackBarAction(
+                      label: 'Desfazer',
+                      textColor: Colors.white,
+                      onPressed: () {
+                        Provider.of<UserPreferences>(context)
+                            .toggleFavorite(meds[index].id);
+                      },
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackbar);
+                }
               },
             ),
             onTap: () {

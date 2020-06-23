@@ -65,9 +65,9 @@ class _FavoriteListState extends State<FavoriteList> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("assets/undraw/doctors.png", width: 128),
+                  Image.asset("assets/undraw/doctors.png", width: 192),
                   Text(
-                    "Não foram encontrados medicamentos favoritos.",
+                    "Você não possui nenhum medicamento favorito.",
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -93,6 +93,17 @@ class _FavoriteListState extends State<FavoriteList> {
                     color: Colors.orangeAccent,
                     onPressed: () {
                       userPreferences.toggleFavorite(med.id);
+                      final snackbar = SnackBar(
+                        content: Text('"${med.name}" removido dos favoritos.'),
+                        action: SnackBarAction(
+                          label: 'Desfazer',
+                          textColor: Colors.white,
+                          onPressed: () {
+                            userPreferences.toggleFavorite(med.id);
+                          },
+                        ),
+                      );
+                      Scaffold.of(context).showSnackBar(snackbar);
                     },
                   ),
                   onTap: () {

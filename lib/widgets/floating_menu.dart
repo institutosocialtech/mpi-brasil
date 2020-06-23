@@ -37,11 +37,20 @@ class FloatingMenu extends StatelessWidget {
       children: [
         // favoritar
         SpeedDialChild(
-          child: isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+          child:
+              isFavorite ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
           backgroundColor: Colors.green,
           label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Provider.of<UserPreferences>(context).toggleFavorite(med.id),
+          onTap: () {
+            Provider.of<UserPreferences>(context).toggleFavorite(med.id);
+            if (isFavorite) {
+              final snackbar = SnackBar(
+                content: Text('"${med.name}" removido dos favoritos!'),
+              );
+              Scaffold.of(context).showSnackBar(snackbar);
+            }
+          },
         ),
 
         // compartilhar
