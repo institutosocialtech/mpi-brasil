@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
+import '../providers/userpreferences.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -10,69 +11,109 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            child: Image.asset(
-              "assets/images/logo.png",
-              fit: BoxFit.fitHeight,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-          ),
-          ListTile(
-            leading: Icon(AntDesign.search1),
-            title: Text('Buscar'),
-            onTap: () {
-              // close drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.staro),
-            title: Text('Favoritos'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/favorites_overview');
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.medicinebox),
-            title: Text('Medicamentos'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/meds_overview');
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.book),
-            title: Text('Glossário'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/keywords_overview');
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.infocirlceo),
-            title: Text('Sobre'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/about');
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.question),
-            title: Text('FAQ'),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/faq');
-            },
-          ),
-          ListTile(
-            leading: Icon(AntDesign.logout),
-            title: Text('Sair'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, '/');
-              Provider.of<Auth>(context, listen: false).logout();
-            },
-          ),
+          _buildDrawerHeader(context),
+          _buildUserTile(context),
+          Divider(),
+          _buildDrawerList(context),
         ],
       ),
+    );
+  }
+
+  Widget _buildDrawerHeader(BuildContext context) {
+    return DrawerHeader(
+      child: Container(),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        image: DecorationImage(
+          image: AssetImage('assets/images/logo.png'),
+          alignment: Alignment.center,
+          fit: BoxFit.fitHeight,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUserTile(BuildContext context) {
+    var _userPrefs = Provider.of<UserPreferences>(context);
+    var _userName = _userPrefs.user.name;
+
+    return ListTile(
+      title: Text(_userName),
+      trailing: GestureDetector(
+        child: Icon(Icons.exit_to_app),
+        onTap: () async {
+          final action = await showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                elevation: 24,
+                title: Text('Sair'),
+                content: Text('Deseja efetuar o logout?'),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('Não'),
+                    textColor: Colors.white,
+                    color: Colors.red,
+                  ),
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: Text('Sim'),
+                    textColor: Colors.white,
+                    color: Colors.green,
+                  ),
+                ],
+              );
+            },
+          );
+
+          if (action) {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/');
+            Provider.of<Auth>(context, listen: false).logout();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildDrawerList(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: Icon(AntDesign.search1),
+          title: Text('Buscar'),
+          onTap: () => Navigator.pop(context),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.staro),
+          title: Text('Favoritos'),
+          onTap: () =>
+              Navigator.popAndPushNamed(context, '/favorites_overview'),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.medicinebox),
+          title: Text('Medicamentos'),
+          onTap: () => Navigator.popAndPushNamed(context, '/meds_overview'),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.book),
+          title: Text('Glossário'),
+          onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.infocirlceo),
+          title: Text('Sobre'),
+          onTap: () => Navigator.popAndPushNamed(context, '/about'),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.question),
+          title: Text('FAQ'),
+          onTap: () => Navigator.popAndPushNamed(context, '/faq'),
+        ),
+      ],
     );
   }
 }
