@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
     return DrawerHeader(
       child: Container(),
       decoration: BoxDecoration(
-        color: Colors.black87,
+        color: Colors.grey[100],
         image: DecorationImage(
           image: AssetImage('assets/images/logo.png'),
           alignment: Alignment.center,
@@ -55,8 +55,7 @@ class AppDrawer extends StatelessWidget {
                   FlatButton(
                     onPressed: () => Navigator.of(context).pop(false),
                     child: Text('Não'),
-                    textColor: Colors.white,
-                    color: Colors.red,
+                    textColor: Colors.green,
                   ),
                   FlatButton(
                     onPressed: () => Navigator.of(context).pop(true),
