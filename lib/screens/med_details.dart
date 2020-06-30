@@ -54,13 +54,17 @@ class MedDetails extends StatelessWidget {
     return Container(
       height: 80,
       color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(med.name.toUpperCase(),
-              textScaleFactor: 1.5, style: medTitleStyle),
+          Text(
+            med.name.toUpperCase(),
+            textScaleFactor: 1.5,
+            style: medTitleStyle,
+          ),
         ],
       ),
     );
