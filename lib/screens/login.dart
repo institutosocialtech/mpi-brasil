@@ -35,6 +35,7 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Flexible(
+                    flex: 1,
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10),
                       child: Text(
@@ -48,7 +49,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
+                    flex: 2,
                     child: AuthCard(),
                   ),
                 ],
@@ -74,6 +75,7 @@ class _AuthCardState extends State<AuthCard> {
 
   var _isLoading = false;
   var _tosAccepted = false;
+  var _privAccepted = false;
 
   AuthMode _authMode = AuthMode.LOGIN;
   Map<String, String> _authData = {
@@ -108,10 +110,18 @@ class _AuthCardState extends State<AuthCard> {
 
     _formKey.currentState.save();
 
-    if (_authMode == AuthMode.SIGNUP && !_tosAccepted) {
-      _showErrorDialog(
-          'Voce deve aceitar os termos de uso para poder utilizar a app.');
-      return;
+    if (_authMode == AuthMode.SIGNUP) {
+      if (!_tosAccepted) {
+        _showErrorDialog(
+            'Voce deve aceitar os termos de uso para poder utilizar a app.');
+        return;
+      }
+
+      if (!_privAccepted) {
+        _showErrorDialog(
+            'Voce deve aceitar a política de privacidade para poder utilizar a app.');
+        return;
+      }
     }
 
     setState(() {
@@ -205,15 +215,25 @@ class _AuthCardState extends State<AuthCard> {
             elevation: 8,
             child: Container(
               width: deviceSize.width * 0.85,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              height: _authMode == AuthMode.LOGIN ? 290 : 400,
+              constraints: BoxConstraints(maxHeight: 440),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
+                    //
+                    // textfield section
+                    //
+
                     Column(
                       children: <Widget>[
+                        //
+                        // email field
+                        //
+
                         TextFormField(
                           controller: _emailController,
                           obscureText: false,
@@ -227,7 +247,12 @@ class _AuthCardState extends State<AuthCard> {
                           validator: (value) => _validateEntry('email', value),
                           onSaved: (value) => _authData['email'] = value,
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 5),
+
+                        //
+                        // password field
+                        //
+
                         TextFormField(
                           obscureText: true,
                           controller: _passwordController,
@@ -241,86 +266,168 @@ class _AuthCardState extends State<AuthCard> {
                               _validateEntry('password', value),
                           onSaved: (value) => _authData['password'] = value,
                         ),
+                        SizedBox(height: 5),
+
+                        //
+                        // verify password field
+                        //
+
                         if (_authMode == AuthMode.SIGNUP)
-                          Column(
-                            children: <Widget>[
-                              SizedBox(height: 10),
-                              TextFormField(
-                                controller: _passwordVerifyController,
-                                enabled: _authMode == AuthMode.SIGNUP,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Verificar Senha",
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 10),
-                                ),
-                                validator: _authMode == AuthMode.SIGNUP
-                                    ? (value) {
-                                        if (value.isEmpty ||
-                                            value != _passwordController.text)
-                                          return 'Senha não confere!';
-                                        else
-                                          return null;
-                                      }
-                                    : null,
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Checkbox(
-                                    value: _tosAccepted,
-                                    checkColor: Colors.green,
-                                    activeColor: Colors.black87,
-                                    onChanged: (value) =>
-                                        setState(() => _tosAccepted = value),
-                                  ),
-                                  Text('Eu aceito os '),
-                                  InkWell(
-                                    child: Text(
-                                      'termos de uso.',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                    ),
-                                    onTap: () =>
-                                        Navigator.of(context).pushNamed('/tos'),
-                                  ),
-                                ],
-                              )
-                            ],
+                          TextFormField(
+                            controller: _passwordVerifyController,
+                            enabled: _authMode == AuthMode.SIGNUP,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Verificar Senha",
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
+                            ),
+                            validator: _authMode == AuthMode.SIGNUP
+                                ? (value) {
+                                    if (value.isEmpty ||
+                                        value != _passwordController.text)
+                                      return 'Senha não confere!';
+                                    else
+                                      return null;
+                                  }
+                                : null,
                           ),
                       ],
                     ),
-                    // signIn button section
-                    Column(children: <Widget>[
-                      RaisedButton(
-                        child: Text(_authMode == AuthMode.LOGIN
-                            ? 'Entrar'
-                            : 'Cadastrar'),
-                        color: Colors.green,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+
+                    //
+                    // tos and policy section
+                    //
+
+                    if (_authMode == AuthMode.SIGNUP)
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          //
+                          // tos check
+                          //
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: Checkbox(
+                                  value: _tosAccepted,
+                                  checkColor: Colors.green,
+                                  activeColor: Colors.black87,
+                                  onChanged: (value) =>
+                                      setState(() => _tosAccepted = value),
+                                ),
+                              ),
+                              Text('Eu aceito os '),
+                              InkWell(
+                                child: Text(
+                                  'termos de uso.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onTap: () =>
+                                    Navigator.of(context).pushNamed('/tos'),
+                              ),
+                            ],
+                          ),
+
+                          //
+                          // priv policy check
+                          //
+
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: Checkbox(
+                                  value: _privAccepted,
+                                  checkColor: Colors.green,
+                                  activeColor: Colors.black87,
+                                  onChanged: (value) =>
+                                      setState(() => _privAccepted = value),
+                                ),
+                              ),
+                              Text('Eu aceito a '),
+                              InkWell(
+                                child: Text(
+                                  'política de privacidade.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed('/privacy_policy'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                    //
+                    // bottom section
+                    //
+
+                    Column(
+                      children: <Widget>[
+                        //
+                        // signIn button
+                        //
+
+                        RaisedButton(
+                          child: Text(
+                            _authMode == AuthMode.LOGIN
+                                ? 'Entrar'
+                                : 'Cadastrar',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          color: Colors.green,
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          onPressed: _submit,
                         ),
-                        onPressed: _submit,
-                      ),
-                      InkWell(
-                        child: Text(_authMode == AuthMode.LOGIN
-                            ? 'Primeiro acesso? Cadastre aqui!'
-                            : 'Já possui cadastro? Faça o Login'),
-                        onTap: () => _switchAuthMode(),
-                      ),
-                      if (_authMode == AuthMode.LOGIN)
+                        SizedBox(height: 5),
+
+                        //
+                        // forgot password switch
+                        //
+
+                        if (_authMode == AuthMode.LOGIN)
+                          InkWell(
+                            child: Text(
+                              "Esqueci minha senha",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () => Navigator.pushNamed(
+                                context, '/forgot_password'),
+                          ),
+
+                        //
+                        // Login/SignUp switch
+                        //
+
                         InkWell(
-                          child: Text("Esqueci minha senha"),
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/forgot_password'),
+                          child: Text(
+                            _authMode == AuthMode.LOGIN
+                                ? 'Primeiro acesso? Cadastre aqui!'
+                                : 'Já possui cadastro? Faça o Login aqui!',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () => _switchAuthMode(),
                         ),
-                    ]),
+                      ],
+                    ),
                   ],
                 ),
               ),

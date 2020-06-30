@@ -18,6 +18,7 @@ import 'screens/home.dart';
 import 'screens/med_details.dart';
 import 'screens/meds_overview.dart';
 import 'screens/onboarding.dart';
+import 'screens/privacy_policy_page.dart';
 import 'screens/search.dart';
 import 'screens/splashscreen.dart';
 import 'screens/terms_of_use_page.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
             '/med_details': (context) => MedDetails(),
             '/meds_overview': (context) => MedsOverview(),
             '/onboarding': (context) => OnboardingScreen(),
+            '/privacy_policy': (context) => PrivacyPolicyPage(),
             '/profile_setup': (context) => UserProfileOverview(),
             '/search': (context) => SearchPage(),
             '/tos': (context) => TermsOfUsePage(),
