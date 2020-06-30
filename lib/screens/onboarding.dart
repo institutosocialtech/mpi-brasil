@@ -42,7 +42,14 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: pages,
-      done: Text("Iniciar", style: TextStyle(fontWeight: FontWeight.bold),),
+      next: Text(
+        "Avançar",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      done: Text(
+        "Iniciar",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       globalBackgroundColor: Colors.white,
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
