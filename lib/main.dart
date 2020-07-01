@@ -14,9 +14,7 @@ import 'screens/forgot_password.dart';
 import 'screens/loading_screen.dart';
 import 'screens/keywords_overview.dart';
 import 'screens/keyword_details.dart';
-import 'screens/home.dart';
 import 'screens/med_details.dart';
-import 'screens/meds_overview.dart';
 import 'screens/onboarding.dart';
 import 'screens/privacy_policy_page.dart';
 import 'screens/search.dart';
@@ -80,11 +78,9 @@ class MyApp extends StatelessWidget {
             '/faq': (context) => FAQPage(),
             '/favorites_overview': (context) => FavoritesOverview(),
             '/forgot_password': (context) => ForgotPassword(),
-            '/home': (context) => HomePage(),
             '/keyword_details': (context) => KeywordDetails(),
             '/keywords_overview': (context) => KeywordsOverview(),
             '/med_details': (context) => MedDetails(),
-            '/meds_overview': (context) => MedsOverview(),
             '/onboarding': (context) => OnboardingScreen(),
             '/privacy_policy': (context) => PrivacyPolicyPage(),
             '/profile_setup': (context) => UserProfileOverview(),

@@ -83,7 +83,7 @@ class AppDrawer extends StatelessWidget {
       children: <Widget>[
         ListTile(
           leading: Icon(AntDesign.search1),
-          title: Text('Buscar'),
+          title: Text('Buscar Medicamentos'),
           onTap: () => Navigator.pop(context),
         ),
         ListTile(
@@ -91,11 +91,6 @@ class AppDrawer extends StatelessWidget {
           title: Text('Favoritos'),
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
-        ),
-        ListTile(
-          leading: Icon(AntDesign.medicinebox),
-          title: Text('Medicamentos'),
-          onTap: () => Navigator.popAndPushNamed(context, '/meds_overview'),
         ),
         ListTile(
           leading: Icon(AntDesign.book),
