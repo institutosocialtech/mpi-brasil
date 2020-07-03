@@ -40,6 +40,7 @@ class AppDrawer extends StatelessWidget {
 
     return ListTile(
       title: Text(_userName),
+      onTap: () => Navigator.of(context).popAndPushNamed('/profile'),
       trailing: GestureDetector(
         child: Icon(Icons.exit_to_app),
         onTap: () async {
