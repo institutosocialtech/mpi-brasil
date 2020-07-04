@@ -90,6 +90,17 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             ),
           ),
 
+          // user password
+          ListTile(
+            title: Text('Senha'),
+            subtitle: Text('********'),
+            leading: Icon(AntDesign.key, color: Colors.green),
+            trailing: IconButton(
+              icon: Icon(AntDesign.edit),
+              onPressed: () => print("edit password"),
+            ),
+          ),
+
           // user birthDate
           ListTile(
             title: Text('Data de Nascimento'),
