@@ -81,6 +81,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user email
           ListTile(
+            enabled: false,
             title: Text('Email'),
             subtitle: Text('mpibrasil@pmosocial.org'),
             leading: Icon(AntDesign.mail, color: Colors.green),
@@ -92,6 +93,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user password
           ListTile(
+            enabled: false,
             title: Text('Senha'),
             subtitle: Text('********'),
             leading: Icon(AntDesign.key, color: Colors.green),
