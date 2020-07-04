@@ -4,6 +4,7 @@ import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import '../providers/auth.dart';
 import '../providers/userpreferences.dart';
 
 class ProfileSettings extends StatefulWidget {
@@ -51,7 +52,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     child: Text('Sair'),
                     color: Colors.black54,
                     textColor: Colors.white,
-                    onPressed: () => print("Sair"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, '/');
+                      Provider.of<Auth>(context, listen: false).logout();
+                    },
                   ),
                 ],
               ),
