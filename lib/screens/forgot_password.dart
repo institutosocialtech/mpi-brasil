@@ -187,11 +187,23 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       height: 20,
                     ),
                     // submit button
-                    RaisedButton(
-                      child: Text("Recuperar Senha"),
-                      onPressed: _submit,
-                      color: Colors.green,
-                      textColor: Colors.white,
+                    Column(
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text("Recuperar Senha"),
+                          onPressed: _submit,
+                          color: Colors.green,
+                          textColor: Colors.white,
+                        ),
+                        SizedBox(height: 10),
+                        InkWell(
+                          child: Text(
+                            "Voltar para o login",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () => Navigator.of(context).pop(),
+                        ),
+                      ],
                     ),
                   ],
                 ),
