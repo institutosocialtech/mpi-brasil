@@ -99,14 +99,14 @@ class AppDrawer extends StatelessWidget {
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
-          leading: Icon(AntDesign.infocirlceo),
-          title: Text('Sobre'),
-          onTap: () => Navigator.popAndPushNamed(context, '/about'),
-        ),
-        ListTile(
           leading: Icon(AntDesign.question),
           title: Text('FAQ'),
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
+        ),
+        ListTile(
+          leading: Icon(AntDesign.infocirlceo),
+          title: Text('Sobre'),
+          onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),
       ],
     );
