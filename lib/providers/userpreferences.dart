@@ -52,19 +52,23 @@ class UserPreferences with ChangeNotifier {
   // update user data
   //
   Future<void> updateUserData(
-      String name, String occupation, DateTime birthDate) async {
+      {String name, String occupation, DateTime birthDate}) async {
     var url =
         'https://mpibrasil.firebaseio.com/users/$userId.json?auth=$authToken';
 
-    print('updating user data...');
+    // update locally
+    if (name != null) _user.name = name;
+    if (occupation != null) _user.occupation = occupation;
+    if (birthDate != null) _user.birthDate = birthDate;
+
     try {
       // make the api call to update user preferences
-      final response = await http.put(
+      final response = await http.patch(
         url,
         body: json.encode({
-          'name': name,
-          'occupation': occupation,
-          'birth_date': birthDate.toString(),
+          if (name != null) 'name': name,
+          if (occupation != null) 'occupation': occupation,
+          if (birthDate != null) 'birth_date': birthDate.toString(),
         }),
       );
       final responseData = json.decode(response.body);
@@ -129,7 +133,8 @@ class UserPreferences with ChangeNotifier {
   }
 
   Future<void> sendReport(String medName, String errorType) {
-    var url = 'https://mpibrasil.firebaseio.com/app_reports.json?auth=$authToken';
+    var url =
+        'https://mpibrasil.firebaseio.com/app_reports.json?auth=$authToken';
     try {
       http.post(
         url,

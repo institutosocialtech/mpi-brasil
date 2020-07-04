@@ -51,8 +51,15 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
       _formKey.currentState.save();
       setState(() => _isLoading = true);
       await Provider.of<UserPreferences>(context, listen: false)
-          .updateUserData(_userName, _userOccupation, _userBirthdate)
-          .then((value) => Navigator.of(context).pushReplacementNamed('/onboarding'));
+          .updateUserData(
+            name: _userName,
+            occupation: _userOccupation,
+            birthDate: _userBirthdate,
+          )
+          .then(
+            (value) =>
+                Navigator.of(context).pushReplacementNamed('/onboarding'),
+          );
     }
   }
 
