@@ -162,9 +162,8 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                         ],
                       ),
                       RaisedButton(
-                        elevation: 5,
                         child: Text('Finalizar'),
-                        color: Colors.green[900],
+                        color: Colors.black54,
                         textColor: Colors.white,
                         onPressed: _submit,
                       ),
