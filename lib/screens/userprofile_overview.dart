@@ -140,8 +140,9 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                             controller: _dateController,
                             inputFormatters: [
                               new MaskTextInputFormatter(
-                                  mask: '##-##-####',
-                                  filter: {"#": RegExp(r'[0-9]')})
+                                mask: '##/##/####',
+                                filter: {"#": RegExp(r'[0-9]')},
+                              ),
                             ],
                             decoration: InputDecoration(
                               hintText: 'Data de Nascimento',
@@ -156,7 +157,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                             ),
                             keyboardType: TextInputType.number,
                             onSaved: (value) => _userBirthdate =
-                                DateFormat("dd-mm-yyyy").parse(value),
+                                DateFormat('dd/MM/yyyy').parse(value),
                           ),
                         ],
                       ),
