@@ -82,7 +82,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           // user email
           ListTile(
             title: Text('Email'),
-            subtitle: Text('email@example.com'),
+            subtitle: Text('mpibrasil@pmosocial.org'),
             leading: Icon(AntDesign.mail, color: Colors.green),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
