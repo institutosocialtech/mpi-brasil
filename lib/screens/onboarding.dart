@@ -5,9 +5,9 @@ class OnboardingScreen extends StatelessWidget {
   final pages = [
     // finalidade
     PageViewModel(
-      title: 'Qual a nossa finalidade?',
+      title: 'Qual o nosso objetivo?',
       body:
-          'Buscamos auxiliar profissionais de saúde na tomada de decisão clínica e na realização da escolha do medicamento mais apropriado para cada doença específica e para cada paciente em particular.',
+          'Auxiliar profissionais de saúde na tomada de decisão clínica e na realização da escolha do medicamento mais apropriado para cada doença específica e para cada paciente em particular.',
       image:
           Center(child: Image.asset('assets/undraw/doctors.png', height: 175)),
     ),
