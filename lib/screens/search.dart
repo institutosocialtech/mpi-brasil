@@ -55,7 +55,10 @@ class _SearchPageState extends State<SearchPage> {
                     "assets/undraw/doctors.png",
                     width: 128,
                   ),
-                  Text("Não foram encontrados resultados\npara o termo pesquisado",textAlign: TextAlign.center,),
+                  Text(
+                    "Não foram encontrados resultados\npara o termo pesquisado",
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
@@ -68,7 +71,8 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: filteredMeds.length,
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemBuilder: (BuildContext context, int index) {
-            var isFavorite = Provider.of<UserPreferences>(context).isFavorite(filteredMeds[index].id);
+            var isFavorite = Provider.of<UserPreferences>(context)
+                .isFavorite(filteredMeds[index].id);
 
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -81,7 +85,8 @@ class _SearchPageState extends State<SearchPage> {
                   icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
                   color: Colors.orangeAccent,
                   onPressed: () {
-                    Provider.of<UserPreferences>(context).toggleFavorite(filteredMeds[index].id);
+                    Provider.of<UserPreferences>(context)
+                        .toggleFavorite(filteredMeds[index].id);
                   }),
               onTap: () {
                 Navigator.push(
