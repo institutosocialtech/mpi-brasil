@@ -51,13 +51,13 @@ dev_dependencies:
   json_serializable: ^3.3.0
 
 
-
-
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
-  android: "launcher_icon" 
+  android: true 
   ios: true
   image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/logo.png"
 
 # flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
