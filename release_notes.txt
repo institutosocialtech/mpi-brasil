@@ -1,1 +1,1 @@
-Versão 23/05/2020 +2
+8-11-2020 Adds ios build to the pipeline and disabled web.
