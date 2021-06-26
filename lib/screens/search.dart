@@ -83,12 +83,13 @@ class _SearchPageState extends State<SearchPage> {
               ),
               subtitle: Text(filteredMeds[index].medTypesToString()),
               trailing: IconButton(
-                  icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-                  color: Colors.orangeAccent,
-                  onPressed: () {
-                    Provider.of<UserPreferences>(context, listen: false)
-                        .toggleFavorite(filteredMeds[index].id);
-                  }),
+                icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.orangeAccent,
+                onPressed: () {
+                  Provider.of<UserPreferences>(context, listen: false)
+                      .toggleFavorite(filteredMeds[index].id);
+                },
+              ),
               onTap: () {
                 Navigator.push(
                   context,
