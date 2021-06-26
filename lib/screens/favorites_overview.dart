@@ -75,6 +75,7 @@ class _FavoriteListState extends State<FavoriteList> {
             ),
           )
         : Container(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
             child: ListView.separated(
               itemCount: _favorites.length,
               separatorBuilder: (BuildContext context, int index) => Divider(),
