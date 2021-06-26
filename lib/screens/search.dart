@@ -135,6 +135,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
         color: Colors.white,
         child: _isLoading
             ? Column(
