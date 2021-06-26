@@ -69,14 +69,15 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
           ),
           // Content
           Expanded(
-              child: _isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                      ),
-                    )
-                  : KeywordList(keywords: keywords)),
+            child: _isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                    ),
+                  )
+                : KeywordList(keywords: keywords),
+          ),
         ],
       ),
     );
