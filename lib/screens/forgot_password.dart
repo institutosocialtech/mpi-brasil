@@ -44,7 +44,7 @@ class ForgotPassword extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: deviceSize.width > 600 ? 2 : 1,
+                  flex: deviceSize.width > 600 ? 3 : 2,
                   child: ForgotPasswordCard(),
                 ),
               ],
