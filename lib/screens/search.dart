@@ -71,9 +71,8 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: filteredMeds.length,
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemBuilder: (BuildContext context, int index) {
-            var isFavorite =
-                Provider.of<UserPreferences>(context, listen: false)
-                    .isFavorite(filteredMeds[index].id);
+            var isFavorite = Provider.of<UserPreferences>(context, listen: true)
+                .isFavorite(filteredMeds[index].id);
 
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
