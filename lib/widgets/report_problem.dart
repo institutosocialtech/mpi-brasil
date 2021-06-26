@@ -67,15 +67,18 @@ class ReportProblem {
 
     switch (action) {
       case ReportAction.MED_INFO:
-        Provider.of<UserPreferences>(context).sendReport(medName, 'MED_INFO');
+        Provider.of<UserPreferences>(context, listen: false)
+            .sendReport(medName, 'MED_INFO');
         break;
 
       case ReportAction.TEXT_TYPO:
-        Provider.of<UserPreferences>(context).sendReport(medName, 'TEXT_TYPO');
+        Provider.of<UserPreferences>(context, listen: false)
+            .sendReport(medName, 'TEXT_TYPO');
         break;
 
       case ReportAction.APP_BUG:
-        Provider.of<UserPreferences>(context).sendReport(medName, 'APP_BUG');
+        Provider.of<UserPreferences>(context, listen: false)
+            .sendReport(medName, 'APP_BUG');
         break;
 
       case ReportAction.OTHER:

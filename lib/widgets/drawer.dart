@@ -35,7 +35,7 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildUserTile(BuildContext context) {
-    var _userPrefs = Provider.of<UserPreferences>(context);
+    var _userPrefs = Provider.of<UserPreferences>(context, listen: false);
     var _userName = _userPrefs.user.name;
 
     return ListTile(

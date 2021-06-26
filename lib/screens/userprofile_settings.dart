@@ -21,7 +21,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     if (_isInit) {
       setState(() => _isLoading = true);
 
-      Provider.of<UserPreferences>(context)
+      Provider.of<UserPreferences>(context, listen: false)
           .fetchUserData()
           .then((_) => setState(() => _isLoading = false));
     }
@@ -65,7 +65,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   }
 
   Widget drawSettingsCard(BuildContext context) {
-    var userData = Provider.of<UserPreferences>(context);
+    var userData = Provider.of<UserPreferences>(context, listen: false);
     var user = userData.user;
 
     return Card(
@@ -192,7 +192,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context).updateUserData(name: update);
+      Provider.of<UserPreferences>(context, listen: false)
+          .updateUserData(name: update);
     }
   }
 
@@ -256,7 +257,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context).updateUserData(birthDate: update);
+      Provider.of<UserPreferences>(context, listen: false)
+          .updateUserData(birthDate: update);
     }
   }
 
@@ -329,7 +331,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context).updateUserData(occupation: update);
+      Provider.of<UserPreferences>(context, listen: false)
+          .updateUserData(occupation: update);
     }
   }
 

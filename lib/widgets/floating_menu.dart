@@ -12,7 +12,8 @@ class FloatingMenu extends StatelessWidget {
   FloatingMenu({Key key, this.med}) : super(key: key);
 
   Widget build(BuildContext context) {
-    var isFavorite = Provider.of<UserPreferences>(context).isFavorite(med.id);
+    var isFavorite =
+        Provider.of<UserPreferences>(context, listen: false).isFavorite(med.id);
 
     return SpeedDial(
       // both default to 16
@@ -43,7 +44,8 @@ class FloatingMenu extends StatelessWidget {
           label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
-            Provider.of<UserPreferences>(context).toggleFavorite(med.id);
+            Provider.of<UserPreferences>(context, listen: false)
+                .toggleFavorite(med.id);
             if (isFavorite) {
               final snackbar = SnackBar(
                 content: Text('"${med.name}" removido dos favoritos!'),

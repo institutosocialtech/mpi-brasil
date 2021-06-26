@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget drawResults(BuildContext context, String query) {
-    final medsData = Provider.of<Meds>(context);
+    final medsData = Provider.of<Meds>(context, listen: false);
     final meds = medsData.meds;
 
     if (query == null || query.isEmpty)
@@ -71,8 +71,9 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: filteredMeds.length,
           separatorBuilder: (BuildContext context, int index) => Divider(),
           itemBuilder: (BuildContext context, int index) {
-            var isFavorite = Provider.of<UserPreferences>(context)
-                .isFavorite(filteredMeds[index].id);
+            var isFavorite =
+                Provider.of<UserPreferences>(context, listen: false)
+                    .isFavorite(filteredMeds[index].id);
 
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -85,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                   icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
                   color: Colors.orangeAccent,
                   onPressed: () {
-                    Provider.of<UserPreferences>(context)
+                    Provider.of<UserPreferences>(context, listen: false)
                         .toggleFavorite(filteredMeds[index].id);
                   }),
               onTap: () {

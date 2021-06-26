@@ -41,7 +41,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
 
   @override
   Widget build(BuildContext context) {
-    final keywordsData = Provider.of<Keywords>(context);
+    final keywordsData = Provider.of<Keywords>(context, listen: false);
     final keywords = keywordsData.keywords;
 
     return Scaffold(
