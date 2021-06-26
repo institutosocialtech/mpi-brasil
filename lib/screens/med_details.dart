@@ -25,22 +25,25 @@ class MedDetails extends StatelessWidget {
         children: <Widget>[
           drawTitleBar(med, context),
           Expanded(
-            child: ListView(children: <Widget>[
-              ListTile(
-                title: Text("Classe Farmacológica", style: headerStyle),
-                subtitle: Text(
-                  med.medTypesToString(),
-                  textAlign: TextAlign.justify,
+            child: ListView(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              children: <Widget>[
+                ListTile(
+                  title: Text("Classe Farmacológica", style: headerStyle),
+                  subtitle: Text(
+                    med.medTypesToString(),
+                    textAlign: TextAlign.justify,
+                  ),
                 ),
-              ),
-              drawConditionsTile(med),
-              drawAlternatives(med),
-              drawExpansionTile(
-                  "Orientações de Desprescrição", med.desprescription),
-              drawMedMonitor(med),
-              drawMedReferences(med),
-              SizedBox(height: 100),
-            ]),
+                drawConditionsTile(med),
+                drawAlternatives(med),
+                drawExpansionTile(
+                    "Orientações de Desprescrição", med.desprescription),
+                drawMedMonitor(med),
+                drawMedReferences(med),
+                SizedBox(height: 100),
+              ],
+            ),
           ),
         ],
       ),
