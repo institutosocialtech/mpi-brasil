@@ -101,6 +101,6 @@ class ReportProblem {
     final snackbar = SnackBar(
       content: Text("Obrigado por contribuir com a app!"),
     );
-    Scaffold.of(context).showSnackBar(snackbar);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }

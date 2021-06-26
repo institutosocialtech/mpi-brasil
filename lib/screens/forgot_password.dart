@@ -103,7 +103,7 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
       final snackbar = SnackBar(
         content: Text("Solicitação enviada, por favor verifique seu email!"),
       );
-      Scaffold.of(context).showSnackBar(snackbar);
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
     } on HttpException catch (error) {
       var errorMessage = 'Falha ao tentar recuperar a senha!';
 

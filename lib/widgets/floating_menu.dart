@@ -50,7 +50,7 @@ class FloatingMenu extends StatelessWidget {
               final snackbar = SnackBar(
                 content: Text('"${med.name}" removido dos favoritos!'),
               );
-              Scaffold.of(context).showSnackBar(snackbar);
+              ScaffoldMessenger.of(context).showSnackBar(snackbar);
             }
           },
         ),

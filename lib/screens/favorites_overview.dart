@@ -104,7 +104,7 @@ class _FavoriteListState extends State<FavoriteList> {
                           },
                         ),
                       );
-                      Scaffold.of(context).showSnackBar(snackbar);
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
                     },
                   ),
                   onTap: () {
