@@ -50,8 +50,7 @@ class _FavoriteListState extends State<FavoriteList> {
   Widget build(BuildContext context) {
     List<Med> _favorites = [];
     final medList = Provider.of<Meds>(context, listen: false).meds;
-    final userPreferences =
-        Provider.of<UserPreferences>(context, listen: false);
+    final userPreferences = Provider.of<UserPreferences>(context, listen: true);
 
     for (Med med in medList) {
       if (userPreferences.isFavorite(med.id)) {
