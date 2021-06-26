@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
           title: 'MPI Brasil',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: Colors.green,
             accentColor: Colors.black,
