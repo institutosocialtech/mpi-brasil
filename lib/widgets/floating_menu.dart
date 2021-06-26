@@ -13,7 +13,7 @@ class FloatingMenu extends StatelessWidget {
 
   Widget build(BuildContext context) {
     var isFavorite =
-        Provider.of<UserPreferences>(context, listen: false).isFavorite(med.id);
+        Provider.of<UserPreferences>(context, listen: true).isFavorite(med.id);
 
     return SpeedDial(
       // both default to 16
