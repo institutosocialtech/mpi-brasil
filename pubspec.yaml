@@ -1,18 +1,8 @@
 name: mpibrasil
 description: Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # https://stackoverflow.com/questions/55330105/how-to-increment-build-number-of-flutter-ios-app-when-deploying-with-codemagic
 version: 1.0.0+92
+
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -22,8 +12,6 @@ dependencies:
     sdk: flutter
   provider: ^5.0.0
   shared_preferences: ^0.5.7+2
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_icons: ^1.1.0 # https://oblador.github.io/react-native-vector-icons/
   url_launcher: ^5.4.2
