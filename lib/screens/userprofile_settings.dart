@@ -372,7 +372,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       case 'outros':
         return 'Outros';
       default:
-        return '';
+        return 'Não Identificado';
     }
   }
 }
