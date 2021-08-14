@@ -37,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
     final meds = medsData.meds;
 
     if (query == null || query.isEmpty)
-      return Center(child: Image.asset("assets/images/logo.png"));
+      return Center(child: Image.asset("assets/undraw/doctors.png"));
     else {
       final filteredMeds = meds
           .where((element) => removeDiacritics(element.name)
