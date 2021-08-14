@@ -28,7 +28,7 @@ class AppDrawer extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage('assets/images/logo.png'),
           alignment: Alignment.center,
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
       ),
     );
