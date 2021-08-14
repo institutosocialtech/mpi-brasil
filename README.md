@@ -14,4 +14,4 @@ then run flutter build apk
 for ios we need to generate the self signed certificate:
 for instructions just run flutter buid ios
 
-version bump
+prerelease bump
