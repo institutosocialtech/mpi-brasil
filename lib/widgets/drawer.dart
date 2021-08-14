@@ -53,16 +53,21 @@ class AppDrawer extends StatelessWidget {
                 title: Text('Sair'),
                 content: Text('Deseja efetuar o logout?'),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
                     child: Text('Não'),
-                    textColor: Colors.green,
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.green,
+                    ),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () => Navigator.of(context).pop(true),
                     child: Text('Sim'),
-                    textColor: Colors.white,
-                    color: Colors.green,
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.green,
+                    ),
                   ),
                 ],
               );

@@ -7,8 +7,10 @@ class PainCard extends StatefulWidget {
 }
 
 class _PainCardState extends State {
-  final  headerStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
-  final  messageStyle = TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle =
+      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final messageStyle =
+      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   double painLevel = 1;
   String painHeader = "";
   String painHeaderDegree = "";
@@ -47,7 +49,9 @@ class _PainCardState extends State {
                       Icons.info,
                       color: Colors.white,
                     ),
-                    onPressed: () { showPainInfo(); },
+                    onPressed: () {
+                      showPainInfo();
+                    },
                   )
                 ],
               ),
@@ -134,7 +138,8 @@ class _PainCardState extends State {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(10, (index) => Text((index+1).toString())),
+                        children: List.generate(
+                            10, (index) => Text((index + 1).toString())),
                       ),
                     ),
                     Padding(
@@ -142,7 +147,10 @@ class _PainCardState extends State {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text("Escala Verbal Numérica", textScaleFactor: 1.2,),
+                          Text(
+                            "Escala Verbal Numérica",
+                            textScaleFactor: 1.2,
+                          ),
                         ],
                       ),
                     ),
@@ -194,30 +202,39 @@ class _PainCardState extends State {
   void showPainInfo() {
     var popupMessage =
         "**Dor Aguda e Agudização da Dor Crônica:** Usar a escada de forma descendente, ou seja, usar o terceiro ou segundo degrau nos primeiros dias e, após resolução da causa de base (ex: cirurgia, trauma, etc.), ir descendo a escada analgésica da OMS.\n\n" +
-        "**Dor Crônica:** Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
-        "**Fonte:** Escada Analgésica da Dor\n(Organização Mundial de Saúde)";
+            "**Dor Crônica:** Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
+            "**Fonte:** Escada Analgésica da Dor\n(Organização Mundial de Saúde)";
 
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Informações"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: MarkdownGenerator(data: popupMessage, styleConfig: StyleConfig(pConfig: PConfig(selectable: false, textConfig: TextConfig(textAlign: TextAlign.justify)))).widgets,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: Colors.green,
-                child: Text("Fechar"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Informações"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: MarkdownGenerator(
+              data: popupMessage,
+              styleConfig: StyleConfig(
+                pConfig: PConfig(
+                  selectable: false,
+                  textConfig: TextConfig(textAlign: TextAlign.justify),
+                ),
+              ),
+            ).widgets,
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Fechar"),
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }

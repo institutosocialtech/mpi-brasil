@@ -49,16 +49,23 @@ class ReportProblem {
             ],
           ),
           actions: <Widget>[
-            //Cancel Button
-            FlatButton(
+            // Cancel Button
+            TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar", style: TextStyle(color: Colors.green)),
+              child: Text("Cancelar"),
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+              ),
             ),
-            //Send Button
-            FlatButton(
-              color: Colors.green,
+
+            // Send Button
+            TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
-              child: Text("Enviar", style: TextStyle(color: Colors.white)),
+              child: Text("Enviar"),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.green,
+              ),
             ),
           ],
         );

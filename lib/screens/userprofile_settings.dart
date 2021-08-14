@@ -48,15 +48,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   drawSettingsCard(context),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Sair'),
-                    color: Colors.black54,
-                    textColor: Colors.white,
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pushReplacementNamed(context, '/');
                       Provider.of<Auth>(context, listen: false).logout();
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black54,
+                    ),
                   ),
                 ],
               ),
@@ -175,16 +176,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
           actions: <Widget>[
             // cancel action
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar", style: TextStyle(color: Colors.green)),
+              child: Text("Cancelar"),
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+              ),
             ),
 
             // save action
-            FlatButton(
-              color: Colors.green,
+            TextButton(
               onPressed: () => Navigator.of(context).pop(controller.text),
-              child: Text("Salvar", style: TextStyle(color: Colors.white)),
+              child: Text("Salvar"),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.green,
+              ),
             ),
           ],
         );
@@ -238,18 +245,24 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
           actions: <Widget>[
             // cancel action
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar", style: TextStyle(color: Colors.green)),
+              child: Text("Cancelar"),
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+              ),
             ),
 
             // save action
-            FlatButton(
-              color: Colors.green,
+            TextButton(
               onPressed: () => Navigator.of(context).pop(
                 DateFormat('dd/MM/yyyy').parse(controller.text),
               ),
-              child: Text("Salvar", style: TextStyle(color: Colors.white)),
+              child: Text("Salvar"),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.green,
+              ),
             ),
           ],
         );
@@ -314,16 +327,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
           actions: <Widget>[
             // cancel action
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar", style: TextStyle(color: Colors.green)),
+              child: Text("Cancelar"),
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+              ),
             ),
 
             // save action
-            FlatButton(
-              color: Colors.green,
+            TextButton(
               onPressed: () => Navigator.of(context).pop(selected),
-              child: Text("Salvar", style: TextStyle(color: Colors.white)),
+              child: Text("Salvar"),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                backgroundColor: Colors.green,
+              ),
             ),
           ],
         );
@@ -352,6 +371,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         return 'Estudante';
       case 'outros':
         return 'Outros';
+      default:
+        return '';
     }
   }
 }

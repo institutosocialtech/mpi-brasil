@@ -90,12 +90,13 @@ class _AuthCardState extends State<AuthCard> {
         title: Text("Erro"),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
-            color: Colors.green,
+          TextButton(
             child: Text("Fechar"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            onPressed: () => Navigator.of(context).pop(),
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              backgroundColor: Colors.green,
+            ),
           ),
         ],
       ),
@@ -381,28 +382,25 @@ class _AuthCardState extends State<AuthCard> {
                       children: <Widget>[
                         //
                         // signIn button
-                        //
-
-                        RaisedButton(
+                        ElevatedButton(
                           child: Text(
                             _authMode == AuthMode.LOGIN
                                 ? 'Entrar'
                                 : 'Cadastrar',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          color: Colors.green,
-                          textColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
                           ),
                           onPressed: _submit,
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(fontWeight: FontWeight.bold),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 5),
 
                         //
                         // forgot password switch
-                        //
-
+                        SizedBox(height: 5),
                         if (_authMode == AuthMode.LOGIN)
                           InkWell(
                             child: Text(
@@ -415,16 +413,14 @@ class _AuthCardState extends State<AuthCard> {
 
                         //
                         // Login/SignUp switch
-                        //
-
                         InkWell(
+                          onTap: () => _switchAuthMode(),
                           child: Text(
                             _authMode == AuthMode.LOGIN
                                 ? 'Primeiro acesso? Cadastre aqui!'
                                 : 'Já possui cadastro? Faça o Login aqui!',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          onTap: () => _switchAuthMode(),
                         ),
                       ],
                     ),

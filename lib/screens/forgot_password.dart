@@ -76,10 +76,8 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                 child: Text(message),
               ),
               actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
                     child: Text("OK")),
               ],
             ));
@@ -189,11 +187,13 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                     // submit button
                     Column(
                       children: <Widget>[
-                        RaisedButton(
-                          child: Text("Recuperar Senha"),
+                        ElevatedButton(
                           onPressed: _submit,
-                          color: Colors.green,
-                          textColor: Colors.white,
+                          child: Text("Recuperar Senha"),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(color: Colors.white),
+                          ),
                         ),
                         SizedBox(height: 10),
                         InkWell(
