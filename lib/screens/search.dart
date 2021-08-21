@@ -14,7 +14,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   var _isInit = true;
   var _isLoading = false;
-  Widget resultPane = Center(child: Image.asset("assets/images/logo.png"));
+  Widget resultPane = Center(child: Image.asset("assets/undraw/doctors.png"));
 
   @override
   void didChangeDependencies() {
