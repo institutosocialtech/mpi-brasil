@@ -43,12 +43,12 @@ dev_dependencies:
 
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
-  android: true 
   ios: true
-  image_path_android: "assets/images/app_icon_android.png"
+  android: true 
   image_path_ios: "assets/images/app_icon_ios.png"
-  # adaptive_icon_background: "#FFFFFF"
-  # adaptive_icon_foreground: "assets/images/logo.png"
+  image_path_android: "assets/images/app_icon_android.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/app_icon_android.png"
 
 # flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
