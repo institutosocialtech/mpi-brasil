@@ -132,19 +132,22 @@ class UserPreferences with ChangeNotifier {
     }
   }
 
-  Future<void> sendReport(String medName, String errorType) {
+  void sendReport(String medName, String errorType) async {
     var url =
         'https://mpibrasil.firebaseio.com/app_reports.json?auth=$authToken';
     try {
-      http.post(
+      final response = await http.post(
         url,
-        body: json.encode({
-          'user': userId,
-          'med': medName,
-          'error_type': errorType,
-          'date': DateTime.now().toString(),
-        }),
+        body: json.encode(
+          {
+            'user': userId,
+            'med': medName,
+            'error_type': errorType,
+            'date': DateTime.now().toString(),
+          },
+        ),
       );
+      final responseData = json.decode(response.body);
     } catch (error) {
       throw (error);
     }
