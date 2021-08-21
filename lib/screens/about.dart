@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:markdown_widget/markdown_generator.dart';
 import 'package:markdown_widget/config/style_config.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../screens/onboarding.dart';
 import '../screens/terms_of_use_page.dart';
@@ -81,8 +82,7 @@ class AboutList extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => OnboardingScreen()),
                           );
-                        }
-                        else {
+                        } else {
                           tapCount++;
                         }
                       },
@@ -105,13 +105,20 @@ class AboutList extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.only(bottom: 8),
-                          child: Text(
-                            '2.0.25',
-                            style: TextStyle(
-                              // fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.justify,
+                          child: FutureBuilder<PackageInfo>(
+                            future: PackageInfo.fromPlatform(),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.done:
+                                  return Text(
+                                    'v${snapshot.data.version}\nBuild ${snapshot.data.buildNumber}',
+                                    style: TextStyle(fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  );
+                                default:
+                                  return Text('');
+                              }
+                            },
                           ),
                         ),
                         Container(
