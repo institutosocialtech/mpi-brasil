@@ -70,7 +70,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('Glossário', style: headerStyle),
+            child: Text('GLOSSÁRIO', style: headerStyle),
           ),
         ),
       ),
