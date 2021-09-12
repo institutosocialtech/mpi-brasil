@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constants.dart';
+
 class FAQ {
   String question;
   String answer;
@@ -11,33 +13,52 @@ class FAQ {
 }
 
 class FAQPage extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 80,
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("FAQ", textScaleFactor: 1.5, style: medTitleStyle),
-              ],
-            ),
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
           ),
-          Expanded(child: FAQList()),
-        ],
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('FAQ', style: headerStyle),
+          ),
+        ),
+      ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: Expanded(
+          child: FAQList(),
+        ),
       ),
     );
   }
@@ -87,43 +108,48 @@ class FAQList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: faqList.length,
+      separatorBuilder: (BuildContext context, int index) =>
+          Divider(color: kColorMPIDividerGray),
       itemBuilder: (BuildContext context, index) {
         var faq = faqList[index];
-        return Card(
-          elevation: 5,
-          margin: EdgeInsets.fromLTRB(15, 10, 15, 5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ExpansionTile(
-            title: Text(
-              faq.question,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontWeight: FontWeight.bold),
+
+        // draw expansion tile
+        return ExpansionTile(
+          title: Text(
+            faq.question,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: MarkdownGenerator(
-                    data: faq.answer,
-                    styleConfig: StyleConfig(
-                      pConfig: PConfig(
-                        selectable: false,
-                        textConfig: TextConfig(textAlign: TextAlign.justify),
-                        linkStyle: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
-                        onLinkTap: (link) => launch(link),
-                      ),
-                    ),
-                  ).widgets,
-                ),
-              ),
-            ],
           ),
+
+          // draw answer
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: MarkdownGenerator(
+                  data: faq.answer,
+                  styleConfig: StyleConfig(
+                    pConfig: PConfig(
+                      selectable: false,
+                      textStyle: TextStyle(color: kColorTextLightGray),
+                      textConfig: TextConfig(textAlign: TextAlign.justify),
+                      linkStyle: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      onLinkTap: (link) => launch(link),
+                    ),
+                  ),
+                ).widgets,
+              ),
+            ),
+          ],
         );
       },
     );
