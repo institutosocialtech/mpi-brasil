@@ -1,40 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../constants.dart';
 import '../models/med.dart';
 import '../providers/meds.dart';
 import '../providers/userpreferences.dart';
 import '../screens/med_details.dart';
 
 class FavoritesOverview extends StatelessWidget {
-  final headerStyle =
-      TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
+
+      // appbar
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 80,
-            color: Colors.green,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Text("Favoritos".toUpperCase(),
-                      textScaleFactor: 1.5, style: headerStyle),
-                ),
-              ],
-            ),
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
           ),
-          Expanded(child: FavoriteList()),
-        ],
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('FAVORITOS', style: headerStyle),
+          ),
+        ),
+      ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: Expanded(
+          child: FavoriteList(),
+        ),
       ),
     );
   }
@@ -59,39 +82,59 @@ class _FavoriteListState extends State<FavoriteList> {
     }
 
     return _favorites.isEmpty
-        ? Container(
-            color: Colors.white,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset("assets/undraw/doctors.png", width: 192),
-                  Text(
-                    "Você não possui nenhum medicamento favorito.",
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+        // draw empty favorites message
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset("assets/undraw_svg/doctors.svg", width: 192),
+                Text("Você não possui nenhum medicamento favorito."),
+              ],
             ),
           )
-        : Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: ListView.separated(
-              itemCount: _favorites.length,
-              separatorBuilder: (BuildContext context, int index) => Divider(),
-              itemBuilder: (BuildContext context, int index) {
-                var med = _favorites[index];
 
-                return ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        // draw favorites list
+        : ListView.separated(
+            itemCount: _favorites.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                Divider(color: Colors.transparent),
+            itemBuilder: (BuildContext context, int index) {
+              var med = _favorites[index];
+
+              return Card(
+                color: kColorMPIGreenOpaque,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(kCardBorderRadius),
+                ),
+                child: ListTile(
+                  // card layout
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 10.0,
+                  ),
+
+                  // med title
                   title: Text(
                     med.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  subtitle: Text(med.medTypesToString()),
+
+                  // med info
+                  subtitle: Text(
+                    med.medTypesToString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+
+                  // trailing iconbutton
                   trailing: IconButton(
                     icon: Icon(Icons.star),
-                    color: Colors.orangeAccent,
+                    color: Colors.white,
                     onPressed: () {
                       userPreferences.toggleFavorite(med.id);
                       final snackbar = SnackBar(
@@ -115,9 +158,9 @@ class _FavoriteListState extends State<FavoriteList> {
                       ),
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           );
   }
 }
