@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 const Color kColorMPIGreen = Color(0xFF6DB31E);
 const Color kColorMPIBlue = Color(0xFF1E5BB3);
 const Color kColorMPIGray = Color(0xFF8F9BB3);
-const Color kColorMPIWhite = Color(0xFFFFFFFF);
+const Color kColorMPIWhite = Color(0xFFF1F5F7);
+const Color kColorMPIRed = Color(0xFFEC4936);
 
 // layout
 const double kAppBarElevation = 0.0;
