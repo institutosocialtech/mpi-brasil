@@ -66,6 +66,31 @@ class MyApp extends StatelessWidget {
             primaryColor: kColorMPIGreen,
             accentColor: kColorMPIWhite,
             fontFamily: 'Nunito',
+
+            // app bar
+            appBarTheme: AppBarTheme(
+              elevation: 0,
+              centerTitle: false,
+              color: kColorMPIWhite,
+            ),
+
+            // input decoration
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              fillColor: kColorMPIWhite,
+              focusColor: kColorMPIGray,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: kColorMPIGray),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(kInputBorderRadius),
+              ),
+              labelStyle: TextStyle(color: kColorMPIGray),
+              hintStyle: TextStyle(color: kColorMPIGray),
+            ),
+
+            // scaffold
+            scaffoldBackgroundColor: kColorMPIWhite,
           ),
           home: auth.isAuth
               ? LoadingScreen()
