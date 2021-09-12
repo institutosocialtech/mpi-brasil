@@ -4,49 +4,69 @@ import 'package:markdown_widget/markdown_generator.dart';
 import 'package:markdown_widget/config/style_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../constants.dart';
 import '../screens/onboarding.dart';
 import '../screens/terms_of_use_page.dart';
 import '../screens/privacy_policy_page.dart';
 import '../screens/equipe_page.dart';
 
 class AboutPage extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('SOBRE', style: headerStyle),
+          ),
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 80,
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Sobre".toUpperCase(),
-                    textScaleFactor: 1.5, style: medTitleStyle),
-              ],
-            ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
           ),
-          Expanded(
-            child: AboutList(),
-          ),
-        ],
+        ),
+        child: AboutList(),
       ),
     );
   }
 }
 
 class AboutList extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final medTitleStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
   final introduction =
       'O **Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.';
   final development =
@@ -56,8 +76,7 @@ class AboutList extends StatelessWidget {
   Widget build(BuildContext context) {
     var tapCount = 0;
 
-    return Container(
-        child: ListView(
+    return ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
         Column(
@@ -164,7 +183,7 @@ class AboutList extends StatelessWidget {
                 )),
           ],
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
             'Equipe',
@@ -190,7 +209,7 @@ class AboutList extends StatelessWidget {
             );
           },
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
             'Licenças',
@@ -206,7 +225,7 @@ class AboutList extends StatelessWidget {
             showLicensePage(context: context);
           },
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
             'Termo de Uso',
@@ -232,7 +251,7 @@ class AboutList extends StatelessWidget {
             );
           },
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
             'Política de Privacidade',
@@ -258,7 +277,7 @@ class AboutList extends StatelessWidget {
             );
           },
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
             'Fale Conosco',
@@ -290,8 +309,8 @@ class AboutList extends StatelessWidget {
             FlutterMailer.send(mailOptions);
           },
         ),
-        Divider(),
+        Divider(color: kColorMPIDividerGray),
       ],
-    ));
+    );
   }
 }
