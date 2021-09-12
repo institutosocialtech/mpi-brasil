@@ -1,6 +1,8 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/svg.dart';
+
 import '../providers/meds.dart';
 import '../providers/userpreferences.dart';
 import '../screens/med_details.dart';
@@ -15,7 +17,10 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   var _isInit = true;
   var _isLoading = false;
-  Widget resultPane = Center(child: Image.asset("assets/undraw/doctors.png"));
+
+  Widget resultPane = Center(
+    child: SvgPicture.asset('assets/undraw_svg/doctors.svg'),
+  );
 
   @override
   void didChangeDependencies() {
@@ -37,59 +42,95 @@ class _SearchPageState extends State<SearchPage> {
     final medsData = Provider.of<Meds>(context, listen: false);
     final meds = medsData.meds;
 
-    if (query == null || query.isEmpty)
-      return Center(child: Image.asset("assets/undraw/doctors.png"));
-    else {
+    if (query == null || query.isEmpty) {
+      // return image if no query has been done
+      return Center(
+        child: SvgPicture.asset("assets/undraw_svg/doctors.svg"),
+      );
+
+      // process query
+    } else {
+      // filter med list based on query
       final filteredMeds = meds
           .where((element) => removeDiacritics(element.name)
               .toUpperCase()
               .contains(removeDiacritics(query).toUpperCase()))
           .toList();
+
+      // display msg if results are empty
       if (filteredMeds.isEmpty) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Center(
-              child: Column(
-                children: <Widget>[
-                  Image.asset(
-                    "assets/undraw/doctors.png",
-                    width: 128,
-                  ),
-                  Text(
-                    "Nenhum resultado encontrado",
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+            Column(
+              children: <Widget>[
+                Divider(
+                  indent: 50,
+                  endIndent: 50,
+                  thickness: 4.0,
+                  color: kColorMPIRed,
+                ),
+                Text(
+                  "Nenhum resultado encontrado",
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ],
         );
       }
 
+      // draw results
       return Container(
         child: ListView.separated(
           itemCount: filteredMeds.length,
-          separatorBuilder: (BuildContext context, int index) => Divider(),
+          separatorBuilder: (BuildContext context, int index) =>
+              Divider(color: Colors.transparent),
+
+          // draw med tiles
           itemBuilder: (BuildContext context, int index) {
             var isFavorite = Provider.of<UserPreferences>(context, listen: true)
                 .isFavorite(filteredMeds[index].id);
 
             return ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              // card layout
+              tileColor: kColorMedCard,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kCardBorderRadius),
+              ),
+
+              // card title
               title: Text(
                 filteredMeds[index].name,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              subtitle: Text(filteredMeds[index].medTypesToString()),
+
+              // card info
+              subtitle: Text(
+                filteredMeds[index].medTypesToString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+
+              // trailing button
               trailing: IconButton(
                 icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-                color: Colors.orangeAccent,
+                color: Colors.white,
                 onPressed: () {
                   Provider.of<UserPreferences>(context, listen: false)
                       .toggleFavorite(filteredMeds[index].id);
                 },
               ),
+
+              // tap action
               onTap: () {
                 Navigator.push(
                   context,
@@ -115,46 +156,55 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // page appbar
       appBar: AppBar(
-        title: Text('MPI Brasil'),
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.50),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        // page title
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: TextField(
               onChanged: _queryMed,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(kInputContentPadding),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(kInputBorderRadius),
-                ),
-                suffixIcon: Icon(Icons.search),
-                fillColor: Colors.white,
-                filled: true,
+                suffixIcon: Icon(Icons.search, color: kColorMPIGray),
                 hintText: "Pesquisar...",
               ),
             ),
           ),
         ),
       ),
+
+      // app drawer
+      drawer: AppDrawer(),
+
+      // page content
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-        color: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: _isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Center(
-                      child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                  )),
+                    child: CircularProgressIndicator(
+                      backgroundColor: kColorMPIWhite,
+                      valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+                    ),
+                  ),
                   Text("Carregando dados..."),
                 ],
               )
             : resultPane,
       ),
-      drawer: AppDrawer(),
     );
   }
 }
