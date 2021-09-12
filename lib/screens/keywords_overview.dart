@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../models/keyword.dart';
 import '../providers/keywords.dart';
@@ -12,11 +13,6 @@ class KeywordsOverview extends StatefulWidget {
 class _KeywordsOverviewState extends State<KeywordsOverview> {
   var _isInit = true;
   var _isLoading = false;
-
-  final headerStyle = TextStyle(
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
-  );
 
   @override
   void initState() {
@@ -44,41 +40,58 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
     final keywordsData = Provider.of<Keywords>(context, listen: false);
     final keywords = keywordsData.keywords;
 
+    final headerStyle = TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    );
+
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
+
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('Glossário', style: headerStyle),
+          ),
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          // Header
-          Container(
-            height: 80,
-            color: Colors.green,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Text("Glossário".toUpperCase(),
-                      textScaleFactor: 1.5, style: headerStyle),
-                ),
-              ],
-            ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
           ),
-          // Content
-          Expanded(
-            child: _isLoading
-                ? Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                    ),
-                  )
-                : KeywordList(keywords: keywords),
-          ),
-        ],
+        ),
+        child: Expanded(
+          child: _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+                  ),
+                )
+              : KeywordList(keywords: keywords),
+        ),
       ),
     );
   }
@@ -92,28 +105,60 @@ class KeywordList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // keyword list
       child: ListView.separated(
         itemCount: keywords.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
+        separatorBuilder: (BuildContext context, int index) =>
+            Divider(color: Colors.transparent),
+
+        // draw keywords
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20),
-            title: Text(
-              keywords[index].word,
-              style: TextStyle(fontWeight: FontWeight.bold),
+          return Card(
+            color: kColorMPIGreenOpaque,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kCardBorderRadius),
             ),
-            subtitle: keywords[index].synonyms == null
-                ? null
-                : Text(keywords[index].synonymsListToString()),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      KeywordDetails(keyword: keywords[index]),
+            child: ListTile(
+              // card layout
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kCardBorderRadius),
+              ),
+
+              // keyword
+              title: Text(
+                keywords[index].word,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            },
+              ),
+
+              // keyword info
+              subtitle: keywords[index].synonyms == null
+                  ? null
+                  : Text(
+                      keywords[index].synonymsListToString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+
+              // tap action
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        KeywordDetails(keyword: keywords[index]),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
