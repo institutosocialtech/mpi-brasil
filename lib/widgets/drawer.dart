@@ -64,18 +64,35 @@ class AppDrawer extends StatelessWidget {
         bottomRight: Radius.circular(kDrawerBorderRadius),
       ),
       child: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: <Widget>[
+            // header logo
             _buildDrawerHeader(context),
+
+            // user info
             _buildUserTile(context),
+
+            // nav buttons
             Divider(indent: 20, endIndent: 20),
             _buildDrawerList(context),
             Divider(indent: 20, endIndent: 20),
+
+            // use expanded as spacer to move the logout button to the bottom.
+            Expanded(
+              child: Container(),
+            ),
+
+            // logout butotn
             ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app, color: kColorMPIGray),
               onTap: () => _logout(context),
-              title: Text('Sair'),
+              title: Text(
+                'Sair',
+                style: TextStyle(
+                  color: kColorMPIGray,
+                  fontSize: 14,
+                ),
+              ),
             ),
           ],
         ),
