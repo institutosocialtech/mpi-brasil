@@ -1,10 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import '../constants.dart';
 
 class TermsOfUsePage extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
 
   final String txtGeneral =
       '\n##### Geral                        \n Estes Termos de Uso se aplicam à utilização do **Aplicativo MPI Brasil**, disponibilizado pelo **Instituto PMO Social** que se destina ao uso por profissionais de saúde. Ao usar o Aplicativo MPI Brasil, você concorda com estes termos. Eles regem o uso do aplicativo e criam um contrato legal vinculativo que podemos aplicar contra você no caso de uma violação. Se você não concorda com todos esses **Termos de Uso**, não use o aplicativo.';
@@ -60,52 +64,68 @@ class TermsOfUsePage extends StatelessWidget {
         txtNoTermination +
         txtSurvive +
         txtContact;
+
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Termos de Uso ".toUpperCase(),
-                    textScaleFactor: 1.5, style: medTitleStyle),
-              ],
-            ),
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: MarkdownWidget(
-                data: termsOfUse,
-                styleConfig: StyleConfig(
-                  pConfig: PConfig(
-                    selectable: false,
-                    textConfig: TextConfig(textAlign: TextAlign.justify),
-                  ),
-                  olConfig: OlConfig(
-                    indexWidget: (deep, index) {
-                      index++;
-                      return Container(
-                        margin: EdgeInsets.only(left: 5, right: 5),
-                        child: Text(
-                          index < 10 ? '  $index.' : '$index.',
-                        ),
-                      );
-                    },
-                  ),
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('TERMOS DE USO', style: headerStyle),
+          ),
+        ),
+      ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: MarkdownWidget(
+              data: termsOfUse,
+              styleConfig: StyleConfig(
+                pConfig: PConfig(
+                  selectable: false,
+                  textConfig: TextConfig(textAlign: TextAlign.justify),
+                ),
+                olConfig: OlConfig(
+                  indexWidget: (deep, index) {
+                    index++;
+                    return Container(
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      child: Text(
+                        index < 10 ? '  $index.' : '$index.',
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
