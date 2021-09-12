@@ -4,61 +4,78 @@ import 'package:markdown_widget/markdown_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:markdown_widget/markdown_generator.dart';
 
+import '../constants.dart';
+
 class EquipePage extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('EQUIPE', style: headerStyle),
+          ),
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Equipe ".toUpperCase(),
-                    textScaleFactor: 1.5, style: medTitleStyle),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Column(
+              children: [
+                AboutUsText(),
+                Divider(),
+                UesbTextImageSide(),
+                Divider(),
+                UfbaTextImageSide(),
+                Divider(),
+                PmoSocialTextImageSide(),
+                Divider(),
+                // QuemSomosCard(),
+                // Divider(),
+                // UesbCard(),
+                // Divider(),
+                // UfbaCard(),
+                // Divider(),
+                // PmoSocialCard(),
+                // Divider(),
               ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  Column(
-                    children: [
-                      AboutUsText(),
-                      Divider(),
-                      UesbTextImageSide(),
-                      Divider(),
-                      UfbaTextImageSide(),
-                      Divider(),
-                      PmoSocialTextImageSide(),
-                      Divider(),
-                      // QuemSomosCard(),
-                      // Divider(),
-                      // UesbCard(),
-                      // Divider(),
-                      // UfbaCard(),
-                      // Divider(),
-                      // PmoSocialCard(),
-                      // Divider(),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -212,9 +229,7 @@ class UfbaTextImageSide extends StatelessWidget {
                   )).widgets,
             ),
           ),
-          SizedBox(
-            height: 10
-          ),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
