@@ -89,6 +89,8 @@ class MyApp extends StatelessWidget {
               hintStyle: TextStyle(color: kColorMPIGray),
             ),
 
+            dividerColor: Colors.transparent,
+
             // scaffold
             scaffoldBackgroundColor: kColorMPIWhite,
           ),
