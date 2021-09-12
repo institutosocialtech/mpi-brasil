@@ -5,6 +5,7 @@ import '../providers/meds.dart';
 import '../providers/userpreferences.dart';
 import '../screens/med_details.dart';
 import '../widgets/drawer.dart';
+import '../constants.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _SearchPageState extends State<SearchPage> {
                     width: 128,
                   ),
                   Text(
-                    "Não foram encontrados resultados\npara o termo pesquisado",
+                    "Nenhum resultado encontrado",
                     textAlign: TextAlign.center,
                   ),
                 ],
