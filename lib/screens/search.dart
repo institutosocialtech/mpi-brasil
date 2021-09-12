@@ -80,20 +80,20 @@ class _SearchPageState extends State<SearchPage> {
       }
 
       // draw results
-      return Container(
-        child: ListView.separated(
-          itemCount: filteredMeds.length,
-          separatorBuilder: (BuildContext context, int index) =>
-              Divider(color: Colors.transparent),
+      return ListView.separated(
+        itemCount: filteredMeds.length,
+        separatorBuilder: (BuildContext context, int index) =>
+            Divider(color: Colors.transparent),
 
-          // draw med tiles
-          itemBuilder: (BuildContext context, int index) {
-            var isFavorite = Provider.of<UserPreferences>(context, listen: true)
-                .isFavorite(filteredMeds[index].id);
+        // draw med tiles
+        itemBuilder: (BuildContext context, int index) {
+          var isFavorite = Provider.of<UserPreferences>(context, listen: true)
+              .isFavorite(filteredMeds[index].id);
 
-            return ListTile(
+          return Card(
+            color: kColorMPIGreenOpaque,
+            child: ListTile(
               // card layout
-              tileColor: kColorMedCard,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 20.0,
                 vertical: 10.0,
@@ -139,9 +139,9 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 );
               },
-            );
-          },
-        ),
+            ),
+          );
+        },
       );
     }
   }
@@ -156,12 +156,15 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       // page appbar
       appBar: AppBar(
+        backgroundColor: kColorMPIGreen,
+
         flexibleSpace: Container(
           child: Image.asset(
             'assets/images/med_composition.png',
-            color: Colors.white.withOpacity(0.50),
+            color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
           ),
@@ -189,7 +192,14 @@ class _SearchPageState extends State<SearchPage> {
 
       // page content
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
         child: _isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
