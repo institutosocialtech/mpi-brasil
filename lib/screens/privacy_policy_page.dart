@@ -2,9 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
+import '../constants.dart';
+
 class PrivacyPolicyPage extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+  final headerStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
 
   final String txtGeneral =
       '\n##### Geral                                              \n Esta Política de Privacidade descreve as práticas de privacidade do Instituto PMO Social em relação ao uso do Aplicativo MPI Brasil destinado a profissionais de saúde. \n\n Disponibilizamos o Aplicativo MPI Brasil como um recurso informativo, destinado a apoiar os profissionais de saúde em seus esforços para fornecer assistência de qualidade aos pacientes. Se você optar por usar o aplicativo, deverá concordar com os Termos de Uso do Instituto PMO Social, que representa um contrato entre nós e os usuários do aplicativo. Ao concordar com os Termos de Uso do Instituto PMO Social, você confirma que leu e entendeu esta Política de Privacidade, que explica como coletamos, divulgamos, transferimos, protegemos e usamos informações sobre você em conexão com o uso do aplicativo, com os direitos e escolhas que você tem sobre essas atividades. \n\n Se você não deseja que coletemos e utilizemos informações sobre você, conforme descrito nesta Política de Privacidade, não deverá usar o aplicativo. Ao usar o aplicativo, você reconhece que armazenaremos, usaremos e processaremos suas informações no Brasil e em qualquer outro país a partir do qual é aplicável o trabalho do Instituto PMO Social. Esteja ciente de que as leis e os padrões de privacidade em alguns países podem diferir daqueles que se aplicam no país em que você reside. A menos que especificado de outra forma aqui, o Instituto PMO Social e parceiros são os controladores das informações pessoais que coletamos sobre você, conforme descrito nesta Política de Privacidade. \n';
@@ -38,50 +43,60 @@ class PrivacyPolicyPage extends StatelessWidget {
         txtChildPrivacy +
         txtChangesPrivacyPolicy +
         txtContact;
+
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
       appBar: AppBar(
-        title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.green,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Política de Privacidade".toUpperCase(),
-                    textScaleFactor: 1.5, style: medTitleStyle),
-              ],
-            ),
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
           ),
-          Expanded(
-              child: Padding(
-            padding: EdgeInsets.all(20),
-            child: MarkdownWidget(
-              data: privacyPolicy,
-              styleConfig: StyleConfig(
-                  pConfig: PConfig(
-                    selectable: false,
-                    textConfig: TextConfig(textAlign: TextAlign.justify),
-                  ),
-                  olConfig: OlConfig(
-                    indexWidget: (deep, index) {
-                      index++;
-                      return Container(
-                        margin: EdgeInsets.only(left: 5, right: 5),
-                        child: Text(
-                          index < 10 ? '  $index.' : '$index.',
-                        ),
-                      );
-                    },
-                  )),
-            ),
-          )),
-        ],
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 40),
+            child: Text('POLÍTICA DE PRIVACIDADE', style: headerStyle),
+          ),
+        ),
+      ),
+
+      // page content
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: MarkdownWidget(
+          data: privacyPolicy,
+          styleConfig: StyleConfig(
+              pConfig: PConfig(
+                selectable: false,
+                textConfig: TextConfig(textAlign: TextAlign.justify),
+              ),
+              olConfig: OlConfig(
+                indexWidget: (deep, index) {
+                  index++;
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(index < 10 ? '  $index.' : '$index.'),
+                  );
+                },
+              )),
+        ),
       ),
     );
   }
