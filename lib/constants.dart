@@ -17,9 +17,11 @@ const double kButtonBorderRadius = 4.0;
 // cards
 const double kCardBorderRadius = 5.0;
 const double kCardElevation = 5.0;
+const Color kColorMedCard = Color(0xFF9CD160);
 
 // textfield
 const double kInputBorderRadius = 4.0;
+const double kInputContentPadding = 10.0;
 
 // font sizes
 // header: 22
