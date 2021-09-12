@@ -105,27 +105,29 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
+  void _queryMed(String query) {
+    // updates search query to draw results
+    setState(() {
+      resultPane = drawResults(context, query);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('MPI Brasil'),
-        titleSpacing: 0.0,
-        elevation: 0,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: TextField(
-              onChanged: (query) {
-                setState(() {
-                  resultPane = drawResults(context, query);
-                });
-              },
+              onChanged: _queryMed,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(10),
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                contentPadding: EdgeInsets.all(kInputContentPadding),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(kInputBorderRadius),
+                ),
                 suffixIcon: Icon(Icons.search),
                 fillColor: Colors.white,
                 filled: true,
