@@ -104,7 +104,7 @@ class AppDrawer extends StatelessWidget {
     return DrawerHeader(
       child: Container(),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: kColorMPIGreen,
         image: DecorationImage(
           image: AssetImage('assets/images/logo.png'),
           alignment: Alignment.center,
@@ -118,39 +118,49 @@ class AppDrawer extends StatelessWidget {
     var _userPrefs = Provider.of<UserPreferences>(context, listen: false);
     var _userName = _userPrefs.user.name;
 
+    var _userStyle = TextStyle(
+      color: kColorMPIGray,
+      fontSize: 12,
+    );
+
     return ListTile(
-      title: Text('Olá, $_userName'),
+      title: Text('Olá, $_userName', style: _userStyle),
       onTap: () => Navigator.of(context).popAndPushNamed('/profile'),
     );
   }
 
   Widget _buildDrawerList(BuildContext context) {
+    var labelStyle = TextStyle(
+      color: kColorMPIGray,
+      fontSize: 12,
+    );
+
     return Column(
       children: <Widget>[
         ListTile(
-          leading: Icon(AntDesign.search1),
-          title: Text('Buscar Medicamentos'),
+          leading: Icon(AntDesign.search1, color: kColorMPIGray),
+          title: Text('Buscar Medicamentos', style: labelStyle),
           onTap: () => Navigator.pop(context),
         ),
         ListTile(
-          leading: Icon(AntDesign.staro),
-          title: Text('Favoritos'),
+          leading: Icon(AntDesign.staro, color: kColorMPIGray),
+          title: Text('Favoritos', style: labelStyle),
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
         ),
         ListTile(
-          leading: Icon(AntDesign.book),
-          title: Text('Glossário'),
+          leading: Icon(AntDesign.book, color: kColorMPIGray),
+          title: Text('Glossário', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
-          leading: Icon(AntDesign.question),
-          title: Text('FAQ'),
+          leading: Icon(AntDesign.question, color: kColorMPIGray),
+          title: Text('FAQ', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
         ),
         ListTile(
-          leading: Icon(AntDesign.infocirlceo),
-          title: Text('Sobre'),
+          leading: Icon(AntDesign.infocirlceo, color: kColorMPIGray),
+          title: Text('Sobre', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),
       ],
