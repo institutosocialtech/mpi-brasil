@@ -14,6 +14,7 @@ class FAQ {
 
 class FAQPage extends StatelessWidget {
   final headerStyle = TextStyle(
+    color: Colors.white,
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
