@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'constants.dart';
+
 import 'providers/auth.dart';
 import 'providers/keywords.dart';
 import 'providers/meds.dart';
@@ -61,8 +63,8 @@ class MyApp extends StatelessWidget {
           title: 'MPI Brasil',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primaryColor: Colors.green,
-            accentColor: Colors.black,
+            primaryColor: kColorMPIGreen,
+            accentColor: kColorMPIWhite,
             fontFamily: 'Nunito',
           ),
           home: auth.isAuth
