@@ -7,6 +7,8 @@ const Color kColorMPIGray = Color(0xFF8F9BB3);
 const Color kColorMPIWhite = Color(0xFFF1F5F7);
 const Color kColorMPIRed = Color(0xFFEC4936);
 const Color kColorMPIGreenOpaque = Color(0xFF94C95C);
+const Color kColorMPIDividerGray = Color(0xFF979797);
+const Color kColorTextLightGray = Color(0xFF2F2F2F);
 
 // layout
 const double kAppBarElevation = 0.0;

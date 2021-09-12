@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
+
+import '../constants.dart';
 import '../models/keyword.dart';
 import '../providers/keywords.dart';
 import '../screens/keyword_details.dart';
@@ -41,6 +43,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
     final keywords = keywordsData.keywords;
 
     final headerStyle = TextStyle(
+      color: Colors.white,
       fontSize: 24,
       fontWeight: FontWeight.bold,
     );
