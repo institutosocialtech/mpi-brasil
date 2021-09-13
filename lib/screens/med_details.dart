@@ -5,71 +5,80 @@ import 'package:mpibrasil/models/med.dart';
 import 'package:mpibrasil/widgets/pain_card.dart';
 import 'package:mpibrasil/widgets/floating_menu.dart';
 
+import '../constants.dart';
+
 class MedDetails extends StatelessWidget {
   final Med med;
-
   MedDetails({Key key, this.med}) : super(key: key);
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+
+  final appBarHeaderStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
   final headerStyle = TextStyle(fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kColorMPIGreenOpaque,
+
       appBar: AppBar(
-        title: Text("MPI Brasil"),
-        titleSpacing: 0,
-        elevation: 0,
-      ),
-      body: Column(
-        children: <Widget>[
-          drawTitleBar(med, context),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
-              children: <Widget>[
-                ListTile(
-                  title: Text("Classe Farmacológica", style: headerStyle),
-                  subtitle: Text(
-                    med.medTypesToString(),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                drawConditionsTile(med),
-                drawAlternatives(med),
-                drawExpansionTile(
-                    "Orientações de Desprescrição", med.desprescription),
-                drawMedMonitor(med),
-                drawMedReferences(med),
-                SizedBox(height: 100),
-              ],
-            ),
+        backgroundColor: kColorMPIGreen,
+
+        // page appbar
+        flexibleSpace: Container(
+          child: Image.asset(
+            'assets/images/med_composition.png',
+            color: Colors.white.withOpacity(0.15),
+            colorBlendMode: BlendMode.multiply,
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
+
+        // page title
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 20.0, bottom: 30),
+            child: Text(med.name.toUpperCase(), style: appBarHeaderStyle),
+          ),
+        ),
+      ),
+
+      // page content
+      body: Container(
+        //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: kColorMPIWhite,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+        ),
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          children: <Widget>[
+            ListTile(
+              title: Text("Classe Farmacológica", style: headerStyle),
+              subtitle: Text(
+                med.medTypesToString(),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            drawConditionsTile(med),
+            drawAlternatives(med),
+            drawExpansionTile(
+                "Orientações de Desprescrição", med.desprescription),
+            drawMedMonitor(med),
+            drawMedReferences(med),
+            SizedBox(height: 100),
+          ],
+        ),
       ),
       floatingActionButton: FloatingMenu(med: med),
-    );
-  }
-
-  //
-  // Med Title Bar
-  Widget drawTitleBar(Med med, BuildContext context) {
-    return Container(
-      height: 80,
-      color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            med.name.toUpperCase(),
-            textScaleFactor: 1.5,
-            style: medTitleStyle,
-          ),
-        ],
-      ),
     );
   }
 
