@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: kColorMPIGreen,
-            accentColor: kColorMPIWhite,
+            accentColor: kColorMPIGreenOpaque,
             fontFamily: 'Nunito',
 
             // app bar
