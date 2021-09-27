@@ -101,27 +101,25 @@ class TermsOfUsePage extends StatelessWidget {
             topRight: Radius.circular(15.0),
           ),
         ),
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: MarkdownWidget(
-              data: termsOfUse,
-              styleConfig: StyleConfig(
-                pConfig: PConfig(
-                  selectable: false,
-                  textConfig: TextConfig(textAlign: TextAlign.justify),
-                ),
-                olConfig: OlConfig(
-                  indexWidget: (deep, index) {
-                    index++;
-                    return Container(
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      child: Text(
-                        index < 10 ? '  $index.' : '$index.',
-                      ),
-                    );
-                  },
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: MarkdownWidget(
+            data: termsOfUse,
+            styleConfig: StyleConfig(
+              pConfig: PConfig(
+                selectable: false,
+                textConfig: TextConfig(textAlign: TextAlign.justify),
+              ),
+              olConfig: OlConfig(
+                indexWidget: (deep, index) {
+                  index++;
+                  return Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
+                    child: Text(
+                      index < 10 ? '  $index.' : '$index.',
+                    ),
+                  );
+                },
               ),
             ),
           ),

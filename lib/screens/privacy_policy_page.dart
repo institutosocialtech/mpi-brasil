@@ -80,22 +80,25 @@ class PrivacyPolicyPage extends StatelessWidget {
             topRight: Radius.circular(15.0),
           ),
         ),
-        child: MarkdownWidget(
-          data: privacyPolicy,
-          styleConfig: StyleConfig(
-              pConfig: PConfig(
-                selectable: false,
-                textConfig: TextConfig(textAlign: TextAlign.justify),
-              ),
-              olConfig: OlConfig(
-                indexWidget: (deep, index) {
-                  index++;
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(index < 10 ? '  $index.' : '$index.'),
-                  );
-                },
-              )),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: MarkdownWidget(
+            data: privacyPolicy,
+            styleConfig: StyleConfig(
+                pConfig: PConfig(
+                  selectable: false,
+                  textConfig: TextConfig(textAlign: TextAlign.justify),
+                ),
+                olConfig: OlConfig(
+                  indexWidget: (deep, index) {
+                    index++;
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(index < 10 ? '  $index.' : '$index.'),
+                    );
+                  },
+                )),
+          ),
         ),
       ),
     );

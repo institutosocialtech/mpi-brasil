@@ -85,15 +85,20 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
             topRight: Radius.circular(15.0),
           ),
         ),
-        child: Expanded(
-          child: _isLoading
-              ? Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                    valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
-                  ),
-                )
-              : KeywordList(keywords: keywords),
+        child: Column(
+          children: [
+            Expanded(
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+                      ),
+                    )
+                  : KeywordList(keywords: keywords),
+            ),
+          ],
         ),
       ),
     );

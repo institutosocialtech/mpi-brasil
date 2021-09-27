@@ -57,8 +57,12 @@ class FAQPage extends StatelessWidget {
             topRight: Radius.circular(15.0),
           ),
         ),
-        child: Expanded(
-          child: FAQList(),
+        child: Column(
+          children: [
+            Expanded(
+              child: FAQList(),
+            ),
+          ],
         ),
       ),
     );

@@ -55,8 +55,12 @@ class FavoritesOverview extends StatelessWidget {
             topRight: Radius.circular(15.0),
           ),
         ),
-        child: Expanded(
-          child: FavoriteList(),
+        child: Column(
+          children: [
+            Expanded(
+              child: FavoriteList(),
+            ),
+          ],
         ),
       ),
     );
