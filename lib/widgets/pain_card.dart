@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/constants.dart';
 
 class PainCard extends StatefulWidget {
   @override
@@ -166,7 +167,7 @@ class _PainCardState extends State {
 
   void drawPainLevelBody(double painLevel) {
     if (painLevel >= 1 && painLevel <= 3) {
-      cardColor = Colors.green;
+      cardColor = kColorMPIGreenOpaque;
       painHeader = "Dor Leve";
       painHeaderDegree = "1º Degrau";
       painMessage =
@@ -178,7 +179,7 @@ class _PainCardState extends State {
       painMessage =
           "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples e/ou adjuvantes podem ser associados ou mantidos.";
     } else if (painLevel >= 8 && painLevel <= 10) {
-      cardColor = Colors.red;
+      cardColor = kColorMPIRed;
       painHeader = "Dor Intensa";
       painHeaderDegree = "3º Degrau";
       painMessage =
@@ -229,7 +230,7 @@ class _PainCardState extends State {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Fechar"),
               style: TextButton.styleFrom(
-                primary: Colors.green,
+                primary: kColorMPIGreen,
               ),
             )
           ],
