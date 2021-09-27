@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import '../models/med.dart';
@@ -32,15 +33,17 @@ class FloatingMenu extends StatelessWidget {
       overlayOpacity: 0.5,
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-hero-tag',
-      backgroundColor: Colors.green,
-      foregroundColor: Colors.white,
+      backgroundColor: kColorMPIGreen,
+      foregroundColor: kColorMPIWhite,
       elevation: 8.0,
       shape: CircleBorder(),
       children: [
         // favoritar
         SpeedDialChild(
-          child: isFavorite ? Icon(AntDesign.star) : Icon(AntDesign.staro),
-          backgroundColor: Colors.green,
+          child: isFavorite
+              ? Icon(AntDesign.star, color: kColorMPIWhite)
+              : Icon(AntDesign.staro, color: kColorMPIWhite),
+          backgroundColor: kColorMPIGreen,
           label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
@@ -57,8 +60,8 @@ class FloatingMenu extends StatelessWidget {
 
         // compartilhar
         SpeedDialChild(
-          child: Icon(Icons.share),
-          backgroundColor: Colors.green,
+          child: Icon(Icons.share, color: kColorMPIWhite),
+          backgroundColor: kColorMPIGreen,
           label: 'Compartilhar',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
@@ -78,8 +81,8 @@ class FloatingMenu extends StatelessWidget {
 
         // reportar erro
         SpeedDialChild(
-          child: Icon(Icons.report_problem),
-          backgroundColor: Colors.green,
+          child: Icon(Icons.report_problem, color: kColorMPIWhite),
+          backgroundColor: kColorMPIGreen,
           label: 'Reportar erro',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
