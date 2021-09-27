@@ -82,30 +82,34 @@ class EquipePage extends StatelessWidget {
 }
 
 class AboutUsText extends StatelessWidget {
-  const AboutUsText({
-    Key key,
-  }) : super(key: key);
+  const AboutUsText({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var aboutText = 'O Aplicativo MPI Brasil foi desenvolvido pelo ' +
+        'Instituto de Gestão de Projetos Sociais (**Instituto PMO Social)**, ' +
+        'juntamente com a **Universidade Federal da Bahia (UFBA)** por meio do ' +
+        'Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) ' +
+        'e a **Universidade Estadual do Sudoeste da Bahia (UESB)** por meio do ' +
+        'Curso de Medicina, Campus de Vitória da Conquista.';
+
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: MarkdownGenerator(
-                data:
-                    '\n O Aplicativo MPI Brasil foi desenvolvido pelo Instituto de Gestão de Projetos Sociais (**Instituto PMO Social)**, juntamente com a **Universidade Federal da Bahia (UFBA)** por meio do Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) e a **Universidade Estadual do Sudoeste da Bahia (UESB)** por meio do Curso de Medicina, Campus de Vitória da Conquista.',
-                styleConfig: StyleConfig(pConfig: PConfig(selectable: false)))
-            .widgets,
+          data: aboutText,
+          styleConfig: StyleConfig(
+            pConfig: PConfig(selectable: false),
+          ),
+        ).widgets,
       ),
     );
   }
 }
 
 class UesbTextImageSide extends StatelessWidget {
-  const UesbTextImageSide({
-    Key key,
-  }) : super(key: key);
+  const UesbTextImageSide({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -190,9 +194,7 @@ class UesbTextImageSide extends StatelessWidget {
 }
 
 class UfbaTextImageSide extends StatelessWidget {
-  const UfbaTextImageSide({
-    Key key,
-  }) : super(key: key);
+  const UfbaTextImageSide({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -331,9 +333,7 @@ class UfbaTextImageSide extends StatelessWidget {
 }
 
 class PmoSocialTextImageSide extends StatelessWidget {
-  const PmoSocialTextImageSide({
-    Key key,
-  }) : super(key: key);
+  const PmoSocialTextImageSide({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
