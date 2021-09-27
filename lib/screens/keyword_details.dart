@@ -35,7 +35,7 @@ class KeywordDetails extends StatelessWidget {
           preferredSize: Size.fromHeight(80),
           child: Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
             child: Text(
               keyword.word.toUpperCase(),
               style: headerStyle,
@@ -57,7 +57,6 @@ class KeywordDetails extends StatelessWidget {
         ),
         child: ListView(
           children: <Widget>[
-            // drawTitleBar(keyword),
             SizedBox(height: 20),
             ListTile(
               title: Text("Definição", style: tileTitle),
@@ -83,33 +82,6 @@ class KeywordDetails extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-//
-  // Keyword Title Bar
-  Widget drawTitleBar(Keyword keyword) {
-    TextStyle headerStyle = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-    );
-
-    return Container(
-      height: 80,
-      color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Flexible(
-            child: Text(keyword.word.toUpperCase(),
-                textScaleFactor: 1.5,
-                textAlign: TextAlign.left,
-                style: headerStyle),
-          ),
-        ],
       ),
     );
   }
