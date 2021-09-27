@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../models/http_exception.dart';
 import '../providers/auth.dart';
@@ -94,8 +95,8 @@ class _AuthCardState extends State<AuthCard> {
             child: Text("Fechar"),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              primary: Colors.white,
-              backgroundColor: Colors.green,
+              primary: kColorMPIWhite,
+              backgroundColor: kColorMPIGreen,
             ),
           ),
         ],
@@ -205,8 +206,8 @@ class _AuthCardState extends State<AuthCard> {
 
     return _isLoading
         ? CircularProgressIndicator(
-            backgroundColor: Colors.white,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green[800]),
+            backgroundColor: kColorMPIWhite,
+            valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
           )
         : Card(
             color: Colors.white,
@@ -317,7 +318,7 @@ class _AuthCardState extends State<AuthCard> {
                                 height: 30,
                                 child: Checkbox(
                                   value: _tosAccepted,
-                                  checkColor: Colors.green,
+                                  checkColor: kColorMPIGreen,
                                   activeColor: Colors.black87,
                                   onChanged: (value) =>
                                       setState(() => _tosAccepted = value),
@@ -351,7 +352,7 @@ class _AuthCardState extends State<AuthCard> {
                                 height: 30,
                                 child: Checkbox(
                                   value: _privAccepted,
-                                  checkColor: Colors.green,
+                                  checkColor: kColorMPIGreen,
                                   activeColor: Colors.black87,
                                   onChanged: (value) =>
                                       setState(() => _privAccepted = value),
@@ -390,7 +391,7 @@ class _AuthCardState extends State<AuthCard> {
                           ),
                           onPressed: _submit,
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
+                            primary: kColorMPIGreen,
                             textStyle: TextStyle(fontWeight: FontWeight.bold),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),

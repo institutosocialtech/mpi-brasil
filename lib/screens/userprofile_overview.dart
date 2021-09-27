@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../providers/userpreferences.dart';
 
@@ -78,15 +79,14 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
           height: deviceSize.height,
           width: deviceSize.width,
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: kColorMPIGreen,
           ),
           padding: EdgeInsets.symmetric(vertical: 40, horizontal: 40),
           child: _isLoading
               ? Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: Colors.white70,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Colors.green[800]),
+                    backgroundColor: kColorMPIWhite,
+                    valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
                   ),
                 )
               : Form(
@@ -110,12 +110,12 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                             decoration: InputDecoration(
                               hintText: 'Nome',
                               errorStyle: errorStyle,
-                              fillColor: Colors.white,
+                              fillColor: kColorMPIWhite,
                               filled: true,
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon: Icon(AntDesign.user, color: Colors.white),
+                              icon: Icon(AntDesign.user, color: kColorMPIWhite),
                             ),
                             onSaved: (value) => _userName = value,
                           ),
@@ -123,12 +123,12 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                           DropdownButtonFormField(
                             decoration: InputDecoration(
                               errorStyle: errorStyle,
-                              fillColor: Colors.white,
+                              fillColor: kColorMPIWhite,
                               filled: true,
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon: Icon(AntDesign.rest, color: Colors.white),
+                              icon: Icon(AntDesign.rest, color: kColorMPIWhite),
                             ),
                             hint: Text('Ocupação'),
                             items: _occupations,
@@ -147,13 +147,13 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                             decoration: InputDecoration(
                               hintText: 'Data de Nascimento',
                               errorStyle: errorStyle,
-                              fillColor: Colors.white,
+                              fillColor: kColorMPIWhite,
                               filled: true,
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon:
-                                  Icon(AntDesign.calendar, color: Colors.white),
+                              icon: Icon(AntDesign.calendar,
+                                  color: kColorMPIWhite),
                             ),
                             keyboardType: TextInputType.number,
                             onSaved: (value) => _userBirthdate =
@@ -166,7 +166,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                         child: Text('Finalizar'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.black54,
-                          textStyle: TextStyle(color: Colors.white),
+                          textStyle: TextStyle(color: kColorMPIWhite),
                         ),
                       ),
                     ],

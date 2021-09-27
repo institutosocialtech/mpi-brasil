@@ -145,7 +145,7 @@ class FAQList extends StatelessWidget {
                       textStyle: TextStyle(color: kColorTextLightGray),
                       textConfig: TextConfig(textAlign: TextAlign.justify),
                       linkStyle: TextStyle(
-                        color: Colors.green,
+                        color: kColorMPIGreen,
                         fontWeight: FontWeight.bold,
                       ),
                       onLinkTap: (link) => launch(link),

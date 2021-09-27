@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../providers/userpreferences.dart';
 
@@ -16,7 +17,7 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Reportar um erro:"),
+          title: Text("Selecione o tipo de erro:"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,7 +29,7 @@ class ReportProblem {
                   "Bug",
                   "Outros",
                 ],
-                activeColor: Colors.green,
+                activeColor: kColorMPIGreen,
                 onSelected: (String selected) {
                   switch (selected) {
                     case "Informação":
@@ -54,7 +55,7 @@ class ReportProblem {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
               style: TextButton.styleFrom(
-                primary: Colors.green,
+                primary: kColorMPIGreenOpaque,
               ),
             ),
 
@@ -63,8 +64,8 @@ class ReportProblem {
               onPressed: () => Navigator.of(context).pop(_reportAction),
               child: Text("Enviar"),
               style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Colors.green,
+                primary: kColorMPIWhite,
+                backgroundColor: kColorMPIGreen,
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../models/http_exception.dart';
 import '../providers/auth.dart';
@@ -126,8 +127,8 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
 
     return _isLoading
         ? CircularProgressIndicator(
-            backgroundColor: Colors.white,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green[800]),
+            backgroundColor: kColorMPIWhite,
+            valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
           )
         : Card(
             child: Container(
@@ -191,8 +192,8 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                           onPressed: _submit,
                           child: Text("Recuperar Senha"),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
-                            textStyle: TextStyle(color: Colors.white),
+                            primary: kColorMPIGreen,
+                            textStyle: TextStyle(color: kColorMPIWhite),
                           ),
                         ),
                         SizedBox(height: 10),

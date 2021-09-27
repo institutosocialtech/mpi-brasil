@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/constants.dart';
 
 class License extends StatelessWidget {
   final medTitleStyle =
@@ -16,14 +17,13 @@ class License extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            color: Colors.green,
+            color: kColorMPIGreen,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Licenças",
-                    textScaleFactor: 1.5, style: medTitleStyle),
+                Text("Licenças", textScaleFactor: 1.5, style: medTitleStyle),
               ],
             ),
           ),
