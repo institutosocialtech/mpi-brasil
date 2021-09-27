@@ -92,7 +92,10 @@ class AboutUsText extends StatelessWidget {
         children: MarkdownGenerator(
           data: aboutText,
           styleConfig: StyleConfig(
-            pConfig: PConfig(selectable: false),
+            pConfig: PConfig(
+              selectable: false,
+              textConfig: TextConfig(textAlign: TextAlign.justify),
+            ),
           ),
         ).widgets,
       ),
