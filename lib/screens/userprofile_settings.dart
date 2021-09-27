@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 import '../providers/userpreferences.dart';
@@ -40,8 +41,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                  backgroundColor: kColorMPIWhite,
+                  valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
                 ),
               )
             : Column(
@@ -78,7 +79,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ListTile(
             title: Text('Nome'),
             subtitle: Text(user.name),
-            leading: Icon(AntDesign.user, color: Colors.green),
+            leading: Icon(AntDesign.user, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
               onPressed: () => _showEditNameDialog(context, user.name),
@@ -90,7 +91,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             enabled: false,
             title: Text('Email'),
             subtitle: Text('mpibrasil@pmosocial.org'),
-            leading: Icon(AntDesign.mail, color: Colors.green),
+            leading: Icon(AntDesign.mail, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
               onPressed: () => print("edit email"),
@@ -102,7 +103,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             enabled: false,
             title: Text('Senha'),
             subtitle: Text('********'),
-            leading: Icon(AntDesign.key, color: Colors.green),
+            leading: Icon(AntDesign.key, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
               onPressed: () => print("edit password"),
@@ -115,7 +116,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             subtitle: Text(
               _dateToString(user.birthDate),
             ),
-            leading: Icon(AntDesign.calendar, color: Colors.green),
+            leading: Icon(AntDesign.calendar, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
               onPressed: () => _showEditBirthDateDialog(
@@ -129,7 +130,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ListTile(
             title: Text('Ocupação'),
             subtitle: Text(_occupationToString(user.occupation)),
-            leading: Icon(AntDesign.rest, color: Colors.green),
+            leading: Icon(AntDesign.rest, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(AntDesign.edit),
               onPressed: () =>
@@ -180,7 +181,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
               style: TextButton.styleFrom(
-                primary: Colors.green,
+                primary: kColorMPIGreen,
               ),
             ),
 
@@ -189,8 +190,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(controller.text),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Colors.green,
+                primary: kColorMPIWhite,
+                backgroundColor: kColorMPIGreen,
               ),
             ),
           ],
@@ -249,7 +250,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
               style: TextButton.styleFrom(
-                primary: Colors.green,
+                primary: kColorMPIGreen,
               ),
             ),
 
@@ -260,8 +261,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               ),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Colors.green,
+                primary: kColorMPIWhite,
+                backgroundColor: kColorMPIGreen,
               ),
             ),
           ],
@@ -287,10 +288,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
         // build dialog
         return AlertDialog(
-          title: Text("Editar"),
+          title: Text("Escolha sua ocupação:"),
           content: Container(
-            width: deviceSize.width * 0.85,
-            margin: EdgeInsets.symmetric(vertical: 20),
+            width: deviceSize.width * 0.75,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -302,7 +302,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     'Estudante',
                     'Outros'
                   ],
-                  activeColor: Colors.green,
+                  activeColor: kColorMPIGreen,
                   onSelected: (value) {
                     switch (value) {
                       case 'Médico(a)':
@@ -330,9 +330,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
-              style: TextButton.styleFrom(
-                primary: Colors.green,
-              ),
+              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
             ),
 
             // save action
@@ -340,8 +338,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(selected),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Colors.green,
+                primary: kColorMPIWhite,
+                backgroundColor: kColorMPIGreen,
               ),
             ),
           ],
