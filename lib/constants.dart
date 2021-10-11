@@ -24,7 +24,8 @@ const Color kColorMedCard = Color(0xFF9CD160);
 
 // textfield
 const double kInputBorderRadius = 4.0;
-const double kInputContentPadding = 10.0;
+const double kInputContentPadding = 16.0;
+const Color kInputBorderColor = Color(0xFFE4E9F2);
 
 // font sizes
 // header: 22

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'constants.dart';
+import 'theme.dart';
 
 import 'providers/auth.dart';
 import 'providers/keywords.dart';
@@ -62,38 +62,7 @@ class MyApp extends StatelessWidget {
         builder: (context, auth, _) => MaterialApp(
           title: 'MPI Brasil',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor: kColorMPIGreen,
-            accentColor: kColorMPIGreenOpaque,
-            fontFamily: 'Nunito',
-
-            // app bar
-            appBarTheme: AppBarTheme(
-              elevation: 0,
-              centerTitle: false,
-              color: kColorMPIWhite,
-            ),
-
-            // input decoration
-            inputDecorationTheme: InputDecorationTheme(
-              filled: true,
-              fillColor: kColorMPIWhite,
-              focusColor: kColorMPIGray,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kColorMPIGray),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(kInputBorderRadius),
-              ),
-              labelStyle: TextStyle(color: kColorMPIGray),
-              hintStyle: TextStyle(color: kColorMPIGray),
-            ),
-
-            dividerColor: Colors.transparent,
-
-            // scaffold
-            scaffoldBackgroundColor: kColorMPIWhite,
-          ),
+          theme: appTheme,
           home: auth.isAuth
               ? LoadingScreen()
               : FutureBuilder(
