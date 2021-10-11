@@ -178,9 +178,9 @@ class _SearchPageState extends State<SearchPage> {
             child: TextField(
               onChanged: _queryMed,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(kInputContentPadding),
-                suffixIcon: Icon(Icons.search, color: kColorMPIGray),
+                fillColor: kColorMPIWhite,
                 hintText: "Pesquisar...",
+                suffixIcon: Icon(Icons.search, color: kColorMPIGray),
               ),
             ),
           ),
