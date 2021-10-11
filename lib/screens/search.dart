@@ -176,6 +176,7 @@ class _SearchPageState extends State<SearchPage> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: TextField(
+              autofocus: false,
               onChanged: _queryMed,
               decoration: InputDecoration(
                 fillColor: kColorMPIWhite,
@@ -192,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
 
       // page content
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           decoration: BoxDecoration(
