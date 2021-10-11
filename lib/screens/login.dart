@@ -1,89 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:mpibrasil/constants.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../models/http_exception.dart';
-import '../providers/auth.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/models/http_exception.dart';
 
-enum AuthMode { SIGNUP, LOGIN }
-
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.green[900],
-                  Colors.green[200],
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Container(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        "MPI Brasil",
-                        textScaleFactor: 3,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: AuthCard(),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class AuthCard extends StatefulWidget {
-  @override
-  _AuthCardState createState() => _AuthCardState();
-}
-
-class _AuthCardState extends State<AuthCard> {
+class _LoginPageState extends State<LoginPage> {
+  bool _isLoading;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _passwordVerifyController = TextEditingController();
 
-  var _isLoading = false;
-  var _tosAccepted = false;
-  var _privAccepted = false;
-
-  AuthMode _authMode = AuthMode.LOGIN;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
 
+  // focus nodes
+  FocusNode _fEmail;
+  FocusNode _fPassword;
+  FocusNode _fSubmit;
+
+  // text styles
+  final _labelStyle = TextStyle(
+    color: kColorMPIGray,
+    fontSize: 15,
+  );
+
+  final _linkStyle = TextStyle(
+    color: kColorMPIGreen,
+    fontSize: 15,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _fEmail = FocusNode();
+    _fPassword = FocusNode();
+    _fSubmit = FocusNode();
+    _isLoading = false;
+  }
+
+  @override
+  void dispose() {
+    _fEmail.dispose();
+    _fPassword.dispose();
+    _fSubmit.dispose();
+    super.dispose();
+  }
+
+  // display error message
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -104,44 +75,39 @@ class _AuthCardState extends State<AuthCard> {
     );
   }
 
+  // validate form entry
+  String _validateEntry(String type, String value) {
+    switch (type) {
+      case 'email':
+        if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
+        break;
+
+      case 'password':
+        if (value.isEmpty) return 'Digite sua Senha!';
+        break;
+    }
+    return null;
+  }
+
+  // form submit
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
       // invalid
       return;
     }
 
+    // save form data
     _formKey.currentState.save();
 
-    if (_authMode == AuthMode.SIGNUP) {
-      if (!_tosAccepted) {
-        _showErrorDialog(
-            'Voce deve aceitar os termos de uso para poder utilizar a app.');
-        return;
-      }
+    // display progress indicator
+    setState(() => _isLoading = true);
 
-      if (!_privAccepted) {
-        _showErrorDialog(
-            'Voce deve aceitar a política de privacidade para poder utilizar a app.');
-        return;
-      }
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
+    // try to login
     try {
-      if (_authMode == AuthMode.LOGIN) {
-        await Provider.of<Auth>(context, listen: false).login(
-          _authData['email'],
-          _authData['password'],
-        );
-      } else {
-        await Provider.of<Auth>(context, listen: false).signup(
-          _authData['email'],
-          _authData['password'],
-        );
-      }
+      await Provider.of<Auth>(context, listen: false).login(
+        _authData['email'],
+        _authData['password'],
+      );
     } on HttpException catch (error) {
       var errorMessage = 'A autenticação falhou!';
 
@@ -168,267 +134,202 @@ class _AuthCardState extends State<AuthCard> {
       _showErrorDialog(errorMessage);
     }
 
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  String _validateEntry(String type, String value) {
-    switch (type) {
-      case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
-        break;
-
-      case 'password':
-        if (value.isEmpty) return 'Digite sua Senha!';
-        break;
-    }
-    return null;
-  }
-
-  void _switchAuthMode() {
-    if (_authMode == AuthMode.LOGIN) {
-      setState(() {
-        _authMode = AuthMode.SIGNUP;
-        _formKey.currentState.reset();
-      });
-    } else {
-      setState(() {
-        _authMode = AuthMode.LOGIN;
-        _formKey.currentState.reset();
-      });
-    }
+    // hide progress indicator
+    setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
+    // sign in button appearence
+    final _buttonTextStyle = TextStyle(
+      color: kColorMPIWhite,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    );
 
-    return _isLoading
-        ? CircularProgressIndicator(
-            backgroundColor: kColorMPIWhite,
-            valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
-          )
-        : Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            elevation: 8,
-            child: Container(
-              width: deviceSize.width * 0.85,
-              height: _authMode == AuthMode.LOGIN ? 290 : 400,
-              constraints: BoxConstraints(maxHeight: 440),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    //
-                    // textfield section
-                    //
+    final _signInButtonStyle = ElevatedButton.styleFrom(
+      primary: kColorMPIGreen,
+    );
 
-                    Column(
-                      children: <Widget>[
-                        //
-                        // email field
-                        //
+    // build widget
+    return Scaffold(
+      body: _isLoading
+          ? Container(
+              color: kColorMPIGreen,
+              child: Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: kColorMPIWhite,
+                  valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+                ),
+              ),
+            )
+          : LayoutBuilder(
+              builder: (context, constraints) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: GestureDetector(
+                      onTap: () =>
+                          FocusScope.of(context).requestFocus(new FocusNode()),
+                      child: Container(
+                        color: kColorMPIGreen,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            //
+                            // lead image
+                            //
 
-                        TextFormField(
-                          controller: _emailController,
-                          obscureText: false,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Email",
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 10),
-                          ),
-                          validator: (value) => _validateEntry('email', value),
-                          onSaved: (value) => _authData['email'] = value,
-                        ),
-                        SizedBox(height: 5),
-
-                        //
-                        // password field
-                        //
-
-                        TextFormField(
-                          obscureText: true,
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Senha",
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 10),
-                          ),
-                          validator: (value) =>
-                              _validateEntry('password', value),
-                          onSaved: (value) => _authData['password'] = value,
-                        ),
-                        SizedBox(height: 5),
-
-                        //
-                        // verify password field
-                        //
-
-                        if (_authMode == AuthMode.SIGNUP)
-                          TextFormField(
-                            controller: _passwordVerifyController,
-                            enabled: _authMode == AuthMode.SIGNUP,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Verificar Senha",
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                            Container(
+                              height: 250,
+                              child: SvgPicture.asset(
+                                'assets/images/group3.svg',
+                                fit: BoxFit.scaleDown,
+                              ),
                             ),
-                            validator: _authMode == AuthMode.SIGNUP
-                                ? (value) {
-                                    if (value.isEmpty ||
-                                        value != _passwordController.text)
-                                      return 'Senha não confere!';
-                                    else
-                                      return null;
-                                  }
-                                : null,
-                          ),
-                      ],
-                    ),
 
-                    //
-                    // tos and policy section
-                    //
+                            //
+                            // auth section
+                            //
 
-                    if (_authMode == AuthMode.SIGNUP)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          //
-                          // tos check
-                          //
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: Checkbox(
-                                  value: _tosAccepted,
-                                  checkColor: kColorMPIGreen,
-                                  activeColor: Colors.black87,
-                                  onChanged: (value) =>
-                                      setState(() => _tosAccepted = value),
-                                ),
-                              ),
-                              Text('Eu aceito os '),
-                              InkWell(
-                                child: Text(
-                                  'termos de uso.',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.all(20.0),
+                                decoration:
+                                    BoxDecoration(color: kColorMPIWhite),
+                                child: Form(
+                                  key: _formKey,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      //
+                                      // email field
+                                      //
+
+                                      TextFormField(
+                                        focusNode: _fEmail,
+                                        controller: _emailController,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        textInputAction: TextInputAction.next,
+                                        decoration:
+                                            InputDecoration(hintText: "Email"),
+                                        validator: (value) =>
+                                            _validateEntry('email', value),
+                                        onSaved: (value) =>
+                                            _authData['email'] = value,
+                                        onFieldSubmitted: (text) {
+                                          _fEmail.unfocus();
+                                          FocusScope.of(context)
+                                              .requestFocus(_fPassword);
+                                        },
+                                      ),
+
+                                      //
+                                      // password field
+                                      //
+
+                                      SizedBox(height: 20.0),
+                                      TextFormField(
+                                        obscureText: true,
+                                        focusNode: _fPassword,
+                                        controller: _passwordController,
+                                        textInputAction: TextInputAction.done,
+                                        decoration:
+                                            InputDecoration(hintText: "Senha"),
+                                        validator: (value) =>
+                                            _validateEntry('password', value),
+                                        onSaved: (value) =>
+                                            _authData['password'] = value,
+                                        onFieldSubmitted: (text) {
+                                          _fPassword.unfocus();
+                                          FocusScope.of(context)
+                                              .requestFocus(_fSubmit);
+                                        },
+                                      ),
+
+                                      //
+                                      // forgot password
+                                      //
+
+                                      SizedBox(height: 5.0),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/forgot_password'),
+                                            child: Text('Esqueceu a senha?',
+                                                style: _labelStyle),
+                                          ),
+                                        ],
+                                      ),
+
+                                      //
+                                      // sign in button
+                                      //
+
+                                      SizedBox(height: 60.0),
+                                      SizedBox(
+                                        height: 55,
+                                        child: ElevatedButton(
+                                          onPressed: _submit,
+                                          focusNode: _fSubmit,
+                                          style: _signInButtonStyle,
+                                          child: Text("Entrar",
+                                              style: _buttonTextStyle),
+                                        ),
+                                      ),
+
+                                      //
+                                      // signUp section
+                                      //
+                                      Expanded(child: Container()),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text('Novo usuário? ',
+                                              style: _labelStyle),
+                                          InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/forgot_password'),
+                                            child: Text('Cadastre aqui',
+                                                style: _linkStyle),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                onTap: () =>
-                                    Navigator.of(context).pushNamed('/tos'),
                               ),
-                            ],
-                          ),
+                            ),
 
-                          //
-                          // priv policy check
-                          //
+                            //
+                            // app version
+                            //
 
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: Checkbox(
-                                  value: _privAccepted,
-                                  checkColor: kColorMPIGreen,
-                                  activeColor: Colors.black87,
-                                  onChanged: (value) =>
-                                      setState(() => _privAccepted = value),
+                            Container(
+                              color: kColorMPIWhite,
+                              child: Text(
+                                'v1.0.0',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: kColorMPIGray,
                                 ),
                               ),
-                              Text('Eu aceito a '),
-                              InkWell(
-                                child: Text(
-                                  'política de privacidade.',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed('/privacy_policy'),
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-
-                    //
-                    // bottom section
-                    //
-
-                    Column(
-                      children: <Widget>[
-                        //
-                        // signIn button
-                        ElevatedButton(
-                          child: Text(
-                            _authMode == AuthMode.LOGIN
-                                ? 'Entrar'
-                                : 'Cadastrar',
-                          ),
-                          onPressed: _submit,
-                          style: ElevatedButton.styleFrom(
-                            primary: kColorMPIGreen,
-                            textStyle: TextStyle(fontWeight: FontWeight.bold),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                        ),
-
-                        //
-                        // forgot password switch
-                        SizedBox(height: 5),
-                        if (_authMode == AuthMode.LOGIN)
-                          InkWell(
-                            child: Text(
-                              "Esqueci minha senha",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            onTap: () => Navigator.pushNamed(
-                                context, '/forgot_password'),
-                          ),
-
-                        //
-                        // Login/SignUp switch
-                        InkWell(
-                          onTap: () => _switchAuthMode(),
-                          child: Text(
-                            _authMode == AuthMode.LOGIN
-                                ? 'Primeiro acesso? Cadastre aqui!'
-                                : 'Já possui cadastro? Faça o Login aqui!',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          );
+    );
   }
 }
