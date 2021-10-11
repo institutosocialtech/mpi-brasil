@@ -191,29 +191,33 @@ class _SearchPageState extends State<SearchPage> {
       drawer: AppDrawer(),
 
       // page content
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        decoration: BoxDecoration(
-          color: kColorMPIWhite,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15.0),
-            topRight: Radius.circular(15.0),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          decoration: BoxDecoration(
+            color: kColorMPIWhite,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
           ),
-        ),
-        child: _isLoading
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: kColorMPIWhite,
-                      valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+          child: _isLoading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: kColorMPIWhite,
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(kColorMPIGreen),
+                      ),
                     ),
-                  ),
-                  Text("Carregando dados..."),
-                ],
-              )
-            : resultPane,
+                    Text("Carregando dados..."),
+                  ],
+                )
+              : resultPane,
+        ),
       ),
     );
   }
