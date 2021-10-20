@@ -21,6 +21,7 @@ import 'screens/onboarding.dart';
 import 'screens/privacy_policy_page.dart';
 import 'screens/userprofile_settings.dart';
 import 'screens/search.dart';
+import 'screens/signup.dart';
 import 'screens/splashscreen.dart';
 import 'screens/terms_of_use_page.dart';
 import 'screens/userprofile_overview.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
             '/profile': (context) => ProfileSettings(),
             '/profile_setup': (context) => UserProfileOverview(),
             '/search': (context) => SearchPage(),
+            '/signup': (context) => SignUpPage(),
             '/tos': (context) => TermsOfUsePage(),
           },
         ),
