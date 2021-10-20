@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../providers/auth.dart';
@@ -102,13 +103,11 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildDrawerHeader(BuildContext context) {
     return DrawerHeader(
-      child: Container(),
-      decoration: BoxDecoration(
-        color: kColorMPIGreen,
-        image: DecorationImage(
-          image: AssetImage('assets/images/logo.png'),
-          alignment: Alignment.center,
-          fit: BoxFit.cover,
+      child: Container(
+        child: SvgPicture.asset(
+          'assets/images/group3.svg',
+          color: kColorMPIGreen,
+          fit: BoxFit.contain,
         ),
       ),
     );
