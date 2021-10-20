@@ -163,11 +163,12 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                       ),
                       ElevatedButton(
                         onPressed: _submit,
-                        child: Text('Finalizar'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black54,
-                          textStyle: TextStyle(color: kColorMPIWhite),
+                        child: Text(
+                          'Finalizar',
+                          style: TextStyle(color: kColorMPIGreen),
                         ),
+                        style:
+                            ElevatedButton.styleFrom(primary: kColorMPIWhite),
                       ),
                     ],
                   ),
