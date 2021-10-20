@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/providers/auth.dart';
 import 'package:mpibrasil/models/http_exception.dart';
+import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/screens/splashscreen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,32 +13,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // draw util
   bool _isLoading;
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
+  // auth
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
+
+  // controllers
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   // focus nodes
   FocusNode _fEmail;
   FocusNode _fPassword;
   FocusNode _fSubmit;
 
-  // text styles
-  final _labelStyle = TextStyle(
-    color: kColorMPIGray,
-    fontSize: 15,
-  );
-
-  final _linkStyle = TextStyle(
-    color: kColorMPIGreen,
-    fontSize: 15,
-  );
-
+  // init
   @override
   void initState() {
     super.initState();
@@ -46,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     _isLoading = false;
   }
 
+  // dispose
   @override
   void dispose() {
     _fEmail.dispose();
@@ -91,14 +88,10 @@ class _LoginPageState extends State<LoginPage> {
 
   // form submit
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
-      // invalid
-      return;
-    }
-
+    // validate form
+    if (!_formKey.currentState.validate()) return;
     // save form data
     _formKey.currentState.save();
-
     // display progress indicator
     setState(() => _isLoading = true);
 
@@ -151,18 +144,21 @@ class _LoginPageState extends State<LoginPage> {
       primary: kColorMPIGreen,
     );
 
+    // text styles
+    final _labelStyle = TextStyle(
+      color: kColorMPIGray,
+      fontSize: 15,
+    );
+
+    final _linkStyle = TextStyle(
+      color: kColorMPIGreen,
+      fontSize: 15,
+    );
+
     // build widget
     return Scaffold(
       body: _isLoading
-          ? Container(
-              color: kColorMPIGreen,
-              child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: kColorMPIWhite,
-                  valueColor: AlwaysStoppedAnimation<Color>(kColorMPIGreen),
-                ),
-              ),
-            )
+          ? SplashScreen()
           : LayoutBuilder(
               builder: (context, constraints) => SingleChildScrollView(
                 child: ConstrainedBox(
@@ -172,26 +168,13 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: () =>
                           FocusScope.of(context).requestFocus(new FocusNode()),
                       child: Container(
-                        color: kColorMPIGreen,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            //
                             // lead image
-                            //
+                            _drawMPIHeader(),
 
-                            Container(
-                              height: 250,
-                              child: SvgPicture.asset(
-                                'assets/images/group3.svg',
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-
-                            //
                             // auth section
-                            //
-
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.all(20.0),
@@ -203,10 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      //
                                       // email field
-                                      //
-
                                       TextFormField(
                                         focusNode: _fEmail,
                                         controller: _emailController,
@@ -226,10 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                                         },
                                       ),
 
-                                      //
                                       // password field
-                                      //
-
                                       SizedBox(height: 20.0),
                                       TextFormField(
                                         obscureText: true,
@@ -249,11 +226,8 @@ class _LoginPageState extends State<LoginPage> {
                                         },
                                       ),
 
-                                      //
                                       // forgot password
-                                      //
-
-                                      SizedBox(height: 5.0),
+                                      SizedBox(height: 10.0),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -267,11 +241,8 @@ class _LoginPageState extends State<LoginPage> {
                                         ],
                                       ),
 
-                                      //
                                       // sign in button
-                                      //
-
-                                      SizedBox(height: 60.0),
+                                      SizedBox(height: 20.0),
                                       SizedBox(
                                         height: 55,
                                         child: ElevatedButton(
@@ -283,10 +254,8 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
 
-                                      //
                                       // signUp section
-                                      //
-                                      Expanded(child: Container()),
+                                      SizedBox(height: 20.0),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -295,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                                               style: _labelStyle),
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
-                                                context, '/forgot_password'),
+                                                context, '/signup'),
                                             child: Text('Cadastre aqui',
                                                 style: _linkStyle),
                                           ),
@@ -307,21 +276,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
 
-                            //
                             // app version
-                            //
-
-                            Container(
-                              color: kColorMPIWhite,
-                              child: Text(
-                                'v1.0.0',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: kColorMPIGray,
-                                ),
-                              ),
-                            ),
+                            _drawAppVersion(),
                           ],
                         ),
                       ),
@@ -330,6 +286,57 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+    );
+  }
+
+  Widget _drawMPIHeader() {
+    var headerColorFilter = ColorFilter.mode(
+      kColorMPIGreen,
+      BlendMode.multiply,
+    );
+
+    return Container(
+      height: 250,
+
+      // background
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/bg_shadow.png'),
+          colorFilter: headerColorFilter,
+          alignment: Alignment.topLeft,
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+
+      // logo
+      child: SvgPicture.asset(
+        'assets/images/group3.svg',
+        fit: BoxFit.scaleDown,
+      ),
+    );
+  }
+
+  Widget _drawAppVersion() {
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: FutureBuilder<PackageInfo>(
+        future: PackageInfo.fromPlatform(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return Text(
+                'v${snapshot.data.version}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: kColorMPIGray),
+              );
+            default:
+              return Text('');
+          }
+        },
+      ),
     );
   }
 }
