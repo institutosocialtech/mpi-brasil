@@ -1,1 +1,2 @@
+10-11-2021 - prepare for testing phase.
 8-11-2020 Adds ios build to the pipeline and disabled web.
