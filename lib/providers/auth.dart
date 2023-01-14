@@ -37,7 +37,8 @@ class Auth with ChangeNotifier {
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
 
     try {
-      final response = await http.post(url,
+      final uri = Uri.parse(url);
+      final response = await http.post(uri,
           body: json.encode({
             'email': email,
             'password': password,
@@ -133,7 +134,8 @@ class Auth with ChangeNotifier {
         'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
 
     try {
-      final response = await http.post(url,
+      final uri = Uri.parse(url);
+      final response = await http.post(uri,
           body: json.encode({'requestType': "PASSWORD_RESET", 'email': email}));
 
       final responseData = json.decode(response.body);

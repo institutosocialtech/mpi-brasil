@@ -28,7 +28,8 @@ class Meds with ChangeNotifier {
 
     try {
       print("loading med db...");
-      final response = await http.get(url);
+      final uri = Uri.parse(url);
+      final response = await http.get(uri);
       final data = json.decode(response.body) as Map<String, dynamic>;
 
       if (data == null) {

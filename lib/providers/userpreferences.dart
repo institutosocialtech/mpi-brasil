@@ -25,7 +25,8 @@ class UserPreferences with ChangeNotifier {
     try {
       // make the api call to load user preferences
       print('loading user preferences...');
-      final response = await http.get(url);
+      final uri = Uri.parse(url);
+      final response = await http.get(uri);
       var responseData = json.decode(response.body) as Map<String, dynamic>;
 
       // initialize user preferences in case they don't exist
@@ -63,8 +64,9 @@ class UserPreferences with ChangeNotifier {
 
     try {
       // make the api call to update user preferences
+      final uri = Uri.parse(url);
       final response = await http.patch(
-        url,
+        uri,
         body: json.encode({
           if (name != null) 'name': name,
           if (occupation != null) 'occupation': occupation,
@@ -107,7 +109,8 @@ class UserPreferences with ChangeNotifier {
         notifyListeners();
 
         // send the api call
-        final response = await http.put(url, body: json.encode(newStatus));
+        final uri = Uri.parse(url);
+        final response = await http.put(uri, body: json.encode(newStatus));
         final responseData = json.decode(response.body);
 
         // todo: handle api errors
@@ -122,7 +125,8 @@ class UserPreferences with ChangeNotifier {
         notifyListeners();
 
         // send api call to delete favorite
-        final response = await http.delete(url);
+        final uri = Uri.parse(url);
+        final response = await http.delete(uri);
         final responseData = json.decode(response.body);
 
         // todo: handle api errors
@@ -136,8 +140,9 @@ class UserPreferences with ChangeNotifier {
     var url =
         'https://mpibrasil.firebaseio.com/app_reports.json?auth=$authToken';
     try {
+      final uri = Uri.parse(url);
       final response = await http.post(
-        url,
+        uri,
         body: json.encode(
           {
             'user': userId,
