@@ -10,32 +10,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^5.0.0
-  shared_preferences: ^0.5.7+2
-  cupertino_icons: ^0.1.2
-  url_launcher: ^5.4.2
+  provider: ^6.0.5
+  shared_preferences: ^2.0.16
+  cupertino_icons: ^1.0.5
+  url_launcher: ^6.1.7
   
-  flutter_speed_dial: ^1.2.5 # Floating button menu
-  flutter_mailer: ^0.4.1+1   # Enviar email pelo app padrão
-  mask_text_input_formatter: ^1.0.7
+  flutter_speed_dial: ^6.2.0 # Floating button menu
+  flutter_mailer: ^2.0.2   # Enviar email pelo app padrão
+  mask_text_input_formatter: ^2.4.0
   
-  diacritic: ^0.1.1 # simplifica palavras com acentos e caracteres especiais
-  intl: ^0.15.8
-  http: 0.12.0+4
-  json_annotation: ^3.0.1
-  markdown_widget: ^1.2.0
-  introduction_screen: ^1.0.7
-  package_info_plus: ^0.5.0
-  flutter_svg: ^0.19.3
+  diacritic: ^0.1.3 # simplifica palavras com acentos e caracteres especiais
+  intl: ^0.18.0
+  http: ^0.13.5
+  json_annotation: ^4.7.0
+  markdown_widget: ^2.0.0+1
+  introduction_screen: ^3.1.4
+  package_info_plus: ^3.0.2
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.7.4
+  flutter_launcher_icons: ^0.11.0
   flutter_test:
     sdk: flutter
   
   # flutter pub run build_runner build  --delete-conflicting-outputs
-  build_runner: ^1.8.1 # automatically generate json classes
-  json_serializable: ^3.3.0
+  build_runner: ^2.3.3 # automatically generate json classes
+  json_serializable: ^6.5.4
 
 
 # flutter pub run flutter_launcher_icons:main
