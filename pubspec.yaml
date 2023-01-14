@@ -33,7 +33,6 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.4
-  flutter_launcher_name: "^0.0.1"
   flutter_test:
     sdk: flutter
   
@@ -50,10 +49,6 @@ flutter_icons:
   image_path_android: "assets/images/app_icon_android.png"
   adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/images/app_icon_android.png"
-
-# flutter pub run flutter_launcher_name:main
-flutter_launcher_name:
-  name: "MPI Brasil"
 
 flutter:
   uses-material-design: true
