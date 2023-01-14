@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
 import '../providers/userpreferences.dart';
@@ -22,31 +21,32 @@ class ReportProblem {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              RadioButtonGroup(
-                labels: <String>[
-                  "Informação",
-                  "Ortografia",
-                  "Bug",
-                  "Outros",
-                ],
-                activeColor: kColorMPIGreen,
-                onSelected: (String selected) {
-                  switch (selected) {
-                    case "Informação":
-                      _reportAction = ReportAction.MED_INFO;
-                      break;
-                    case "Ortografia":
-                      _reportAction = ReportAction.TEXT_TYPO;
-                      break;
-                    case "Bug":
-                      _reportAction = ReportAction.APP_BUG;
-                      break;
-                    case "Outros":
-                      _reportAction = ReportAction.OTHER;
-                      break;
-                  }
-                },
-              ),
+              // TODO: fix radio button group
+              // RadioButtonGroup(
+              //   labels: <String>[
+              //     "Informação",
+              //     "Ortografia",
+              //     "Bug",
+              //     "Outros",
+              //   ],
+              //   activeColor: kColorMPIGreen,
+              //   onSelected: (String selected) {
+              //     switch (selected) {
+              //       case "Informação":
+              //         _reportAction = ReportAction.MED_INFO;
+              //         break;
+              //       case "Ortografia":
+              //         _reportAction = ReportAction.TEXT_TYPO;
+              //         break;
+              //       case "Bug":
+              //         _reportAction = ReportAction.APP_BUG;
+              //         break;
+              //       case "Outros":
+              //         _reportAction = ReportAction.OTHER;
+              //         break;
+              //     }
+              //   },
+              // ),
             ],
           ),
           actions: <Widget>[

@@ -18,7 +18,6 @@ dependencies:
   share: ^0.6.3+6
   
   flutter_speed_dial: ^1.2.5 # Floating button menu
-  grouped_buttons: ^1.0.4    # Radiobox 
   flutter_mailer: ^0.4.1+1   # Enviar email pelo app padrão
   mask_text_input_formatter: ^1.0.7
   

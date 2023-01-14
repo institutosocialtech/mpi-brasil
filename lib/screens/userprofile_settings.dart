@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
@@ -292,34 +291,35 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                RadioButtonGroup(
-                  labels: [
-                    'Médico(a)',
-                    'Enfermeiro(a)',
-                    'Farmacêutico(a)',
-                    'Estudante',
-                    'Outros'
-                  ],
-                  activeColor: kColorMPIGreen,
-                  onSelected: (value) {
-                    switch (value) {
-                      case 'Médico(a)':
-                        selected = 'medico';
-                        break;
-                      case 'Enfermeiro(a)':
-                        selected = 'enfermeiro';
-                        break;
-                      case 'Farmacêutico(a)':
-                        selected = 'farmaceutico';
-                        break;
-                      case 'Estudante':
-                        selected = 'estudante';
-                        break;
-                      case 'Outros':
-                        selected = 'outros';
-                    }
-                  },
-                ),
+                // TODO: fix radio button group
+                // RadioButtonGroup(
+                //   labels: [
+                //     'Médico(a)',
+                //     'Enfermeiro(a)',
+                //     'Farmacêutico(a)',
+                //     'Estudante',
+                //     'Outros'
+                //   ],
+                //   activeColor: kColorMPIGreen,
+                //   onSelected: (value) {
+                //     switch (value) {
+                //       case 'Médico(a)':
+                //         selected = 'medico';
+                //         break;
+                //       case 'Enfermeiro(a)':
+                //         selected = 'enfermeiro';
+                //         break;
+                //       case 'Farmacêutico(a)':
+                //         selected = 'farmaceutico';
+                //         break;
+                //       case 'Estudante':
+                //         selected = 'estudante';
+                //         break;
+                //       case 'Outros':
+                //         selected = 'outros';
+                //     }
+                //   },
+                // ),
               ],
             ),
           ),
