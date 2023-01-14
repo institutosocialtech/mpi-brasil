@@ -17,8 +17,7 @@ class FloatingMenu extends StatelessWidget {
 
     return SpeedDial(
       // both default to 16
-      marginRight: 18,
-      marginBottom: 20,
+      childMargin: EdgeInsets.only(right: 18.0, bottom: 20.0),
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0),
       // this is ignored if animatedIcon is non null
