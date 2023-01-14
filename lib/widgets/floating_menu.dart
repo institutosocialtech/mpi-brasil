@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+
+import '../constants.dart';
 import '../models/med.dart';
 import '../providers/userpreferences.dart';
 import '../widgets/report_problem.dart';
@@ -72,10 +72,11 @@ class FloatingMenu extends StatelessWidget {
                 shareCondicoes += "\n* ${c.name}";
               }
             }
-            Share.share("${med.name}" +
-                "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
-                "$shareCondicoes" +
-                "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
+            // TODO: fix share button
+            // Share.share("${med.name}" +
+            //     "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
+            //     "$shareCondicoes" +
+            //     "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
           },
         ),
 
