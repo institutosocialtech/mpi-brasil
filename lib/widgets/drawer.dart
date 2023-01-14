@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -137,28 +136,28 @@ class AppDrawer extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
-          leading: Icon(AntDesign.search1, color: kColorMPIGray),
+          leading: Icon(Icons.search, color: kColorMPIGray),
           title: Text('Buscar Medicamentos', style: labelStyle),
           onTap: () => Navigator.pop(context),
         ),
         ListTile(
-          leading: Icon(AntDesign.staro, color: kColorMPIGray),
+          leading: Icon(Icons.star_outline, color: kColorMPIGray),
           title: Text('Favoritos', style: labelStyle),
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
         ),
         ListTile(
-          leading: Icon(AntDesign.book, color: kColorMPIGray),
+          leading: Icon(Icons.book, color: kColorMPIGray),
           title: Text('Glossário', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
-          leading: Icon(AntDesign.question, color: kColorMPIGray),
+          leading: Icon(Icons.question_mark, color: kColorMPIGray),
           title: Text('FAQ', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
         ),
         ListTile(
-          leading: Icon(AntDesign.infocirlceo, color: kColorMPIGray),
+          leading: Icon(Icons.info, color: kColorMPIGray),
           title: Text('Sobre', style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),

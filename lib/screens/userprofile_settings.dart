@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
@@ -76,9 +75,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ListTile(
             title: Text('Nome'),
             subtitle: Text(user.name),
-            leading: Icon(AntDesign.user, color: kColorMPIGreen),
+            leading: Icon(Icons.person, color: kColorMPIGreen),
             trailing: IconButton(
-              icon: Icon(AntDesign.edit),
+              icon: Icon(Icons.edit),
               onPressed: () => _showEditNameDialog(context, user.name),
             ),
           ),
@@ -88,9 +87,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             enabled: false,
             title: Text('Email'),
             subtitle: Text('mpibrasil@pmosocial.org'),
-            leading: Icon(AntDesign.mail, color: kColorMPIGreen),
+            leading: Icon(Icons.email, color: kColorMPIGreen),
             trailing: IconButton(
-              icon: Icon(AntDesign.edit),
+              icon: Icon(Icons.edit),
               onPressed: () => print("edit email"),
             ),
           ),
@@ -100,9 +99,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             enabled: false,
             title: Text('Senha'),
             subtitle: Text('********'),
-            leading: Icon(AntDesign.key, color: kColorMPIGreen),
+            leading: Icon(Icons.key, color: kColorMPIGreen),
             trailing: IconButton(
-              icon: Icon(AntDesign.edit),
+              icon: Icon(Icons.edit),
               onPressed: () => print("edit password"),
             ),
           ),
@@ -113,9 +112,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             subtitle: Text(
               _dateToString(user.birthDate),
             ),
-            leading: Icon(AntDesign.calendar, color: kColorMPIGreen),
+            leading: Icon(Icons.calendar_today, color: kColorMPIGreen),
             trailing: IconButton(
-              icon: Icon(AntDesign.edit),
+              icon: Icon(Icons.edit),
               onPressed: () => _showEditBirthDateDialog(
                 context,
                 _dateToString(user.birthDate),
@@ -127,9 +126,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ListTile(
             title: Text('Ocupação'),
             subtitle: Text(_occupationToString(user.occupation)),
-            leading: Icon(AntDesign.rest, color: kColorMPIGreen),
+            leading: Icon(Icons.work, color: kColorMPIGreen),
             trailing: IconButton(
-              icon: Icon(AntDesign.edit),
+              icon: Icon(Icons.edit),
               onPressed: () =>
                   _showEditOccupationDialog(context, user.occupation),
             ),

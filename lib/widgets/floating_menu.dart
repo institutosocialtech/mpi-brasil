@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
@@ -41,8 +40,8 @@ class FloatingMenu extends StatelessWidget {
         // favoritar
         SpeedDialChild(
           child: isFavorite
-              ? Icon(AntDesign.star, color: kColorMPIWhite)
-              : Icon(AntDesign.staro, color: kColorMPIWhite),
+              ? Icon(Icons.star, color: kColorMPIWhite)
+              : Icon(Icons.star_outline, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
           label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
           labelStyle: TextStyle(fontSize: 18.0),

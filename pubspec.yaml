@@ -13,7 +13,6 @@ dependencies:
   provider: ^5.0.0
   shared_preferences: ^0.5.7+2
   cupertino_icons: ^0.1.2
-  flutter_icons: ^1.1.0 # https://oblador.github.io/react-native-vector-icons/
   url_launcher: ^5.4.2
   
   flutter_speed_dial: ^1.2.5 # Floating button menu

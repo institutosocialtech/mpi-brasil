@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
@@ -115,7 +114,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon: Icon(AntDesign.user, color: kColorMPIWhite),
+                              icon: Icon(Icons.person, color: kColorMPIWhite),
                             ),
                             onSaved: (value) => _userName = value,
                           ),
@@ -128,7 +127,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon: Icon(AntDesign.rest, color: kColorMPIWhite),
+                              icon: Icon(Icons.work, color: kColorMPIWhite),
                             ),
                             hint: Text('Ocupação'),
                             items: _occupations,
@@ -152,7 +151,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                               border: OutlineInputBorder(),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 10),
-                              icon: Icon(AntDesign.calendar,
+                              icon: Icon(Icons.calendar_today,
                                   color: kColorMPIWhite),
                             ),
                             keyboardType: TextInputType.number,
