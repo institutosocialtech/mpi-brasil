@@ -1,7 +1,7 @@
 name: mpibrasil
 description: Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.
 # https://stackoverflow.com/questions/55330105/how-to-increment-build-number-of-flutter-ios-app-when-deploying-with-codemagic
-version: 1.0.0+92
+version: 1.1.0+0
 
 
 environment:
