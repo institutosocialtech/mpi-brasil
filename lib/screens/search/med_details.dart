@@ -5,7 +5,7 @@ import 'package:mpibrasil/models/med.dart';
 import 'package:mpibrasil/widgets/pain_card.dart';
 import 'package:mpibrasil/widgets/floating_menu.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class MedDetails extends StatelessWidget {
   final Med med;

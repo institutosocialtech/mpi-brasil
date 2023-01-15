@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   final headerStyle = TextStyle(

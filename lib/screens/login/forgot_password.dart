@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/screens/splashscreen.dart';
+import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
-import '../models/http_exception.dart';
-import '../providers/auth.dart';
+import '../../models/http_exception.dart';
+import '../../providers/auth.dart';
 
 class ForgotPassword extends StatelessWidget {
   @override

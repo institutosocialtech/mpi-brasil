@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/models/http_exception.dart';
 import 'package:mpibrasil/providers/auth.dart';
-import 'package:mpibrasil/screens/splashscreen.dart';
+import 'package:mpibrasil/screens/common/splashscreen.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   // draw util
   bool _isLoading;
 
@@ -25,11 +25,13 @@ class _LoginPageState extends State<LoginPage> {
   // controllers
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _pwdController = TextEditingController();
+  final _pwdVerifyController = TextEditingController();
 
   // focus nodes
   FocusNode _fEmail;
-  FocusNode _fPassword;
+  FocusNode _fPwd;
+  FocusNode _fPwdVerify;
   FocusNode _fSubmit;
 
   // init
@@ -37,7 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _fEmail = FocusNode();
-    _fPassword = FocusNode();
+    _fPwd = FocusNode();
+    _fPwdVerify = FocusNode();
     _fSubmit = FocusNode();
     _isLoading = false;
   }
@@ -46,7 +49,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     _fEmail.dispose();
-    _fPassword.dispose();
+    _fPwd.dispose();
+    _fPwdVerify.dispose();
     _fSubmit.dispose();
     super.dispose();
   }
@@ -76,17 +80,22 @@ class _LoginPageState extends State<LoginPage> {
   String _validateEntry(String type, String value) {
     switch (type) {
       case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
+        if (value.isEmpty || !value.contains('@')) return 'Email inválido';
         break;
 
       case 'password':
-        if (value.isEmpty) return 'Digite sua Senha!';
+        if (value.isEmpty) return 'Digite sua senha!';
+        break;
+
+      case 'passVerify':
+        if (value.isEmpty) return 'Digite sua senha novamente!';
+        if (value != _pwdController.text) return 'Senha não confere!';
         break;
     }
     return null;
   }
 
-  // form submit
+  // submit signUp
   Future<void> _submit() async {
     // validate form
     if (!_formKey.currentState.validate()) return;
@@ -95,30 +104,26 @@ class _LoginPageState extends State<LoginPage> {
     // display progress indicator
     setState(() => _isLoading = true);
 
+    // try to signUp
     // try to login
     try {
-      await Provider.of<Auth>(context, listen: false).login(
+      await Provider.of<Auth>(context, listen: false).signup(
         _authData['email'],
         _authData['password'],
       );
     } on HttpException catch (error) {
       var errorMessage = 'A autenticação falhou!';
+      print(error.toString());
 
       switch (error.toString()) {
         case "INVALID_EMAIL":
           errorMessage = 'Email inválido!';
           break;
-        case "EMAIL_NOT_FOUND":
-          errorMessage = 'Email não encontrado!';
-          break;
         case "EMAIL_EXISTS":
           errorMessage = 'Email já cadastrado!';
           break;
-        case "INVALID_PASSWORD":
-          errorMessage = 'Senha incorreta!';
-          break;
-        case "USER_DISABLED":
-          errorMessage = 'Conta desativada por um administrador!';
+        case "WEAK_PASSWORD":
+          errorMessage = 'Senha deve ter ao menos 6 caracteres!';
           break;
       }
       _showErrorDialog(errorMessage);
@@ -131,16 +136,18 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _isLoading = false);
   }
 
+  // draw screen
   @override
   Widget build(BuildContext context) {
-    // sign in button appearence
+    // sign in button text style
     final _buttonTextStyle = TextStyle(
       color: kColorMPIWhite,
       fontSize: 18,
       fontWeight: FontWeight.bold,
     );
 
-    final _signInButtonStyle = ElevatedButton.styleFrom(
+    // sign in button appearance
+    final _signUpButtonStyle = ElevatedButton.styleFrom(
       primary: kColorMPIGreen,
     );
 
@@ -150,12 +157,12 @@ class _LoginPageState extends State<LoginPage> {
       fontSize: 15,
     );
 
+    // link styles
     final _linkStyle = TextStyle(
       color: kColorMPIGreen,
       fontSize: 15,
     );
 
-    // build widget
     return Scaffold(
       body: _isLoading
           ? SplashScreen()
@@ -165,24 +172,22 @@ class _LoginPageState extends State<LoginPage> {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: GestureDetector(
-                      onTap: () =>
-                          FocusScope.of(context).requestFocus(new FocusNode()),
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // lead image
+                            // header
                             _drawMPIHeader(),
 
                             // auth section
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.all(20.0),
-                                decoration:
-                                    BoxDecoration(color: kColorMPIWhite),
                                 child: Form(
                                   key: _formKey,
                                   child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
@@ -202,71 +207,74 @@ class _LoginPageState extends State<LoginPage> {
                                         onFieldSubmitted: (text) {
                                           _fEmail.unfocus();
                                           FocusScope.of(context)
-                                              .requestFocus(_fPassword);
+                                              .requestFocus(_fPwd);
                                         },
                                       ),
 
                                       // password field
-                                      SizedBox(height: 20.0),
                                       TextFormField(
                                         obscureText: true,
-                                        focusNode: _fPassword,
-                                        controller: _passwordController,
-                                        textInputAction: TextInputAction.done,
+                                        focusNode: _fPwd,
+                                        controller: _pwdController,
+                                        textInputAction: TextInputAction.next,
                                         decoration:
                                             InputDecoration(hintText: "Senha"),
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
                                             _authData['password'] = value,
+                                        onFieldSubmitted: (value) {
+                                          _fPwd.unfocus();
+                                          FocusScope.of(context)
+                                              .requestFocus(_fPwdVerify);
+                                        },
+                                      ),
+
+                                      // password verify field
+                                      TextFormField(
+                                        obscureText: true,
+                                        focusNode: _fPwdVerify,
+                                        controller: _pwdVerifyController,
+                                        textInputAction: TextInputAction.done,
+                                        decoration: InputDecoration(
+                                            hintText: "Verificar Senha"),
+                                        validator: (value) =>
+                                            _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {
-                                          _fPassword.unfocus();
+                                          _fPwdVerify.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fSubmit);
                                         },
                                       ),
 
-                                      // forgot password
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                            onTap: () => Navigator.pushNamed(
-                                                context, '/forgot_password'),
-                                            child: Text('Esqueceu a senha?',
-                                                style: _labelStyle),
-                                          ),
-                                        ],
-                                      ),
-
-                                      // sign in button
-                                      SizedBox(height: 20.0),
+                                      // sign up button
                                       SizedBox(
                                         height: 55,
                                         child: ElevatedButton(
                                           onPressed: _submit,
-                                          focusNode: _fSubmit,
-                                          style: _signInButtonStyle,
-                                          child: Text("Entrar",
-                                              style: _buttonTextStyle),
+                                          style: _signUpButtonStyle,
+                                          child: Text(
+                                            "Registrar",
+                                            style: _buttonTextStyle,
+                                          ),
                                         ),
                                       ),
-
-                                      // signUp section
-                                      SizedBox(height: 20.0),
+                                      // login button
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text('Novo usuário? ',
-                                              style: _labelStyle),
+                                          Text(
+                                            "Já possui uma conta? ",
+                                            style: _labelStyle,
+                                          ),
                                           InkWell(
-                                            onTap: () => Navigator.pushNamed(
-                                                context, '/signup'),
-                                            child: Text('Cadastre aqui',
-                                                style: _linkStyle),
+                                            child: Text(
+                                              'Fazer login.',
+                                              style: _linkStyle,
+                                            ),
+                                            onTap: () =>
+                                                Navigator.of(context).pop(),
                                           ),
                                         ],
                                       ),
@@ -276,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
 
-                            // app version
+                            // footer
                             _drawAppVersion(),
                           ],
                         ),
@@ -318,6 +326,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _drawAppVersion() {
     return Container(
+      height: 50,
       alignment: Alignment.bottomCenter,
       child: FutureBuilder<PackageInfo>(
         future: PackageInfo.fromPlatform(),

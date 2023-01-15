@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/keyword.dart';
-import '../constants.dart';
+import '../../models/keyword.dart';
+import '../../constants.dart';
 
 class KeywordDetails extends StatelessWidget {
   final Keyword keyword;

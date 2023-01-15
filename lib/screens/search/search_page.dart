@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../providers/meds.dart';
-import '../providers/userpreferences.dart';
-import '../screens/med_details.dart';
-import '../widgets/drawer.dart';
-import '../constants.dart';
+import '../../providers/meds.dart';
+import '../../providers/userpreferences.dart';
+import 'med_details.dart';
+import '../../widgets/drawer.dart';
+import '../../constants.dart';
 
 class SearchPage extends StatefulWidget {
   @override

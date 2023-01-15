@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:markdown_widget/markdown_generator.dart';
-import 'package:markdown_widget/config/style_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:mpibrasil/constants.dart';
 
-import '../constants.dart';
-import '../screens/onboarding.dart';
-import '../screens/terms_of_use_page.dart';
-import '../screens/privacy_policy_page.dart';
-import '../screens/equipe_page.dart';
+import '../onboarding/onboarding.dart';
+import 'tos_page.dart';
+import 'privacy_page.dart';
+import 'equipe_page.dart';
 
 class AboutPage extends StatelessWidget {
   final headerStyle = TextStyle(

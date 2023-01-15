@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../constants.dart';
-import '../models/med.dart';
-import '../providers/meds.dart';
-import '../providers/userpreferences.dart';
-import '../screens/med_details.dart';
+import '../../constants.dart';
+import '../../models/med.dart';
+import '../../providers/meds.dart';
+import '../../providers/userpreferences.dart';
+import '../search/med_details.dart';
 
 class FavoritesOverview extends StatelessWidget {
   final headerStyle = TextStyle(

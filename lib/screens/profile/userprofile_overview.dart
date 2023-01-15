@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:provider/provider.dart';
-import '../providers/userpreferences.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 
 class UserProfileOverview extends StatefulWidget {
   @override
