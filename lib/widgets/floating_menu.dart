@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../constants.dart';
 import '../models/med.dart';
@@ -70,11 +71,10 @@ class FloatingMenu extends StatelessWidget {
                 shareCondicoes += "\n* ${c.name}";
               }
             }
-            // TODO: fix share button
-            // Share.share("${med.name}" +
-            //     "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
-            //     "$shareCondicoes" +
-            //     "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
+            Share.share("${med.name}" +
+                "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
+                "$shareCondicoes" +
+                "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
           },
         ),
 
