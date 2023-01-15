@@ -140,7 +140,6 @@ class FAQList extends StatelessWidget {
                   data: faq.answer,
                   styleConfig: StyleConfig(
                     pConfig: PConfig(
-                      selectable: false,
                       textStyle: TextStyle(color: kColorTextLightGray),
                       textConfig: TextConfig(textAlign: TextAlign.justify),
                       linkStyle: TextStyle(

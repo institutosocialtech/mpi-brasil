@@ -101,7 +101,6 @@ class MedDetails extends StatelessWidget {
               data: item.description,
               styleConfig: StyleConfig(
                   pConfig: PConfig(
-                      selectable: false,
                       textConfig: TextConfig(textAlign: TextAlign.justify))))
           .widgets);
       conditions.add(SizedBox(height: 10));
@@ -112,7 +111,6 @@ class MedDetails extends StatelessWidget {
                 data: item.exception,
                 styleConfig: StyleConfig(
                     pConfig: PConfig(
-                        selectable: false,
                         textConfig: TextConfig(textAlign: TextAlign.justify))))
             .widgets);
       }
@@ -170,7 +168,6 @@ class MedDetails extends StatelessWidget {
                           data: item.description,
                           styleConfig: StyleConfig(
                               pConfig: PConfig(
-                                selectable: false,
                                 textConfig:
                                     TextConfig(textAlign: TextAlign.justify),
                               ),
@@ -221,7 +218,6 @@ class MedDetails extends StatelessWidget {
                       data: item.description,
                       styleConfig: StyleConfig(
                           pConfig: PConfig(
-                              selectable: false,
                               textConfig:
                                   TextConfig(textAlign: TextAlign.justify))))
                   .widgets,
@@ -299,7 +295,6 @@ class MedDetails extends StatelessWidget {
                     data: content,
                     styleConfig: StyleConfig(
                         pConfig: PConfig(
-                          selectable: false,
                           textConfig: TextConfig(textAlign: TextAlign.justify),
                         ),
                         olConfig: OlConfig(

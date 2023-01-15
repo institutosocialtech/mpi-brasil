@@ -219,7 +219,6 @@ class _PainCardState extends State {
               data: popupMessage,
               styleConfig: StyleConfig(
                 pConfig: PConfig(
-                  selectable: false,
                   textConfig: TextConfig(textAlign: TextAlign.justify),
                 ),
               ),

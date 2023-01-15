@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:mpibrasil/constants.dart';
 
@@ -163,7 +164,6 @@ class AboutList extends StatelessWidget {
                         data: introduction,
                         styleConfig: StyleConfig(
                           pConfig: PConfig(
-                            selectable: false,
                             textConfig:
                                 TextConfig(textAlign: TextAlign.justify),
                           ),
@@ -172,7 +172,6 @@ class AboutList extends StatelessWidget {
                         data: development,
                         styleConfig: StyleConfig(
                           pConfig: PConfig(
-                            selectable: false,
                             textConfig:
                                 TextConfig(textAlign: TextAlign.justify),
                           ),

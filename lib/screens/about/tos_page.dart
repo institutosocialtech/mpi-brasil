@@ -106,7 +106,6 @@ class TermsOfUsePage extends StatelessWidget {
             data: termsOfUse,
             styleConfig: StyleConfig(
               pConfig: PConfig(
-                selectable: false,
                 textConfig: TextConfig(textAlign: TextAlign.justify),
               ),
               olConfig: OlConfig(

@@ -91,7 +91,6 @@ class AboutUsText extends StatelessWidget {
           data: aboutText,
           styleConfig: StyleConfig(
             pConfig: PConfig(
-              selectable: false,
               textConfig: TextConfig(textAlign: TextAlign.justify),
             ),
           ),
@@ -118,9 +117,7 @@ class UesbTextImageSide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
                       data:
-                          '**Universidade Estadual do Sudoeste da Bahia (UESB)**',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
+                          '**Universidade Estadual do Sudoeste da Bahia (UESB)**')
                   .widgets,
             ),
           ),
@@ -150,18 +147,17 @@ class UesbTextImageSide extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         GestureDetector(
-                            onTap: () {
-                              launch('http://lattes.cnpq.br/6211832014875307');
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: MarkdownGenerator(
-                                      data:
-                                          '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
-                                      styleConfig: StyleConfig(
-                                          pConfig: PConfig(selectable: false)))
-                                  .widgets,
-                            )),
+                          onTap: () {
+                            launch('http://lattes.cnpq.br/6211832014875307');
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: MarkdownGenerator(
+                              data:
+                                  '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
+                            ).widgets,
+                          ),
+                        ),
                       ]),
                 ),
               ),
@@ -189,10 +185,8 @@ class UfbaTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**Universidade Federal da Bahia (UFBA)**',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
-                  .widgets,
+                data: '**Universidade Federal da Bahia (UFBA)**',
+              ).widgets,
             ),
           ),
           GestureDetector(
@@ -202,13 +196,14 @@ class UfbaTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                  data:
-                      'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
-                  styleConfig: StyleConfig(
-                    pConfig: PConfig(
-                        selectable: false,
-                        textConfig: TextConfig(textAlign: TextAlign.center)),
-                  )).widgets,
+                data:
+                    'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
+                styleConfig: StyleConfig(
+                  pConfig: PConfig(
+                    textConfig: TextConfig(textAlign: TextAlign.center),
+                  ),
+                ),
+              ).widgets,
             ),
           ),
           SizedBox(height: 10),
@@ -245,11 +240,9 @@ class UfbaTextImageSide extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
-                                  data:
-                                      '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
-                                  styleConfig: StyleConfig(
-                                      pConfig: PConfig(selectable: false)))
-                              .widgets,
+                            data:
+                                '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
+                          ).widgets,
                         ),
                       ),
                       GestureDetector(
@@ -259,11 +252,9 @@ class UfbaTextImageSide extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
-                                  data:
-                                      '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
-                                  styleConfig: StyleConfig(
-                                      pConfig: PConfig(selectable: false)))
-                              .widgets,
+                            data:
+                                '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
+                          ).widgets,
                         ),
                       ),
                       GestureDetector(
@@ -273,11 +264,9 @@ class UfbaTextImageSide extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
-                                  data:
-                                      '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
-                                  styleConfig: StyleConfig(
-                                      pConfig: PConfig(selectable: false)))
-                              .widgets,
+                            data:
+                                '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
+                          ).widgets,
                         ),
                       ),
                     ],
@@ -308,10 +297,8 @@ class PmoSocialTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**Instituto de Gestão de Projetos Sociais**\n',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
-                  .widgets,
+                data: '**Instituto de Gestão de Projetos Sociais**\n',
+              ).widgets,
             ),
           ),
           GestureDetector(
@@ -321,10 +308,8 @@ class PmoSocialTextImageSide extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                      data: '**(PMO Social)**',
-                      styleConfig:
-                          StyleConfig(pConfig: PConfig(selectable: false)))
-                  .widgets,
+                data: '**(PMO Social)**',
+              ).widgets,
             ),
           ),
           Row(
@@ -361,11 +346,9 @@ class PmoSocialTextImageSide extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
-                                    data:
-                                        '**Wilnara Amorim**\nGerente de Projetos Sociais',
-                                    styleConfig: StyleConfig(
-                                        pConfig: PConfig(selectable: false)))
-                                .widgets,
+                              data:
+                                  '**Wilnara Amorim**\nGerente de Projetos Sociais',
+                            ).widgets,
                           ),
                         ),
                         GestureDetector(
@@ -376,11 +359,9 @@ class PmoSocialTextImageSide extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
-                                    data:
-                                        '**Daniel Porto**\nGerente de Projetos de Tecnologia',
-                                    styleConfig: StyleConfig(
-                                        pConfig: PConfig(selectable: false)))
-                                .widgets,
+                              data:
+                                  '**Daniel Porto**\nGerente de Projetos de Tecnologia',
+                            ).widgets,
                           ),
                         ),
                         GestureDetector(
@@ -390,11 +371,9 @@ class PmoSocialTextImageSide extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
-                                    data:
-                                        '**Diego Porto**\nDesenvolvedor Colaborador',
-                                    styleConfig: StyleConfig(
-                                        pConfig: PConfig(selectable: false)))
-                                .widgets,
+                              data:
+                                  '**Diego Porto**\nDesenvolvedor Colaborador',
+                            ).widgets,
                           ),
                         ),
                       ]),

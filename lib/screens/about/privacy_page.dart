@@ -85,7 +85,6 @@ class PrivacyPolicyPage extends StatelessWidget {
             data: privacyPolicy,
             styleConfig: StyleConfig(
                 pConfig: PConfig(
-                  selectable: false,
                   textConfig: TextConfig(textAlign: TextAlign.justify),
                 ),
                 olConfig: OlConfig(
