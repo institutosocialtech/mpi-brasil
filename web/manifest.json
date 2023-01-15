@@ -1,11 +1,11 @@
 {
-    "name": "mpibrasil",
-    "short_name": "mpibrasil",
+    "name": "MPI Brasil",
+    "short_name": "MPI Brasil",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
