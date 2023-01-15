@@ -1,8 +1,6 @@
 name: mpibrasil
 description: Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.
-# https://stackoverflow.com/questions/55330105/how-to-increment-build-number-of-flutter-ios-app-when-deploying-with-codemagic
 version: 1.1.0+0
-
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -10,33 +8,31 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.5
-  shared_preferences: ^2.0.16
+
   cupertino_icons: ^1.0.5
-  url_launcher: ^6.1.7
-  
-  flutter_speed_dial: ^6.2.0 # Floating button menu
-  flutter_mailer: ^2.0.2   # Enviar email pelo app padrão
-  mask_text_input_formatter: ^2.4.0
-  
-  diacritic: ^0.1.3 # simplifica palavras com acentos e caracteres especiais
-  intl: ^0.18.0
+  diacritic: ^0.1.3
+  flutter_mailer: ^2.0.2
+  flutter_speed_dial: ^6.2.0
+  flutter_svg: ^1.1.6
   http: ^0.13.5
+  intl: ^0.18.0
+  introduction_screen: ^3.1.4
   json_annotation: ^4.7.0
   markdown_widget: ^1.3.0+2
-  introduction_screen: ^3.1.4
+  mask_text_input_formatter: ^2.4.0
   package_info_plus: ^3.0.2
-  flutter_svg: ^1.1.6
-
+  provider: ^6.0.5
+  shared_preferences: ^2.0.16
+  url_launcher: ^6.1.7
+  
 dev_dependencies:
-  flutter_launcher_icons: ^0.11.0
   flutter_test:
     sdk: flutter
-  
-  # flutter pub run build_runner build  --delete-conflicting-outputs
-  build_runner: ^2.3.3 # automatically generate json classes
-  json_serializable: ^6.5.4
 
+  # flutter pub run build_runner build  --delete-conflicting-outputs
+  build_runner: ^2.3.3
+  flutter_launcher_icons: ^0.11.0
+  json_serializable: ^6.5.4
 
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
