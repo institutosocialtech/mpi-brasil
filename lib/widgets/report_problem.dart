@@ -1,3 +1,4 @@
+import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/constants.dart';
@@ -7,9 +8,9 @@ import '../providers/userpreferences.dart';
 enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
 class ReportProblem {
-  ReportAction _reportAction;
-
   Future<void> showReportDialog(BuildContext context, String medName) async {
+    ReportAction _reportAction;
+
     final action = await showDialog(
       context: context,
       barrierDismissible: false,
@@ -17,49 +18,69 @@ class ReportProblem {
         return AlertDialog(
           elevation: 24,
           title: Text("Selecione o tipo de erro:"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              // TODO: fix radio button group
-              // RadioButtonGroup(
-              //   labels: <String>[
-              //     "Informação",
-              //     "Ortografia",
-              //     "Bug",
-              //     "Outros",
-              //   ],
-              //   activeColor: kColorMPIGreen,
-              //   onSelected: (String selected) {
-              //     switch (selected) {
-              //       case "Informação":
-              //         _reportAction = ReportAction.MED_INFO;
-              //         break;
-              //       case "Ortografia":
-              //         _reportAction = ReportAction.TEXT_TYPO;
-              //         break;
-              //       case "Bug":
-              //         _reportAction = ReportAction.APP_BUG;
-              //         break;
-              //       case "Outros":
-              //         _reportAction = ReportAction.OTHER;
-              //         break;
-              //     }
-              //   },
-              // ),
-            ],
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SwitchListTile(
+                    title: Text('Informação'),
+                    value: _reportAction == ReportAction.MED_INFO,
+                    onChanged: (value) {
+                      if (_reportAction == ReportAction.MED_INFO) {
+                        setState(() => _reportAction = null);
+                        return;
+                      }
+
+                      setState(() => _reportAction = ReportAction.MED_INFO);
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Ortografia'),
+                    value: _reportAction == ReportAction.TEXT_TYPO,
+                    onChanged: (value) {
+                      if (_reportAction == ReportAction.TEXT_TYPO) {
+                        setState(() => _reportAction = null);
+                        return;
+                      }
+
+                      setState(() => _reportAction = ReportAction.TEXT_TYPO);
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Bug'),
+                    value: _reportAction == ReportAction.APP_BUG,
+                    onChanged: (value) {
+                      if (_reportAction == ReportAction.APP_BUG) {
+                        setState(() => _reportAction = null);
+                        return;
+                      }
+
+                      setState(() => _reportAction = ReportAction.APP_BUG);
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text('Outros'),
+                    value: _reportAction == ReportAction.OTHER,
+                    onChanged: (value) {
+                      if (_reportAction == ReportAction.OTHER) {
+                        setState(() => _reportAction = null);
+                        return;
+                      }
+
+                      setState(() => _reportAction = ReportAction.OTHER);
+                    },
+                  ),
+                ],
+              );
+            },
           ),
           actions: <Widget>[
-            // Cancel Button
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
-              style: TextButton.styleFrom(
-                primary: kColorMPIGreenOpaque,
-              ),
+              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
             ),
-
-            // Send Button
             TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
               child: Text("Enviar"),
