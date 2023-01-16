@@ -280,47 +280,38 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        var selected;
+        String selected = Provider.of<UserPreferences>(context).user.occupation;
+
+        Map<String, String> items = {
+          'Médico(a)': 'medico',
+          'Enfermeiro(a)': 'enfermeiro',
+          'Estudante': 'estudante',
+          'Outros': 'outros',
+        };
 
         // build dialog
         return AlertDialog(
           title: Text("Escolha sua ocupação:"),
-          content: Container(
-            width: deviceSize.width * 0.75,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                // TODO: fix radio button group
-                // RadioButtonGroup(
-                //   labels: [
-                //     'Médico(a)',
-                //     'Enfermeiro(a)',
-                //     'Farmacêutico(a)',
-                //     'Estudante',
-                //     'Outros'
-                //   ],
-                //   activeColor: kColorMPIGreen,
-                //   onSelected: (value) {
-                //     switch (value) {
-                //       case 'Médico(a)':
-                //         selected = 'medico';
-                //         break;
-                //       case 'Enfermeiro(a)':
-                //         selected = 'enfermeiro';
-                //         break;
-                //       case 'Farmacêutico(a)':
-                //         selected = 'farmaceutico';
-                //         break;
-                //       case 'Estudante':
-                //         selected = 'estudante';
-                //         break;
-                //       case 'Outros':
-                //         selected = 'outros';
-                //     }
-                //   },
-                // ),
-              ],
-            ),
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return Container(
+                width: deviceSize.width * 0.75,
+                child: DropdownButton(
+                  onChanged: (value) => setState(() => selected = value),
+                  isExpanded: true,
+                  value: selected,
+                  items: items
+                      .map((text, value) => MapEntry(
+                          text,
+                          DropdownMenuItem(
+                            child: Text(text),
+                            value: value,
+                          )))
+                      .values
+                      .toList(),
+                ),
+              );
+            },
           ),
           actions: <Widget>[
             // cancel action
