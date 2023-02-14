@@ -50,6 +50,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/partners/socialtech/
     - assets/images/partners/pmosocial/
     - assets/images/partners/ufba/
     - assets/images/partners/uesb/
