@@ -237,7 +237,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         controller: _pwdVerifyController,
                                         textInputAction: TextInputAction.done,
                                         decoration: InputDecoration(
-                                            hintText: "Verificar Senha"),
+                                            hintText: "Repetir senha"),
                                         validator: (value) =>
                                             _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {

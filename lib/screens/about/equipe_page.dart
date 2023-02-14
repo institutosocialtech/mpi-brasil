@@ -77,7 +77,7 @@ class AboutUsText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var aboutText = 'O Aplicativo MPI Brasil foi desenvolvido pelo ' +
-        'Instituto de Gestão de Projetos Sociais (**Instituto PMO Social)**, ' +
+        'Instituto de Gestão de Projetos Sociais (**Instituto SocialTech)**, ' +
         'juntamente com a **Universidade Federal da Bahia (UFBA)** por meio do ' +
         'Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) ' +
         'e a **Universidade Estadual do Sudoeste da Bahia (UESB)** por meio do ' +
@@ -241,7 +241,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                             data:
-                                '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
+                                '**Dr. Márcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
                           ).widgets,
                         ),
                       ),
@@ -292,7 +292,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://www.pmosocial.org/');
+              launch('http://www.socialtech.org.br/');
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -303,12 +303,12 @@ class PmoSocialTextImageSide extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              launch('http://www.pmosocial.org/');
+              launch('http://www.socialtech.org.br/');
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
-                data: '**(PMO Social)**',
+                data: '**(SocialTech)**',
               ).widgets,
             ),
           ),
@@ -320,7 +320,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    launch('http://www.pmosocial.org/');
+                    launch('http://www.socialtech.org.br/');
                   },
                   child: SizedBox(
                     width: 150,

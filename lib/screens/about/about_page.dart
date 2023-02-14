@@ -69,7 +69,7 @@ class AboutList extends StatelessWidget {
   final introduction =
       'O **Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.';
   final development =
-      'Este aplicativo foi desenvolvido pelo **Instituto PMO Social**, juntamente com a **Universidade Federal da Bahia (UFBA)**, por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia (UESB)**, por meio do Curso de Medicina, Campus de Vitória da Conquista.';
+      'Este aplicativo foi desenvolvido pelo **Instituto SocialTech**, juntamente com a **Universidade Federal da Bahia (UFBA)**, por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia (UESB)**, por meio do Curso de Medicina, Campus de Vitória da Conquista.';
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class AboutList extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            ' PMOSOCIAL © 2020 Company',
+                            ' SocialTech © 2023 Company',
                             style: TextStyle(
                               // fontWeight: FontWeight.bold,
                               fontSize: 12,

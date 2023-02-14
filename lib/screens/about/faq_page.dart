@@ -107,7 +107,7 @@ class FAQList extends StatelessWidget {
     ),
     new FAQ(
         'Quais as Instituições envolvidas no desenvolvimento do aplicativo MPI Brasil?',
-        'Este aplicativo (segunda versão) foi desenvolvido  pelo **Instituto de Gestão de Projetos Sociais** (Instituto PMO Social), juntamente com a **Universidade Federal da Bahia** (UFBA), por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia** (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.'),
+        'Este aplicativo (segunda versão) foi desenvolvido  pelo **Instituto de Gestão de Projetos Sociais** (Instituto SocialTech), juntamente com a **Universidade Federal da Bahia** (UFBA), por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia** (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.'),
   ];
 
   @override
