@@ -241,7 +241,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator(
                             data:
-                                '**Dr. Márcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
+                                '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
                           ).widgets,
                         ),
                       ),
@@ -323,10 +323,10 @@ class PmoSocialTextImageSide extends StatelessWidget {
                     launch('http://www.socialtech.org.br/');
                   },
                   child: SizedBox(
-                    width: 150,
+                    width: 120,
                     height: 150,
                     child: Image.asset(
-                      "assets/images/partners/pmosocial/logo_pmo.png",
+                      "assets/images/partners/socialtech/logo_socialtech.png",
                       fit: BoxFit.scaleDown,
                     ),
                   ),
@@ -360,7 +360,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
                               data:
-                                  '**Daniel Porto**\nGerente de Projetos de Tecnologia',
+                                  '**Daniel Porto**\nPesquisador e Gerente de Tecnologia',
                             ).widgets,
                           ),
                         ),
@@ -373,6 +373,18 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Diego Porto**\nDesenvolvedor Colaborador',
+                            ).widgets,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            launch('http://github.com/diego-ch');
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: MarkdownGenerator(
+                              data:
+                                  '**Fernando Neves**\n UX/UI Designer Colaborador',
                             ).widgets,
                           ),
                         ),
