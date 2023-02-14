@@ -19,8 +19,12 @@ class _SearchPageState extends State<SearchPage> {
   var _isLoading = false;
 
   Widget resultPane = Center(
-    child: SvgPicture.asset('assets/undraw_svg/doctors.svg'),
-  );
+      child: FractionallySizedBox(
+    widthFactor: 0.9,
+    child: Image.asset(
+      'assets/images/logo_green.png',
+    ),
+  ));
 
   @override
   void didChangeDependencies() {
@@ -45,8 +49,12 @@ class _SearchPageState extends State<SearchPage> {
     if (query == null || query.isEmpty) {
       // return image if no query has been done
       return Center(
-        child: SvgPicture.asset("assets/undraw_svg/doctors.svg"),
-      );
+          child: FractionallySizedBox(
+        widthFactor: 0.9,
+        child: Image.asset(
+          'assets/images/logo_green.png',
+        ),
+      ));
 
       // process query
     } else {
