@@ -288,7 +288,7 @@ class AboutList extends StatelessWidget {
                   body:
                       ' Conte-nos a sua opinião, ela é muito importante para nós!',
                   subject: "Fale Conosco",
-                  recipients: ['mpibrasil@pmosocial.org'],
+                  recipients: ['mpibrasil@socialtech.org.br'],
                   isHTML: true,
                 );
 
@@ -299,7 +299,7 @@ class AboutList extends StatelessWidget {
               body:
                   ' Conte-nos a sua opinião, ela é muito importante para nós!',
               subject: "Fale Conosco",
-              recipients: ['mpibrasil@pmosocial.org'],
+              recipients: ['mpibrasil@socialtech.org.br'],
               isHTML: true,
             );
 

@@ -86,7 +86,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ListTile(
             enabled: false,
             title: Text('Email'),
-            subtitle: Text('mpibrasil@pmosocial.org'),
+            subtitle: Text('mpibrasil@socialtech.org.br'),
             leading: Icon(Icons.email, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),

@@ -114,7 +114,7 @@ class ReportProblem {
           body:
               'As informações do medicamento $medName apresentam o seguinte problema: ',
           subject: "Detectado um problema com o medicamento $medName",
-          recipients: ['mpibrasil@pmosocial.org'],
+          recipients: ['mpibrasil@socialtech.org.br'],
           isHTML: true,
         );
         FlutterMailer.send(mailOptions);

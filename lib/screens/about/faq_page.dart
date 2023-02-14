@@ -97,13 +97,13 @@ class FAQList extends StatelessWidget {
     ),
     new FAQ(
       'Como posso contribuir com a informação?',
-      'Sugerindo correções, adicionando medicamentos, informando erros e outras informações.\n\nContacte-nos pelo email: [mpibrasil@pmosocial.org](mailto:mpibrasil@pmosocial.org)',
+      'Sugerindo correções, adicionando medicamentos, informando erros e outras informações.\n\nContacte-nos pelo email: [mpibrasil@socialtech.org.br](mailto:mpibrasil@socialtech.org.br)',
     ),
     new FAQ('Como posso acessar o código?',
-        'O App MPI Brasil é disponibilizado no repositório do GitHub, e foi desenvolvido sob a Licença MIT. Esta licença de código aberto segue incluída no repositório e permite que outras pessoas usem, contribuam, alterem e distribuam livremente o código do aplicativo MPI Brasil. Para obter mais informações sobre esta licença, acesse:\n\nhttps://github.com/pmosocial/mpi-brasil/blob/master/LICENSE'),
+        'O App MPI Brasil é disponibilizado no repositório do GitHub, e foi desenvolvido sob a Licença MIT. Esta licença de código aberto segue incluída no repositório e permite que outras pessoas usem, contribuam, alterem e distribuam livremente o código do aplicativo MPI Brasil. Para obter mais informações sobre esta licença, acesse:\n\nhttps://github.com/institutosocialtech/mpi-brasil/blob/master/LICENSE'),
     new FAQ(
       'Como posso contribuir com a aplicação?',
-      'Através do repositório do projeto disponível em: https://github.com/pmosocial/mpi-brasil',
+      'Através do repositório do projeto disponível em: https://github.com/institutosocialtech/mpi-brasil',
     ),
     new FAQ(
         'Quais as Instituições envolvidas no desenvolvimento do aplicativo MPI Brasil?',

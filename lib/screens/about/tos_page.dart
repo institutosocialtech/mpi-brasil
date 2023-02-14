@@ -42,7 +42,7 @@ class TermsOfUsePage extends StatelessWidget {
   final String txtSurvive =
       '\n##### Sobrevivência                \n Todas as disposições destes termos continuarão após o encerramento da sua conta do **Aplicativo MPI Brasil**.';
   final String txtContact =
-      '\n##### Contate-nos                  \n Se você tiver dúvidas sobre o aplicativo ou estes termos, ou desejar fornecer feedback, entre em contato conosco:  mpibrasil@pmosocial.org, para enviar comentários e sugestões. Desta forma, poderemos melhorar o aplicativo.';
+      '\n##### Contate-nos                  \n Se você tiver dúvidas sobre o aplicativo ou estes termos, ou desejar fornecer feedback, entre em contato conosco:  mpibrasil@socialtech.org.br, para enviar comentários e sugestões. Desta forma, poderemos melhorar o aplicativo.';
 
   @override
   Widget build(BuildContext context) {
