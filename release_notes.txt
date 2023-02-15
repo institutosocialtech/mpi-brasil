@@ -1,4 +1,4 @@
-21-03-2022 - trigger build
-21-03-2022 - trigger new ios build
-10-11-2021 - prepare for testing phase.
-08-11-2020 - Adds ios build to the pipeline and disabled web.
+Um aplicativo de busca rápida, contendo informações sobre MPI 
+(medicamentos potencialmente inapropriados) para idosos,
+baseado em evidências científicas, a fim de auxiliar os profissionais de saúde,
+na tomada de decisão clínica.
