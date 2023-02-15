@@ -76,15 +76,12 @@ class AboutUsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var aboutText = 'O Aplicativo MPI Brasil foi desenvolvido pelo ' +
-        'Instituto de Gestão de Projetos Sociais (**Instituto SocialTech)**, ' +
-        'juntamente com a **Universidade Federal da Bahia (UFBA)** por meio do ' +
-        'Instituto Multidisciplinar em Saúde-Campus Anísio Teixeira (IMS-CAT/UFBA) ' +
-        'e a **Universidade Estadual do Sudoeste da Bahia (UESB)** por meio do ' +
-        'Curso de Medicina, Campus de Vitória da Conquista.';
+    var aboutText =
+        'A equipe do projeto MPI Brasil é formada pelos colaboradores da UESB, ' +
+            'da UFBA e do Instituto SocialTech.';
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, top: 20, bottom: 0, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: MarkdownGenerator(
@@ -106,7 +103,7 @@ class UesbTextImageSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, top: 20, right: 20),
+      padding: EdgeInsets.only(left: 20, top: 0, right: 20),
       child: Column(
         children: <Widget>[
           GestureDetector(
@@ -360,7 +357,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: MarkdownGenerator(
                               data:
-                                  '**Daniel Porto**\nPesquisador e Gerente de Tecnologia',
+                                  '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
                             ).widgets,
                           ),
                         ),

@@ -189,6 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                                       // email field
                                       TextFormField(
                                         focusNode: _fEmail,
+                                        textAlignVertical: null,
                                         controller: _emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
