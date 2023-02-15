@@ -1,6 +1,6 @@
 name: mpibrasil
 description: Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.
-version: 1.1.0+0
+version: 1.9.0+0
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
