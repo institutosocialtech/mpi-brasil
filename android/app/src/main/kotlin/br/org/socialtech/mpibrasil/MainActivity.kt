@@ -1,4 +1,4 @@
-package org.pmosocial.mpibrasil
+package br.org.socialtech.mpibrasil
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
