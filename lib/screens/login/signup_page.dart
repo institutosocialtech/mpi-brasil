@@ -85,11 +85,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
       case 'password':
         if (value.isEmpty) return 'Digite sua senha!';
+        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
         break;
 
       case 'passVerify':
         if (value.isEmpty) return 'Digite sua senha novamente!';
         if (value != _pwdController.text) return 'Senha não confere!';
+        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
         break;
     }
     return null;
