@@ -112,10 +112,13 @@ class _SignUpPageState extends State<SignUpPage> {
         _authData['password'],
       );
     } on HttpException catch (error) {
-      var errorMessage = 'A autenticação falhou!';
-      print(error.toString());
+      var errorMessage;
 
-      switch (error.toString()) {
+      // trim firebase error message
+      var endIndex = error.message.indexOf(" :", 0);
+      var errorCode = error.message.substring(0, endIndex);
+
+      switch (errorCode) {
         case "INVALID_EMAIL":
           errorMessage = 'Email inválido!';
           break;
@@ -125,7 +128,11 @@ class _SignUpPageState extends State<SignUpPage> {
         case "WEAK_PASSWORD":
           errorMessage = 'Senha deve ter ao menos 6 caracteres!';
           break;
+        default:
+          errorMessage = 'A autenticação falhou!';
+          break;
       }
+
       _showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
