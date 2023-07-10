@@ -54,7 +54,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       Navigator.pushReplacementNamed(context, '/');
                       Provider.of<Auth>(context, listen: false).logout();
                     },
-                    style: ElevatedButton.styleFrom(primary: kColorMPIGreen),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kColorMPIGreen,
+                      foregroundColor: kColorMPIWhite,
+                    ),
                   ),
                 ],
               ),
