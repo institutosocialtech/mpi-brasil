@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/screens/profile/delete_account.dart';
 import 'package:provider/provider.dart';
 
 import 'theme.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
             '/privacy_policy': (context) => PrivacyPolicyPage(),
             '/profile': (context) => ProfileSettings(),
             '/profile_setup': (context) => UserProfileOverview(),
+            '/delete_account': (context) => DeleteAccount(),
             '/search': (context) => SearchPage(),
             '/signup': (context) => SignUpPage(),
             '/tos': (context) => TermsOfUsePage(),

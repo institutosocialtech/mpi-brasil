@@ -144,6 +144,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   _showEditOccupationDialog(context, user.occupation),
             ),
           ),
+
+          // delete account
+          ListTile(
+            title: Text('Excluir Dados'),
+            subtitle: Text('Excluir permanentemente sua conta'),
+            leading: Icon(Icons.delete_forever, color: kColorMPIGreen),
+            onTap: () => {
+              Navigator.of(context).pushNamed('/delete_account'),
+            },
+          ),
         ],
       ),
     );
