@@ -148,4 +148,25 @@ class Auth with ChangeNotifier {
       throw (error);
     }
   }
+
+  Future<void> deleteAccount() async {
+    const url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+
+    try {
+      final uri = Uri.parse(url);
+      final response =
+          await http.post(uri, body: json.encode({"idToken": _token}));
+
+      final responseData = json.decode(response.body);
+
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
+
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
 }
