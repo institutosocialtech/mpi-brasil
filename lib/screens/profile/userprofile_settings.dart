@@ -86,26 +86,34 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
 
           // user email
-          ListTile(
-            enabled: false,
-            title: Text('Email'),
-            subtitle: Text('mpibrasil@socialtech.org.br'),
-            leading: Icon(Icons.email, color: kColorMPIGreen),
-            trailing: IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () => print("edit email"),
+          // TODO: implement email change
+          Visibility(
+            visible: false,
+            child: ListTile(
+              enabled: false,
+              title: Text('Email'),
+              subtitle: Text('mpibrasil@socialtech.org.br'),
+              leading: Icon(Icons.email, color: kColorMPIGreen),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {},
+              ),
             ),
           ),
 
           // user password
-          ListTile(
-            enabled: false,
-            title: Text('Senha'),
-            subtitle: Text('********'),
-            leading: Icon(Icons.key, color: kColorMPIGreen),
-            trailing: IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () => print("edit password"),
+          // TODO: implement password change
+          Visibility(
+            visible: false,
+            child: ListTile(
+              enabled: false,
+              title: Text('Senha'),
+              subtitle: Text('********'),
+              leading: Icon(Icons.key, color: kColorMPIGreen),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {},
+              ),
             ),
           ),
 
