@@ -8,7 +8,7 @@ enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
 class ReportProblem {
   Future<void> showReportDialog(BuildContext context, String medName) async {
-    ReportAction _reportAction;
+    ReportAction? _reportAction;
 
     final action = await showDialog(
       context: context,
