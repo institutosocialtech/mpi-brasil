@@ -222,7 +222,7 @@ class _PainCardState extends State {
                   textConfig: TextConfig(textAlign: TextAlign.justify),
                 ),
               ),
-            ).widgets,
+            ).widgets!,
           ),
           actions: <Widget>[
             TextButton(

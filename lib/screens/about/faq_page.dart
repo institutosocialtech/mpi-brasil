@@ -149,7 +149,7 @@ class FAQList extends StatelessWidget {
                       onLinkTap: (link) => launch(link),
                     ),
                   ),
-                ).widgets,
+                ).widgets!,
               ),
             ),
           ],
