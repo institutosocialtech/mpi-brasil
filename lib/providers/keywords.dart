@@ -14,7 +14,7 @@ class Keywords with ChangeNotifier {
     return [..._keywords];
   }
 
-  Future<void> fetchKeywordsFromDB({force: false}) async {
+  Future<void> fetchKeywordsFromDB({force = false}) async {
     var url =
         'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json?auth=$authToken';
 

@@ -18,7 +18,7 @@ class Meds with ChangeNotifier {
     return _meds.firstWhere((element) => element.id == medId);
   }
 
-  Future<void> fetchMedsFromDB({force: false}) async {
+  Future<void> fetchMedsFromDB({force = false}) async {
     var url =
         'https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json?auth=$authToken';
 
