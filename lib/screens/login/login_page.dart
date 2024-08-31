@@ -330,7 +330,7 @@ class _LoginPageState extends State<LoginPage> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall!
                     .copyWith(color: kColorMPIGray),
               );
             default:

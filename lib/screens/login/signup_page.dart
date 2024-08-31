@@ -347,7 +347,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall!
                     .copyWith(color: kColorMPIGray),
               );
             default:

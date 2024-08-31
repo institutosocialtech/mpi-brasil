@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
-                                .caption
+                                .bodySmall!
                                 .copyWith(color: kColorMPIWhite),
                           );
 
