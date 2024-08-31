@@ -166,8 +166,9 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                           'Finalizar',
                           style: TextStyle(color: kColorMPIGreen),
                         ),
-                        style:
-                            ElevatedButton.styleFrom(primary: kColorMPIWhite),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: kColorMPIWhite,
+                        ),
                       ),
                     ],
                   ),

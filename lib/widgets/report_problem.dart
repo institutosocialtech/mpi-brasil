@@ -78,13 +78,15 @@ class ReportProblem {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
-              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
+              style: TextButton.styleFrom(
+                foregroundColor: kColorMPIGreenOpaque,
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
               child: Text("Enviar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),

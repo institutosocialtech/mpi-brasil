@@ -166,7 +166,9 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                           "Recuperar Senha",
                           style: TextStyle(color: kColorMPIWhite),
                         ),
-                        style: ElevatedButton.styleFrom(primary: kColorMPIBlue),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: kColorMPIBlue,
+                        ),
                       ),
 
                       // login button

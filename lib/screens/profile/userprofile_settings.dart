@@ -198,7 +198,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIGreen,
+                foregroundColor: kColorMPIGreen,
               ),
             ),
 
@@ -207,7 +207,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(controller.text),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -267,7 +267,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIGreen,
+                foregroundColor: kColorMPIGreen,
               ),
             ),
 
@@ -278,7 +278,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               ),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -339,7 +339,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Cancelar"),
-              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
+              style: TextButton.styleFrom(
+                foregroundColor: kColorMPIGreenOpaque,
+              ),
             ),
 
             // save action
@@ -347,7 +349,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onPressed: () => Navigator.of(context).pop(selected),
               child: Text("Salvar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),

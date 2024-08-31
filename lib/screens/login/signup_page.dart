@@ -67,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Text("Fechar"),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              primary: kColorMPIWhite,
+              foregroundColor: kColorMPIWhite,
               backgroundColor: kColorMPIGreen,
             ),
           ),
@@ -157,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // sign in button appearance
     final _signUpButtonStyle = ElevatedButton.styleFrom(
-      primary: kColorMPIGreen,
+      foregroundColor: kColorMPIGreen,
     );
 
     // text styles

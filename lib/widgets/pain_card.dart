@@ -229,7 +229,7 @@ class _PainCardState extends State {
               onPressed: () => Navigator.of(context).pop(),
               child: Text("Fechar"),
               style: TextButton.styleFrom(
-                primary: kColorMPIGreen,
+                foregroundColor: kColorMPIGreen,
               ),
             )
           ],

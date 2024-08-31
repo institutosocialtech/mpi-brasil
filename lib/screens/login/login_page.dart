@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Text("Fechar"),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              primary: kColorMPIWhite,
+              foregroundColor: kColorMPIWhite,
               backgroundColor: kColorMPIGreen,
             ),
           ),
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final _signInButtonStyle = ElevatedButton.styleFrom(
-      primary: kColorMPIGreen,
+      foregroundColor: kColorMPIGreen,
     );
 
     // text styles
