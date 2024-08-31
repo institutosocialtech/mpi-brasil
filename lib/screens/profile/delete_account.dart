@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/models/http_exception.dart';
 import 'package:mpibrasil/providers/auth.dart';
-import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 class DeleteAccount extends StatelessWidget {
