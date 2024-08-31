@@ -66,12 +66,14 @@ class FloatingMenu extends StatelessWidget {
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
             String shareCondicoes = "";
-            if (med.conditionsToAvoid != null) {
+
+            if (med.conditionsToAvoid.isNotEmpty) {
               shareCondicoes = "\n\nCondições a serem evitadas:";
               for (MedAvoidCondition c in med.conditionsToAvoid) {
                 shareCondicoes += "\n* ${c.name}";
               }
             }
+
             Share.share("${med.name}" +
                 "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
                 "$shareCondicoes" +
