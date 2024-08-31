@@ -64,21 +64,7 @@ class FloatingMenu extends StatelessWidget {
           backgroundColor: kColorMPIGreen,
           label: 'Compartilhar',
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () {
-            String shareCondicoes = "";
-
-            if (med.conditionsToAvoid.isNotEmpty) {
-              shareCondicoes = "\n\nCondições a serem evitadas:";
-              for (MedAvoidCondition c in med.conditionsToAvoid) {
-                shareCondicoes += "\n* ${c.name}";
-              }
-            }
-
-            Share.share("${med.name}" +
-                "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
-                "$shareCondicoes" +
-                "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
-          },
+          onTap: () => Share.share(shareMessage(med)),
         ),
 
         // reportar erro
@@ -93,5 +79,18 @@ class FloatingMenu extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String shareMessage(Med med) {
+    String shareLink = "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app";
+    String medClass = "\n\nClasse Farmacológica:\n" + med.medTypesToString();
+    String avoidConditions = "";
+
+    if (med.conditionsToAvoid != null && med.conditionsToAvoid!.isNotEmpty) {
+      avoidConditions = "\n\nCondições a serem evitadas: \n*";
+      avoidConditions += med.conditionsToAvoid!.map((c) => c.name).join('\n* ');
+    }
+
+    return med.name + medClass + avoidConditions + shareLink;
   }
 }
