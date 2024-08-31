@@ -31,7 +31,7 @@ final ThemeData appTheme = ThemeData(
   // primary and accent colors
   brightness: Brightness.light,
   primaryColor: kColorMPIGreen,
-  accentColor: kColorMPIGreenOpaque,
+  // accentColor: kColorMPIGreenOpaque,
 
   // component colors
   dividerColor: Colors.transparent,
