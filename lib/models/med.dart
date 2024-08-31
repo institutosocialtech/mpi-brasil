@@ -11,42 +11,34 @@ class Med with ChangeNotifier {
   final String name;
   @JsonKey(name: 'classes')
   final List<String> classification;
-  @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: null)
-  final List<MedAvoidCondition> conditionsToAvoid;
-  @JsonKey(name: 'alternative_therapies', defaultValue: null)
-  final List<MedAlternatives> alternatives;
   @JsonKey(name: 'desprescription')
   final String desprescription;
-  @JsonKey(name: 'monitored_parameters', defaultValue: null)
-  final List<MedMonitor> parametersToMonitor;
-  @JsonKey(name: 'references')
-  final List<MedReference> references;
-  
+  @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: [])
+  final List<MedAvoidCondition>? conditionsToAvoid;
+  @JsonKey(name: 'alternative_therapies', defaultValue: [])
+  final List<MedAlternatives>? alternatives;
+  @JsonKey(name: 'monitored_parameters', defaultValue: [])
+  final List<MedMonitor>? parametersToMonitor;
+  @JsonKey(name: 'references', defaultValue: [])
+  final List<MedReference>? references;
+
   Med({
-    this.id,
-    this.name,
-    this.classification,
+    required this.id,
+    required this.name,
+    required this.classification,
+    required this.desprescription,
     this.conditionsToAvoid,
     this.alternatives,
-    this.desprescription,
     this.parametersToMonitor,
-    this.references
+    this.references,
   });
 
   factory Med.fromJson(Map<String, dynamic> json) => _$MedFromJson(json);
   Map<String, dynamic> toJson() => _$MedToJson(this);
 
   String medTypesToString() {
-    String output = "";
-    for (String s in classification) {
-      if (output == "")
-        output = s;
-      else
-        output += ", " + s;
-    }
-    return output;
+    return classification.join(', ');
   }
-
 }
 
 @JsonSerializable()
@@ -61,24 +53,25 @@ class MedAvoidCondition {
   final String exception;
 
   MedAvoidCondition(
-    
     this.criticalLevel,
     this.name,
     this.description,
-    this.exception
-    
+    this.exception,
   );
-    factory MedAvoidCondition.fromJson(Map<String, dynamic> json) => _$MedAvoidConditionFromJson(json);
 
-    Map<String, dynamic> toJson() => _$MedAvoidConditionToJson(this);
+  factory MedAvoidCondition.fromJson(Map<String, dynamic> json) =>
+      _$MedAvoidConditionFromJson(json);
 
+  Map<String, dynamic> toJson() => _$MedAvoidConditionToJson(this);
 }
 
-
 @JsonSerializable()
-
 class MedAlternatives {
-  @JsonKey(name: 'alternative_therapy_order', defaultValue: 1, fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(
+      name: 'alternative_therapy_order',
+      defaultValue: 1,
+      fromJson: _stringToInt,
+      toJson: _intToString)
   final int order;
   @JsonKey(name: 'alternative_therapy_title')
   final String alternative;
@@ -88,19 +81,25 @@ class MedAlternatives {
   MedAlternatives(
     this.order,
     this.alternative,
-    this.description
+    this.description,
   );
-    factory MedAlternatives.fromJson(Map<String, dynamic> json) => _$MedAlternativesFromJson(json);
+
+  factory MedAlternatives.fromJson(Map<String, dynamic> json) =>
+      _$MedAlternativesFromJson(json);
 
   Map<String, dynamic> toJson() => _$MedAlternativesToJson(this);
-  static int _stringToInt(String number) => number == null ? null : int.parse(number);
-  static String _stringFromInt(int number) => number?.toString();
 
+  static int _stringToInt(dynamic number) {
+    if (number is num) return number.toInt();
+    if (number is String) return int.tryParse(number)?.toInt() ?? 0;
+
+    return -1;
+  }
+
+  static dynamic _intToString(int number) => number.toString();
 }
 
-
 @JsonSerializable()
-
 class MedMonitor {
   @JsonKey(name: 'monitor_title')
   final String parameter;
@@ -111,26 +110,24 @@ class MedMonitor {
     this.parameter,
     this.description,
   );
-    factory MedMonitor.fromJson(Map<String, dynamic> json) => _$MedMonitorFromJson(json);
+
+  factory MedMonitor.fromJson(Map<String, dynamic> json) =>
+      _$MedMonitorFromJson(json);
 
   Map<String, dynamic> toJson() => _$MedMonitorToJson(this);
-
 }
 
 @JsonSerializable()
-
 class MedReference {
   @JsonKey(name: 'reference_title')
   final String title;
   @JsonKey(name: 'reference_url')
   final String url;
 
-  MedReference(
-    this.title,
-    this.url
-  );
+  MedReference(this.title, this.url);
 
-    factory MedReference.fromJson(Map<String, dynamic> json) => _$MedReferenceFromJson(json);
-    Map<String, dynamic> toJson() => _$MedReferenceToJson(this);
+  factory MedReference.fromJson(Map<String, dynamic> json) =>
+      _$MedReferenceFromJson(json);
 
+  Map<String, dynamic> toJson() => _$MedReferenceToJson(this);
 }
