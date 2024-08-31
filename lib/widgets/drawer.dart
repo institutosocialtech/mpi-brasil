@@ -32,7 +32,7 @@ class AppDrawer extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(false),
               child: Text('Não'),
               style: TextButton.styleFrom(
-                primary: kColorMPIGray,
+                foregroundColor: kColorMPIGray,
                 backgroundColor: kColorMPIWhite,
               ),
             ),
@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(true),
               child: Text('Sim'),
               style: TextButton.styleFrom(
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
