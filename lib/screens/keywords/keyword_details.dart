@@ -4,7 +4,7 @@ import '../../constants.dart';
 
 class KeywordDetails extends StatelessWidget {
   final Keyword keyword;
-  KeywordDetails({Key key, this.keyword}) : super(key: key);
+  KeywordDetails({Key? key, required this.keyword}) : super(key: key);
   final TextStyle tileTitle = TextStyle(fontWeight: FontWeight.bold);
 
   @override

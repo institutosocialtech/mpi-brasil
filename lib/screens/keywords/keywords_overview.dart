@@ -105,7 +105,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
 }
 
 class KeywordList extends StatelessWidget {
-  const KeywordList({Key key, @required this.keywords}) : super(key: key);
+  const KeywordList({Key? key, required this.keywords}) : super(key: key);
 
   final List<Keyword> keywords;
 

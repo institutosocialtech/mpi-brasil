@@ -9,7 +9,7 @@ import '../../constants.dart';
 
 class MedDetails extends StatelessWidget {
   final Med med;
-  MedDetails({Key key, this.med}) : super(key: key);
+  MedDetails({Key? key, required this.med}) : super(key: key);
 
   final appBarHeaderStyle = TextStyle(
     color: Colors.white,

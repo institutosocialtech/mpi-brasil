@@ -10,7 +10,8 @@ import '../widgets/report_problem.dart';
 
 class FloatingMenu extends StatelessWidget {
   final Med med;
-  FloatingMenu({Key key, this.med}) : super(key: key);
+
+  FloatingMenu({Key? key, required this.med}) : super(key: key);
 
   Widget build(BuildContext context) {
     var isFavorite =

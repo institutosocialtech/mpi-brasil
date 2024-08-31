@@ -72,7 +72,7 @@ class EquipePage extends StatelessWidget {
 }
 
 class AboutUsText extends StatelessWidget {
-  const AboutUsText({Key key}) : super(key: key);
+  const AboutUsText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class AboutUsText extends StatelessWidget {
 }
 
 class UesbTextImageSide extends StatelessWidget {
-  const UesbTextImageSide({Key key}) : super(key: key);
+  const UesbTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +167,7 @@ class UesbTextImageSide extends StatelessWidget {
 }
 
 class UfbaTextImageSide extends StatelessWidget {
-  const UfbaTextImageSide({Key key}) : super(key: key);
+  const UfbaTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +279,7 @@ class UfbaTextImageSide extends StatelessWidget {
 }
 
 class PmoSocialTextImageSide extends StatelessWidget {
-  const PmoSocialTextImageSide({Key key}) : super(key: key);
+  const PmoSocialTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

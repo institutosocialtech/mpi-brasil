@@ -5,7 +5,7 @@ import 'package:mpibrasil/providers/auth.dart';
 import 'package:provider/provider.dart';
 
 class DeleteAccount extends StatelessWidget {
-  const DeleteAccount({Key key}) : super(key: key);
+  const DeleteAccount({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class DeleteAccount extends StatelessWidget {
 }
 
 class DeleteAccountCard extends StatefulWidget {
-  const DeleteAccountCard({Key key}) : super(key: key);
+  const DeleteAccountCard({Key? key}) : super(key: key);
 
   @override
   State<DeleteAccountCard> createState() => _DeleteAccountCardState();
