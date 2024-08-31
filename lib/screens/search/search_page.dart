@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
   }
 
-  Widget drawResults(BuildContext context, String query) {
+  Widget drawResults(BuildContext context, String? query) {
     final medsData = Provider.of<Meds>(context, listen: false);
     final meds = medsData.meds;
 
