@@ -121,7 +121,7 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      final errorMessage = 'Erro desconhecido: ${error.message}';
+      final errorMessage = 'Erro desconhecido: ${error}';
       _showErrorDialog(errorMessage);
     }
 

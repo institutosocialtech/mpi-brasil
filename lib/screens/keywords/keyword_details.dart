@@ -76,7 +76,7 @@ class KeywordDetails extends StatelessWidget {
                   ),
             ListTile(
               title: Text("Referências", style: tileTitle),
-              subtitle: keyword.source == null
+              subtitle: keyword.source.isEmpty
                   ? Text("Indisponível")
                   : Text(keyword.source),
             ),
