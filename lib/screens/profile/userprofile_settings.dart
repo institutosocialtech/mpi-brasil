@@ -77,11 +77,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           // user name
           ListTile(
             title: Text('Nome'),
-            subtitle: Text(user.name),
+            subtitle: Text(user.name ?? ''),
             leading: Icon(Icons.person, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () => _showEditNameDialog(context, user.name),
+              onPressed: () => _showEditNameDialog(context, user.name ?? ''),
             ),
           ),
 
@@ -136,12 +136,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           // user occupation
           ListTile(
             title: Text('Ocupação'),
-            subtitle: Text(_occupationToString(user.occupation)),
+            subtitle: Text(_occupationToString(user.occupation ?? '')),
             leading: Icon(Icons.work, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
               onPressed: () =>
-                  _showEditOccupationDialog(context, user.occupation),
+                  _showEditOccupationDialog(context, user.occupation ?? ''),
             ),
           ),
 
@@ -301,7 +301,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        String selected = Provider.of<UserPreferences>(context).user.occupation;
+        String? selected =
+            Provider.of<UserPreferences>(context).user.occupation;
 
         Map<String, String> items = {
           'Médico(a)': 'medico',
@@ -318,16 +319,20 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               return Container(
                 width: deviceSize.width * 0.75,
                 child: DropdownButton(
-                  onChanged: (value) => setState(() => selected = value),
+                  onChanged: (String? value) =>
+                      setState(() => selected = value),
                   isExpanded: true,
                   value: selected,
                   items: items
-                      .map((text, value) => MapEntry(
+                      .map(
+                        (text, value) => MapEntry(
                           text,
                           DropdownMenuItem(
                             child: Text(text),
                             value: value,
-                          )))
+                          ),
+                        ),
+                      )
                       .values
                       .toList(),
                 ),
@@ -364,8 +369,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     }
   }
 
-  String _dateToString(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
+  String _dateToString(DateTime? date) {
+    return date != null ? '${date.day}/${date.month}/${date.year}' : '';
   }
 
   String _occupationToString(String occupation) {
