@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // draw util
-  bool _isLoading;
+  bool _isLoading = false;
 
   // auth
   Map<String, String> _authData = {
@@ -28,9 +28,9 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   // focus nodes
-  FocusNode _fEmail;
-  FocusNode _fPassword;
-  FocusNode _fSubmit;
+  FocusNode? _fEmail;
+  FocusNode? _fPassword;
+  FocusNode? _fSubmit;
 
   // init
   @override
@@ -45,9 +45,9 @@ class _LoginPageState extends State<LoginPage> {
   // dispose
   @override
   void dispose() {
-    _fEmail.dispose();
-    _fPassword.dispose();
-    _fSubmit.dispose();
+    _fEmail!.dispose();
+    _fPassword!.dispose();
+    _fSubmit!.dispose();
     super.dispose();
   }
 
@@ -73,33 +73,36 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // validate form entry
-  String _validateEntry(String type, String value) {
-    switch (type) {
-      case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
-        break;
+  String? _validateEntry(String type, String? value) {
+    if (value != null) {
+      switch (type) {
+        case 'email':
+          if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
+          break;
 
-      case 'password':
-        if (value.isEmpty) return 'Digite sua Senha!';
-        break;
+        case 'password':
+          if (value.isEmpty) return 'Digite sua Senha!';
+          break;
+      }
     }
+
     return null;
   }
 
   // form submit
   Future<void> _submit() async {
     // validate form
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     // save form data
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     // display progress indicator
     setState(() => _isLoading = true);
 
     // try to login
     try {
       await Provider.of<Auth>(context, listen: false).login(
-        _authData['email'],
-        _authData['password'],
+        _authData['email']!,
+        _authData['password']!,
       );
     } on HttpException catch (error) {
       var errorMessage = 'A autenticação falhou!';
@@ -199,9 +202,9 @@ class _LoginPageState extends State<LoginPage> {
                                         validator: (value) =>
                                             _validateEntry('email', value),
                                         onSaved: (value) =>
-                                            _authData['email'] = value,
+                                            _authData['email'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fEmail.unfocus();
+                                          _fEmail!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPassword);
                                         },
@@ -219,9 +222,9 @@ class _LoginPageState extends State<LoginPage> {
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
-                                            _authData['password'] = value,
+                                            _authData['password'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fPassword.unfocus();
+                                          _fPassword!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fSubmit);
                                         },
@@ -326,7 +329,7 @@ class _LoginPageState extends State<LoginPage> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Text(
-                'v${snapshot.data.version}',
+                'v${snapshot.data!.version}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
