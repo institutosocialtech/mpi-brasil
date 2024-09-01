@@ -16,11 +16,11 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
   final _dateController = TextEditingController();
   var _isLoading = false;
 
-  String _userName;
-  String _userOccupation;
-  DateTime _userBirthdate;
+  String? _userName;
+  String? _userOccupation;
+  DateTime? _userBirthdate;
 
-  List<DropdownMenuItem> _occupations = [
+  List<DropdownMenuItem<String>> _occupations = [
     DropdownMenuItem(
       value: 'medico',
       child: Text('Médico(a)'),
@@ -44,11 +44,11 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
   ];
 
   Future<void> _submit() async {
-    var isValid = _formKey.currentState.validate();
+    var isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
       setState(() => _isLoading = true);
       await Provider.of<UserPreferences>(context, listen: false)
           .updateUserData(
@@ -132,7 +132,8 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                             hint: Text('Ocupação'),
                             items: _occupations,
                             onChanged: (value) {},
-                            onSaved: (value) => _userOccupation = value,
+                            onSaved: (value) =>
+                                _userOccupation = value.toString(),
                           ),
                           SizedBox(height: 10),
                           TextFormField(
@@ -155,8 +156,12 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                                   color: kColorMPIWhite),
                             ),
                             keyboardType: TextInputType.number,
-                            onSaved: (value) => _userBirthdate =
-                                DateFormat('dd/MM/yyyy').parse(value),
+                            onSaved: (value) {
+                              if (value == null) return;
+
+                              _userBirthdate =
+                                  DateFormat('dd/MM/yyyy').parse(value);
+                            },
                           ),
                         ],
                       ),
