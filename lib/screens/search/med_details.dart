@@ -289,7 +289,7 @@ class MedDetails extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ),
-            onTap: () => launch(item.url!),
+            onTap: () => launchUrl(Uri.parse(item.url!)),
           ),
         ),
       );

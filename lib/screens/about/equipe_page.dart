@@ -108,7 +108,8 @@ class UesbTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
+              launchUrl(
+                  Uri.parse('http://catalogo.uesb.br/cursos/medicina-bac-vc'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,7 +125,8 @@ class UesbTextImageSide extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
+                  launchUrl(Uri.parse(
+                      'http://catalogo.uesb.br/cursos/medicina-bac-vc'));
                 },
                 child: Center(
                   child: SizedBox(
@@ -145,7 +147,8 @@ class UesbTextImageSide extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            launch('http://lattes.cnpq.br/6211832014875307');
+                            launchUrl(Uri.parse(
+                                'http://lattes.cnpq.br/6211832014875307'));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,7 +180,7 @@ class UfbaTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://ims.ufba.br/');
+              launchUrl(Uri.parse('http://ims.ufba.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -188,7 +191,7 @@ class UfbaTextImageSide extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              launch('http://ims.ufba.br/');
+              launchUrl(Uri.parse('http://ims.ufba.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,7 +215,7 @@ class UfbaTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 7.0),
                 child: GestureDetector(
                   onTap: () {
-                    launch('http://ims.ufba.br/');
+                    launchUrl(Uri.parse('http://ims.ufba.br/'));
                   },
                   child: SizedBox(
                     width: 120,
@@ -232,7 +235,8 @@ class UfbaTextImageSide extends StatelessWidget {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/7413684305204869');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/7413684305204869'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +248,8 @@ class UfbaTextImageSide extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/3049611000844978');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/3049611000844978'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +261,8 @@ class UfbaTextImageSide extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/9147688530868098');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/9147688530868098'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +295,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://www.socialtech.org.br/');
+              launchUrl(Uri.parse('http://www.socialtech.org.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -300,7 +306,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              launch('http://www.socialtech.org.br/');
+              launchUrl(Uri.parse('http://www.socialtech.org.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -317,7 +323,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    launch('http://www.socialtech.org.br/');
+                    Url(Uri.parse('http://www.socialtech.org.br/'));
                   },
                   child: SizedBox(
                     width: 120,
@@ -337,8 +343,10 @@ class PmoSocialTextImageSide extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            launch(
-                                'https://www.linkedin.com/in/wilnara-amorim');
+                            launchUrl(
+                              Uri.parse(
+                                  'https://www.linkedin.com/in/wilnara-amorim'),
+                            );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,8 +358,10 @@ class PmoSocialTextImageSide extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            launch(
-                                'https://sites.google.com/site/danielporto/');
+                            launchUrl(
+                              Uri.parse(
+                                  'https://sites.google.com/site/danielporto/'),
+                            );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,7 +373,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            launch('http://github.com/diego-ch');
+                            launchUrl(Uri.parse('http://github.com/diego-ch'));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,7 +385,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            launch('http://github.com/diego-ch');
+                            launchUrl(Uri.parse('http://github.com/diego-ch'));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

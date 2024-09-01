@@ -146,7 +146,7 @@ class FAQList extends StatelessWidget {
                         color: kColorMPIGreen,
                         fontWeight: FontWeight.bold,
                       ),
-                      onLinkTap: (link) => launch(link!),
+                      onLinkTap: (link) => launchUrl(Uri.parse(link!)),
                     ),
                   ),
                 ).widgets!,
