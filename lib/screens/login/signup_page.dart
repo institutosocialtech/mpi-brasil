@@ -14,7 +14,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   // draw util
-  bool _isLoading;
+  bool _isLoading = false;
 
   // auth
   Map<String, String> _authData = {
@@ -29,10 +29,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final _pwdVerifyController = TextEditingController();
 
   // focus nodes
-  FocusNode _fEmail;
-  FocusNode _fPwd;
-  FocusNode _fPwdVerify;
-  FocusNode _fSubmit;
+  FocusNode? _fEmail;
+  FocusNode? _fPwd;
+  FocusNode? _fPwdVerify;
+  FocusNode? _fSubmit;
 
   // init
   @override
@@ -48,10 +48,10 @@ class _SignUpPageState extends State<SignUpPage> {
   // dispose
   @override
   void dispose() {
-    _fEmail.dispose();
-    _fPwd.dispose();
-    _fPwdVerify.dispose();
-    _fSubmit.dispose();
+    _fEmail!.dispose();
+    _fPwd!.dispose();
+    _fPwdVerify!.dispose();
+    _fSubmit!.dispose();
     super.dispose();
   }
 
@@ -77,32 +77,35 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   // validate form entry
-  String _validateEntry(String type, String value) {
-    switch (type) {
-      case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email inválido';
-        break;
+  String? _validateEntry(String type, String? value) {
+    if (value != null) {
+      switch (type) {
+        case 'email':
+          if (value.isEmpty || !value.contains('@')) return 'Email inválido';
+          break;
 
-      case 'password':
-        if (value.isEmpty) return 'Digite sua senha!';
-        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
-        break;
+        case 'password':
+          if (value.isEmpty) return 'Digite sua senha!';
+          if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
+          break;
 
-      case 'passVerify':
-        if (value.isEmpty) return 'Digite sua senha novamente!';
-        if (value != _pwdController.text) return 'Senha não confere!';
-        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
-        break;
+        case 'passVerify':
+          if (value.isEmpty) return 'Digite sua senha novamente!';
+          if (value != _pwdController.text) return 'Senha não confere!';
+          if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
+          break;
+      }
     }
+
     return null;
   }
 
   // submit signUp
   Future<void> _submit() async {
     // validate form
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     // save form data
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     // display progress indicator
     setState(() => _isLoading = true);
 
@@ -110,8 +113,8 @@ class _SignUpPageState extends State<SignUpPage> {
     // try to login
     try {
       await Provider.of<Auth>(context, listen: false).signup(
-        _authData['email'],
-        _authData['password'],
+        _authData['email']!,
+        _authData['password']!,
       );
     } on HttpException catch (error) {
       var errorMessage;
@@ -209,12 +212,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                         textInputAction: TextInputAction.next,
                                         decoration:
                                             InputDecoration(hintText: "Email"),
-                                        validator: (value) =>
+                                        validator: (String? value) =>
                                             _validateEntry('email', value),
-                                        onSaved: (value) =>
-                                            _authData['email'] = value,
+                                        onSaved: (String? value) =>
+                                            _authData['email'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fEmail.unfocus();
+                                          _fEmail!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPwd);
                                         },
@@ -231,9 +234,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
-                                            _authData['password'] = value,
+                                            _authData['password'] = value ?? '',
                                         onFieldSubmitted: (value) {
-                                          _fPwd.unfocus();
+                                          _fPwd!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPwdVerify);
                                         },
@@ -250,7 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         validator: (value) =>
                                             _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {
-                                          _fPwdVerify.unfocus();
+                                          _fPwdVerify!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fSubmit);
                                         },
@@ -343,7 +346,7 @@ class _SignUpPageState extends State<SignUpPage> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Text(
-                'v${snapshot.data.version}',
+                'v${snapshot.data!.version}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
