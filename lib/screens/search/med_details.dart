@@ -89,9 +89,10 @@ class MedDetails extends StatelessWidget {
 
     if (med.conditionsToAvoid == null) return Container();
 
-    med.conditionsToAvoid
+    med.conditionsToAvoid!
         .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
-    for (MedAvoidCondition item in med.conditionsToAvoid) {
+
+    for (MedAvoidCondition item in med.conditionsToAvoid!) {
       List<Widget> conditions = [];
       conditions.add(Text(item.name,
           textAlign: TextAlign.left,
@@ -158,9 +159,9 @@ class MedDetails extends StatelessWidget {
 
     if (med.alternatives == null) return Container();
 
-    med.alternatives.sort((a, b) => a.order.compareTo(b.order));
+    med.alternatives!.sort((a, b) => a.order.compareTo(b.order));
 
-    for (MedAlternatives item in med.alternatives) {
+    for (MedAlternatives item in med.alternatives!) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
       } else {
@@ -224,7 +225,7 @@ class MedDetails extends StatelessWidget {
 
     if (med.parametersToMonitor == null) return Container();
 
-    for (MedMonitor item in med.parametersToMonitor) {
+    for (MedMonitor item in med.parametersToMonitor!) {
       monitorTiles.add(Padding(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
         child: Card(
@@ -266,23 +267,25 @@ class MedDetails extends StatelessWidget {
 
     if (med.references == null) return Container();
 
-    for (MedReference item in med.references) {
-      referenceTiles.add(Padding(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-        child: InkWell(
-          child: Card(
-            elevation: 5,
-            child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  item.title,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
+    for (MedReference item in med.references!) {
+      referenceTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: InkWell(
+            child: Card(
+              elevation: 5,
+              child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    item.title,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+            ),
+            onTap: () => launch(item.url),
           ),
-          onTap: () => launch(item.url),
         ),
-      ));
+      );
     }
     referenceTiles.add(SizedBox(height: 20));
     return ExpansionTile(
