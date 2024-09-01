@@ -157,27 +157,28 @@ class AboutList extends StatelessWidget {
               ),
             ),
             Container(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
-                  children: <Widget>[
-                    ...MarkdownGenerator(
-                        data: introduction,
-                        styleConfig: StyleConfig(
-                          pConfig: PConfig(
-                            textConfig:
-                                TextConfig(textAlign: TextAlign.justify),
-                          ),
-                        )).widgets,
-                    ...MarkdownGenerator(
-                        data: development,
-                        styleConfig: StyleConfig(
-                          pConfig: PConfig(
-                            textConfig:
-                                TextConfig(textAlign: TextAlign.justify),
-                          ),
-                        )).widgets,
-                  ],
-                )),
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Column(
+                children: <Widget>[
+                  ...MarkdownGenerator(
+                    data: introduction,
+                    styleConfig: StyleConfig(
+                      pConfig: PConfig(
+                        textConfig: TextConfig(textAlign: TextAlign.justify),
+                      ),
+                    ),
+                  ).widgets!,
+                  ...MarkdownGenerator(
+                    data: development,
+                    styleConfig: StyleConfig(
+                      pConfig: PConfig(
+                        textConfig: TextConfig(textAlign: TextAlign.justify),
+                      ),
+                    ),
+                  ).widgets!,
+                ],
+              ),
+            ),
           ],
         ),
         Divider(color: kColorMPIDividerGray),

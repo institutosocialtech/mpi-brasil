@@ -168,33 +168,39 @@ class MedDetails extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
             child: Card(
-                elevation: 5,
-                child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Text(item.alternative,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(fontWeight: FontWeight.bold))
-                      ]..addAll(MarkdownGenerator(
-                          data: item.description,
-                          styleConfig: StyleConfig(
-                              pConfig: PConfig(
-                                textConfig:
-                                    TextConfig(textAlign: TextAlign.justify),
-                              ),
-                              olConfig: OlConfig(
-                                indexWidget: (deep, index) {
-                                  index++;
-                                  return Container(
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    child: Text(
-                                      index < 10 ? '  $index.' : '$index.',
-                                    ),
-                                  );
-                                },
-                              ))).widgets),
-                    ))),
+              elevation: 5,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(item.alternative,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontWeight: FontWeight.bold))
+                  ]..addAll(
+                      MarkdownGenerator(
+                        data: item.description,
+                        styleConfig: StyleConfig(
+                          pConfig: PConfig(
+                            textConfig:
+                                TextConfig(textAlign: TextAlign.justify),
+                          ),
+                          olConfig: OlConfig(
+                            indexWidget: (deep, index) {
+                              index++;
+                              return Container(
+                                margin: EdgeInsets.only(left: 5, right: 5),
+                                child: Text(
+                                  index < 10 ? '  $index.' : '$index.',
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ).widgets!,
+                    ),
+                ),
+              ),
+            ),
           ),
         );
       }

@@ -91,7 +91,7 @@ class AboutUsText extends StatelessWidget {
               textConfig: TextConfig(textAlign: TextAlign.justify),
             ),
           ),
-        ).widgets,
+        ).widgets!,
       ),
     );
   }
@@ -115,7 +115,7 @@ class UesbTextImageSide extends StatelessWidget {
               children: MarkdownGenerator(
                       data:
                           '**Universidade Estadual do Sudoeste da Bahia (UESB)**')
-                  .widgets,
+                  .widgets!,
             ),
           ),
           Row(
@@ -152,7 +152,7 @@ class UesbTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
-                            ).widgets,
+                            ).widgets!,
                           ),
                         ),
                       ]),
@@ -183,7 +183,7 @@ class UfbaTextImageSide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
                 data: '**Universidade Federal da Bahia (UFBA)**',
-              ).widgets,
+              ).widgets!,
             ),
           ),
           GestureDetector(
@@ -200,7 +200,7 @@ class UfbaTextImageSide extends StatelessWidget {
                     textConfig: TextConfig(textAlign: TextAlign.center),
                   ),
                 ),
-              ).widgets,
+              ).widgets!,
             ),
           ),
           SizedBox(height: 10),
@@ -239,7 +239,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           children: MarkdownGenerator(
                             data:
                                 '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
-                          ).widgets,
+                          ).widgets!,
                         ),
                       ),
                       GestureDetector(
@@ -251,7 +251,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           children: MarkdownGenerator(
                             data:
                                 '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
-                          ).widgets,
+                          ).widgets!,
                         ),
                       ),
                       GestureDetector(
@@ -263,7 +263,7 @@ class UfbaTextImageSide extends StatelessWidget {
                           children: MarkdownGenerator(
                             data:
                                 '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
-                          ).widgets,
+                          ).widgets!,
                         ),
                       ),
                     ],
@@ -295,7 +295,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
                 data: '**Instituto de Gestão de Projetos Sociais**\n',
-              ).widgets,
+              ).widgets!,
             ),
           ),
           GestureDetector(
@@ -306,7 +306,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: MarkdownGenerator(
                 data: '**(SocialTech)**',
-              ).widgets,
+              ).widgets!,
             ),
           ),
           Row(
@@ -345,7 +345,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Wilnara Amorim**\nGerente de Projetos Sociais',
-                            ).widgets,
+                            ).widgets!,
                           ),
                         ),
                         GestureDetector(
@@ -358,7 +358,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
-                            ).widgets,
+                            ).widgets!,
                           ),
                         ),
                         GestureDetector(
@@ -370,7 +370,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Diego Porto**\nDesenvolvedor Colaborador',
-                            ).widgets,
+                            ).widgets!,
                           ),
                         ),
                         GestureDetector(
@@ -382,7 +382,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                             children: MarkdownGenerator(
                               data:
                                   '**Fernando Neves**\n UX/UI Designer Colaborador',
-                            ).widgets,
+                            ).widgets!,
                           ),
                         ),
                       ]),
