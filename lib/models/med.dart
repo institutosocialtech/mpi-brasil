@@ -9,10 +9,10 @@ class Med with ChangeNotifier {
   final String id;
   @JsonKey(name: 'active_ingredient')
   final String name;
-  @JsonKey(name: 'classes')
-  final List<String> classification;
-  @JsonKey(name: 'desprescription')
-  final String desprescription;
+  @JsonKey(name: 'classes', defaultValue: [])
+  final List<String>? classification;
+  @JsonKey(name: 'desprescription', defaultValue: '')
+  final String? desprescription;
   @JsonKey(name: 'clinical_conditions_to_avoid', defaultValue: [])
   final List<MedAvoidCondition>? conditionsToAvoid;
   @JsonKey(name: 'alternative_therapies', defaultValue: [])
@@ -25,8 +25,8 @@ class Med with ChangeNotifier {
   Med({
     required this.id,
     required this.name,
-    required this.classification,
-    required this.desprescription,
+    this.classification,
+    this.desprescription,
     this.conditionsToAvoid,
     this.alternatives,
     this.parametersToMonitor,
@@ -37,20 +37,20 @@ class Med with ChangeNotifier {
   Map<String, dynamic> toJson() => _$MedToJson(this);
 
   String medTypesToString() {
-    return classification.join(', ');
+    return classification?.join(', ') ?? '';
   }
 }
 
 @JsonSerializable()
 class MedAvoidCondition {
-  @JsonKey(name: 'critical_level')
-  final int criticalLevel;
-  @JsonKey(name: 'title_condition_to_avoid')
-  final String name;
-  @JsonKey(name: 'description_condition_to_avoid')
-  final String description;
-  @JsonKey(name: 'exception_condition_to_avoid')
-  final String exception;
+  @JsonKey(name: 'critical_level', defaultValue: -1)
+  final int? criticalLevel;
+  @JsonKey(name: 'title_condition_to_avoid', defaultValue: '')
+  final String? name;
+  @JsonKey(name: 'description_condition_to_avoid', defaultValue: '')
+  final String? description;
+  @JsonKey(name: 'exception_condition_to_avoid', defaultValue: '')
+  final String? exception;
 
   MedAvoidCondition(
     this.criticalLevel,
@@ -102,9 +102,9 @@ class MedAlternatives {
 @JsonSerializable()
 class MedMonitor {
   @JsonKey(name: 'monitor_title')
-  final String parameter;
+  final String? parameter;
   @JsonKey(name: 'monitor_description')
-  final String description;
+  final String? description;
 
   MedMonitor(
     this.parameter,
@@ -120,9 +120,9 @@ class MedMonitor {
 @JsonSerializable()
 class MedReference {
   @JsonKey(name: 'reference_title')
-  final String title;
+  final String? title;
   @JsonKey(name: 'reference_url')
-  final String url;
+  final String? url;
 
   MedReference(this.title, this.url);
 

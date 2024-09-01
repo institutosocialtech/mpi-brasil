@@ -70,8 +70,9 @@ class MedDetails extends StatelessWidget {
             ),
             drawConditionsTile(med),
             drawAlternatives(med),
-            drawExpansionTile(
-                "Orientações de Desprescrição", med.desprescription),
+            if (med.desprescription != null && med.desprescription!.isNotEmpty)
+              drawExpansionTile(
+                  "Orientações de Desprescrição", med.desprescription!),
             drawMedMonitor(med),
             drawMedReferences(med),
             SizedBox(height: 100),
@@ -87,20 +88,22 @@ class MedDetails extends StatelessWidget {
   Widget drawConditionsTile(Med med) {
     List<Widget> conditionTiles = [];
 
-    if (med.conditionsToAvoid == null) return Container();
+    if (med.conditionsToAvoid == null || med.conditionsToAvoid!.isEmpty) {
+      return Container();
+    }
 
     med.conditionsToAvoid!
-        .sort((a, b) => a.criticalLevel.compareTo(b.criticalLevel));
+        .sort((a, b) => a.criticalLevel!.compareTo(b.criticalLevel!));
 
     for (MedAvoidCondition item in med.conditionsToAvoid!) {
       List<Widget> conditions = [];
-      conditions.add(Text(item.name,
+      conditions.add(Text(item.name!,
           textAlign: TextAlign.left,
           style: TextStyle(fontWeight: FontWeight.bold)));
       conditions.add(SizedBox(height: 10));
       conditions.addAll(
         MarkdownGenerator(
-          data: item.description,
+          data: item.description!,
           styleConfig: StyleConfig(
             pConfig: PConfig(
               textConfig: TextConfig(textAlign: TextAlign.justify),
@@ -109,7 +112,7 @@ class MedDetails extends StatelessWidget {
         ).widgets!,
       );
       conditions.add(SizedBox(height: 10));
-      if (item.exception != null) {
+      if (item.exception != null && item.exception!.isNotEmpty) {
         conditions.add(
           Text(
             "Exceção",
@@ -117,7 +120,7 @@ class MedDetails extends StatelessWidget {
           ),
         );
         conditions.addAll(MarkdownGenerator(
-          data: item.exception,
+          data: item.exception!,
           styleConfig: StyleConfig(
             pConfig: PConfig(
               textConfig: TextConfig(
@@ -223,7 +226,9 @@ class MedDetails extends StatelessWidget {
   Widget drawMedMonitor(Med med) {
     List<Widget> monitorTiles = [];
 
-    if (med.parametersToMonitor == null) return Container();
+    if (med.parametersToMonitor == null || med.parametersToMonitor!.isEmpty) {
+      return Container();
+    }
 
     for (MedMonitor item in med.parametersToMonitor!) {
       monitorTiles.add(Padding(
@@ -234,7 +239,7 @@ class MedDetails extends StatelessWidget {
             padding: EdgeInsets.all(20),
             child: Column(
               children: MarkdownGenerator(
-                data: item.description,
+                data: item.description!,
                 styleConfig: StyleConfig(
                   pConfig: PConfig(
                     textConfig: TextConfig(
@@ -265,7 +270,9 @@ class MedDetails extends StatelessWidget {
   Widget drawMedReferences(Med med) {
     List<Widget> referenceTiles = [];
 
-    if (med.references == null) return Container();
+    if (med.references == null && med.references!.isEmpty) {
+      return Container();
+    }
 
     for (MedReference item in med.references!) {
       referenceTiles.add(
@@ -277,12 +284,12 @@ class MedDetails extends StatelessWidget {
               child: Padding(
                   padding: EdgeInsets.all(20),
                   child: Text(
-                    item.title,
+                    item.title!,
                     textAlign: TextAlign.left,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ),
-            onTap: () => launch(item.url),
+            onTap: () => launch(item.url!),
           ),
         ),
       );
