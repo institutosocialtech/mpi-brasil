@@ -61,9 +61,9 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
 
   Future<void> _submit() async {
     // validate form
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     // save form data
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
 
     // display progress indicator
     setState(() => _isLoading = true);
@@ -147,7 +147,9 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
                     ),
                     validator: (value) {
-                      if (value.isEmpty || !value.contains('@'))
+                      if (value == null ||
+                          value.isEmpty ||
+                          !value.contains('@'))
                         return 'Email Inválido!';
                       else
                         return null;
