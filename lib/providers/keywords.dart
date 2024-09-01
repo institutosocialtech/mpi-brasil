@@ -23,18 +23,16 @@ class Keywords with ChangeNotifier {
     }
 
     try {
-      print("loading keyword db...");
       final uri = Uri.parse(url);
       final response = await http.get(uri);
       final data = json.decode(response.body) as Map<String, dynamic>;
 
-      if (data == null) {
+      if (data['error'] != null) {
         print("error loading keywords: " + response.statusCode.toString());
         return;
       }
 
-      print("keyword db loaded, filling list!");
-      final List<Keyword> loadedKeywords = [];
+      List<Keyword> loadedKeywords = [];
       data.forEach((firebaseId, value) {
         // insert firebaseId
         value['id'] = firebaseId;
@@ -46,7 +44,6 @@ class Keywords with ChangeNotifier {
           .compareTo(removeDiacritics(b.word).toUpperCase()));
       _keywords = loadedKeywords;
 
-      print("done loading keywords.");
       notifyListeners();
     } catch (error) {
       throw (error);

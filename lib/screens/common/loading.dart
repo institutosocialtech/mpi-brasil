@@ -19,7 +19,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await userPreferences.fetchUserData();
 
     if (userPreferences.user.name == null) {
-      print('loading profile setup...');
       await appPrefs.setBool('firstBoot', false);
       Navigator.pushReplacementNamed(context, '/profile_setup');
     } else if (_firstBoot) {
