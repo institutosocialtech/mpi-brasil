@@ -16,7 +16,7 @@ class _PainCardState extends State {
   String painHeader = "";
   String painHeaderDegree = "";
   String painMessage = "";
-  Color cardColor;
+  Color? cardColor;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +188,7 @@ class _PainCardState extends State {
   }
 
   String getPainLevelLabel(double painLevel) {
-    String label;
+    String label = "";
 
     if (painLevel >= 1 && painLevel <= 3) {
       label = "Leve";
@@ -197,6 +197,7 @@ class _PainCardState extends State {
     } else if (painLevel >= 8 && painLevel <= 10) {
       label = "Intensa";
     }
+
     return label;
   }
 
