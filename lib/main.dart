@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/models/user.dart';
 import 'package:mpibrasil/screens/profile/delete_account.dart';
 import 'package:provider/provider.dart';
 
@@ -38,24 +39,24 @@ class MyApp extends StatelessWidget {
           value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, UserPreferences>(
-          create: null,
+          create: (_) => UserPreferences('', '', User(id: '')),
           update: (context, auth, previous) => UserPreferences(
-            auth.token,
-            auth.userId,
-            previous == null ? null : previous.user,
+            auth.token!,
+            auth.userId!,
+            previous == null ? User(id: '') : previous.user,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Meds>(
-          create: null,
+          create: (_) => Meds('', []),
           update: (context, auth, previous) => Meds(
-            auth.token,
+            auth.token!,
             previous == null ? [] : previous.meds,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Keywords>(
-          create: null,
+          create: (_) => Keywords('', []),
           update: (context, auth, previous) => Keywords(
-            auth.token,
+            auth.token!,
             previous == null ? [] : previous.keywords,
           ),
         ),
