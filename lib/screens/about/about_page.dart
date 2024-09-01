@@ -129,7 +129,7 @@ class AboutList extends StatelessWidget {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.done:
                                   return Text(
-                                    'v${snapshot.data.version}',
+                                    'v${snapshot.data!.version}',
                                     style: TextStyle(fontSize: 12),
                                     textAlign: TextAlign.center,
                                   );

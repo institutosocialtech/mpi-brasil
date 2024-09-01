@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         // draw app version
                         case ConnectionState.done:
                           return Text(
-                            'v${snapshot.data.version}',
+                            'v${snapshot.data!.version}',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
