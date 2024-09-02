@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 

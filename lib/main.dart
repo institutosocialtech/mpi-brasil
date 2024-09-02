@@ -17,8 +17,6 @@ import 'screens/favorites/favorites_overview.dart';
 import 'screens/login/forgot_password.dart';
 import 'screens/common/loading.dart';
 import 'screens/keywords/keywords_overview.dart';
-import 'screens/keywords/keyword_details.dart';
-import 'screens/search/med_details.dart';
 import 'screens/onboarding/onboarding.dart';
 import 'screens/about/privacy_page.dart';
 import 'screens/profile/userprofile_settings.dart';
