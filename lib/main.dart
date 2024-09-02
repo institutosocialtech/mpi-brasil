@@ -41,22 +41,22 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, UserPreferences>(
           create: (_) => UserPreferences('', '', User(id: '')),
           update: (context, auth, previous) => UserPreferences(
-            auth.token!,
-            auth.userId!,
+            auth.token ?? '',
+            auth.userId ?? '',
             previous == null ? User(id: '') : previous.user,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Meds>(
           create: (_) => Meds('', []),
           update: (context, auth, previous) => Meds(
-            auth.token!,
+            auth.token ?? '',
             previous == null ? [] : previous.meds,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, Keywords>(
           create: (_) => Keywords('', []),
           update: (context, auth, previous) => Keywords(
-            auth.token!,
+            auth.token ?? '',
             previous == null ? [] : previous.keywords,
           ),
         ),
