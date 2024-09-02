@@ -101,16 +101,8 @@ class MedDetails extends StatelessWidget {
           textAlign: TextAlign.left,
           style: TextStyle(fontWeight: FontWeight.bold)));
       conditions.add(SizedBox(height: 10));
-      conditions.addAll(
-        MarkdownGenerator(
-          data: item.description!,
-          styleConfig: StyleConfig(
-            pConfig: PConfig(
-              textConfig: TextConfig(textAlign: TextAlign.justify),
-            ),
-          ),
-        ).widgets!,
-      );
+      // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+      conditions.addAll(MarkdownGenerator().buildWidgets(item.description!));
       conditions.add(SizedBox(height: 10));
       if (item.exception != null && item.exception!.isNotEmpty) {
         conditions.add(
@@ -119,16 +111,8 @@ class MedDetails extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         );
-        conditions.addAll(MarkdownGenerator(
-          data: item.exception!,
-          styleConfig: StyleConfig(
-            pConfig: PConfig(
-              textConfig: TextConfig(
-                textAlign: TextAlign.justify,
-              ),
-            ),
-          ),
-        ).widgets!);
+        // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+        conditions.addAll(MarkdownGenerator().buildWidgets(item.exception!));
       }
 
       conditionTiles.add(
@@ -181,26 +165,8 @@ class MedDetails extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: TextStyle(fontWeight: FontWeight.bold))
                   ]..addAll(
-                      MarkdownGenerator(
-                        data: item.description,
-                        styleConfig: StyleConfig(
-                          pConfig: PConfig(
-                            textConfig:
-                                TextConfig(textAlign: TextAlign.justify),
-                          ),
-                          olConfig: OlConfig(
-                            indexWidget: (deep, index) {
-                              index++;
-                              return Container(
-                                margin: EdgeInsets.only(left: 5, right: 5),
-                                child: Text(
-                                  index < 10 ? '  $index.' : '$index.',
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ).widgets!,
+                      // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+                      MarkdownGenerator().buildWidgets(item.description),
                     ),
                 ),
               ),
@@ -238,16 +204,8 @@ class MedDetails extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              children: MarkdownGenerator(
-                data: item.description!,
-                styleConfig: StyleConfig(
-                  pConfig: PConfig(
-                    textConfig: TextConfig(
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ),
-              ).widgets!,
+              // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+              children: MarkdownGenerator().buildWidgets(item.description!),
             ),
           ),
         ),
@@ -308,7 +266,7 @@ class MedDetails extends StatelessWidget {
 
   //
   // Custom ExpansionTile
-  Widget drawExpansionTile(String title, String content) {
+  Widget drawExpansionTile(String title, String? content) {
     if (content == null) return Container();
 
     return ExpansionTile(title: Text(title, style: headerStyle), children: [
@@ -322,25 +280,8 @@ class MedDetails extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(20),
                 child: Column(
-                  children: MarkdownGenerator(
-                    data: content,
-                    styleConfig: StyleConfig(
-                      pConfig: PConfig(
-                        textConfig: TextConfig(textAlign: TextAlign.justify),
-                      ),
-                      olConfig: OlConfig(
-                        indexWidget: (deep, index) {
-                          index++;
-                          return Container(
-                            margin: EdgeInsets.only(left: 5, right: 5),
-                            child: Text(
-                              index < 10 ? '  $index.' : '$index.',
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ).widgets!,
+                  // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+                  children: MarkdownGenerator().buildWidgets(content),
                 ),
               ),
             ),

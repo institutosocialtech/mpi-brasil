@@ -81,22 +81,8 @@ class PrivacyPolicyPage extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: MarkdownWidget(
-            data: privacyPolicy,
-            styleConfig: StyleConfig(
-                pConfig: PConfig(
-                  textConfig: TextConfig(textAlign: TextAlign.justify),
-                ),
-                olConfig: OlConfig(
-                  indexWidget: (deep, index) {
-                    index++;
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(index < 10 ? '  $index.' : '$index.'),
-                    );
-                  },
-                )),
-          ),
+          // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+          child: MarkdownWidget(data: privacyPolicy),
         ),
       ),
     );

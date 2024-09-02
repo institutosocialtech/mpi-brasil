@@ -84,14 +84,8 @@ class AboutUsText extends StatelessWidget {
       padding: EdgeInsets.only(left: 20, top: 20, bottom: 0, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: MarkdownGenerator(
-          data: aboutText,
-          styleConfig: StyleConfig(
-            pConfig: PConfig(
-              textConfig: TextConfig(textAlign: TextAlign.justify),
-            ),
-          ),
-        ).widgets!,
+        // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+        children: MarkdownGenerator().buildWidgets(aboutText),
       ),
     );
   }
@@ -113,10 +107,9 @@ class UesbTextImageSide extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                      data:
-                          '**Universidade Estadual do Sudoeste da Bahia (UESB)**')
-                  .widgets!,
+              children: MarkdownGenerator().buildWidgets(
+                '**Universidade Estadual do Sudoeste da Bahia (UESB)**',
+              ),
             ),
           ),
           Row(
@@ -152,10 +145,8 @@ class UesbTextImageSide extends StatelessWidget {
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
-                            ).widgets!,
+                            children: MarkdownGenerator().buildWidgets(
+                                '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora'),
                           ),
                         ),
                       ]),
@@ -184,9 +175,8 @@ class UfbaTextImageSide extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**Universidade Federal da Bahia (UFBA)**',
-              ).widgets!,
+              children: MarkdownGenerator()
+                  .buildWidgets('**Universidade Federal da Bahia (UFBA)**'),
             ),
           ),
           GestureDetector(
@@ -195,15 +185,10 @@ class UfbaTextImageSide extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data:
-                    'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
-                styleConfig: StyleConfig(
-                  pConfig: PConfig(
-                    textConfig: TextConfig(textAlign: TextAlign.center),
-                  ),
-                ),
-              ).widgets!,
+              // TODO: MarkdownGenerator: fix textConfig(TextAlign.center)
+              children: MarkdownGenerator().buildWidgets(
+                'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -240,10 +225,8 @@ class UfbaTextImageSide extends StatelessWidget {
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
-                          ).widgets!,
+                          children: MarkdownGenerator().buildWidgets(
+                              '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador'),
                         ),
                       ),
                       GestureDetector(
@@ -253,10 +236,9 @@ class UfbaTextImageSide extends StatelessWidget {
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
-                          ).widgets!,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -266,10 +248,8 @@ class UfbaTextImageSide extends StatelessWidget {
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
-                          ).widgets!,
+                          children: MarkdownGenerator().buildWidgets(
+                              '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador'),
                         ),
                       ),
                     ],
@@ -299,9 +279,9 @@ class PmoSocialTextImageSide extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**Instituto de Gestão de Projetos Sociais**\n',
-              ).widgets!,
+              children: MarkdownGenerator().buildWidgets(
+                '**Instituto de Gestão de Projetos Sociais**\n',
+              ),
             ),
           ),
           GestureDetector(
@@ -310,9 +290,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**(SocialTech)**',
-              ).widgets!,
+              children: MarkdownGenerator().buildWidgets('**(SocialTech)**'),
             ),
           ),
           Row(
@@ -323,7 +301,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Url(Uri.parse('http://www.socialtech.org.br/'));
+                    launchUrl(Uri.parse('http://www.socialtech.org.br/'));
                   },
                   child: SizedBox(
                     width: 120,
@@ -339,63 +317,60 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            launchUrl(
-                              Uri.parse(
-                                  'https://www.linkedin.com/in/wilnara-amorim'),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Wilnara Amorim**\nGerente de Projetos Sociais',
-                            ).widgets!,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(
+                                'https://www.linkedin.com/in/wilnara-amorim'),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Wilnara Amorim**\nGerente de Projetos Sociais',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launchUrl(
-                              Uri.parse(
-                                  'https://sites.google.com/site/danielporto/'),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
-                            ).widgets!,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(
+                                'https://sites.google.com/site/danielporto/'),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launchUrl(Uri.parse('http://github.com/diego-ch'));
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Diego Porto**\nDesenvolvedor Colaborador',
-                            ).widgets!,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse('http://github.com/diego-ch'));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Diego Porto**\nDesenvolvedor Colaborador',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launchUrl(Uri.parse('http://github.com/diego-ch'));
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Fernando Neves**\n UX/UI Designer Colaborador',
-                            ).widgets!,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse('http://github.com/diego-ch'));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Fernando Neves**\n UX/UI Designer Colaborador',
                           ),
                         ),
-                      ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

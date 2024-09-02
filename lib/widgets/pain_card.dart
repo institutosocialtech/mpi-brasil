@@ -216,14 +216,8 @@ class _PainCardState extends State {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: MarkdownGenerator(
-              data: popupMessage,
-              styleConfig: StyleConfig(
-                pConfig: PConfig(
-                  textConfig: TextConfig(textAlign: TextAlign.justify),
-                ),
-              ),
-            ).widgets!,
+            // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+            children: MarkdownGenerator().buildWidgets(popupMessage),
           ),
           actions: <Widget>[
             TextButton(

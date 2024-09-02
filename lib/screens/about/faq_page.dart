@@ -136,20 +136,8 @@ class FAQList extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: MarkdownGenerator(
-                  data: faq.answer,
-                  styleConfig: StyleConfig(
-                    pConfig: PConfig(
-                      textStyle: TextStyle(color: kColorTextLightGray),
-                      textConfig: TextConfig(textAlign: TextAlign.justify),
-                      linkStyle: TextStyle(
-                        color: kColorMPIGreen,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      onLinkTap: (link) => launchUrl(Uri.parse(link!)),
-                    ),
-                  ),
-                ).widgets!,
+                // TODO: MarkdownGenerator: fix textStyle(KcolorTextLightGray), textConfig(TextAlign.justify), linkStyle (KColorMPIGreen, FontWeight.bold)
+                children: MarkdownGenerator().buildWidgets(faq.answer),
               ),
             ),
           ],

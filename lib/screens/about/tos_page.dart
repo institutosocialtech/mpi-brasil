@@ -102,25 +102,8 @@ class TermsOfUsePage extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: MarkdownWidget(
-            data: termsOfUse,
-            styleConfig: StyleConfig(
-              pConfig: PConfig(
-                textConfig: TextConfig(textAlign: TextAlign.justify),
-              ),
-              olConfig: OlConfig(
-                indexWidget: (deep, index) {
-                  index++;
-                  return Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    child: Text(
-                      index < 10 ? '  $index.' : '$index.',
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
+          // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+          child: MarkdownWidget(data: termsOfUse),
         ),
       ),
     );
