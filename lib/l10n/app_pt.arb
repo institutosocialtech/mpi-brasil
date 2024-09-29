@@ -1,6 +1,7 @@
 {
     "appName": "MPI Brasil",
     "appVersion": "2.0.0",
+    "appUrl": "https://socialtech.org.br/mpibrasil",
 
     "@_DRAWER": {},
     "drawerGreeting": "Olá {userName}",
@@ -24,6 +25,16 @@
     "@addedToFavorites": { "placeholders": { "medName": { "type": "String" } } },
     "removedFromFavorites": "{medName} foi removido dos favoritos.",
     "@removedFromFavorites": { "placeholders": { "medName": { "type": "String" } } },
+
+    "@_SHARE_MESSAGE": {},
+    "shareMedSection": "💊 *Medicamento:* {medName}\n",
+    "@shareMedSection": { "placeholders": { "medName": { "type": "String" } } },
+    "shareMedClassSection": "🧑🏻‍🔬 *Classe Farmacológica:* {medClass}\n",
+    "@shareMedClassSection": { "placeholders": { "medClass": { "type": "String" } } },
+    "shareMedAvoidConditionsSection": "🩺 *Condições a serem evitadas:*\n{avoidConditions}\n",
+    "@shareMedAvoidConditionsSection": { "placeholders": { "avoidConditions": { "type": "String" } } },
+    "shareAppInfoSection": "ℹ️ *Para mais informações, acesse:*\n{shareLink}",
+    "@shareAppInfoSection": { "placeholders": { "shareLink": { "type": "String" } } },
     "@_MISC": {},
     "logout": "Sair",
     "logoutDialogTitle": "Sair",

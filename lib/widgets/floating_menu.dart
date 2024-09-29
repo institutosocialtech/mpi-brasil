@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../extensions.dart';
 import '../constants.dart';
 import '../models/med.dart';
 import '../providers/userpreferences.dart';
@@ -69,7 +70,7 @@ class FloatingMenu extends StatelessWidget {
           backgroundColor: kColorMPIGreen,
           label: context.l10n.share,
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Share.share(shareMessage(med)),
+          onTap: () => Share.share(buildShareMsg(context, med)),
         ),
 
         // reportar erro
@@ -86,16 +87,24 @@ class FloatingMenu extends StatelessWidget {
     );
   }
 
-  String shareMessage(Med med) {
-    String shareLink = "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app";
-    String medClass = "\n\nClasse Farmacológica:\n" + med.medTypesToString();
-    String avoidConditions = "";
+  String buildShareMsg(BuildContext context, Med med) {
+    final message = StringBuffer();
 
-    if (med.conditionsToAvoid != null && med.conditionsToAvoid!.isNotEmpty) {
-      avoidConditions = "\n\nCondições a serem evitadas: \n*";
-      avoidConditions += med.conditionsToAvoid!.map((c) => c.name).join('\n* ');
+    message.writeln(context.l10n.shareMedSection(med.name));
+    message.writeln(context.l10n.shareMedClassSection(med.medTypesToString()));
+
+    // write avoid conditions if present
+    if (med.hasConditionsToAvoid()) {
+      message.writeln(
+        context.l10n.shareMedAvoidConditionsSection(
+          med.conditionsToAvoid!
+              .map((condition) => '* ${condition.name}')
+              .join('\n'),
+        ),
+      );
     }
 
-    return med.name + medClass + avoidConditions + shareLink;
+    message.writeln(context.l10n.shareAppInfoSection(context.l10n.appUrl));
+    return message.toString();
   }
 }
