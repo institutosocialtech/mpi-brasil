@@ -1,3 +1,20 @@
 {
-    "appName": "MPI Brasil"
+    "appName": "MPI Brasil",
+    "appVersion": "2.0.0",
+
+    "@_DRAWER": {},
+    "drawerGreeting": "Olá {userName}",
+    "@drawerGreeting": { "placeholders": { "userName": {"type": "String"} } },
+    "drawerSearch": "Buscar Medicamentos",
+    "drawerFavorites": "Favoritos",
+    "drawerKeywords": "Glossário",
+    "drawerFAQ": "FAQ",
+    "drawerAbout": "Sobre",
+
+    "@_MISC": {},
+    "logout": "Sair",
+    "logoutDialogTitle": "Sair",
+    "logoutDialogContent": "Deseja efetuar o logout?",
+    "logoutDialogActionYes": "Sim",
+    "logoutDialogActionNo": "Não"
 }
