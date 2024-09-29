@@ -31,8 +31,8 @@ class FloatingMenu extends StatelessWidget {
       curve: Curves.bounceIn,
       overlayColor: Colors.black,
       overlayOpacity: 0.5,
-      tooltip: 'Speed Dial',
-      heroTag: 'speed-dial-hero-tag',
+      tooltip: context.l10n.floatingMenuTooltip,
+      heroTag: context.l10n.floatingMenuHeroTag,
       backgroundColor: kColorMPIGreen,
       foregroundColor: kColorMPIWhite,
       elevation: 8.0,
@@ -44,17 +44,22 @@ class FloatingMenu extends StatelessWidget {
               ? Icon(Icons.star, color: kColorMPIWhite)
               : Icon(Icons.star_outline, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
+          label:
+              isFavorite ? context.l10n.delFavorite : context.l10n.addFavorite,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
             Provider.of<UserPreferences>(context, listen: false)
                 .toggleFavorite(med.id);
-            if (isFavorite) {
-              final snackbar = SnackBar(
-                content: Text('"${med.name}" removido dos favoritos!'),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            }
+
+            final snackbar = SnackBar(
+              content: Text(
+                isFavorite
+                    ? context.l10n.removedFromFavorites(med.name)
+                    : context.l10n.addedToFavorites(med.name),
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
           },
         ),
 
@@ -62,7 +67,7 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.share, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: 'Compartilhar',
+          label: context.l10n.share,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => Share.share(shareMessage(med)),
         ),
@@ -71,10 +76,10 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.report_problem, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: 'Reportar erro',
+          label: context.l10n.reportError,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
-            await ReportProblem().showReportDialog(context, "${med.name}");
+            await ReportProblem().showReportDialog(context, med.name);
           },
         ),
       ],
