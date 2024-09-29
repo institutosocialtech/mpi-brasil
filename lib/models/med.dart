@@ -39,6 +39,10 @@ class Med with ChangeNotifier {
   String medTypesToString() {
     return classification?.join(', ') ?? '';
   }
+
+  bool hasConditionsToAvoid() {
+    return conditionsToAvoid != null && conditionsToAvoid!.isNotEmpty;
+  }
 }
 
 @JsonSerializable()
