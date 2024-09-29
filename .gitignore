@@ -170,3 +170,6 @@ android/key.properties
 .vscode/
 
 pubspec.lock
+
+# l10n
+lib/l10n/untranslated-messages.json
