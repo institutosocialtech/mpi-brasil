@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
-import '../providers/userpreferences.dart';
 
 enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
@@ -16,14 +17,14 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Selecione o tipo de erro:"),
+          title: Text(context.l10n.reportDialogTitle),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SwitchListTile(
-                    title: Text('Informação'),
+                    title: Text(context.l10n.reportProblemTypeMedInfo),
                     value: _reportAction == ReportAction.MED_INFO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.MED_INFO) {
@@ -35,7 +36,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Ortografia'),
+                    title: Text(context.l10n.reportProblemTypeSpelling),
                     value: _reportAction == ReportAction.TEXT_TYPO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.TEXT_TYPO) {
@@ -47,7 +48,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Bug'),
+                    title: Text(context.l10n.reportProblemTypeAppBug),
                     value: _reportAction == ReportAction.APP_BUG,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.APP_BUG) {
@@ -59,7 +60,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Outros'),
+                    title: Text(context.l10n.reportProblemTypeOther),
                     value: _reportAction == ReportAction.OTHER,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.OTHER) {
@@ -77,14 +78,14 @@ class ReportProblem {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar"),
+              child: Text(context.l10n.reportDialogCancel),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreenOpaque,
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
-              child: Text("Enviar"),
+              child: Text(context.l10n.reportDialogSendReport),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
@@ -113,9 +114,8 @@ class ReportProblem {
 
       case ReportAction.OTHER:
         final mailOptions = MailOptions(
-          body:
-              'As informações do medicamento $medName apresentam o seguinte problema: ',
-          subject: "Detectado um problema com o medicamento $medName",
+          body: context.l10n.reportEmailBody(medName),
+          subject: context.l10n.reportEmailSubject(medName),
           recipients: ['mpibrasil@socialtech.org.br'],
           isHTML: true,
         );
@@ -128,9 +128,7 @@ class ReportProblem {
     }
 
     // display report info
-    final snackbar = SnackBar(
-      content: Text("Obrigado por contribuir com a app!"),
-    );
+    final snackbar = SnackBar(content: Text(context.l10n.reportMessageSent));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }

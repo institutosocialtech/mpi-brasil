@@ -35,6 +35,23 @@
     "@shareMedAvoidConditionsSection": { "placeholders": { "avoidConditions": { "type": "String" } } },
     "shareAppInfoSection": "ℹ️ *Para mais informações, acesse:*\n{shareLink}",
     "@shareAppInfoSection": { "placeholders": { "shareLink": { "type": "String" } } },
+
+    "@_REPORT_PROBLEM": {},
+    "reportDialogTitle": "Selecione o tipo de erro:",
+    "reportDialogCancel": "Cancelar",
+    "reportDialogSendReport": "Enviar",
+    "reportProblemTypeMedInfo": "Informação",
+    "reportProblemTypeSpelling": "Ortografia",
+    "reportProblemTypeAppBug": "Problema no App",
+    "reportProblemTypeOther": "Outros",
+    "reportMessageSent": "Obrigado por contribuir com o nosso app!",
+
+    "@_REPORT_EMAIL": {},
+    "reportEmailBody": "As informações do medicamento {medName} apresentam o seguinte problema:\n",
+    "@reportEmailBody": { "placeholders": { "medName": { "type": "String" } } },
+    "reportEmailSubject": "Detectei um problema com o medicamento {medName}",
+    "@reportEmailSubject": { "placeholders": { "medName": { "type": "String" } } },
+
     "@_MISC": {},
     "logout": "Sair",
     "logoutDialogTitle": "Sair",
