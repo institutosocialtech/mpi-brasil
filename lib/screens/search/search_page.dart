@@ -1,12 +1,12 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/providers/meds.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/screens/search/med_details.dart';
+import 'package:mpibrasil/widgets/drawer.dart';
 import 'package:provider/provider.dart';
-
-import '../../providers/meds.dart';
-import '../../providers/userpreferences.dart';
-import 'med_details.dart';
-import '../../widgets/drawer.dart';
-import '../../constants.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -18,12 +18,11 @@ class _SearchPageState extends State<SearchPage> {
   var _isLoading = false;
 
   Widget resultPane = Center(
-      child: FractionallySizedBox(
-    widthFactor: 0.9,
-    child: Image.asset(
-      'assets/images/logo_green.png',
+    child: FractionallySizedBox(
+      widthFactor: 0.9,
+      child: Image.asset(MpiAssets.logoMPIGreen),
     ),
-  ));
+  );
 
   @override
   void didChangeDependencies() {
@@ -48,12 +47,11 @@ class _SearchPageState extends State<SearchPage> {
     if (query == null || query.isEmpty) {
       // return image if no query has been done
       return Center(
-          child: FractionallySizedBox(
-        widthFactor: 0.9,
-        child: Image.asset(
-          'assets/images/logo_green.png',
+        child: FractionallySizedBox(
+          widthFactor: 0.9,
+          child: Image.asset(MpiAssets.logoMPIGreen),
         ),
-      ));
+      );
 
       // process query
     } else {
@@ -170,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
 
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
