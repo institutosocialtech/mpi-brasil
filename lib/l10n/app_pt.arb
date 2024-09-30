@@ -3,6 +3,15 @@
     "appVersion": "2.0.0",
     "appUrl": "https://socialtech.org.br/mpibrasil",
 
+    "@_MED_DETAILS": {},
+    "medDetailsMedTypeTileTitle": "Classe Farmacológica",
+    "medDetailsDeprescribingTileTitle": "Desprescrição",
+    "medDetailsAvoidConditionTileTitle": "Quando evitar este MPI",
+    "medDetailsAvoidConditionExceptionLabel": "Exceção",
+    "medDetailsAlternativeTherapyTileTitle": "Alternativas Terapêuticas",
+    "medDetailsMonitoredParametersTileTitle": "Monitorar",
+    "medDetailsReferencesTileTitle": "Referências",
+
     "@_SEARCH_PAGE": {},
     "searchResultsNotFound": "Nenhum resultado encontrado",
     "searchHintText": "Pesquisar...",

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
 import 'package:mpibrasil/models/med.dart';
 import 'package:mpibrasil/widgets/pain_card.dart';
 import 'package:mpibrasil/widgets/floating_menu.dart';
-
-import '../../constants.dart';
 
 class MedDetails extends StatelessWidget {
   final Med med;
   MedDetails({Key? key, required this.med}) : super(key: key);
 
   final appBarHeaderStyle = TextStyle(
+    // TODO: use constants for colors
     color: Colors.white,
     fontSize: 24,
     fontWeight: FontWeight.bold,
@@ -30,7 +33,7 @@ class MedDetails extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -62,19 +65,24 @@ class MedDetails extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10.0),
           children: <Widget>[
             ListTile(
-              title: Text("Classe Farmacológica", style: headerStyle),
+              title: Text(
+                context.l10n.medDetailsMedTypeTileTitle,
+                style: headerStyle,
+              ),
               subtitle: Text(
                 med.medTypesToString(),
                 textAlign: TextAlign.justify,
               ),
             ),
-            drawConditionsTile(med),
-            drawAlternatives(med),
-            if (med.desprescription != null && med.desprescription!.isNotEmpty)
+            drawConditionsTile(med, context),
+            drawAlternatives(med, context),
+            if (med.hasDesprescribing())
               drawExpansionTile(
-                  "Orientações de Desprescrição", med.desprescription!),
-            drawMedMonitor(med),
-            drawMedReferences(med),
+                context.l10n.medDetailsDeprescribingTileTitle,
+                med.desprescription!,
+              ),
+            drawMedMonitor(med, context),
+            drawMedReferences(med, context),
             SizedBox(height: 100),
           ],
         ),
@@ -85,51 +93,70 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Conditions
-  Widget drawConditionsTile(Med med) {
-    List<Widget> conditionTiles = [];
+  Widget drawConditionsTile(Med med, BuildContext context) {
+    if (!med.hasConditionsToAvoid()) return Container();
 
-    if (med.conditionsToAvoid == null || med.conditionsToAvoid!.isEmpty) {
-      return Container();
-    }
-
+    // sort avoid conditions by critical level
     med.conditionsToAvoid!
         .sort((a, b) => a.criticalLevel!.compareTo(b.criticalLevel!));
 
+    // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+    List<Widget> conditionTiles = [];
     for (MedAvoidCondition item in med.conditionsToAvoid!) {
-      List<Widget> conditions = [];
-      conditions.add(Text(item.name!,
+      List<Widget> conditions = [
+        // title
+        Text(
+          item.name!,
           textAlign: TextAlign.left,
-          style: TextStyle(fontWeight: FontWeight.bold)));
-      conditions.add(SizedBox(height: 10));
-      // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
-      conditions.addAll(MarkdownGenerator().buildWidgets(item.description!));
-      conditions.add(SizedBox(height: 10));
-      if (item.exception != null && item.exception!.isNotEmpty) {
-        conditions.add(
-          Text(
-            "Exceção",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+
+        // description
+        SizedBox(height: 10),
+        ...MarkdownGenerator().buildWidgets(item.description!),
+
+        // footer
+        SizedBox(height: 10)
+      ];
+
+      // draw avoid exceptions
+      if (item.hasException()) {
+        conditions.addAll(
+          [
+            // exception header
+            Text(
+              context.l10n.medDetailsAvoidConditionExceptionLabel,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            // exception description
+            ...MarkdownGenerator().buildWidgets(item.exception!),
+            // footer
+            SizedBox(height: 10),
+          ],
         );
-        // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
-        conditions.addAll(MarkdownGenerator().buildWidgets(item.exception!));
       }
 
       conditionTiles.add(
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: Card(
-              elevation: 5,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(children: conditions),
-              )),
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(children: conditions),
+            ),
+          ),
         ),
       );
     }
+
     conditionTiles.add(SizedBox(height: 20));
+
     return ExpansionTile(
-      title: Text("Quando evitar este MPI", style: headerStyle),
+      title: Text(
+        context.l10n.medDetailsAvoidConditionTileTitle,
+        style: headerStyle,
+      ),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -141,43 +168,50 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Alternatives
-  Widget drawAlternatives(Med med) {
-    List<Widget> alternativeTiles = [];
+  Widget drawAlternatives(Med med, BuildContext context) {
+    if (!med.hasAlternativeTherapy()) return Container();
 
-    if (med.alternatives == null) return Container();
-
+    // sort alternatives by order
     med.alternatives!.sort((a, b) => a.order.compareTo(b.order));
 
+    // TODO: remove hardcoded parsing
+    // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+    List<Widget> alternativeTiles = [];
     for (MedAlternatives item in med.alternatives!) {
       if (item.alternative.toUpperCase() == "DOR") {
         alternativeTiles.add(PainCard());
-      } else {
-        alternativeTiles.add(
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-            child: Card(
-              elevation: 5,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Text(item.alternative,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontWeight: FontWeight.bold))
-                  ]..addAll(
-                      // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
-                      MarkdownGenerator().buildWidgets(item.description),
-                    ),
-                ),
+        continue;
+      }
+
+      alternativeTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: Card(
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Text(
+                    item.alternative,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  ...MarkdownGenerator().buildWidgets(item.description)
+                ],
               ),
             ),
           ),
-        );
-      }
+        ),
+      );
     }
+
     alternativeTiles.add(SizedBox(height: 20));
     return ExpansionTile(
-      title: Text("Alternativas Terapêuticas", style: headerStyle),
+      title: Text(
+        context.l10n.medDetailsAlternativeTherapyTileTitle,
+        style: headerStyle,
+      ),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -189,31 +223,34 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Monitor
-  Widget drawMedMonitor(Med med) {
+  Widget drawMedMonitor(Med med, BuildContext context) {
+    if (!med.hasMonitoredParameters()) return Container();
+
+    // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
     List<Widget> monitorTiles = [];
-
-    if (med.parametersToMonitor == null || med.parametersToMonitor!.isEmpty) {
-      return Container();
-    }
-
     for (MedMonitor item in med.parametersToMonitor!) {
-      monitorTiles.add(Padding(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-        child: Card(
-          elevation: 5,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
-              children: MarkdownGenerator().buildWidgets(item.description!),
+      monitorTiles.add(
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: Card(
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: MarkdownGenerator().buildWidgets(item.description!),
+              ),
             ),
           ),
         ),
-      ));
+      );
     }
+
     monitorTiles.add(SizedBox(height: 20));
     return ExpansionTile(
-      title: Text("Monitorar", style: headerStyle),
+      title: Text(
+        context.l10n.medDetailsMonitoredParametersTileTitle,
+        style: headerStyle,
+      ),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -225,13 +262,10 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI References
-  Widget drawMedReferences(Med med) {
+  Widget drawMedReferences(Med med, BuildContext context) {
+    if (!med.hasReferences()) return Container();
+
     List<Widget> referenceTiles = [];
-
-    if (med.references == null && med.references!.isEmpty) {
-      return Container();
-    }
-
     for (MedReference item in med.references!) {
       referenceTiles.add(
         Padding(
@@ -240,21 +274,26 @@ class MedDetails extends StatelessWidget {
             child: Card(
               elevation: 5,
               child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    item.title!,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  item.title!,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
             onTap: () => launchUrl(Uri.parse(item.url!)),
           ),
         ),
       );
     }
+
     referenceTiles.add(SizedBox(height: 20));
     return ExpansionTile(
-      title: Text("Referências", style: headerStyle),
+      title: Text(
+        context.l10n.medDetailsReferencesTileTitle,
+        style: headerStyle,
+      ),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -269,26 +308,29 @@ class MedDetails extends StatelessWidget {
   Widget drawExpansionTile(String title, String? content) {
     if (content == null) return Container();
 
-    return ExpansionTile(title: Text(title, style: headerStyle), children: [
-      Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
-                  children: MarkdownGenerator().buildWidgets(content),
+    // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
+    return ExpansionTile(
+      title: Text(title, style: headerStyle),
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: MarkdownGenerator().buildWidgets(content),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-          ],
-        ),
-      )
-    ]);
+              SizedBox(height: 20),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }

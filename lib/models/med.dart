@@ -43,6 +43,22 @@ class Med with ChangeNotifier {
   bool hasConditionsToAvoid() {
     return conditionsToAvoid != null && conditionsToAvoid!.isNotEmpty;
   }
+
+  bool hasDesprescribing() {
+    return desprescription != null && desprescription!.isNotEmpty;
+  }
+
+  bool hasAlternativeTherapy() {
+    return alternatives != null && alternatives!.isNotEmpty;
+  }
+
+  bool hasMonitoredParameters() {
+    return parametersToMonitor != null && parametersToMonitor!.isNotEmpty;
+  }
+
+  bool hasReferences() {
+    return references != null && references!.isNotEmpty;
+  }
 }
 
 @JsonSerializable()
@@ -67,6 +83,10 @@ class MedAvoidCondition {
       _$MedAvoidConditionFromJson(json);
 
   Map<String, dynamic> toJson() => _$MedAvoidConditionToJson(this);
+
+  bool hasException() {
+    return exception != null && exception!.isNotEmpty;
+  }
 }
 
 @JsonSerializable()
