@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
 
 class PainCard extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _PainCardState extends State {
 
   @override
   Widget build(BuildContext context) {
-    drawPainLevelBody(painLevel);
+    drawPainLevelBody(painLevel, context);
 
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -40,7 +41,7 @@ class _PainCardState extends State {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      "Escala Analgésica da Dor",
+                      context.l10n.painCardTitle,
                       textScaleFactor: 1.5,
                       style: headerStyle,
                     ),
@@ -130,9 +131,9 @@ class _PainCardState extends State {
                         value: painLevel,
                         onChanged: (_newPainLevel) => setState(() {
                           painLevel = _newPainLevel;
-                          drawPainLevelBody(painLevel);
+                          drawPainLevelBody(painLevel, context);
                         }),
-                        label: getPainLevelLabel(painLevel),
+                        label: getPainLevelLabel(painLevel, context),
                       ),
                     ),
                     Padding(
@@ -149,7 +150,7 @@ class _PainCardState extends State {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            "Escala Verbal Numérica",
+                            context.l10n.painCardScaleLabel,
                             textScaleFactor: 1.2,
                           ),
                         ],
@@ -165,64 +166,56 @@ class _PainCardState extends State {
     );
   }
 
-  void drawPainLevelBody(double painLevel) {
+  void drawPainLevelBody(double painLevel, BuildContext context) {
     if (painLevel >= 1 && painLevel <= 3) {
       cardColor = kColorMPIGreenOpaque;
-      painHeader = "Dor Leve";
-      painHeaderDegree = "1º Degrau";
-      painMessage =
-          "Preferir analgésicos comuns, como Paracetamol (dose máxima: 2-4g/dia) ou Dipirona (até 1g de 6/6h). Se necessário medicamentos adjuvantes podem ser associados.";
+      painHeader = context.l10n.painLevelLow;
+      painHeaderDegree = context.l10n.painLevelLowRating;
+      painMessage = context.l10n.painLevelLowMessage;
     } else if (painLevel >= 4 && painLevel <= 7) {
-      cardColor = Colors.orange;
-      painHeader = "Dor Moderada";
-      painHeaderDegree = "2º Degrau";
-      painMessage =
-          "Opióide fracos (como codeína ou tramadol). Se necessário, os analgésicos simples e/ou adjuvantes podem ser associados ou mantidos.";
+      cardColor = kColorMPIOrange;
+      painHeader = context.l10n.painLevelModerate;
+      painHeaderDegree = context.l10n.painLevelModerateRating;
+      painMessage = context.l10n.painLevelModerateMessage;
     } else if (painLevel >= 8 && painLevel <= 10) {
       cardColor = kColorMPIRed;
-      painHeader = "Dor Intensa";
-      painHeaderDegree = "3º Degrau";
-      painMessage =
-          "Opióides fortes (como morfina, metadona, fentanil e oxicodona). Se necessário, os analgésicos simples e/ou adjuvantes podem ser associados ou mantidos.";
+      painHeader = context.l10n.painLevelHigh;
+      painHeaderDegree = context.l10n.painLevelHighRating;
+      painMessage = context.l10n.painLevelHighMessage;
     }
   }
 
-  String getPainLevelLabel(double painLevel) {
-    String label = "";
-
+  String getPainLevelLabel(double painLevel, BuildContext context) {
     if (painLevel >= 1 && painLevel <= 3) {
-      label = "Leve";
+      return context.l10n.painCardScaleLevelLow;
     } else if (painLevel >= 4 && painLevel <= 7) {
-      label = "Moderada";
+      return context.l10n.painCardScaleLevelModerate;
     } else if (painLevel >= 8 && painLevel <= 10) {
-      label = "Intensa";
+      return context.l10n.painCardScaleLevelHigh;
     }
 
-    return label;
+    return "";
   }
 
   void showPainInfo() {
-    var popupMessage =
-        "**Dor Aguda e Agudização da Dor Crônica:** Usar a escada de forma descendente, ou seja, usar o terceiro ou segundo degrau nos primeiros dias e, após resolução da causa de base (ex: cirurgia, trauma, etc.), ir descendo a escada analgésica da OMS.\n\n" +
-            "**Dor Crônica:** Iniciar pelo degrau correpondente à intensidade da dor e, se não houver alívio da dor, subir a escada analgésica.\n\n" +
-            "**Fonte:** Escada Analgésica da Dor\n(Organização Mundial de Saúde)";
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Informações"),
+          title: Text(context.l10n.painInfoDialogTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
-            children: MarkdownGenerator().buildWidgets(popupMessage),
+            children: MarkdownGenerator().buildWidgets(
+              context.l10n.painInfoDialogContentMarkdown,
+            ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Fechar"),
+              child: Text(context.l10n.painInfoDialogClose),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreen,
               ),
