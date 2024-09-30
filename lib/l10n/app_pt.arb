@@ -3,6 +3,11 @@
     "appVersion": "2.0.0",
     "appUrl": "https://socialtech.org.br/mpibrasil",
 
+    "@_SEARCH_PAGE": {},
+    "searchResultsNotFound": "Nenhum resultado encontrado",
+    "searchHintText": "Pesquisar...",
+    "searchLoadingData": "Carregando dados...",
+
     "@_DRAWER": {},
     "drawerGreeting": "Olá {userName}",
     "@drawerGreeting": { "placeholders": { "userName": { "type": "String" } } },

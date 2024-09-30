@@ -2,6 +2,7 @@ import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
 import 'package:mpibrasil/providers/meds.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:mpibrasil/screens/search/med_details.dart';
@@ -75,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                   color: kColorMPIRed,
                 ),
                 Text(
-                  "Nenhum resultado encontrado",
+                  context.l10n.searchResultsNotFound,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -185,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: _queryMed,
               decoration: InputDecoration(
                 fillColor: kColorMPIWhite,
-                hintText: "Pesquisar...",
+                hintText: context.l10n.searchHintText,
                 suffixIcon: Icon(Icons.search, color: kColorMPIGray),
               ),
             ),
@@ -219,7 +220,7 @@ class _SearchPageState extends State<SearchPage> {
                             AlwaysStoppedAnimation<Color>(kColorMPIGreen),
                       ),
                     ),
-                    Text("Carregando dados..."),
+                    Text(context.l10n.searchLoadingData),
                   ],
                 )
               : resultPane,
