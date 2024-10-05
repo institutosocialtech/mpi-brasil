@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 
 part 'user.g.dart';
 
@@ -26,4 +27,16 @@ class User with ChangeNotifier {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  String occupationString() {
+    final occupations = {
+      'medico': S.current.jobDoctor,
+      'enfermeiro': S.current.jobNurse,
+      'farmaceutico': S.current.jobPharmacist,
+      'estudante': S.current.jobStudent,
+      'outros': S.current.jobOther,
+    };
+
+    return occupations[this.occupation] ?? S.current.jobUnknown;
+  }
 }
