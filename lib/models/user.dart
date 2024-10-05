@@ -28,7 +28,7 @@ class User with ChangeNotifier {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
-  String occupationString() {
+  String get occupationString {
     final occupations = {
       'medico': S.current.jobDoctor,
       'enfermeiro': S.current.jobNurse,

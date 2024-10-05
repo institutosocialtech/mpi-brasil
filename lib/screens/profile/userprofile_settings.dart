@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/auth.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
@@ -133,13 +134,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user occupation
           ListTile(
-            subtitle: Text(_occupationToString(user.occupation ?? '')),
             title: Text(context.l10n.settingsOccupationTileTitle),
+            subtitle: Text(user.occupationString),
             leading: Icon(Icons.work, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
               onPressed: () =>
-                  _showEditOccupationDialog(context, user.occupation ?? ''),
+                  _showEditOccupationDialog(context, user.occupationString),
             ),
           ),
 
@@ -156,7 +157,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   }
 
   Future<void> _showEditNameDialog(
-      BuildContext context, String initialValue) async {
     BuildContext context,
     String initialValue,
   ) async {
@@ -303,53 +303,47 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         String? selected =
             Provider.of<UserPreferences>(context).user.occupation;
 
-        Map<String, String> items = {
-          'Médico(a)': 'medico',
-          'Enfermeiro(a)': 'enfermeiro',
-          'Estudante': 'estudante',
-          'Outros': 'outros',
+        final occupations = {
+          'medico': S.current.jobDoctor,
+          'enfermeiro': S.current.jobNurse,
+          'estudante': S.current.jobStudent,
+          'outros': S.current.jobOther,
         };
+
+        final dropDownItems = occupations.entries
+            .map((entry) => DropdownMenuItem(
+                  child: Text(entry.value),
+                  value: entry.key,
+                ))
+            .toList();
 
         // build dialog
         return AlertDialog(
-          title: Text("Escolha sua ocupação:"),
+          title: Text(S.current.editOccupationDialogTitle),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Container(
                 width: deviceSize.width * 0.75,
                 child: DropdownButton(
-                  onChanged: (String? value) =>
-                      setState(() => selected = value),
+                  onChanged: (value) => setState(() => selected = value),
                   isExpanded: true,
                   value: selected,
-                  items: items
-                      .map(
-                        (text, value) => MapEntry(
-                          text,
-                          DropdownMenuItem(
-                            child: Text(text),
-                            value: value,
-                          ),
-                        ),
-                      )
-                      .values
-                      .toList(),
+                  items: dropDownItems,
                 ),
               );
             },
           ),
           actions: <Widget>[
-            // cancel action
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.editOccupationDialogCancel),
+              child: Text(S.current.editOccupationDialogCancel),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreenOpaque,
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(selected),
-              child: Text(context.l10n.editOccupationDialogSave),
+              child: Text(S.current.editOccupationDialogSave),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
@@ -363,23 +357,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     if (update != null) {
       Provider.of<UserPreferences>(context, listen: false)
           .updateUserData(occupation: update);
-    }
-  }
-
-  String _occupationToString(String occupation) {
-    switch (occupation) {
-      case 'medico':
-        return 'Médico(a)';
-      case 'enfermeiro':
-        return 'Enfermeiro(a)';
-      case 'farmaceutico':
-        return 'Farmacêutico(a)';
-      case 'estudante':
-        return 'Estudante';
-      case 'outros':
-        return 'Outros';
-      default:
-        return 'Não Identificado';
     }
   }
 }
