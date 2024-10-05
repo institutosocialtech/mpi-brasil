@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/user.dart';
 import 'package:mpibrasil/screens/profile/delete_account.dart';
 import 'package:provider/provider.dart';
@@ -62,10 +63,15 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
-          title: 'MPI Brasil',
+          title: S.current.appTitle,
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           theme: appTheme,
           home: auth.isAuth
               ? LoadingScreen()
