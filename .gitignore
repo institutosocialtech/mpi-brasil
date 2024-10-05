@@ -172,4 +172,4 @@ android/key.properties
 pubspec.lock
 
 # l10n
-lib/l10n/untranslated-messages.json
+lib/generated/
