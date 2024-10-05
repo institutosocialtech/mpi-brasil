@@ -1,5 +1,7 @@
 {
-    "appName": "MPI Brasil",
+    "@@locale": "pt",
+
+    "appTitle": "MPI Brasil",
     "appVersion": "2.0.0",
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
