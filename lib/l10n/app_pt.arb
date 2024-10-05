@@ -2,6 +2,36 @@
     "appName": "MPI Brasil",
     "appVersion": "2.0.0",
     "appUrl": "https://socialtech.org.br/mpibrasil",
+    "socialTechEmail": "mpibrasil@socialtech.org.br",
+
+    "@_USER_PROFILE_SETTINGS": {},
+    "settingsAppBarTitle": "Perfil do usuário",
+    "settingsLogout": "Sair",
+    "settingsNameTileTitle": "Nome",
+    "settingsEmailTileTitle": "Email",
+    "settingsPasswordTileTitle": "Senha",
+    "settingsPasswordTileSubtitle": "********",
+    "settingsBirthDateTileTitle": "Data de Nascimento",
+    "settingsOccupationTileTitle": "Ocupação",
+    "settingsRedactUserTileTitle": "Excluir Dados",
+    "settingsRedactUserTileSubtitle": "Excluir permanentemente sua conta",
+
+    "@_EDIT_SETTINGS_DIALOGS": {},
+    "editNameDialogTitle": "Editar",
+    "editNameDialogCancel": "Cancelar",
+    "editNameDialogSave": "Salvar",
+    "editNameTextFieldHintText": "Digite seu Nome",
+    "editNameTextFieldLabelText": "Nome",
+
+    "editBirthDateDialogTitle": "Editar",
+    "editBirthDateDialogCancel": "Cancelar",
+    "editBirthDateDialogSave": "Salvar",
+    "editBirthDateTextFieldHintText": "DD/MM/AAAA",
+    "editBirthDateTextFieldLabelText": "Data de Nascimento",
+
+    "editOccupationDialogTitle": "Escolha sua ocupação:",
+    "editOccupationDialogCancel": "Cancelar",
+    "editOccupationDialogSave": "Salvar",
 
     "@_MED_DETAILS": {},
     "medDetailsMedTypeTileTitle": "Classe Farmacológica",
@@ -90,5 +120,13 @@
     "logoutDialogTitle": "Sair",
     "logoutDialogContent": "Deseja efetuar o logout?",
     "logoutDialogActionYes": "Sim",
-    "logoutDialogActionNo": "Não"
+    "logoutDialogActionNo": "Não",
+
+    "@_OCCUPATIONS": {},
+    "jobDoctor": "Médico(a)",
+    "jobNurse": "Enfermeiro(a)",
+    "jobStudent": "Estudante",
+    "jobOther": "Outros",
+    "jobPharmacist": "Farmacêutico(a)",
+    "jobUnknown": "Não Identificado"
 }
