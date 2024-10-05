@@ -32,8 +32,8 @@ class FloatingMenu extends StatelessWidget {
       curve: Curves.bounceIn,
       overlayColor: Colors.black,
       overlayOpacity: 0.5,
-      tooltip: context.l10n.floatingMenuTooltip,
-      heroTag: context.l10n.floatingMenuHeroTag,
+      tooltip: S.current.floatingMenuTooltip,
+      heroTag: S.current.floatingMenuHeroTag,
       backgroundColor: kColorMPIGreen,
       foregroundColor: kColorMPIWhite,
       elevation: 8.0,
@@ -45,8 +45,7 @@ class FloatingMenu extends StatelessWidget {
               ? Icon(Icons.star, color: kColorMPIWhite)
               : Icon(Icons.star_outline, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label:
-              isFavorite ? context.l10n.delFavorite : context.l10n.addFavorite,
+          label: isFavorite ? S.current.delFavorite : S.current.addFavorite,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
             Provider.of<UserPreferences>(context, listen: false)
@@ -55,8 +54,8 @@ class FloatingMenu extends StatelessWidget {
             final snackbar = SnackBar(
               content: Text(
                 isFavorite
-                    ? context.l10n.removedFromFavorites(med.name)
-                    : context.l10n.addedToFavorites(med.name),
+                    ? S.current.removedFromFavorites(med.name)
+                    : S.current.addedToFavorites(med.name),
               ),
             );
 
@@ -68,7 +67,7 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.share, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: context.l10n.share,
+          label: S.current.share,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => Share.share(buildShareMsg(context, med)),
         ),
@@ -77,7 +76,7 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.report_problem, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: context.l10n.reportError,
+          label: S.current.reportError,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
             await ReportProblem().showReportDialog(context, med.name);
@@ -90,13 +89,13 @@ class FloatingMenu extends StatelessWidget {
   String buildShareMsg(BuildContext context, Med med) {
     final message = StringBuffer();
 
-    message.writeln(context.l10n.shareMedSection(med.name));
-    message.writeln(context.l10n.shareMedClassSection(med.medTypesToString()));
+    message.writeln(S.current.shareMedSection(med.name));
+    message.writeln(S.current.shareMedClassSection(med.medTypesToString()));
 
     // write avoid conditions if present
     if (med.hasConditionsToAvoid()) {
       message.writeln(
-        context.l10n.shareMedAvoidConditionsSection(
+        S.current.shareMedAvoidConditionsSection(
           med.conditionsToAvoid!
               .map((condition) => '* ${condition.name}')
               .join('\n'),
@@ -104,7 +103,7 @@ class FloatingMenu extends StatelessWidget {
       );
     }
 
-    message.writeln(context.l10n.shareAppInfoSection(context.l10n.appUrl));
+    message.writeln(S.current.shareAppInfoSection(S.current.appUrl));
     return message.toString();
   }
 }

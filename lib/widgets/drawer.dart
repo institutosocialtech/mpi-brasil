@@ -25,13 +25,13 @@ class AppDrawer extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text(context.l10n.logoutDialogTitle, style: headerStyle),
-          content: Text(context.l10n.logoutDialogContent, style: messageStyle),
+          title: Text(S.current.logoutDialogTitle, style: headerStyle),
+          content: Text(S.current.logoutDialogContent, style: messageStyle),
           actionsPadding: EdgeInsets.all(4.0),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(context.l10n.logoutDialogActionNo),
+              child: Text(S.current.logoutDialogActionNo),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGray,
                 backgroundColor: kColorMPIWhite,
@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(context.l10n.logoutDialogActionYes),
+              child: Text(S.current.logoutDialogActionYes),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: kColorMPIGreen,
@@ -88,7 +88,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.exit_to_app, color: kColorMPIGray),
               onTap: () => _logout(context),
               title: Text(
-                context.l10n.logout,
+                S.current.logout,
                 style: TextStyle(
                   color: kColorMPIGray,
                   fontSize: 14,
@@ -123,7 +123,7 @@ class AppDrawer extends StatelessWidget {
     );
 
     return ListTile(
-      title: Text(context.l10n.drawerGreeting(_userName), style: _userStyle),
+      title: Text(S.current.drawerGreeting(_userName), style: _userStyle),
       onTap: () => Navigator.of(context).popAndPushNamed('/profile'),
     );
   }
@@ -138,28 +138,28 @@ class AppDrawer extends StatelessWidget {
       children: <Widget>[
         ListTile(
           leading: Icon(Icons.search, color: kColorMPIGray),
-          title: Text(context.l10n.drawerSearch, style: labelStyle),
+          title: Text(S.current.drawerSearch, style: labelStyle),
           onTap: () => Navigator.pop(context),
         ),
         ListTile(
           leading: Icon(Icons.star_outline, color: kColorMPIGray),
-          title: Text(context.l10n.drawerFavorites, style: labelStyle),
+          title: Text(S.current.drawerFavorites, style: labelStyle),
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
         ),
         ListTile(
           leading: Icon(Icons.book, color: kColorMPIGray),
-          title: Text(context.l10n.drawerKeywords, style: labelStyle),
+          title: Text(S.current.drawerKeywords, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
           leading: Icon(Icons.question_mark, color: kColorMPIGray),
-          title: Text(context.l10n.drawerFAQ, style: labelStyle),
+          title: Text(S.current.drawerFAQ, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
         ),
         ListTile(
           leading: Icon(Icons.info, color: kColorMPIGray),
-          title: Text(context.l10n.drawerAbout, style: labelStyle),
+          title: Text(S.current.drawerAbout, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),
       ],

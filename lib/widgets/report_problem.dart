@@ -17,14 +17,14 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text(context.l10n.reportDialogTitle),
+          title: Text(S.current.reportDialogTitle),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SwitchListTile(
-                    title: Text(context.l10n.reportProblemTypeMedInfo),
+                    title: Text(S.current.reportProblemTypeMedInfo),
                     value: _reportAction == ReportAction.MED_INFO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.MED_INFO) {
@@ -36,7 +36,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text(context.l10n.reportProblemTypeSpelling),
+                    title: Text(S.current.reportProblemTypeSpelling),
                     value: _reportAction == ReportAction.TEXT_TYPO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.TEXT_TYPO) {
@@ -48,7 +48,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text(context.l10n.reportProblemTypeAppBug),
+                    title: Text(S.current.reportProblemTypeAppBug),
                     value: _reportAction == ReportAction.APP_BUG,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.APP_BUG) {
@@ -60,7 +60,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text(context.l10n.reportProblemTypeOther),
+                    title: Text(S.current.reportProblemTypeOther),
                     value: _reportAction == ReportAction.OTHER,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.OTHER) {
@@ -78,14 +78,14 @@ class ReportProblem {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.reportDialogCancel),
+              child: Text(S.current.reportDialogCancel),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreenOpaque,
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
-              child: Text(context.l10n.reportDialogSendReport),
+              child: Text(S.current.reportDialogSendReport),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
@@ -114,8 +114,8 @@ class ReportProblem {
 
       case ReportAction.OTHER:
         final mailOptions = MailOptions(
-          body: context.l10n.reportEmailBody(medName),
-          subject: context.l10n.reportEmailSubject(medName),
+          body: S.current.reportEmailBody(medName),
+          subject: S.current.reportEmailSubject(medName),
           recipients: ['mpibrasil@socialtech.org.br'],
           isHTML: true,
         );
@@ -128,7 +128,7 @@ class ReportProblem {
     }
 
     // display report info
-    final snackbar = SnackBar(content: Text(context.l10n.reportMessageSent));
+    final snackbar = SnackBar(content: Text(S.current.reportMessageSent));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }

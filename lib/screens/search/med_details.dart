@@ -66,7 +66,7 @@ class MedDetails extends StatelessWidget {
           children: <Widget>[
             ListTile(
               title: Text(
-                context.l10n.medDetailsMedTypeTileTitle,
+                S.current.medDetailsMedTypeTileTitle,
                 style: headerStyle,
               ),
               subtitle: Text(
@@ -78,7 +78,7 @@ class MedDetails extends StatelessWidget {
             drawAlternatives(med, context),
             if (med.hasDesprescribing())
               drawExpansionTile(
-                context.l10n.medDetailsDeprescribingTileTitle,
+                S.current.medDetailsDeprescribingTileTitle,
                 med.desprescription!,
               ),
             drawMedMonitor(med, context),
@@ -125,7 +125,7 @@ class MedDetails extends StatelessWidget {
           [
             // exception header
             Text(
-              context.l10n.medDetailsAvoidConditionExceptionLabel,
+              S.current.medDetailsAvoidConditionExceptionLabel,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             // exception description
@@ -154,7 +154,7 @@ class MedDetails extends StatelessWidget {
 
     return ExpansionTile(
       title: Text(
-        context.l10n.medDetailsAvoidConditionTileTitle,
+        S.current.medDetailsAvoidConditionTileTitle,
         style: headerStyle,
       ),
       children: <Widget>[
@@ -209,7 +209,7 @@ class MedDetails extends StatelessWidget {
     alternativeTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text(
-        context.l10n.medDetailsAlternativeTherapyTileTitle,
+        S.current.medDetailsAlternativeTherapyTileTitle,
         style: headerStyle,
       ),
       children: <Widget>[
@@ -248,7 +248,7 @@ class MedDetails extends StatelessWidget {
     monitorTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text(
-        context.l10n.medDetailsMonitoredParametersTileTitle,
+        S.current.medDetailsMonitoredParametersTileTitle,
         style: headerStyle,
       ),
       children: <Widget>[
@@ -291,7 +291,7 @@ class MedDetails extends StatelessWidget {
     referenceTiles.add(SizedBox(height: 20));
     return ExpansionTile(
       title: Text(
-        context.l10n.medDetailsReferencesTileTitle,
+        S.current.medDetailsReferencesTileTitle,
         style: headerStyle,
       ),
       children: <Widget>[

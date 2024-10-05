@@ -33,7 +33,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.l10n.settingsAppBarTitle),
+        title: Text(S.current.settingsAppBarTitle),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -49,7 +49,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 children: <Widget>[
                   drawSettingsCard(context),
                   ElevatedButton(
-                    child: Text(context.l10n.settingsLogout),
+                    child: Text(S.current.settingsLogout),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pushReplacementNamed(context, '/');
@@ -77,7 +77,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         children: <Widget>[
           // user name
           ListTile(
-            title: Text(context.l10n.settingsNameTileTitle),
+            title: Text(S.current.settingsNameTileTitle),
             subtitle: Text(user.name ?? ''),
             leading: Icon(Icons.person, color: kColorMPIGreen),
             trailing: IconButton(
@@ -92,8 +92,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             visible: false,
             child: ListTile(
               enabled: false,
-              title: Text(context.l10n.settingsEmailTileTitle),
-              subtitle: Text(context.l10n.socialTechEmail),
+              title: Text(S.current.settingsEmailTileTitle),
+              subtitle: Text(S.current.socialTechEmail),
               leading: Icon(Icons.email, color: kColorMPIGreen),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -108,8 +108,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             visible: false,
             child: ListTile(
               enabled: false,
-              title: Text(context.l10n.settingsPasswordTileTitle),
-              subtitle: Text(context.l10n.settingsPasswordTileSubtitle),
+              title: Text(S.current.settingsPasswordTileTitle),
+              subtitle: Text(S.current.settingsPasswordTileSubtitle),
               leading: Icon(Icons.key, color: kColorMPIGreen),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -120,7 +120,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user birthDate
           ListTile(
-            title: Text(context.l10n.settingsBirthDateTileTitle),
+            title: Text(S.current.settingsBirthDateTileTitle),
             subtitle: Text(user.birthDate?.formattedDate ?? ''),
             leading: Icon(Icons.calendar_today, color: kColorMPIGreen),
             trailing: IconButton(
@@ -134,7 +134,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user occupation
           ListTile(
-            title: Text(context.l10n.settingsOccupationTileTitle),
+            title: Text(S.current.settingsOccupationTileTitle),
             subtitle: Text(user.occupationString),
             leading: Icon(Icons.work, color: kColorMPIGreen),
             trailing: IconButton(
@@ -146,8 +146,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // delete account
           ListTile(
-            title: Text(context.l10n.settingsRedactUserTileTitle),
-            subtitle: Text(context.l10n.settingsRedactUserTileSubtitle),
+            title: Text(S.current.settingsRedactUserTileTitle),
+            subtitle: Text(S.current.settingsRedactUserTileSubtitle),
             leading: Icon(Icons.delete_forever, color: kColorMPIGreen),
             onTap: () => Navigator.of(context).pushNamed('/delete_account'),
           ),
@@ -172,7 +172,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
         // build dialog
         return AlertDialog(
-          title: Text(context.l10n.editNameDialogTitle),
+          title: Text(S.current.editNameDialogTitle),
           content: Container(
             width: deviceSize.width * 0.85,
             margin: EdgeInsets.symmetric(vertical: 20),
@@ -182,8 +182,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 TextField(
                   controller: controller,
                   decoration: InputDecoration(
-                    hintText: context.l10n.editNameTextFieldHintText,
-                    labelText: context.l10n.editNameTextFieldLabelText,
+                    hintText: S.current.editNameTextFieldHintText,
+                    labelText: S.current.editNameTextFieldLabelText,
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
@@ -195,7 +195,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             // cancel action
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.editNameDialogCancel),
+              child: Text(S.current.editNameDialogCancel),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreen,
               ),
@@ -204,7 +204,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             // save action
             TextButton(
               onPressed: () => Navigator.of(context).pop(controller.text),
-              child: Text(context.l10n.editNameDialogSave),
+              child: Text(S.current.editNameDialogSave),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
@@ -237,7 +237,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
         // build dialog
         return AlertDialog(
-          title: Text(context.l10n.editBirthDateDialogTitle),
+          title: Text(S.current.editBirthDateDialogTitle),
           content: Container(
             width: deviceSize.width * 0.85,
             margin: EdgeInsets.symmetric(vertical: 20),
@@ -254,8 +254,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     ),
                   ],
                   decoration: InputDecoration(
-                    hintText: context.l10n.editBirthDateTextFieldHintText,
-                    labelText: context.l10n.editBirthDateTextFieldLabelText,
+                    hintText: S.current.editBirthDateTextFieldHintText,
+                    labelText: S.current.editBirthDateTextFieldLabelText,
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
@@ -266,14 +266,14 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.editBirthDateDialogCancel),
+              child: Text(S.current.editBirthDateDialogCancel),
               style: TextButton.styleFrom(foregroundColor: kColorMPIGreen),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(
                 DateFormat('dd/MM/yyyy').parse(controller.text),
               ),
-              child: Text(context.l10n.editBirthDateDialogSave),
+              child: Text(S.current.editBirthDateDialogSave),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,

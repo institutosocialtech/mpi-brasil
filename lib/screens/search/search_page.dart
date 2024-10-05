@@ -76,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                   color: kColorMPIRed,
                 ),
                 Text(
-                  context.l10n.searchResultsNotFound,
+                  S.current.searchResultsNotFound,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -186,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: _queryMed,
               decoration: InputDecoration(
                 fillColor: kColorMPIWhite,
-                hintText: context.l10n.searchHintText,
+                hintText: S.current.searchHintText,
                 suffixIcon: Icon(Icons.search, color: kColorMPIGray),
               ),
             ),
@@ -220,7 +220,7 @@ class _SearchPageState extends State<SearchPage> {
                             AlwaysStoppedAnimation<Color>(kColorMPIGreen),
                       ),
                     ),
-                    Text(context.l10n.searchLoadingData),
+                    Text(S.current.searchLoadingData),
                   ],
                 )
               : resultPane,

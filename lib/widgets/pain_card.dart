@@ -41,7 +41,7 @@ class _PainCardState extends State {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      context.l10n.painCardTitle,
+                      S.current.painCardTitle,
                       textScaleFactor: 1.5,
                       style: headerStyle,
                     ),
@@ -150,7 +150,7 @@ class _PainCardState extends State {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            context.l10n.painCardScaleLabel,
+                            S.current.painCardScaleLabel,
                             textScaleFactor: 1.2,
                           ),
                         ],
@@ -169,29 +169,29 @@ class _PainCardState extends State {
   void drawPainLevelBody(double painLevel, BuildContext context) {
     if (painLevel >= 1 && painLevel <= 3) {
       cardColor = kColorMPIGreenOpaque;
-      painHeader = context.l10n.painLevelLow;
-      painHeaderDegree = context.l10n.painLevelLowRating;
-      painMessage = context.l10n.painLevelLowMessage;
+      painHeader = S.current.painLevelLow;
+      painHeaderDegree = S.current.painLevelLowRating;
+      painMessage = S.current.painLevelLowMessage;
     } else if (painLevel >= 4 && painLevel <= 7) {
       cardColor = kColorMPIOrange;
-      painHeader = context.l10n.painLevelModerate;
-      painHeaderDegree = context.l10n.painLevelModerateRating;
-      painMessage = context.l10n.painLevelModerateMessage;
+      painHeader = S.current.painLevelModerate;
+      painHeaderDegree = S.current.painLevelModerateRating;
+      painMessage = S.current.painLevelModerateMessage;
     } else if (painLevel >= 8 && painLevel <= 10) {
       cardColor = kColorMPIRed;
-      painHeader = context.l10n.painLevelHigh;
-      painHeaderDegree = context.l10n.painLevelHighRating;
-      painMessage = context.l10n.painLevelHighMessage;
+      painHeader = S.current.painLevelHigh;
+      painHeaderDegree = S.current.painLevelHighRating;
+      painMessage = S.current.painLevelHighMessage;
     }
   }
 
   String getPainLevelLabel(double painLevel, BuildContext context) {
     if (painLevel >= 1 && painLevel <= 3) {
-      return context.l10n.painCardScaleLevelLow;
+      return S.current.painCardScaleLevelLow;
     } else if (painLevel >= 4 && painLevel <= 7) {
-      return context.l10n.painCardScaleLevelModerate;
+      return S.current.painCardScaleLevelModerate;
     } else if (painLevel >= 8 && painLevel <= 10) {
-      return context.l10n.painCardScaleLevelHigh;
+      return S.current.painCardScaleLevelHigh;
     }
 
     return "";
@@ -202,20 +202,20 @@ class _PainCardState extends State {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(context.l10n.painInfoDialogTitle),
+          title: Text(S.current.painInfoDialogTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
             children: MarkdownGenerator().buildWidgets(
-              context.l10n.painInfoDialogContentMarkdown,
+              S.current.painInfoDialogContentMarkdown,
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(context.l10n.painInfoDialogClose),
+              child: Text(S.current.painInfoDialogClose),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreen,
               ),
