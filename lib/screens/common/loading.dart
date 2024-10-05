@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../providers/userpreferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override

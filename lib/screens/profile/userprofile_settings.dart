@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/auth.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';

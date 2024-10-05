@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
-import '../extensions.dart';
-import '../constants.dart';
-import '../providers/auth.dart';
-import '../providers/userpreferences.dart';
 
 class AppDrawer extends StatelessWidget {
   void _logout(BuildContext context) async {

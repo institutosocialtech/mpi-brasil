@@ -2,7 +2,7 @@ import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/meds.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:mpibrasil/screens/search/med_details.dart';

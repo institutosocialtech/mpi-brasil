@@ -1,32 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/models/user.dart';
-import 'package:mpibrasil/screens/profile/delete_account.dart';
 import 'package:provider/provider.dart';
 
+// app theme
 import 'theme.dart';
 
+// app translations
+import 'generated/l10n.dart';
+
+// app models
+import 'models/user.dart';
+
+// app providers
 import 'providers/auth.dart';
 import 'providers/keywords.dart';
 import 'providers/meds.dart';
 import 'providers/userpreferences.dart';
 
+// app screens
 import 'screens/about/about_page.dart';
-import 'screens/login/login_page.dart';
 import 'screens/about/faq_page.dart';
-import 'screens/favorites/favorites_overview.dart';
-import 'screens/login/forgot_password.dart';
-import 'screens/common/loading.dart';
-import 'screens/keywords/keywords_overview.dart';
-import 'screens/onboarding/onboarding.dart';
 import 'screens/about/privacy_page.dart';
-import 'screens/profile/userprofile_settings.dart';
-import 'screens/search/search_page.dart';
-import 'screens/login/signup_page.dart';
-import 'screens/common/splashscreen.dart';
 import 'screens/about/tos_page.dart';
+import 'screens/common/loading.dart';
+import 'screens/common/splashscreen.dart';
+import 'screens/favorites/favorites_overview.dart';
+import 'screens/keywords/keywords_overview.dart';
+import 'screens/login/forgot_password.dart';
+import 'screens/login/login_page.dart';
+import 'screens/login/signup_page.dart';
+import 'screens/onboarding/onboarding.dart';
+import 'screens/profile/delete_account.dart';
+import 'screens/profile/userprofile_settings.dart';
 import 'screens/profile/userprofile_overview.dart';
+import 'screens/search/search_page.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/med.dart';
-import 'package:mpibrasil/widgets/pain_card.dart';
 import 'package:mpibrasil/widgets/floating_menu.dart';
+import 'package:mpibrasil/widgets/pain_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MedDetails extends StatelessWidget {
   final Med med;

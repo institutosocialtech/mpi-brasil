@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/models/med.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/widgets/report_problem.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../extensions.dart';
-import '../constants.dart';
-import '../models/med.dart';
-import '../providers/userpreferences.dart';
-import '../widgets/report_problem.dart';
 
 class FloatingMenu extends StatelessWidget {
   final Med med;

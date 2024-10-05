@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/models/keyword.dart';
+import 'package:mpibrasil/providers/keywords.dart';
+import 'package:mpibrasil/screens/keywords/keyword_details.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants.dart';
-import '../../models/keyword.dart';
-import '../../providers/keywords.dart';
-import 'keyword_details.dart';
 
 class KeywordsOverview extends StatefulWidget {
   @override

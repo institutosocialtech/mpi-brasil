@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../constants.dart';
-import '../../models/med.dart';
-import '../../providers/meds.dart';
-import '../../providers/userpreferences.dart';
-import '../search/med_details.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/models/med.dart';
+import 'package:mpibrasil/providers/meds.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/screens/search/med_details.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesOverview extends StatelessWidget {
   final headerStyle = TextStyle(

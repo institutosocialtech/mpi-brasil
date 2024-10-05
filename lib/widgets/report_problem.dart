@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
 

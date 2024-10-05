@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:mpibrasil/constants.dart';
-import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 
 class PainCard extends StatefulWidget {
   @override

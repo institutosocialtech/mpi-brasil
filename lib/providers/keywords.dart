@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/keyword.dart';
+import 'package:mpibrasil/models/keyword.dart';
 
 class Keywords with ChangeNotifier {
   List<Keyword> _keywords = [];

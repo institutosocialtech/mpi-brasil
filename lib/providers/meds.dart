@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/med.dart';
+import 'package:mpibrasil/models/med.dart';
 
 class Meds with ChangeNotifier {
   List<Med> _meds = [];

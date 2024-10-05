@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/user.dart';
+import 'package:mpibrasil/models/user.dart';
 
 class UserPreferences with ChangeNotifier {
   User _user;
