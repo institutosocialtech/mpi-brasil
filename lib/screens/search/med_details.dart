@@ -73,15 +73,15 @@ class MedDetails extends StatelessWidget {
                 textAlign: TextAlign.justify,
               ),
             ),
-            drawConditionsTile(med, context),
-            drawAlternatives(med, context),
+            drawConditionsTile(med),
+            drawAlternatives(med),
             if (med.hasDesprescribing())
               drawExpansionTile(
                 S.current.medDetailsDeprescribingTileTitle,
                 med.desprescription!,
               ),
-            drawMedMonitor(med, context),
-            drawMedReferences(med, context),
+            drawMedMonitor(med),
+            drawMedReferences(med),
             SizedBox(height: 100),
           ],
         ),
@@ -92,7 +92,7 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Conditions
-  Widget drawConditionsTile(Med med, BuildContext context) {
+  Widget drawConditionsTile(Med med) {
     if (!med.hasConditionsToAvoid()) return Container();
 
     // sort avoid conditions by critical level
@@ -167,7 +167,7 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Alternatives
-  Widget drawAlternatives(Med med, BuildContext context) {
+  Widget drawAlternatives(Med med) {
     if (!med.hasAlternativeTherapy()) return Container();
 
     // sort alternatives by order
@@ -222,7 +222,7 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI Monitor
-  Widget drawMedMonitor(Med med, BuildContext context) {
+  Widget drawMedMonitor(Med med) {
     if (!med.hasMonitoredParameters()) return Container();
 
     // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
@@ -261,7 +261,7 @@ class MedDetails extends StatelessWidget {
 
   //
   // MPI References
-  Widget drawMedReferences(Med med, BuildContext context) {
+  Widget drawMedReferences(Med med) {
     if (!med.hasReferences()) return Container();
 
     List<Widget> referenceTiles = [];

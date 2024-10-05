@@ -21,7 +21,7 @@ class _PainCardState extends State {
 
   @override
   Widget build(BuildContext context) {
-    drawPainLevelBody(painLevel, context);
+    drawPainLevelBody(painLevel);
 
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -131,9 +131,9 @@ class _PainCardState extends State {
                         value: painLevel,
                         onChanged: (_newPainLevel) => setState(() {
                           painLevel = _newPainLevel;
-                          drawPainLevelBody(painLevel, context);
+                          drawPainLevelBody(painLevel);
                         }),
-                        label: getPainLevelLabel(painLevel, context),
+                        label: getPainLevelLabel(painLevel),
                       ),
                     ),
                     Padding(
@@ -166,7 +166,7 @@ class _PainCardState extends State {
     );
   }
 
-  void drawPainLevelBody(double painLevel, BuildContext context) {
+  void drawPainLevelBody(double painLevel) {
     if (painLevel >= 1 && painLevel <= 3) {
       cardColor = kColorMPIGreenOpaque;
       painHeader = S.current.painLevelLow;
@@ -185,7 +185,7 @@ class _PainCardState extends State {
     }
   }
 
-  String getPainLevelLabel(double painLevel, BuildContext context) {
+  String getPainLevelLabel(double painLevel) {
     if (painLevel >= 1 && painLevel <= 3) {
       return S.current.painCardScaleLevelLow;
     } else if (painLevel >= 4 && painLevel <= 7) {
