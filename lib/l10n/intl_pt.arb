@@ -150,6 +150,9 @@
     "reportEmailSubject": "Detectei um problema com o medicamento {medName}",
     "@reportEmailSubject": { "placeholders": { "medName": { "type": "String" } } },
 
+    "@_ERRORS": {},
+    "errorUnexpected": "Erro desconhecido: {error}",
+
     "@_MISC": {},
     "logout": "Sair",
     "logoutDialogTitle": "Sair",
