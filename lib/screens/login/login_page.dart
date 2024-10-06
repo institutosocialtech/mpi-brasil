@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final _signInButtonStyle = ElevatedButton.styleFrom(
-      foregroundColor: kColorMPIGreen,
+      backgroundColor: kColorMPIGreen,
     );
 
     // text styles
