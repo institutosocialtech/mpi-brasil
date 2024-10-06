@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
@@ -316,7 +317,7 @@ class _SignUpPageState extends State<SignUpPage> {
       // background
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg_shadow.png'),
+          image: AssetImage(MpiAssets.bgShadow),
           colorFilter: headerColorFilter,
           alignment: Alignment.topLeft,
           fit: BoxFit.fitWidth,
@@ -324,10 +325,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(
-        'assets/images/group3.svg',
-        fit: BoxFit.scaleDown,
-      ),
+      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
     );
   }
 
