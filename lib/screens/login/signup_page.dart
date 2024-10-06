@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
@@ -61,11 +62,11 @@ class _SignUpPageState extends State<SignUpPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.error),
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text("Fechar"),
+            child: Text(S.current.close),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
               foregroundColor: kColorMPIWhite,
@@ -82,18 +83,20 @@ class _SignUpPageState extends State<SignUpPage> {
     if (value != null) {
       switch (type) {
         case 'email':
-          if (value.isEmpty || !value.contains('@')) return 'Email inválido';
+          if (value.isEmpty || !value.contains('@'))
+            return S.current.signUpErrorInvalidEmail;
           break;
 
         case 'password':
-          if (value.isEmpty) return 'Digite sua senha!';
-          if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
+          if (value.isEmpty) return S.current.signUpErrorPasswordEmpty;
+          if (value.length < 6) return S.current.signUpErrorPasswordWeak;
           break;
 
         case 'passVerify':
-          if (value.isEmpty) return 'Digite sua senha novamente!';
-          if (value != _pwdController.text) return 'Senha não confere!';
-          if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
+          if (value.isEmpty) return S.current.signUpErrorPasswordEmpty;
+          if (value.length < 6) return S.current.signUpErrorPasswordWeak;
+          if (value != _pwdController.text)
+            return S.current.signUpErrorPasswordMismatch;
           break;
       }
     }
@@ -122,23 +125,22 @@ class _SignUpPageState extends State<SignUpPage> {
 
       switch (error.message) {
         case "INVALID_EMAIL":
-          errorMessage = 'Email inválido!';
+          errorMessage = S.current.signUpErrorInvalidEmail;
           break;
         case "EMAIL_EXISTS":
-          errorMessage = 'Email já cadastrado!';
+          errorMessage = S.current.signUpErrorEmailExists;
           break;
         case "WEAK_PASSWORD":
-          errorMessage = 'Senha deve ter ao menos 6 caracteres!';
+          errorMessage = S.current.signUpErrorPasswordWeak;
           break;
         default:
-          errorMessage = 'A autenticação falhou!';
+          errorMessage = S.current.signUpErrorAuthFailed;
           break;
       }
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.signUpErrorUnknown);
     }
 
     // hide progress indicator
@@ -157,6 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // sign in button appearance
     final _signUpButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: kColorMPIGreen,
     );
 
     // text styles
@@ -206,8 +209,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Email"),
+                                        decoration: InputDecoration(
+                                          hintText: S.current
+                                              .signUpPageEmailTextFieldHintText,
+                                        ),
                                         validator: (String? value) =>
                                             _validateEntry('email', value),
                                         onSaved: (String? value) =>
@@ -225,8 +230,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                         focusNode: _fPwd,
                                         controller: _pwdController,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Senha"),
+                                        decoration: InputDecoration(
+                                          hintText: S.current
+                                              .signUpPagePasswordTextFieldHintText,
+                                        ),
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
@@ -245,7 +252,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                         controller: _pwdVerifyController,
                                         textInputAction: TextInputAction.done,
                                         decoration: InputDecoration(
-                                            hintText: "Repetir senha"),
+                                          hintText: S.current
+                                              .signUpPagePasswordVerifyTextFieldHintText,
+                                        ),
                                         validator: (value) =>
                                             _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {
@@ -262,7 +271,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           onPressed: _submit,
                                           style: _signUpButtonStyle,
                                           child: Text(
-                                            "Registrar",
+                                            S.current.signUpPageButtonSubmit,
                                             style: _buttonTextStyle,
                                           ),
                                         ),
@@ -273,12 +282,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Já possui uma conta? ",
+                                            S.current.signUpPageHasAccountLabel,
                                             style: _labelStyle,
                                           ),
                                           InkWell(
                                             child: Text(
-                                              'Fazer login.',
+                                              S.current.signUpPageLoginLabel,
                                               style: _linkStyle,
                                             ),
                                             onTap: () =>

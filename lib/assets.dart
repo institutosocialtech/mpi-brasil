@@ -3,6 +3,8 @@ class MpiAssets {
 
   // global
   static String logoMPIGreen = 'assets/images/logo_green.png';
+  static String bgShadow = 'assets/images/bg_shadow.png';
+  static String imgGroup3 = 'assets/images/group3.svg';
 
   // search page
   static String imgMedComposition = 'assets/images/med_composition.png';

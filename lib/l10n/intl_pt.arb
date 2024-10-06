@@ -6,6 +6,23 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_SIGNUP_PAGE": {},
+    "signUpPageEmailTextFieldHintText": "Email",
+    "signUpPagePasswordTextFieldHintText": "Senha",
+    "signUpPagePasswordVerifyTextFieldHintText": "Repetir senha",
+    "signUpPageButtonSubmit": "Registrar",
+
+    "signUpPageHasAccountLabel": "Já possui uma conta? ",
+    "signUpPageLoginLabel": "Fazer login.",
+
+    "signUpErrorEmailExists": "Email já cadastrado.",
+    "signUpErrorInvalidEmail": "Email inválido.",
+    "signUpErrorPasswordEmpty": "Verifique sua senha.",
+    "signUpErrorPasswordWeak": "A senha deve ter pelo menos 6 dígitos.",
+    "signUpErrorPasswordMismatch": "A senha não confere.",
+    "signUpErrorAuthFailed": "A autenticação falhou.",
+    "signUpErrorUnknown": "Erro desconhecido, tente novamente mais tarde.",
+
     "@_ONBOARDING": {},
     "onboardingActionDone": "Iniciar",
     "onboardingActionNext": "Avançar",
