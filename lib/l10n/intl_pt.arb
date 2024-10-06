@@ -6,6 +6,14 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_FAVORITES_OVERVIEW": {},
+    "favoritesPageTitle": "FAVORITOS",
+    "favoritesEmptyList": "Você não possui nenhum medicamento favorito.",
+    "favoriteMedRemoved": "{medName} foi removido dos favoritos.",
+
+    "@_KEYWORDS_DETAILS": {},
+    "@_KEYWORDS_OVERVIEW": {},
+
     "@_FORGOT_PASSWORD_PAGE": {},
     "forgotPasswordPageTitle": "Esqueceu a senha?",
     "forgotPasswordPageBody": "Por favor, digite seu email de cadastro. Um link de verificação será enviado para seu email e a partir dele você poderá redefinir sua senha.",
@@ -218,6 +226,7 @@
     "cancel": "Cancelar",
     "close": "Fechar",
     "logout": "Sair",
+    "undo": "Desfazer",
     "logoutDialogTitle": "Sair",
     "logoutDialogContent": "Deseja efetuar o logout?",
     "logoutDialogActionYes": "Sim",
