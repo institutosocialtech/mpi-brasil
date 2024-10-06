@@ -1,15 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-
-class FAQ {
-  String question;
-  String answer;
-
-  FAQ(this.question, this.answer);
-}
+import 'package:mpibrasil/models/faq.dart';
 
 class FAQPage extends StatelessWidget {
   final headerStyle = TextStyle(
@@ -17,6 +13,39 @@ class FAQPage extends StatelessWidget {
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
+
+  Future<List<FAQ>> loadFAQData(BuildContext context) async {
+    final String response = await rootBundle.loadString('assets/docs/faq.json');
+    final Map<String, dynamic> data = json.decode(response);
+    final locale = Localizations.localeOf(context).languageCode;
+    return (data[locale] as List).map((e) => FAQ.fromJson(e)).toList();
+  }
+
+  // TODO: MarkdownGenerator: fix textStyle(KcolorTextLightGray), textConfig(TextAlign.justify), linkStyle (KColorMPIGreen, FontWeight.bold)
+  Widget FAQList(List<FAQ> faqList) {
+    return ListView.builder(
+      itemCount: faqList.length,
+      itemBuilder: (context, index) {
+        final faq = faqList[index];
+        return ExpansionTile(
+          title: Text(
+            faq.question,
+            textAlign: TextAlign.left,
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: MarkdownGenerator().buildWidgets(faq.answer),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,90 +88,23 @@ class FAQPage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: FAQList(),
+              child: FutureBuilder<List<FAQ>>(
+                future: loadFAQData(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('${snapshot.error}'));
+                  } else {
+                    final faqList = snapshot.data!;
+                    return FAQList(faqList);
+                  }
+                },
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class FAQList extends StatelessWidget {
-  // static faq list
-  final List<FAQ> faqList = [
-    new FAQ(
-      'Como podemos definir uma prescrição inapropriada?',
-      'Uma prescrição inapropriada abrange o uso de medicamentos que apresentam um risco significativo de evento adverso, quando há evidência de alternativa igual ou mais efetiva e com menor risco para tratar a mesma condição.',
-    ),
-    new FAQ(
-      'Como prescrever um medicamento apropriado?',
-      'A escolha do medicamento apropriado para cada doença em particular é um processo complexo, pois é essencial que a prescrição seja clinicamente efetiva, segura e tenha uma relação de custo-benefício satisfatória. É necessário contrabalancear a experiência clínica do prescritor e as melhores evidências científicas.',
-    ),
-    new FAQ(
-      'O que é o Consenso Brasileiro de Medicamentos Potencialmente Inapropriados para idosos?',
-      'É um instrumento para detecção de MPI adaptados à realidade brasileira, que divide estes medicamentos em dois grupos:\n\n- MPI independente de condição clínica.\n- MPI a depender de condição clínica.\n\nFoi elaborado através da Técnica Delphi com especialistas nacionais, utilizando como referências principais duas listas internacionais de MPI.',
-    ),
-    new FAQ(
-      'O que são as Reações Adversas a Medicamentos (RAMs)?',
-      'Reação adversa a medicamento é uma resposta nociva e não intencional e que ocorre em doses normalmente utilizadas no homem, para profilaxia, diagnóstico ou tratamento de uma doença ou para modificações de funções fisiológicas. Na assistência ao paciente idoso, é importante ficar atento ao uso de medicamentos, pois muitos fármacos comumente prescritos levam à RAMs potencialmente ameaçadoras à vida ou incapacitantes.',
-    ),
-    new FAQ(
-      'O que é polifarmácia?',
-      'Não há um consenso na literatura, no entanto, a polifarmácia é frequentemente definida como o uso rotineiro de cinco ou mais medicamentos. Alguns autores se referem a polifarmácia como o uso de um número de medicamentos maior do que o clinicamente indicado.',
-    ),
-    new FAQ(
-      'O que é desprescrição?',
-      'A desprescrição é o processo de redução gradual, interrupção, descontinuação ou retirada de medicamentos, com o objetivo de gerenciar a polifarmácia e melhorar os resultados',
-    ),
-    new FAQ(
-      'Como posso contribuir com a informação?',
-      'Sugerindo correções, adicionando medicamentos, informando erros e outras informações.\n\nContacte-nos pelo email: [mpibrasil@socialtech.org.br](mailto:mpibrasil@socialtech.org.br)',
-    ),
-    new FAQ('Como posso acessar o código?',
-        'O App MPI Brasil é disponibilizado no repositório do GitHub, e foi desenvolvido sob a Licença MIT. Esta licença de código aberto segue incluída no repositório e permite que outras pessoas usem, contribuam, alterem e distribuam livremente o código do aplicativo MPI Brasil. Para obter mais informações sobre esta licença, acesse:\n\nhttps://github.com/institutosocialtech/mpi-brasil/blob/master/LICENSE'),
-    new FAQ(
-      'Como posso contribuir com a aplicação?',
-      'Através do repositório do projeto disponível em: https://github.com/institutosocialtech/mpi-brasil',
-    ),
-    new FAQ(
-        'Quais as Instituições envolvidas no desenvolvimento do aplicativo MPI Brasil?',
-        'Este aplicativo (segunda versão) foi desenvolvido  pelo **Instituto de Gestão de Projetos Sociais** (Instituto SocialTech), juntamente com a **Universidade Federal da Bahia** (UFBA), por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia** (UESB), por meio do Curso de Medicina, Campus de Vitória da Conquista.'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: faqList.length,
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(color: kColorMPIDividerGray),
-      itemBuilder: (BuildContext context, index) {
-        var faq = faqList[index];
-
-        // draw expansion tile
-        return ExpansionTile(
-          title: Text(
-            faq.question,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          // draw answer
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                // TODO: MarkdownGenerator: fix textStyle(KcolorTextLightGray), textConfig(TextAlign.justify), linkStyle (KColorMPIGreen, FontWeight.bold)
-                children: MarkdownGenerator().buildWidgets(faq.answer),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
