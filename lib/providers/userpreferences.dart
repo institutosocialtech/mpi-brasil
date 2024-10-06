@@ -24,9 +24,9 @@ class UserPreferences with ChangeNotifier {
       // make the api call to load user preferences
       final uri = Uri.parse(url);
       final response = await http.get(uri);
-      final Map<String, dynamic> responseData = response.body.isNotEmpty
-          ? json.decode(response.body) as Map<String, dynamic>
-          : {};
+      final Map<String, dynamic> responseData = response.body == 'null'
+          ? {}
+          : json.decode(response.body) as Map<String, dynamic>;
 
       // include userId in the json reply
       responseData['id'] = userId;
