@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +21,7 @@ class EquipePage extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -124,10 +125,8 @@ class UesbTextImageSide extends StatelessWidget {
                   child: SizedBox(
                     width: 150,
                     height: 150,
-                    child: Image.asset(
-                      "assets/images/partners/uesb/logo_uesb.png",
-                      fit: BoxFit.scaleDown,
-                    ),
+                    child:
+                        Image.asset(MpiAssets.logoUESB, fit: BoxFit.scaleDown),
                   ),
                 ),
               ),
@@ -205,7 +204,7 @@ class UfbaTextImageSide extends StatelessWidget {
                     width: 120,
                     height: 150,
                     child: Image.asset(
-                      "assets/images/partners/ufba/logo_ufba.png",
+                      MpiAssets.logoUFBA,
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -306,7 +305,7 @@ class PmoSocialTextImageSide extends StatelessWidget {
                     width: 120,
                     height: 150,
                     child: Image.asset(
-                      "assets/images/partners/socialtech/logo_socialtech.png",
+                      MpiAssets.logoSocialTech,
                       fit: BoxFit.scaleDown,
                     ),
                   ),

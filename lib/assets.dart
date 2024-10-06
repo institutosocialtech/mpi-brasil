@@ -8,6 +8,10 @@ class MpiAssets {
 
   // logos
   static String logoMPIGreen = 'assets/images/logo_green.png';
+  static String logoUESB = 'assets/images/partners/uesb/logo_uesb.png';
+  static String logoUFBA = 'assets/images/partners/ufba/logo_ufba.png';
+  static String logoSocialTech =
+      'assets/images/partners/socialtech/logo_socialtech.png';
 
   // search page
   static String imgMedComposition = 'assets/images/med_composition.png';

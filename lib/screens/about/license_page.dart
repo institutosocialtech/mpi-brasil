@@ -21,7 +21,7 @@ class License extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  S.current.licensePageHeader,
+                  S.current.licensePageTitle,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
