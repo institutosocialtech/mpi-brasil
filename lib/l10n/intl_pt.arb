@@ -181,9 +181,13 @@
     "@reportEmailSubject": { "placeholders": { "medName": { "type": "String" } } },
 
     "@_ERRORS": {},
+    "error": "Erro",
     "errorUnexpected": "Erro desconhecido: {error}",
 
     "@_MISC": {},
+    "ok": "Ok",
+    "cancel": "Cancelar",
+    "close": "Fechar",
     "logout": "Sair",
     "logoutDialogTitle": "Sair",
     "logoutDialogContent": "Deseja efetuar o logout?",
