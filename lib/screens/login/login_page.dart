@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
@@ -56,11 +58,11 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.error),
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text("Fechar"),
+            child: Text(S.current.close),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
               foregroundColor: kColorMPIWhite,
@@ -77,11 +79,12 @@ class _LoginPageState extends State<LoginPage> {
     if (value != null) {
       switch (type) {
         case 'email':
-          if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
+          if (value.isEmpty || !value.contains('@'))
+            return S.current.loginErrorInvalidEmail;
           break;
 
         case 'password':
-          if (value.isEmpty) return 'Digite sua Senha!';
+          if (value.isEmpty) return S.current.loginErrorPasswordEmpty;
           break;
       }
     }
@@ -105,29 +108,28 @@ class _LoginPageState extends State<LoginPage> {
         _authData['password']!,
       );
     } on HttpException catch (error) {
-      var errorMessage = 'A autenticação falhou!';
+      var errorMessage = S.current.loginErrorAuthFailed;
 
       switch (error.toString()) {
         case "INVALID_EMAIL":
-          errorMessage = 'Email inválido!';
+          errorMessage = S.current.loginErrorInvalidEmail;
           break;
         case "EMAIL_NOT_FOUND":
-          errorMessage = 'Email não encontrado!';
+          errorMessage = S.current.loginErrorEmailNotFound;
           break;
         case "EMAIL_EXISTS":
-          errorMessage = 'Email já cadastrado!';
+          errorMessage = S.current.loginErrorEmailExists;
           break;
         case "INVALID_PASSWORD":
-          errorMessage = 'Senha incorreta!';
+          errorMessage = S.current.loginErrorInvalidPassword;
           break;
         case "USER_DISABLED":
-          errorMessage = 'Conta desativada por um administrador!';
+          errorMessage = S.current.loginErrorUserDisabled;
           break;
       }
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.loginErrorUnknown);
     }
 
     // hide progress indicator
@@ -197,8 +199,9 @@ class _LoginPageState extends State<LoginPage> {
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Email"),
+                                        decoration: InputDecoration(
+                                            hintText: S.current
+                                                .loginPageEmailHintText),
                                         validator: (value) =>
                                             _validateEntry('email', value),
                                         onSaved: (value) =>
@@ -217,8 +220,9 @@ class _LoginPageState extends State<LoginPage> {
                                         focusNode: _fPassword,
                                         controller: _passwordController,
                                         textInputAction: TextInputAction.done,
-                                        decoration:
-                                            InputDecoration(hintText: "Senha"),
+                                        decoration: InputDecoration(
+                                            hintText: S.current
+                                                .loginPagePasswordHintText),
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
@@ -239,8 +243,11 @@ class _LoginPageState extends State<LoginPage> {
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
                                                 context, '/forgot_password'),
-                                            child: Text('Esqueceu a senha?',
-                                                style: _labelStyle),
+                                            child: Text(
+                                              S.current
+                                                  .loginPageForgotPasswordLabel,
+                                              style: _labelStyle,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -253,8 +260,10 @@ class _LoginPageState extends State<LoginPage> {
                                           onPressed: _submit,
                                           focusNode: _fSubmit,
                                           style: _signInButtonStyle,
-                                          child: Text("Entrar",
-                                              style: _buttonTextStyle),
+                                          child: Text(
+                                            S.current.loginPageButtonSignIn,
+                                            style: _buttonTextStyle,
+                                          ),
                                         ),
                                       ),
 
@@ -264,13 +273,17 @@ class _LoginPageState extends State<LoginPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text('Novo usuário? ',
-                                              style: _labelStyle),
+                                          Text(
+                                            S.current.loginPageLabelNewUser,
+                                            style: _labelStyle,
+                                          ),
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
                                                 context, '/signup'),
-                                            child: Text('Cadastre aqui',
-                                                style: _linkStyle),
+                                            child: Text(
+                                              S.current.loginPageLabelSignUp,
+                                              style: _linkStyle,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -305,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
       // background
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg_shadow.png'),
+          image: AssetImage(MpiAssets.bgShadow),
           colorFilter: headerColorFilter,
           alignment: Alignment.topLeft,
           fit: BoxFit.fitWidth,
@@ -313,10 +326,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(
-        'assets/images/group3.svg',
-        fit: BoxFit.scaleDown,
-      ),
+      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
     );
   }
 

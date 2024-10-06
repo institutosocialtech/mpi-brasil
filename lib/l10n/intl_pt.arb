@@ -6,6 +6,23 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_LOGIN_PAGE": {},
+    "loginPageEmailHintText": "Email",
+    "loginPagePasswordHintText": "Senha",
+    "loginPageForgotPasswordLabel": "Esqueceu a senha?",
+    "loginPageButtonSignIn": "Entrar",
+    "loginPageLabelNewUser": "Novo usuário?",
+    "loginPageLabelSignUp": "Cadastre-se aqui",
+
+    "loginErrorAuthFailed": "A autenticação falhou.",
+    "loginErrorEmailNotFound": "Email não encontrado.",
+    "loginErrorEmailExists": "Email já cadastrado.",
+    "loginErrorInvalidEmail": "Email Inválido.",
+    "loginErrorInvalidPassword": "Email ou senha incorreta.",
+    "loginErrorPasswordEmpty": "Verifique sua senha.",
+    "loginErrorUserDisabled": "Conta desativada pelo administrador.",
+    "loginErrorUnknown": "Erro desconhecido, tente novamente mais tarde.",
+
     "@_SIGNUP_PAGE": {},
     "signUpPageEmailTextFieldHintText": "Email",
     "signUpPagePasswordTextFieldHintText": "Senha",
