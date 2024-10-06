@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/keyword.dart';
 
 class KeywordDetails extends StatelessWidget {
@@ -23,7 +25,7 @@ class KeywordDetails extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -59,7 +61,8 @@ class KeywordDetails extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 20),
             ListTile(
-              title: Text("Definição", style: tileTitle),
+              title: Text(S.current.keywordDetailsDefinitionTileTitle,
+                  style: tileTitle),
               subtitle: Text(
                 keyword.definition,
                 textAlign: TextAlign.justify,
@@ -68,16 +71,18 @@ class KeywordDetails extends StatelessWidget {
             keyword.synonyms == null
                 ? Container()
                 : ListTile(
-                    title: Text("Sinônimos", style: tileTitle),
+                    title: Text(S.current.keywordDetailsSynonymTileTitle,
+                        style: tileTitle),
                     subtitle: Text(
                       keyword.synonymsListToString(),
                       textAlign: TextAlign.justify,
                     ),
                   ),
             ListTile(
-              title: Text("Referências", style: tileTitle),
+              title: Text(S.current.keywordDetailsReferencesTileTitle,
+                  style: tileTitle),
               subtitle: keyword.source.isEmpty
-                  ? Text("Indisponível")
+                  ? Text(S.current.unavailable)
                   : Text(keyword.source),
             ),
           ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/keyword.dart';
 import 'package:mpibrasil/providers/keywords.dart';
 import 'package:mpibrasil/screens/keywords/keyword_details.dart';
@@ -55,7 +57,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -68,7 +70,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('GLOSSÁRIO', style: headerStyle),
+            child: Text(S.current.keywordsPageTitle, style: headerStyle),
           ),
         ),
       ),

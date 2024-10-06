@@ -31,7 +31,7 @@ class AppDrawer extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(S.current.logoutDialogActionNo),
+              child: Text(S.current.no),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGray,
                 backgroundColor: kColorMPIWhite,
@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(S.current.logoutDialogActionYes),
+              child: Text(S.current.yes),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: kColorMPIGreen,
