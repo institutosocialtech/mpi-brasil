@@ -6,6 +6,19 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_ONBOARDING": {},
+    "onboardingActionDone": "Iniciar",
+    "onboardingActionNext": "Avançar",
+
+    "onboardingObjectivePageTitle": "Qual o nosso objetivo?",
+    "onboardingObjectivePageBody": "Auxiliar profissionais de saúde na tomada de decisão clínica e na realização da escolha do medicamento mais apropriado para cada doença específica e para cada paciente em particular.",
+    "onboardingMpiPageTitle": "Medicamentos Inapropriados",
+    "onboardingMpiPageBody": "Acesse as principais informações sobre MPI de acordo com a condição clinica do paciente, com orientações de desprescrição e alternativas terapêuticas mais seguras.",
+    "onboardingMpiNeededPageTitle": "E se o MPI for necessário?",
+    "onboardingMpiNeededPageBody": "Se mesmo assim, o uso do medicamento inapropriado for necessário, obtenha informações de monitoramento para tornar a farmacoterapia mais segura!",
+    "onboardingKeywordsPageTitle": "Ficou com dúvida?",
+    "onboardingKeywordsPageBody": "Consulte a FAQ no menu principal do aplicativo.",
+
     "@_DELETE_ACCOUNT": {},
     "delAccountPageTitle": "Exclusão de Conta",
     "delAccountPageBody": "Observe que a confirmação dessa ação resultará na exclusão permanente da sua conta e todos os dados associados a ela.",
