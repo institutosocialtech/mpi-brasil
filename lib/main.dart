@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
-          title: S.current.appTitle,
+          title: "MPI Brasil",
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             S.delegate,
