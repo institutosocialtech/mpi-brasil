@@ -39,4 +39,22 @@ class User with ChangeNotifier {
 
     return occupations[this.occupation] ?? S.current.jobUnknown;
   }
+
+  bool get isProfileComplete {
+    if (name?.isEmpty ?? true) {
+      return false;
+    }
+
+    if (occupation?.isEmpty ?? true) {
+      return false;
+    }
+
+    if (birthDate == null ||
+        birthDate!.isAfter(DateTime.now()) ||
+        birthDate!.isBefore(DateTime(1900))) {
+      return false;
+    }
+
+    return true;
+  }
 }

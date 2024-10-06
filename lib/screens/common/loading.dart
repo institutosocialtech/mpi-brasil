@@ -18,7 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var userPreferences = Provider.of<UserPreferences>(context, listen: false);
     await userPreferences.fetchUserData();
 
-    if (userPreferences.user.name == null) {
+    if (!userPreferences.user.isProfileComplete) {
       await appPrefs.setBool('firstBoot', false);
       Navigator.pushReplacementNamed(context, '/profile_setup');
     } else if (_firstBoot) {
