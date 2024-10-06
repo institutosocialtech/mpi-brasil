@@ -6,6 +6,28 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_DELETE_ACCOUNT": {},
+    "delAccountPageTitle": "Exclusão de Conta",
+    "delAccountPageBody": "Observe que a confirmação dessa ação resultará na exclusão permanente da sua conta e todos os dados associados a ela.",
+    "delAccountPageFooter": "Caso não queira prosseguir com a exclusão da conta, clique no botão voltar.",
+    "delAccountPageButtonCancel": "Voltar",
+    "delAccountPageButtonConfirm": "EXCLUIR CONTA",
+
+    "delAccountConfirmDialogTitle": "Confirmar Exclusão de Conta",
+    "delAccountConfirmDialogContentText": "Deseja realmente excluir a sua conta do MPI Brasil? Esta ação não poderá ser desfeita!",
+    "delAccountConfirmDialogActionCancel": "Voltar",
+    "delACcountConfirmDialogActionConfirm": "EXCLUIR CONTA",
+
+    "delAccountSuccessDialogActionOk": "OK",
+    "delAccountSuccessMessage": "Seus dados no MPI Brasil foram excluídos com sucesso!",
+
+    "delAccountErrorDialogTitle": "Erro",
+    "delAccountErrorDialogActionOk": "OK",
+    "delAccountErrorGeneric": "Falha ao tentar excluir conta!",
+    "delAccountErrorInvalidIdToken": "Credenciais não são mais válidas. Por favor efetue login novamente",
+    "delAccountErrorMissingIdToken": "Credenciais inválidas!",
+    "delAccountErrorUserNotFound": "Não há registros associados a esse identificador. Usuário pode ter sido excluído!",
+
     "@_USER_PROFILE_OVERVIEW": {},
     "profileSetupHeader": "Vamos completar o seu cadastro...",
     "profileSetupNameHintText": "Nome",
