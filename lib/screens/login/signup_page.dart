@@ -156,7 +156,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // sign in button appearance
     final _signUpButtonStyle = ElevatedButton.styleFrom(
-      foregroundColor: kColorMPIGreen,
     );
 
     // text styles
