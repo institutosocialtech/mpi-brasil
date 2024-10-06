@@ -6,6 +6,17 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_USER_PROFILE_OVERVIEW": {},
+    "profileSetupHeader": "Vamos completar o seu cadastro...",
+    "profileSetupNameHintText": "Nome",
+    "profileSetupOccupationHintText": "Ocupação",
+    "profileSetupBirthDateHintText": "Data de Nascimento",
+    "profileSetupSubmitButtonText": "Finalizar Cadastro",
+
+    "profileSetupNameErrorText": "Verifique o seu nome.",
+    "profileSetupOccupationErrorText": "Verifique sua ocupação.",
+    "profileSetupBirthDateErrorText": "Verifique sua data de nascimento.",
+
     "@_USER_PROFILE_SETTINGS": {},
     "settingsAppBarTitle": "Perfil do usuário",
     "settingsLogout": "Sair",
