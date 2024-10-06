@@ -308,6 +308,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           'medico': S.current.jobDoctor,
           'enfermeiro': S.current.jobNurse,
           'estudante': S.current.jobStudent,
+          'farmaceutico': S.current.jobPharmacist,
           'outros': S.current.jobOther,
         };
 
