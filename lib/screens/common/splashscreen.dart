@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bg_shadow.png'),
+            image: AssetImage(MpiAssets.bgShadow),
             colorFilter: ColorFilter.mode(kColorMPIGreen, BlendMode.multiply),
             fit: BoxFit.cover,
           ),
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 50),
 
             // logo and progress indicator
-            SvgPicture.asset('assets/images/group3.svg'),
+            SvgPicture.asset(MpiAssets.imgGroup3),
 
             // footer
             Column(
