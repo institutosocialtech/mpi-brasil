@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/screens/about/equipe_page.dart';
 import 'package:mpibrasil/screens/about/privacy_page.dart';
 import 'package:mpibrasil/screens/about/tos_page.dart';
@@ -25,7 +27,7 @@ class AboutPage extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -38,7 +40,7 @@ class AboutPage extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('SOBRE', style: headerStyle),
+            child: Text(S.current.aboutPageTitle, style: headerStyle),
           ),
         ),
       ),
@@ -65,11 +67,6 @@ class AboutList extends StatelessWidget {
     color: Colors.white,
   );
 
-  final introduction =
-      'O **Aplicativo MPI Brasil** é um instrumento de busca rápida sobre os Medicamentos Potencialmente Inapropriados para Idosos (MPIs), disponíveis no Brasil, para auxiliar profissionais de saúde na tomada de decisão clínica.';
-  final development =
-      'Esta segunda versão do aplicativo foi desenvolvido pelo **Instituto SocialTech**, juntamente com a **Universidade Federal da Bahia (UFBA)**, por meio do Instituto Multidisciplinar em Saúde - Campus Anísio Teixeira (IMS-CAT/UFBA) e pela **Universidade Estadual do Sudoeste da Bahia (UESB)**, por meio do Curso de Medicina, Campus de Vitória da Conquista.';
-
   @override
   Widget build(BuildContext context) {
     var tapCount = 0;
@@ -89,8 +86,10 @@ class AboutList extends StatelessWidget {
                     width: 100,
                     height: 100,
                     child: InkWell(
-                      child: Image.asset("assets/images/app_icon_android.png",
-                          fit: BoxFit.fill),
+                      child: Image.asset(
+                        MpiAssets.iconAndroid,
+                        fit: BoxFit.fill,
+                      ),
                       onTap: () {
                         if (tapCount == 4) {
                           tapCount = 0;
@@ -112,7 +111,7 @@ class AboutList extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            ' MPI Brasil',
+                            S.current.appTitle,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
@@ -141,11 +140,8 @@ class AboutList extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            'SocialTech © 2023 Company',
-                            style: TextStyle(
-                              // fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
+                            S.current.socialTechCopyright,
+                            style: TextStyle(fontSize: 12),
                             textAlign: TextAlign.justify,
                           ),
                         ),
@@ -160,8 +156,10 @@ class AboutList extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
-                  ...MarkdownGenerator().buildWidgets(introduction),
-                  ...MarkdownGenerator().buildWidgets(development),
+                  ...MarkdownGenerator()
+                      .buildWidgets(S.current.aboutIntroMarkdown),
+                  ...MarkdownGenerator()
+                      .buildWidgets(S.current.aboutDevelopmentMarkdown),
                 ],
               ),
             ),
@@ -170,7 +168,7 @@ class AboutList extends StatelessWidget {
         Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
-            'Equipe',
+            S.current.aboutTeamTileTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
@@ -196,105 +194,73 @@ class AboutList extends StatelessWidget {
         Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
-            'Licenças',
+            S.current.aboutLicensesTileTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
               icon: Icon(Icons.keyboard_arrow_right),
               color: Colors.grey,
-              onPressed: () {
-                showLicensePage(context: context);
-              }),
-          onTap: () {
-            showLicensePage(context: context);
-          },
+              onPressed: () => showLicensePage(context: context)),
+          onTap: () => showLicensePage(context: context),
         ),
         Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
-            'Termo de Uso',
+            S.current.aboutTosTileTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TermsOfUsePage(),
-                  ),
-                );
-              }),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TermsOfUsePage(),
-              ),
-            );
-          },
+            icon: Icon(Icons.keyboard_arrow_right),
+            color: Colors.grey,
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => TermsOfUsePage())),
+          ),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TermsOfUsePage()),
+          ),
         ),
         Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
-            'Política de Privacidade',
+            S.current.aboutPrivacyPolicyTileTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PrivacyPolicyPage(),
-                  ),
-                );
-              }),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PrivacyPolicyPage(),
-              ),
-            );
-          },
+            icon: Icon(Icons.keyboard_arrow_right),
+            color: Colors.grey,
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PrivacyPolicyPage())),
+          ),
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => PrivacyPolicyPage())),
         ),
         Divider(color: kColorMPIDividerGray),
         ListTile(
           title: Text(
-            'Fale Conosco',
+            S.current.aboutContactTileTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              color: Colors.grey,
-              onPressed: () {
-                final MailOptions mailOptions = MailOptions(
-                  body:
-                      ' Conte-nos a sua opinião, ela é muito importante para nós!',
-                  subject: "Fale Conosco",
-                  recipients: ['mpibrasil@socialtech.org.br'],
-                  isHTML: true,
-                );
-
-                FlutterMailer.send(mailOptions);
-              }),
-          onTap: () {
-            final MailOptions mailOptions = MailOptions(
-              body:
-                  ' Conte-nos a sua opinião, ela é muito importante para nós!',
-              subject: "Fale Conosco",
-              recipients: ['mpibrasil@socialtech.org.br'],
-              isHTML: true,
-            );
-
-            FlutterMailer.send(mailOptions);
-          },
+            icon: Icon(Icons.keyboard_arrow_right),
+            color: Colors.grey,
+            onPressed: () => _aboutEmailSend(),
+          ),
+          onTap: () => _aboutEmailSend(),
         ),
         Divider(color: kColorMPIDividerGray),
       ],
     );
+  }
+
+  void _aboutEmailSend() {
+    final MailOptions mailOptions = MailOptions(
+      recipients: [S.current.socialTechEmail],
+      subject: S.current.aboutContactMailSubject,
+      body: S.current.aboutContactMailBody,
+      isHTML: true,
+    );
+
+    FlutterMailer.send(mailOptions);
   }
 }

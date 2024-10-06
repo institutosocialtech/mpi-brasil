@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 
 class FAQ {
   String question;
@@ -26,7 +28,7 @@ class FAQPage extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -39,7 +41,7 @@ class FAQPage extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('FAQ', style: headerStyle),
+            child: Text(S.current.faqPageTitle, style: headerStyle),
           ),
         ),
       ),

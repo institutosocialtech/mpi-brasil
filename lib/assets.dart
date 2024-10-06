@@ -2,9 +2,12 @@ class MpiAssets {
   MpiAssets._();
 
   // global
-  static String logoMPIGreen = 'assets/images/logo_green.png';
   static String bgShadow = 'assets/images/bg_shadow.png';
+  static String iconAndroid = 'assets/images/app_icon_android.png';
   static String imgGroup3 = 'assets/images/group3.svg';
+
+  // logos
+  static String logoMPIGreen = 'assets/images/logo_green.png';
 
   // search page
   static String imgMedComposition = 'assets/images/med_composition.png';
