@@ -6,6 +6,18 @@
     "appUrl": "https://socialtech.org.br/mpibrasil",
     "socialTechEmail": "mpibrasil@socialtech.org.br",
 
+    "@_FORGOT_PASSWORD_PAGE": {},
+    "forgotPasswordPageTitle": "Esqueceu a senha?",
+    "forgotPasswordPageBody": "Por favor, digite seu email de cadastro. Um link de verificação será enviado para seu email e a partir dele você poderá redefinir sua senha.",
+    "forgotPasswordPageButtonSubmit": "Recuperar Senha",
+    "forgotPasswordPageLabelBackToLogin": "Voltar para o login",
+    "forgotPasswordEmailHintText": "Email",
+
+    "forgotPasswordRequestSent": "Solicitação enviada, por favor verifique seu email.",
+    "forgotPasswordErrorGeneric": "Falha ao tentar recuperar a senha.",
+    "forgotPasswordErrorEmailNotFound": "O endereço de email informado não está cadastrado.",
+    "forgotPasswordErrorInvalidEmail": "Email inválido.",
+
     "@_LOGIN_PAGE": {},
     "loginPageEmailHintText": "Email",
     "loginPagePasswordHintText": "Senha",

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/http_exception.dart';
 import 'package:mpibrasil/providers/auth.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
@@ -46,14 +48,16 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.error),
         content: Container(
           margin: EdgeInsets.only(top: 10),
           child: Text(message),
         ),
         actions: <Widget>[
           TextButton(
-              onPressed: () => Navigator.of(context).pop(), child: Text("OK")),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(S.current.ok),
+          ),
         ],
       ),
     );
@@ -73,18 +77,17 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
       await Provider.of<Auth>(context, listen: false).forgotPassword(email);
       // success msg
       final snackbar = SnackBar(
-        content: Text("Solicitação enviada, por favor verifique seu email!"),
+        content: Text(S.current.forgotPasswordRequestSent),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     } on HttpException catch (error) {
-      var errorMessage = 'Falha ao tentar recuperar a senha!';
-      if (error.toString() == "EMAIL_NOT_FOUND") {
-        errorMessage = "O endereço de email digitado não está cadastrado!";
-      }
+      var errorMessage = error.message == "EMAIL_NOT_FOUND"
+          ? S.current.forgotPasswordErrorEmailNotFound
+          : S.current.forgotPasswordErrorGeneric;
+
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage = 'Erro desconhecido';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.errorUnexpected(error));
     }
 
     // hide progress indicator
@@ -93,8 +96,6 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-
     var titleStyle = TextStyle(
       color: kColorMPIGray,
       fontSize: 22,
@@ -105,9 +106,6 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
       color: kColorMPIGray,
       fontSize: 18,
     );
-
-    var fPasswordMsg = "Por favor, digite seu email de cadastro. " +
-        "Um link de verificação será enviado para seu email e a partir dele você poderá redefinir sua senha.";
 
     return _isLoading
         ? SplashScreen()
@@ -120,18 +118,18 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                 children: <Widget>[
                   // image
                   Image.asset(
-                    "assets/undraw/account_amico.png",
+                    MpiAssets.imgUndrawAccountAmico,
                     height: 256,
                     width: 256,
                   ),
 
                   // title
-                  Text("Esqueceu a senha?", style: titleStyle),
+                  Text(S.current.forgotPasswordPageTitle, style: titleStyle),
 
                   // message
                   SizedBox(height: 10),
                   Text(
-                    fPasswordMsg,
+                    S.current.forgotPasswordPageBody,
                     style: messageStyle,
                     textAlign: TextAlign.center,
                   ),
@@ -143,14 +141,14 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Email",
+                      labelText: S.current.forgotPasswordEmailHintText,
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
                     ),
                     validator: (value) {
                       if (value == null ||
                           value.isEmpty ||
                           !value.contains('@'))
-                        return 'Email Inválido!';
+                        return S.current.forgotPasswordErrorInvalidEmail;
                       else
                         return null;
                     },
@@ -165,11 +163,11 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       ElevatedButton(
                         onPressed: _submit,
                         child: Text(
-                          "Recuperar Senha",
+                          S.current.forgotPasswordPageButtonSubmit,
                           style: TextStyle(color: kColorMPIWhite),
                         ),
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: kColorMPIBlue,
+                          backgroundColor: kColorMPIGreen,
                         ),
                       ),
 
@@ -178,7 +176,7 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
                       InkWell(
                         onTap: () => Navigator.of(context).pop(),
                         child: Text(
-                          "Voltar para o login",
+                          S.current.forgotPasswordPageLabelBackToLogin,
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
