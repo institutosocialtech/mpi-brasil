@@ -119,11 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } on HttpException catch (error) {
       var errorMessage;
 
-      // trim firebase error message
-      var endIndex = error.message.indexOf(" :", 0);
-      var errorCode = error.message.substring(0, endIndex);
-
-      switch (errorCode) {
+      switch (error.message) {
         case "INVALID_EMAIL":
           errorMessage = 'Email inválido!';
           break;
