@@ -11,13 +11,18 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # app icons
   cupertino_icons: ^1.0.8
+  material_symbols_icons: ^4.2785.1
+
+  # packages
   diacritic: ^0.1.5
   flutter_mailer: ^2.1.2
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.10+1
   http: ^1.2.2
   intl: ^0.19.0
+  intl_utils: ^2.8.7
   introduction_screen: ^3.1.14
   json_annotation: ^4.9.0
   markdown_widget: ^2.3.2+6
@@ -27,19 +32,18 @@ dependencies:
   share_plus: ^10.0.2
   shared_preferences: ^2.3.2
   url_launcher: ^6.3.0
-  intl_utils: ^2.8.7
 
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 
-  # flutter pub run build_runner build  --delete-conflicting-outputs
+  # dart run build_runner build --delete-conflicting-outputs
   build_runner: ^2.4.12
   flutter_launcher_icons: ^0.14.1
   json_serializable: ^6.8.0
 
-# flutter pub run flutter_launcher_icons:main
+# dart run flutter_launcher_icons:main
 flutter_icons:
   ios: true
   android: true
@@ -48,6 +52,7 @@ flutter_icons:
   adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/images/app_icon_android.png"
 
+# dart run intl_utils:generate
 flutter_intl:
   enabled: true
   main_locale: pt
