@@ -1,10 +1,14 @@
 class MpiAssets {
   MpiAssets._();
 
+  // docs
+  static String faqJson = 'assets/docs/faq.json';
+  static String privacyMarkdown = 'assets/docs/privacy_policy.md';
+
   // global
   static String bgShadow = 'assets/images/bg_shadow.png';
   static String iconAndroid = 'assets/images/app_icon_android.png';
-  static String imgGroup3 = 'assets/images/group3.svg';
+  static String svgGroup3 = 'assets/images/group3.svg';
 
   // logos
   static String logoMPIGreen = 'assets/images/logo_green.png';

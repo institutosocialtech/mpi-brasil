@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 50),
 
             // logo and progress indicator
-            SvgPicture.asset(MpiAssets.imgGroup3),
+            SvgPicture.asset(MpiAssets.svgGroup3),
 
             // footer
             Column(

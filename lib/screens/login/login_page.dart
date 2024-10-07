@@ -326,7 +326,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
+      child: SvgPicture.asset(MpiAssets.svgGroup3, fit: BoxFit.scaleDown),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/auth.dart';
@@ -105,9 +106,9 @@ class AppDrawer extends StatelessWidget {
     return DrawerHeader(
       child: Container(
         child: SvgPicture.asset(
-          'assets/images/group3.svg',
-          color: kColorMPIGreen,
+          MpiAssets.svgGroup3,
           fit: BoxFit.contain,
+          color: kColorMPIGreen,
         ),
       ),
     );
