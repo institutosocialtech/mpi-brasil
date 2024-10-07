@@ -7,11 +7,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Auth with ChangeNotifier {
   String? _token;
+  String? _refreshToken;
   DateTime? _expirationDate;
   String? _userId;
   Timer? _authTimer;
 
   final _secureStorage = FlutterSecureStorage();
+  final _apiKey = 'AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
 
   bool get isAuth => token != null;
 
@@ -33,7 +35,7 @@ class Auth with ChangeNotifier {
     String urlSegment,
   ) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$_apiKey';
 
     try {
       final uri = Uri.parse(url);
@@ -55,20 +57,18 @@ class Auth with ChangeNotifier {
       }
 
       _token = responseData['idToken'];
+      _refreshToken = responseData['refreshToken'];
       _userId = responseData['localId'];
-      _expirationDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(
-            responseData['expiresIn'],
-          ),
-        ),
-      );
+      _expirationDate = DateTime.now()
+          .add(Duration(seconds: int.parse(responseData['expiresIn'])));
+
       _autoLogout();
       notifyListeners();
 
       final userData = json.encode(
         {
           'token': _token,
+          'refreshToken': _refreshToken,
           'userId': _userId,
           'expirationDate': _expirationDate!.toIso8601String(),
         },
@@ -80,6 +80,43 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<bool> _refreshAuth() async {
+    final url = 'https://securetoken.googleapis.com/v1/token?key=$_apiKey';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: json.encode({
+          'grant_type': 'refresh_token',
+          'refresh_token': _refreshToken,
+        }),
+      );
+
+      final responseData = json.decode(response.body);
+      if (responseData['error'] != null) return false;
+
+      _token = responseData['id_token'];
+      _refreshToken = responseData['refresh_token'];
+      _userId = responseData['user_id'];
+      _expirationDate = DateTime.now()
+          .add(Duration(seconds: int.parse(responseData['expires_in'])));
+
+      await _secureStorage.write(
+        key: 'userData',
+        value: json.encode({
+          'token': _token,
+          'refreshToken': _refreshToken,
+          'userId': _userId,
+          'expirationDate': _expirationDate!.toIso8601String(),
+        }),
+      );
+    } catch (error) {
+      return false;
+    }
+
+    return true;
+  }
+
   Future<void> signup(String email, String password) async {
     return _authenticate(email, password, 'signUp');
   }
@@ -89,25 +126,31 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
+    // read and validate secure storage
     final userDataString = await _secureStorage.read(key: 'userData');
-
-    // no user data stored
     if (userDataString == null) return false;
 
-    // parse prefs string into map
+    // parse secure storage keys
     final userData = json.decode(userDataString) as Map<String, dynamic>;
-
-    // validate token expiration date
-    final expirationDate = DateTime.parse(userData['expirationDate']);
-    if (expirationDate.isBefore(DateTime.now())) return false;
 
     // set user data
     _token = userData['token'];
+    _refreshToken = userData['refreshToken'];
     _userId = userData['userId'];
-    _expirationDate = expirationDate;
-    _autoLogout();
+    _expirationDate = DateTime.parse(userData['expirationDate']);
 
-    // tell providers we're logged in
+    // check if token is still valid
+    if (_expirationDate!.isAfter(DateTime.now())) {
+      bool isRefreshed = await _refreshAuth();
+
+      if (!isRefreshed) {
+        await logout();
+        return false;
+      }
+    }
+
+    // reset logout timers and tell providers we're logged in
+    _autoLogout();
     notifyListeners();
     return true;
   }
@@ -115,8 +158,9 @@ class Auth with ChangeNotifier {
   Future<void> logout() async {
     _token = null;
     _userId = null;
+    _refreshToken = null;
     _expirationDate = null;
-    _authTimer!.cancel();
+    _authTimer?.cancel();
     notifyListeners();
 
     await _secureStorage.deleteAll();
@@ -130,8 +174,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> forgotPassword(String email) async {
-    const url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+    final url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=$_apiKey';
 
     try {
       final uri = Uri.parse(url);
@@ -150,8 +194,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> deleteAccount() async {
-    const url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+    final url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:delete?key=$_apiKey';
 
     try {
       final uri = Uri.parse(url);
