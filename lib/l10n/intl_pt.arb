@@ -56,7 +56,7 @@
     "loginPageForgotPasswordLabel": "Esqueceu a senha?",
     "loginPageButtonSignIn": "Entrar",
     "loginPageLabelNewUser": "Novo usuário?",
-    "loginPageLabelSignUp": "Cadastre-se aqui",
+    "loginPageLabelSignUp": " Cadastre-se aqui",
 
     "loginErrorAuthFailed": "A autenticação falhou.",
     "loginErrorEmailNotFound": "Email não encontrado.",
