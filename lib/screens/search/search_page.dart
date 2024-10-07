@@ -38,118 +38,99 @@ class _SearchPageState extends State<SearchPage> {
       });
     }
     _isInit = false;
+    _queryMed("");
     super.didChangeDependencies();
   }
 
   Widget drawResults(BuildContext context, String? query) {
     final medsData = Provider.of<Meds>(context, listen: false);
-    final meds = medsData.meds;
+    List filteredMeds = [];
 
+    // filter med list based on query
     if (query == null || query.isEmpty) {
-      // return image if no query has been done
-      return Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.9,
-          child: Image.asset(MpiAssets.logoMPIGreen),
-        ),
-      );
-
-      // process query
+      filteredMeds = medsData.meds;
     } else {
-      // filter med list based on query
-      final filteredMeds = meds
+      filteredMeds = medsData.meds
           .where((element) => removeDiacritics(element.name)
               .toUpperCase()
               .contains(removeDiacritics(query).toUpperCase()))
           .toList();
+    }
 
-      // display msg if results are empty
-      if (filteredMeds.isEmpty) {
-        return Column(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Divider(
-                  indent: 50,
-                  endIndent: 50,
-                  thickness: 4.0,
-                  color: kColorMPIRed,
-                ),
-                Text(
-                  S.current.searchResultsNotFound,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ],
-        );
-      }
-
-      // draw results
-      return ListView.separated(
-        itemCount: filteredMeds.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            Divider(color: Colors.transparent),
-
-        // draw med tiles
-        itemBuilder: (BuildContext context, int index) {
-          var isFavorite = Provider.of<UserPreferences>(context, listen: true)
-              .isFavorite(filteredMeds[index].id);
-
-          return Card(
-            color: kColorMPIGreenOpaque,
-            child: ListTile(
-              // card layout
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 10.0,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(kCardBorderRadius),
-              ),
-
-              // card title
-              title: Text(
-                filteredMeds[index].name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              // card info
-              subtitle: Text(
-                filteredMeds[index].medTypesToString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-
-              // trailing button
-              trailing: IconButton(
-                icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-                color: Colors.white,
-                onPressed: () {
-                  Provider.of<UserPreferences>(context, listen: false)
-                      .toggleFavorite(filteredMeds[index].id);
-                },
-              ),
-
-              // tap action
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MedDetails(med: filteredMeds[index]),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+    // display msg if results are empty
+    if (filteredMeds.isEmpty) {
+      return Center(
+        child: Text(
+          S.current.searchResultsNotFound,
+          textAlign: TextAlign.center,
+        ),
       );
     }
+
+    // draw results
+    return ListView.separated(
+      itemCount: filteredMeds.length,
+      separatorBuilder: (BuildContext context, int index) =>
+          Divider(color: Colors.transparent),
+
+      // draw med tiles
+      itemBuilder: (BuildContext context, int index) {
+        var isFavorite = Provider.of<UserPreferences>(context, listen: true)
+            .isFavorite(filteredMeds[index].id);
+
+        return Card(
+          color: kColorMPIGreenOpaque,
+          child: ListTile(
+            // card layout
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 10.0,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kCardBorderRadius),
+            ),
+
+            // card title
+            title: Text(
+              filteredMeds[index].name,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            // card info
+            subtitle: Text(
+              filteredMeds[index].medTypesToString(),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+
+            // trailing button
+            trailing: IconButton(
+              icon: isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              color: Colors.white,
+              onPressed: () {
+                Provider.of<UserPreferences>(context, listen: false)
+                    .toggleFavorite(filteredMeds[index].id);
+              },
+            ),
+
+            // tap action
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MedDetails(med: filteredMeds[index]),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   void _queryMed(String query) {
