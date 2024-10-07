@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -11,18 +11,21 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final _secureStorage = FlutterSecureStorage();
+
   Future _checkFirstBoot() async {
-    final appPrefs = await SharedPreferences.getInstance();
-    bool _firstBoot = (appPrefs.getBool('firstBoot') ?? true);
+    final firstBootString =
+        await _secureStorage.read(key: 'firstBoot') ?? "true";
+    final isFirstBoot = bool.parse(firstBootString);
 
     var userPreferences = Provider.of<UserPreferences>(context, listen: false);
     await userPreferences.fetchUserData();
 
     if (!userPreferences.user.isProfileComplete) {
-      await appPrefs.setBool('firstBoot', false);
+      await _secureStorage.write(key: 'firstBoot', value: "false");
       Navigator.pushReplacementNamed(context, '/profile_setup');
-    } else if (_firstBoot) {
-      await appPrefs.setBool('firstBoot', false);
+    } else if (isFirstBoot) {
+      await _secureStorage.write(key: 'firstBoot', value: "false");
       Navigator.pushReplacementNamed(context, '/onboarding');
     } else {
       Navigator.pushReplacementNamed(context, '/search');

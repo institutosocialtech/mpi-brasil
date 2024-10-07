@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:mpibrasil/models/http_exception.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Auth with ChangeNotifier {
   String? _token;
   DateTime? _expirationDate;
   String? _userId;
   Timer? _authTimer;
+
+  final _secureStorage = FlutterSecureStorage();
 
   bool get isAuth => token != null;
 
@@ -64,7 +66,6 @@ class Auth with ChangeNotifier {
       _autoLogout();
       notifyListeners();
 
-      final appPrefs = await SharedPreferences.getInstance();
       final userData = json.encode(
         {
           'token': _token,
@@ -72,7 +73,8 @@ class Auth with ChangeNotifier {
           'expirationDate': _expirationDate!.toIso8601String(),
         },
       );
-      appPrefs.setString('userData', userData);
+
+      await _secureStorage.write(key: 'userData', value: userData);
     } catch (error) {
       throw (error);
     }
@@ -87,22 +89,17 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    final appPrefs = await SharedPreferences.getInstance();
-    final userDataString = appPrefs.getString('userData');
+    final userDataString = await _secureStorage.read(key: 'userData');
 
     // no user data stored
-    if (userDataString == null) {
-      return false;
-    }
+    if (userDataString == null) return false;
 
     // parse prefs string into map
     final userData = json.decode(userDataString) as Map<String, dynamic>;
 
     // validate token expiration date
     final expirationDate = DateTime.parse(userData['expirationDate']);
-    if (expirationDate.isBefore(DateTime.now())) {
-      return false;
-    }
+    if (expirationDate.isBefore(DateTime.now())) return false;
 
     // set user data
     _token = userData['token'];
@@ -112,7 +109,6 @@ class Auth with ChangeNotifier {
 
     // tell providers we're logged in
     notifyListeners();
-
     return true;
   }
 
@@ -123,14 +119,11 @@ class Auth with ChangeNotifier {
     _authTimer!.cancel();
     notifyListeners();
 
-    final appPrefs = await SharedPreferences.getInstance();
-    appPrefs.remove('userData');
+    await _secureStorage.delete(key: 'userData');
   }
 
   void _autoLogout() {
-    if (_authTimer != null) {
-      _authTimer!.cancel();
-    }
+    if (_authTimer != null) _authTimer!.cancel();
 
     final timeToExpiry = _expirationDate!.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
