@@ -24,6 +24,7 @@ import 'screens/about/privacy_page.dart';
 import 'screens/about/tos_page.dart';
 import 'screens/common/loading.dart';
 import 'screens/common/splashscreen.dart';
+import 'screens/desprescribing/desprescribing_page.dart';
 import 'screens/favorites/favorites_overview.dart';
 import 'screens/keywords/keywords_overview.dart';
 import 'screens/login/forgot_password.dart';
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/about': (context) => AboutPage(),
             '/auth': (context) => LoginPage(),
+            '/desprescribing': (context) => DesprescribingPage(),
             '/faq': (context) => FAQPage(),
             '/favorites_overview': (context) => FavoritesOverview(),
             '/forgot_password': (context) => ForgotPassword(),
