@@ -173,9 +173,12 @@
     "searchLoadingData": "Carregando dados...",
 
     "@_DESPRESCRIBING_PAGE": {},
-    "desprescribingPageTitle": "Algoritmo de Desprescrição",
-    "desprescribingPageContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed nisi volutpat, ultricies lacus nec, dapibus dolor. Cras placerat vehicula lacus, dignissim cursus lectus mollis id. Morbi eget leo id nisl cursus commodo quis in dui. Vestibulum porttitor elementum nulla, non luctus massa aliquet vel. Etiam sapien mi, sollicitudin sed rhoncus ut, luctus ac magna. Nulla id dapibus purus, efficitur facilisis sapien. Vestibulum non viverra lectus. Pellentesque fringilla, quam id euismod scelerisque, tellus arcu ornare nisl, a scelerisque dolor nulla eu ex. Donec sit amet velit libero. Ut non purus ipsum. Etiam id nulla in tellus rutrum auctor. Cras at diam lorem. Fusce semper rhoncus est eget luctus. Quisque sollicitudin quam in pulvinar feugiat. Mauris scelerisque tincidunt sodales.\n\nCurabitur vitae dui sit amet lorem sollicitudin sagittis sit amet non nunc. Integer varius lobortis ligula a dapibus. Cras molestie libero et vestibulum accumsan. Pellentesque consequat, lectus ac luctus pulvinar, erat nisl dictum neque, finibus aliquet est est ut lorem. Suspendisse porta, mi in consectetur maximus, libero metus vehicula purus, at faucibus risus nisl quis elit. Phasellus turpis neque, scelerisque ut diam id, euismod maximus elit. Aenean eget velit mi. Aenean iaculis tincidunt erat, nec condimentum dui mattis rutrum. Duis hendrerit dui tortor, et vehicula ante euismod vel.",
-    "desprescribingStart": "Iniciar",
+    "despAppBarTitle": "Desprescrição",
+    "despPageTitle": "Algorítmo de desprescrição de anti-hipertensivos em pessoas idosas",
+    "despPageContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed nisi volutpat, ultricies lacus nec, dapibus dolor. Cras placerat vehicula lacus, dignissim cursus lectus mollis id. Morbi eget leo id nisl cursus commodo quis in dui. Vestibulum porttitor elementum nulla, non luctus massa aliquet vel. Etiam sapien mi, sollicitudin sed rhoncus ut, luctus ac magna. Nulla id dapibus purus, efficitur facilisis sapien. Vestibulum non viverra lectus. Pellentesque fringilla, quam id euismod scelerisque, tellus arcu ornare nisl, a scelerisque dolor nulla eu ex. Donec sit amet velit libero. Ut non purus ipsum. Etiam id nulla in tellus rutrum auctor. Cras at diam lorem. Fusce semper rhoncus est eget luctus.",
+    "despButtonStart": "Iniciar",
+    "despButtonYes": "Possui",
+    "despButtonNo": "Não Possui",
 
     "@_DESPRESCRIBING_RESULTS": {},
     "considerDeprescribingTitle": "Considere Desprescrever",
@@ -191,7 +194,7 @@
     "drawerGreeting": "Olá {userName}",
     "@drawerGreeting": { "placeholders": { "userName": { "type": "String" } } },
     "drawerSearch": "Buscar Medicamentos",
-    "drawerDesprescribing": "Algoritmo de Desprescrição",
+    "drawerDesprescribing": "Desprescrição",
     "drawerFavorites": "Favoritos",
     "drawerKeywords": "Glossário",
     "drawerFAQ": "FAQ",
@@ -265,6 +268,7 @@
     "errorUnexpected": "Erro desconhecido: {error}",
 
     "@_MISC": {},
+    "back": "Voltar",
     "ok": "Ok",
     "cancel": "Cancelar",
     "close": "Fechar",
