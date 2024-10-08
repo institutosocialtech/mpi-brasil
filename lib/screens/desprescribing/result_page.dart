@@ -19,6 +19,7 @@ class DespResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final contentList = resultContentList.split('\$');
 
     final contentWidgets = contentList.map((entry) {
@@ -43,7 +44,10 @@ class DespResultPage extends StatelessWidget {
                 // result image
                 Padding(
                   padding: const EdgeInsets.only(bottom: 25.0),
-                  child: SvgPicture.asset(MpiAssets.svgGroup3),
+                  child: SvgPicture.asset(
+                    MpiAssets.svgGroup3,
+                    height: size.height * 0.10,
+                  ),
                 ),
 
                 // result title
