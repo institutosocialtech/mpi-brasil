@@ -1,37 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/screens/desprescribing/result_page.dart';
+import 'package:mpibrasil/models/prompt.dart';
 
 class DespPromptPage extends StatelessWidget {
-  const DespPromptPage({super.key});
+  final Prompt prompt;
+
+  const DespPromptPage({
+    super.key,
+    required this.prompt,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kColorMPIGreenOpaque,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20.0),
           child: Column(
             children: [
-              // title
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25.0),
-                child: Text(
-                  'Prompt Page Title',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
+              // image header
+              Image.asset(
+                MpiAssets.imgUndrawMedicine,
+                height: MediaQuery.of(context).size.height * 0.20,
               ),
 
-              // question
-              Text(S.current.desprescribingPageContent),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // title
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: Text(
+                        prompt.title,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
 
-              // spacer
-              Expanded(child: Container()),
+                    // question
+                    Text(
+                      prompt.description,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
 
               // register response buttons
               Row(
@@ -42,8 +63,8 @@ class DespPromptPage extends StatelessWidget {
                     child: Text(S.current.no),
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
-                      backgroundColor: kColorMPIWhite,
-                      foregroundColor: kColorMPIOrange,
+                      backgroundColor: kColorMPIGreen,
+                      foregroundColor: kColorMPIWhite,
                     ),
                   ),
                   ElevatedButton(
@@ -51,8 +72,8 @@ class DespPromptPage extends StatelessWidget {
                     child: Text(S.current.yes),
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
-                      backgroundColor: kColorMPIWhite,
-                      foregroundColor: kColorMPIOrange,
+                      backgroundColor: kColorMPIGreen,
+                      foregroundColor: kColorMPIWhite,
                     ),
                   ),
                 ],
