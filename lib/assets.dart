@@ -3,6 +3,7 @@ class MpiAssets {
 
   // docs
   static String faqJson = 'assets/docs/faq.json';
+  static String despPromptsJson = 'assets/docs/desprescription.json';
   static String privacyMarkdown = 'assets/docs/privacy_policy.md';
 
   // global
