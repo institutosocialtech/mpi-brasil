@@ -172,6 +172,21 @@
     "searchHintText": "Pesquisar...",
     "searchLoadingData": "Carregando dados...",
 
+    "@_DESPRESCRIBING_PAGE": {},
+    "desprescribingPageTitle": "Algoritmo de Desprescrição",
+    "desprescribingPageContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed nisi volutpat, ultricies lacus nec, dapibus dolor. Cras placerat vehicula lacus, dignissim cursus lectus mollis id. Morbi eget leo id nisl cursus commodo quis in dui. Vestibulum porttitor elementum nulla, non luctus massa aliquet vel. Etiam sapien mi, sollicitudin sed rhoncus ut, luctus ac magna. Nulla id dapibus purus, efficitur facilisis sapien. Vestibulum non viverra lectus. Pellentesque fringilla, quam id euismod scelerisque, tellus arcu ornare nisl, a scelerisque dolor nulla eu ex. Donec sit amet velit libero. Ut non purus ipsum. Etiam id nulla in tellus rutrum auctor. Cras at diam lorem. Fusce semper rhoncus est eget luctus. Quisque sollicitudin quam in pulvinar feugiat. Mauris scelerisque tincidunt sodales.\n\nCurabitur vitae dui sit amet lorem sollicitudin sagittis sit amet non nunc. Integer varius lobortis ligula a dapibus. Cras molestie libero et vestibulum accumsan. Pellentesque consequat, lectus ac luctus pulvinar, erat nisl dictum neque, finibus aliquet est est ut lorem. Suspendisse porta, mi in consectetur maximus, libero metus vehicula purus, at faucibus risus nisl quis elit. Phasellus turpis neque, scelerisque ut diam id, euismod maximus elit. Aenean eget velit mi. Aenean iaculis tincidunt erat, nec condimentum dui mattis rutrum. Duis hendrerit dui tortor, et vehicula ante euismod vel.",
+    "desprescribingStart": "Iniciar",
+
+    "@_DESPRESCRIBING_RESULTS": {},
+    "considerDeprescribingTitle": "Considere Desprescrever",
+    "considerDeprescribingList": "Alfa-bloqueadores.$Diuréticos tiazídicos em pacientes com Hipocalemia, Hiponatremia, Hipercalcemia, Gota.$Beta-bloqueadores em combinação com Verapamil.$Beta-bloqueadores em pacientes com DPOC.$Diltiazem ou Verapamil em pacientes com Insuficiência Cardíaca.$Diuréticos de alça ou Beta-Bloqueadores como primeira linha/monoterapia para hipertensão e sem indicações concomitantes.$Diurético de alça/tiazídicos para tratamento de hipertensão com incontinência urinária concomitante (pode agravar a incontinência).$Inibidores da Enzima Conversora de Angiotensina ou Bloqueadores dos Receptores de Angiotensina em usuários com hipercalemia.$Medicamentos anti-hipertensivos na estenose aórtica sintomática grave (risco de hipotensão grave, síncope).",
+    "considerNotDeprescribingTitle": "Considere Não Desprescrever",
+    "considerNotDeprescribingList": "Beta-bloqueadores em pacientes com Fibrilação Atrial.$Diuréticos tiazídicos em pacientes Insuficiência Cardíaca sintomática.$Inibidores de ECA/Bloqueadores dos Receptores da Angiotensina II ou Beta-Bloqueadores em pacientes com Dinfunção Sistólica Ventricular Esquerda.",
+    "howToDeprescribeTitle": "Como Desprescrever",
+    "howToDeprescribeList": "Desprescrever um medicamento por vez, exceto se houver necessidade de suspender mais de um.$Reduzir a dose paulatinamente antes de suspender totalmente o anti-hipertensivo.$Diminuir a dose em 25 a 50% a cada 4 semanas.$A desprescrição mais rápida pode acontecer no caso de reações adversas ao anti-hipertensivo, ou se o usuário puder ser monitorado de perto.",
+    "howToMonitorTitle": "Como Monitorar",
+    "howToMonitorList": "Verificar a pressão arterial sistólica do paciente a cada 4 semanas, após a suspensão do medicamento ou redução de dose, para garantir que ela permaneça na meta.$Verificar se há eventos adversos7 associados à redução de dose ou retirada do medicamento.",
+
     "@_DRAWER": {},
     "drawerGreeting": "Olá {userName}",
     "@drawerGreeting": { "placeholders": { "userName": { "type": "String" } } },
