@@ -222,6 +222,24 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     }
   }
 
+  String? _validateBirthDate(String? value) {
+    // return error message if input is empty
+    if (value?.isEmpty ?? true) return S.current.profileSetupBirthDateErrorText;
+
+    try {
+      final date = DateFormat('dd/MM/yyyy').parse(value!);
+      // return error message if date is in the future or before 1900
+      if (date.isAfter(DateTime.now()) || date.isBefore(DateTime(1900))) {
+        return S.current.profileSetupBirthDateErrorText;
+      }
+    } catch (e) {
+      // return error message if date is not in the correct format
+      return S.current.profileSetupBirthDateErrorText;
+    }
+
+    return null;
+  }
+
   Future<void> _showEditBirthDateDialog(
     BuildContext context,
     String initialValue,
@@ -245,15 +263,16 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                TextField(
+                TextFormField(
                   controller: controller,
                   inputFormatters: [
-                    // todo validate date input
                     new MaskTextInputFormatter(
                       mask: '##/##/####',
                       filter: {"#": RegExp(r'[0-9]')},
                     ),
                   ],
+                  // todo validate date input
+                  validator: _validateBirthDate,
                   decoration: InputDecoration(
                     hintText: S.current.editBirthDateTextFieldHintText,
                     labelText: S.current.editBirthDateTextFieldLabelText,
