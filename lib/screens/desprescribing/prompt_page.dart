@@ -48,7 +48,7 @@ class DespPromptPage extends StatelessWidget {
                     Text(
                       prompt.description,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
