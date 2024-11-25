@@ -24,7 +24,7 @@ class DespResultPage extends StatelessWidget {
 
     final contentWidgets = contentList.map((entry) {
       return ListTile(
-        leading: Icon(Symbols.outpatient_med, color: Colors.black),
+        leading: Icon(Symbols.check_rounded, color: kColorMPIGreen),
         title: Text(entry),
         titleTextStyle: Theme.of(context)
             .textTheme
@@ -34,7 +34,7 @@ class DespResultPage extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -47,6 +47,7 @@ class DespResultPage extends StatelessWidget {
                   child: SvgPicture.asset(
                     MpiAssets.svgGroup3,
                     height: size.height * 0.10,
+                    color: kColorMPIGreen,
                   ),
                 ),
 
@@ -73,8 +74,8 @@ class DespResultPage extends StatelessWidget {
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(S.current.close.toUpperCase()),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kColorMPIWhite,
-                      foregroundColor: Colors.black,
+                      backgroundColor: kColorMPIGreen,
+                      foregroundColor: kColorMPIWhite,
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
