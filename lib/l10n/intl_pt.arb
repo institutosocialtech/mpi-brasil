@@ -181,6 +181,7 @@
     "despButtonNo": "Não Possui",
 
     "@_DESPRESCRIBING_RESULTS": {},
+    "despResultMaintainTreatment": "Tratar conforme as diretrizes atuais.",
     "considerDeprescribingTitle": "Considere Desprescrever",
     "considerDeprescribingList": "Alfa-bloqueadores.$Diuréticos tiazídicos em pacientes com Hipocalemia, Hiponatremia, Hipercalcemia, Gota.$Beta-bloqueadores em combinação com Verapamil.$Beta-bloqueadores em pacientes com DPOC.$Diltiazem ou Verapamil em pacientes com Insuficiência Cardíaca.$Diuréticos de alça ou Beta-Bloqueadores como primeira linha/monoterapia para hipertensão e sem indicações concomitantes.$Diurético de alça/tiazídicos para tratamento de hipertensão com incontinência urinária concomitante (pode agravar a incontinência).$Inibidores da Enzima Conversora de Angiotensina ou Bloqueadores dos Receptores de Angiotensina em usuários com hipercalemia.$Medicamentos anti-hipertensivos na estenose aórtica sintomática grave (risco de hipotensão grave, síncope).",
     "considerNotDeprescribingTitle": "Considere Não Desprescrever",
@@ -188,7 +189,9 @@
     "howToDeprescribeTitle": "Como Desprescrever",
     "howToDeprescribeList": "Desprescrever um medicamento por vez, exceto se houver necessidade de suspender mais de um.$Reduzir a dose paulatinamente antes de suspender totalmente o anti-hipertensivo.$Diminuir a dose em 25 a 50% a cada 4 semanas.$A desprescrição mais rápida pode acontecer no caso de reações adversas ao anti-hipertensivo, ou se o usuário puder ser monitorado de perto.",
     "howToMonitorTitle": "Como Monitorar",
-    "howToMonitorList": "Verificar a pressão arterial sistólica do paciente a cada 4 semanas, após a suspensão do medicamento ou redução de dose, para garantir que ela permaneça na meta.$Verificar se há eventos adversos7 associados à redução de dose ou retirada do medicamento.",
+    "howToMonitorList": "Verificar a pressão arterial sistólica do paciente a cada 4 semanas, após a suspensão do medicamento ou redução de dose, para garantir que ela permaneça na meta.$Verificar se há eventos adversos associados à redução de dose ou retirada do medicamento.",
+    "desprescribingOrderTitle": "Desprescrever nesta ordem",
+    "desprescribingOrderList": "Diuréticos de alça, Antagonistas da Aldosterona, anti-hipertensivos de açao central, Vasodilatadores Periféricos, Alfa-Bloqueadores$Beta-Bloqueadores$Diuréticos tiazídicos (e fármacos relacionados)$Inibidores de ECA/Bloqueadores dos Receptores da Angiotensina II (terapia de 2a linha para Hipertensão Arterial em pessoas idosas)$Bloqueadores dos Canais de Cálcio (terapia de 1a linha para Hipertensão Arterial em pessoas idosas)",
 
     "@_DRAWER": {},
     "drawerGreeting": "Olá {userName}",
