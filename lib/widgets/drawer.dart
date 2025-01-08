@@ -119,6 +119,7 @@ class AppDrawer extends StatelessWidget {
     var _userName = _userPrefs.user.name ?? '';
 
     return ListTile(
+      dense: true,
       title: Text(S.current.drawerGreeting(_userName)),
       titleTextStyle: tileLabelStyle,
       trailing: Icon(Symbols.settings_account_box, color: kColorMPIGray),
