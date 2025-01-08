@@ -62,6 +62,7 @@ class DespResultPage extends StatelessWidget {
                         S.current.considerDeprescribingList.split('\$'),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 25.0),
                   child: ResultCard(
@@ -72,6 +73,7 @@ class DespResultPage extends StatelessWidget {
                         S.current.considerNotDeprescribingList.split('\$'),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 25.0),
                   child: ResultCard(
@@ -80,6 +82,7 @@ class DespResultPage extends StatelessWidget {
                     contentList: S.current.howToDeprescribeList.split('\$'),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(bottom: 25.0),
                   child: ResultCard(

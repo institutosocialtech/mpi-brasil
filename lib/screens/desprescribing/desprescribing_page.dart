@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/prompt.dart';
+import 'package:mpibrasil/screens/desprescribing/message_page.dart';
 import 'package:mpibrasil/screens/desprescribing/prompt_page.dart';
 import 'package:mpibrasil/screens/desprescribing/result_page.dart';
 
@@ -22,6 +21,36 @@ class DesprescribingPage extends StatelessWidget {
     return (data['conditions'] as List).map((e) => Prompt.fromJson(e)).toList();
   }
 
+  void showResult(Map<String, dynamic> answers, BuildContext context) {
+    int score = answers['result_score'];
+    switch (score) {
+      // mantain score
+      case 0:
+        var pageRoute = MaterialPageRoute(
+          builder: (context) => QuizResultPage(
+            title: S.current.despResultMaintainTreatment,
+            message: S.current.despResultMantainTreatMentContent,
+            svgAsset: MpiAssets.svgUndrawMedicalCare,
+          ),
+        );
+        Navigator.of(context).push(pageRoute);
+        break;
+
+      // desprescribing score
+      case > 0:
+        var pageRoute = MaterialPageRoute(
+          builder: (context) => DespResultPage(),
+        );
+        Navigator.of(context).push(pageRoute);
+        break;
+
+      // todo: implement error page
+      default:
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -30,7 +59,7 @@ class DesprescribingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Container(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,8 +84,8 @@ class DesprescribingPage extends StatelessWidget {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25.0),
+              Expanded(
+                //padding: const EdgeInsets.only(bottom: 25.0),
                 child: Text(
                   S.current.despPageContent,
                   textAlign: TextAlign.justify,
@@ -74,7 +103,9 @@ class DesprescribingPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => DespPromptPage(
-                        prompt: promptList[Random().nextInt(9)],
+                        onQuizFinished: (answers) =>
+                            showResult(answers, context),
+                        prompts: promptList,
                       ),
                     ),
                   );
