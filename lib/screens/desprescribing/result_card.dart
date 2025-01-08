@@ -47,7 +47,7 @@ class ResultCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
       child: ExpansionTile(
-        initiallyExpanded: true,
+        initiallyExpanded: false,
         collapsedBackgroundColor: kColorMPIWhite,
         title: Text(
           this.title.toUpperCase(),
