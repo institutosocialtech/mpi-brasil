@@ -21,6 +21,11 @@ class DespResultPage extends StatelessWidget {
     return Scaffold(
       // scaffold appbar
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Symbols.close),
+          onPressed: () =>
+              Navigator.of(context).popUntil((route) => route.isFirst),
+        ),
         backgroundColor: kColorMPIGreenOpaque,
         title: Text('Resultado', style: headerStyle),
         centerTitle: true,
