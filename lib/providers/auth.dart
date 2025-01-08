@@ -171,7 +171,7 @@ class Auth with ChangeNotifier {
     _authTimer?.cancel();
     notifyListeners();
 
-    await _secureStorage.deleteAll();
+    await _secureStorage.delete(key: 'userData');
   }
 
   void _autoLogout() {
