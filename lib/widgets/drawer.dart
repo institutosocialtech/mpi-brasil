@@ -136,11 +136,16 @@ class AppDrawer extends StatelessWidget {
           titleTextStyle: tileLabelStyle,
           onTap: () => Navigator.pop(context),
         ),
-        ListTile(
-          leading: Icon(Symbols.clinical_notes, color: kColorMPIGreen),
-          title: Text(S.current.drawerDesprescribing),
-          titleTextStyle: tileLabelStyle,
-          onTap: () => Navigator.popAndPushNamed(context, '/desprescribing'),
+        Visibility(
+          visible: Provider.of<UserPreferences>(context, listen: false)
+              .user
+              .isBetaTester,
+          child: ListTile(
+            leading: Icon(Symbols.clinical_notes, color: kColorMPIGreen),
+            title: Text(S.current.drawerDesprescribing),
+            titleTextStyle: tileLabelStyle,
+            onTap: () => Navigator.popAndPushNamed(context, '/desprescribing'),
+          ),
         ),
         ListTile(
           leading: Icon(Symbols.star_outline, color: kColorMPIGreen),
