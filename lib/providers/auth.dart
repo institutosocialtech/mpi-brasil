@@ -160,6 +160,7 @@ class Auth with ChangeNotifier {
     // reset logout timers and tell providers we're logged in
     _autoLogout();
     notifyListeners();
+
     return true;
   }
 

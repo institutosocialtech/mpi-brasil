@@ -266,6 +266,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 TextFormField(
                   controller: controller,
                   inputFormatters: [
+                    // todo validate date input
                     new MaskTextInputFormatter(
                       mask: '##/##/####',
                       filter: {"#": RegExp(r'[0-9]')},
