@@ -15,7 +15,7 @@ class FAQPage extends StatelessWidget {
   );
 
   Future<List<FAQ>> loadFAQData(BuildContext context) async {
-    final String response = await rootBundle.loadString('assets/docs/faq.json');
+    final String response = await rootBundle.loadString(MpiAssets.faqJson);
     final Map<String, dynamic> data = json.decode(response);
     final locale = Localizations.localeOf(context).languageCode;
     return (data[locale] as List).map((e) => FAQ.fromJson(e)).toList();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
@@ -10,6 +11,12 @@ class PrivacyPolicyPage extends StatelessWidget {
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
+
+  Future<String> loadPrivacyMarkdown(BuildContext context) async {
+    final String response =
+        await rootBundle.loadString(MpiAssets.privacyMarkdown);
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +47,7 @@ class PrivacyPolicyPage extends StatelessWidget {
       ),
 
       // page content
+      // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
@@ -51,8 +59,19 @@ class PrivacyPolicyPage extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          // TODO: MarkdownWidget: fix textConfig(TextAlign.justify), olConfig(index container)
-          child: MarkdownWidget(data: S.current.privacyPolicyMarkdown),
+          child: FutureBuilder<String>(
+            future: loadPrivacyMarkdown(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('${snapshot.error}'));
+              } else {
+                final privacyPolicyMarkdown = snapshot.data!;
+                return MarkdownWidget(data: privacyPolicyMarkdown);
+              }
+            },
+          ),
         ),
       ),
     );

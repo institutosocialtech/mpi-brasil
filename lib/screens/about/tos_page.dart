@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 
 class TermsOfUsePage extends StatelessWidget {
@@ -72,7 +73,7 @@ class TermsOfUsePage extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,

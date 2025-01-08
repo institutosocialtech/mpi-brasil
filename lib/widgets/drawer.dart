@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:material_symbols_icons/symbols.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/auth.dart';
@@ -7,6 +9,12 @@ import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
+  final tileLabelStyle = TextStyle(
+    color: kColorMPIGray,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
+
   void _logout(BuildContext context) async {
     var headerStyle = TextStyle(
       color: kColorMPIGray,
@@ -79,21 +87,14 @@ class AppDrawer extends StatelessWidget {
             Divider(indent: 20, endIndent: 20),
 
             // use expanded as spacer to move the logout button to the bottom.
-            Expanded(
-              child: Container(),
-            ),
+            Expanded(child: Container()),
 
             // logout button
             ListTile(
               leading: Icon(Icons.exit_to_app, color: kColorMPIGray),
+              title: Text(S.current.logout),
+              titleTextStyle: tileLabelStyle,
               onTap: () => _logout(context),
-              title: Text(
-                S.current.logout,
-                style: TextStyle(
-                  color: kColorMPIGray,
-                  fontSize: 14,
-                ),
-              ),
             ),
           ],
         ),
@@ -105,9 +106,9 @@ class AppDrawer extends StatelessWidget {
     return DrawerHeader(
       child: Container(
         child: SvgPicture.asset(
-          'assets/images/group3.svg',
-          color: kColorMPIGreen,
+          MpiAssets.svgGroup3,
           fit: BoxFit.contain,
+          color: kColorMPIGreen,
         ),
       ),
     );
@@ -117,49 +118,58 @@ class AppDrawer extends StatelessWidget {
     var _userPrefs = Provider.of<UserPreferences>(context, listen: false);
     var _userName = _userPrefs.user.name ?? '';
 
-    var _userStyle = TextStyle(
-      color: kColorMPIGray,
-      fontSize: 12,
-    );
-
     return ListTile(
-      title: Text(S.current.drawerGreeting(_userName), style: _userStyle),
+      dense: true,
+      title: Text(S.current.drawerGreeting(_userName)),
+      titleTextStyle: tileLabelStyle,
+      trailing: Icon(Symbols.settings_account_box, color: kColorMPIGray),
       onTap: () => Navigator.of(context).popAndPushNamed('/profile'),
     );
   }
 
   Widget _buildDrawerList(BuildContext context) {
-    var labelStyle = TextStyle(
-      color: kColorMPIGray,
-      fontSize: 12,
-    );
-
     return Column(
       children: <Widget>[
         ListTile(
-          leading: Icon(Icons.search, color: kColorMPIGray),
-          title: Text(S.current.drawerSearch, style: labelStyle),
+          leading: Icon(Symbols.search, color: kColorMPIGreen),
+          title: Text(S.current.drawerSearch),
+          titleTextStyle: tileLabelStyle,
           onTap: () => Navigator.pop(context),
         ),
+        Visibility(
+          visible: Provider.of<UserPreferences>(context, listen: false)
+              .user
+              .isBetaTester,
+          child: ListTile(
+            leading: Icon(Symbols.clinical_notes, color: kColorMPIGreen),
+            title: Text(S.current.drawerDesprescribing),
+            titleTextStyle: tileLabelStyle,
+            onTap: () => Navigator.popAndPushNamed(context, '/desprescribing'),
+          ),
+        ),
         ListTile(
-          leading: Icon(Icons.star_outline, color: kColorMPIGray),
-          title: Text(S.current.drawerFavorites, style: labelStyle),
+          leading: Icon(Symbols.star_outline, color: kColorMPIGreen),
+          title: Text(S.current.drawerFavorites),
+          titleTextStyle: tileLabelStyle,
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
         ),
         ListTile(
-          leading: Icon(Icons.book, color: kColorMPIGray),
-          title: Text(S.current.drawerKeywords, style: labelStyle),
+          leading: Icon(Symbols.book, color: kColorMPIGreen),
+          title: Text(S.current.drawerKeywords),
+          titleTextStyle: tileLabelStyle,
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
-          leading: Icon(Icons.question_mark, color: kColorMPIGray),
-          title: Text(S.current.drawerFAQ, style: labelStyle),
+          leading: Icon(Symbols.question_mark, color: kColorMPIGreen),
+          title: Text(S.current.drawerFAQ),
+          titleTextStyle: tileLabelStyle,
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
         ),
         ListTile(
-          leading: Icon(Icons.info, color: kColorMPIGray),
-          title: Text(S.current.drawerAbout, style: labelStyle),
+          leading: Icon(Symbols.info, color: kColorMPIGreen),
+          title: Text(S.current.drawerAbout),
+          titleTextStyle: tileLabelStyle,
           onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),
       ],

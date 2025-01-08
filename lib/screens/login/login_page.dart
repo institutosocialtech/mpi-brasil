@@ -98,8 +98,9 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     // save form data
     _formKey.currentState!.save();
+
     // display progress indicator
-    setState(() => _isLoading = true);
+    if (this.mounted) setState(() => _isLoading = true);
 
     // try to login
     try {
@@ -133,7 +134,8 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     // hide progress indicator
-    setState(() => _isLoading = false);
+    // check if widget is mounted before calling set state
+    if (this.mounted) setState(() => _isLoading = false);
   }
 
   @override
@@ -326,7 +328,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
+      child: SvgPicture.asset(MpiAssets.svgGroup3, fit: BoxFit.scaleDown),
     );
   }
 

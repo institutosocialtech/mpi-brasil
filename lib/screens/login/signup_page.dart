@@ -334,7 +334,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
+      child: SvgPicture.asset(MpiAssets.svgGroup3, fit: BoxFit.scaleDown),
     );
   }
 

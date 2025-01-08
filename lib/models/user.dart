@@ -16,9 +16,12 @@ class User with ChangeNotifier {
   DateTime? birthDate;
   @JsonKey(name: 'favorites', defaultValue: {})
   Map<String, bool>? favorites;
+  @JsonKey(name: 'beta_tester', defaultValue: false)
+  bool? betaTester;
 
   User({
     required this.id,
+    this.betaTester,
     this.name,
     this.occupation,
     this.birthDate,
@@ -56,5 +59,9 @@ class User with ChangeNotifier {
     }
 
     return true;
+  }
+
+  bool get isBetaTester {
+    return this.betaTester ?? false;
   }
 }
