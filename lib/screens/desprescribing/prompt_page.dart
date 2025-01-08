@@ -1,19 +1,106 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/prompt.dart';
 
-class DespPromptPage extends StatelessWidget {
-  final Prompt prompt;
+class DespPromptPage extends StatefulWidget {
+  final List<Prompt> prompts;
+  final void Function(Map<String, dynamic>) onQuizFinished;
 
   const DespPromptPage({
     super.key,
-    required this.prompt,
+    required this.onQuizFinished,
+    required this.prompts,
   });
 
   @override
+  State<DespPromptPage> createState() => _DespPromptPageState();
+}
+
+class _DespPromptPageState extends State<DespPromptPage> {
+  int _questionIndex = 0;
+  Map<String, dynamic> _quiz = {
+    'answers': <String, bool>{},
+    'result_score': -1,
+  };
+
+  void setAnswer(String promptId, bool answer) {
+    setState(() {
+      (_quiz['answers'] as Map<String, bool>)[promptId] = answer;
+      _questionIndex++;
+    });
+  }
+
+  int scoreCount() {
+    return (_quiz['answers'] as Map<String, bool>)
+        .values
+        .where((answer) => answer)
+        .length;
+  }
+
+  void showResults() {
+    setState(() => _quiz["result_score"] = scoreCount());
+    sleep(Duration(milliseconds: 200));
+    widget.onQuizFinished(_quiz);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_questionIndex >= widget.prompts.length) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // image header
+                Image.asset(
+                  MpiAssets.imgUndrawMedicalCare,
+                  height: MediaQuery.of(context).size.height * 0.30,
+                ),
+
+                // show result prompt
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25.0),
+                  child: Text(
+                    S.current.despShowResultsTitle,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                // show results button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => showResults(),
+                      child: Text(S.current.despShowResultsButtonLabel),
+                      style: ElevatedButton.styleFrom(
+                        textStyle: TextStyle(fontWeight: FontWeight.bold),
+                        backgroundColor: kColorMPIGreen,
+                        foregroundColor: kColorMPIWhite,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    var prompt = widget.prompts[_questionIndex];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -59,7 +146,7 @@ class DespPromptPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => setAnswer(prompt.id, false),
                     child: Text(S.current.no),
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -68,7 +155,7 @@ class DespPromptPage extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => setAnswer(prompt.id, true),
                     child: Text(S.current.yes),
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
