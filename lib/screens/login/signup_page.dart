@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
@@ -14,7 +16,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   // draw util
-  bool _isLoading;
+  bool _isLoading = false;
 
   // auth
   Map<String, String> _authData = {
@@ -29,10 +31,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final _pwdVerifyController = TextEditingController();
 
   // focus nodes
-  FocusNode _fEmail;
-  FocusNode _fPwd;
-  FocusNode _fPwdVerify;
-  FocusNode _fSubmit;
+  FocusNode? _fEmail;
+  FocusNode? _fPwd;
+  FocusNode? _fPwdVerify;
+  FocusNode? _fSubmit;
 
   // init
   @override
@@ -48,10 +50,10 @@ class _SignUpPageState extends State<SignUpPage> {
   // dispose
   @override
   void dispose() {
-    _fEmail.dispose();
-    _fPwd.dispose();
-    _fPwdVerify.dispose();
-    _fSubmit.dispose();
+    _fEmail!.dispose();
+    _fPwd!.dispose();
+    _fPwdVerify!.dispose();
+    _fSubmit!.dispose();
     super.dispose();
   }
 
@@ -60,14 +62,14 @@ class _SignUpPageState extends State<SignUpPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.error),
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text("Fechar"),
+            child: Text(S.current.close),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              primary: kColorMPIWhite,
+              foregroundColor: kColorMPIWhite,
               backgroundColor: kColorMPIGreen,
             ),
           ),
@@ -77,32 +79,37 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   // validate form entry
-  String _validateEntry(String type, String value) {
-    switch (type) {
-      case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email inválido';
-        break;
+  String? _validateEntry(String type, String? value) {
+    if (value != null) {
+      switch (type) {
+        case 'email':
+          if (value.isEmpty || !value.contains('@'))
+            return S.current.signUpErrorInvalidEmail;
+          break;
 
-      case 'password':
-        if (value.isEmpty) return 'Digite sua senha!';
-        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
-        break;
+        case 'password':
+          if (value.isEmpty) return S.current.signUpErrorPasswordEmpty;
+          if (value.length < 6) return S.current.signUpErrorPasswordWeak;
+          break;
 
-      case 'passVerify':
-        if (value.isEmpty) return 'Digite sua senha novamente!';
-        if (value != _pwdController.text) return 'Senha não confere!';
-        if (value.length < 6) return 'A senha deve ter pelo menos 6 dígitos';
-        break;
+        case 'passVerify':
+          if (value.isEmpty) return S.current.signUpErrorPasswordEmpty;
+          if (value.length < 6) return S.current.signUpErrorPasswordWeak;
+          if (value != _pwdController.text)
+            return S.current.signUpErrorPasswordMismatch;
+          break;
+      }
     }
+
     return null;
   }
 
   // submit signUp
   Future<void> _submit() async {
     // validate form
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     // save form data
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     // display progress indicator
     setState(() => _isLoading = true);
 
@@ -110,35 +117,30 @@ class _SignUpPageState extends State<SignUpPage> {
     // try to login
     try {
       await Provider.of<Auth>(context, listen: false).signup(
-        _authData['email'],
-        _authData['password'],
+        _authData['email']!,
+        _authData['password']!,
       );
     } on HttpException catch (error) {
       var errorMessage;
 
-      // trim firebase error message
-      var endIndex = error.message.indexOf(" :", 0);
-      var errorCode = error.message.substring(0, endIndex);
-
-      switch (errorCode) {
+      switch (error.message) {
         case "INVALID_EMAIL":
-          errorMessage = 'Email inválido!';
+          errorMessage = S.current.signUpErrorInvalidEmail;
           break;
         case "EMAIL_EXISTS":
-          errorMessage = 'Email já cadastrado!';
+          errorMessage = S.current.signUpErrorEmailExists;
           break;
         case "WEAK_PASSWORD":
-          errorMessage = 'Senha deve ter ao menos 6 caracteres!';
+          errorMessage = S.current.signUpErrorPasswordWeak;
           break;
         default:
-          errorMessage = 'A autenticação falhou!';
+          errorMessage = S.current.signUpErrorAuthFailed;
           break;
       }
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.signUpErrorUnknown);
     }
 
     // hide progress indicator
@@ -157,7 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // sign in button appearance
     final _signUpButtonStyle = ElevatedButton.styleFrom(
-      primary: kColorMPIGreen,
+      backgroundColor: kColorMPIGreen,
     );
 
     // text styles
@@ -207,14 +209,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Email"),
-                                        validator: (value) =>
+                                        decoration: InputDecoration(
+                                          hintText: S.current
+                                              .signUpPageEmailTextFieldHintText,
+                                        ),
+                                        validator: (String? value) =>
                                             _validateEntry('email', value),
-                                        onSaved: (value) =>
-                                            _authData['email'] = value,
+                                        onSaved: (String? value) =>
+                                            _authData['email'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fEmail.unfocus();
+                                          _fEmail!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPwd);
                                         },
@@ -226,14 +230,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                         focusNode: _fPwd,
                                         controller: _pwdController,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Senha"),
+                                        decoration: InputDecoration(
+                                          hintText: S.current
+                                              .signUpPagePasswordTextFieldHintText,
+                                        ),
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
-                                            _authData['password'] = value,
+                                            _authData['password'] = value ?? '',
                                         onFieldSubmitted: (value) {
-                                          _fPwd.unfocus();
+                                          _fPwd!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPwdVerify);
                                         },
@@ -246,11 +252,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                         controller: _pwdVerifyController,
                                         textInputAction: TextInputAction.done,
                                         decoration: InputDecoration(
-                                            hintText: "Repetir senha"),
+                                          hintText: S.current
+                                              .signUpPagePasswordVerifyTextFieldHintText,
+                                        ),
                                         validator: (value) =>
                                             _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {
-                                          _fPwdVerify.unfocus();
+                                          _fPwdVerify!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fSubmit);
                                         },
@@ -263,7 +271,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           onPressed: _submit,
                                           style: _signUpButtonStyle,
                                           child: Text(
-                                            "Registrar",
+                                            S.current.signUpPageButtonSubmit,
                                             style: _buttonTextStyle,
                                           ),
                                         ),
@@ -274,12 +282,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Já possui uma conta? ",
+                                            S.current.signUpPageHasAccountLabel,
                                             style: _labelStyle,
                                           ),
                                           InkWell(
                                             child: Text(
-                                              'Fazer login.',
+                                              S.current.signUpPageLoginLabel,
                                               style: _linkStyle,
                                             ),
                                             onTap: () =>
@@ -318,7 +326,7 @@ class _SignUpPageState extends State<SignUpPage> {
       // background
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg_shadow.png'),
+          image: AssetImage(MpiAssets.bgShadow),
           colorFilter: headerColorFilter,
           alignment: Alignment.topLeft,
           fit: BoxFit.fitWidth,
@@ -326,10 +334,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(
-        'assets/images/group3.svg',
-        fit: BoxFit.scaleDown,
-      ),
+      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
     );
   }
 
@@ -343,11 +348,11 @@ class _SignUpPageState extends State<SignUpPage> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Text(
-                'v${snapshot.data.version}',
+                'v${snapshot.data!.version}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall!
                     .copyWith(color: kColorMPIGray),
               );
             default:

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
-import '../providers/auth.dart';
-import '../providers/userpreferences.dart';
 
 class AppDrawer extends StatelessWidget {
   void _logout(BuildContext context) async {
@@ -24,23 +25,23 @@ class AppDrawer extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text('Sair', style: headerStyle),
-          content: Text('Deseja efetuar o logout?', style: messageStyle),
+          title: Text(S.current.logoutDialogTitle, style: headerStyle),
+          content: Text(S.current.logoutDialogContent, style: messageStyle),
           actionsPadding: EdgeInsets.all(4.0),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text('Não'),
+              child: Text(S.current.no),
               style: TextButton.styleFrom(
-                primary: kColorMPIGray,
+                foregroundColor: kColorMPIGray,
                 backgroundColor: kColorMPIWhite,
               ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Sim'),
+              child: Text(S.current.yes),
               style: TextButton.styleFrom(
-                primary: Colors.white,
+                foregroundColor: Colors.white,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -82,12 +83,12 @@ class AppDrawer extends StatelessWidget {
               child: Container(),
             ),
 
-            // logout butotn
+            // logout button
             ListTile(
               leading: Icon(Icons.exit_to_app, color: kColorMPIGray),
               onTap: () => _logout(context),
               title: Text(
-                'Sair',
+                S.current.logout,
                 style: TextStyle(
                   color: kColorMPIGray,
                   fontSize: 14,
@@ -114,7 +115,7 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildUserTile(BuildContext context) {
     var _userPrefs = Provider.of<UserPreferences>(context, listen: false);
-    var _userName = _userPrefs.user.name;
+    var _userName = _userPrefs.user.name ?? '';
 
     var _userStyle = TextStyle(
       color: kColorMPIGray,
@@ -122,7 +123,7 @@ class AppDrawer extends StatelessWidget {
     );
 
     return ListTile(
-      title: Text('Olá, $_userName', style: _userStyle),
+      title: Text(S.current.drawerGreeting(_userName), style: _userStyle),
       onTap: () => Navigator.of(context).popAndPushNamed('/profile'),
     );
   }
@@ -137,28 +138,28 @@ class AppDrawer extends StatelessWidget {
       children: <Widget>[
         ListTile(
           leading: Icon(Icons.search, color: kColorMPIGray),
-          title: Text('Buscar Medicamentos', style: labelStyle),
+          title: Text(S.current.drawerSearch, style: labelStyle),
           onTap: () => Navigator.pop(context),
         ),
         ListTile(
           leading: Icon(Icons.star_outline, color: kColorMPIGray),
-          title: Text('Favoritos', style: labelStyle),
+          title: Text(S.current.drawerFavorites, style: labelStyle),
           onTap: () =>
               Navigator.popAndPushNamed(context, '/favorites_overview'),
         ),
         ListTile(
           leading: Icon(Icons.book, color: kColorMPIGray),
-          title: Text('Glossário', style: labelStyle),
+          title: Text(S.current.drawerKeywords, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/keywords_overview'),
         ),
         ListTile(
           leading: Icon(Icons.question_mark, color: kColorMPIGray),
-          title: Text('FAQ', style: labelStyle),
+          title: Text(S.current.drawerFAQ, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/faq'),
         ),
         ListTile(
           leading: Icon(Icons.info, color: kColorMPIGray),
-          title: Text('Sobre', style: labelStyle),
+          title: Text(S.current.drawerAbout, style: labelStyle),
           onTap: () => Navigator.popAndPushNamed(context, '/about'),
         ),
       ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/models/keyword.dart';
+import 'package:mpibrasil/providers/keywords.dart';
+import 'package:mpibrasil/screens/keywords/keyword_details.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants.dart';
-import '../../models/keyword.dart';
-import '../../providers/keywords.dart';
-import 'keyword_details.dart';
 
 class KeywordsOverview extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -69,7 +70,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('GLOSSÁRIO', style: headerStyle),
+            child: Text(S.current.keywordsPageTitle, style: headerStyle),
           ),
         ),
       ),
@@ -105,7 +106,7 @@ class _KeywordsOverviewState extends State<KeywordsOverview> {
 }
 
 class KeywordList extends StatelessWidget {
-  const KeywordList({Key key, @required this.keywords}) : super(key: key);
+  const KeywordList({Key? key, required this.keywords}) : super(key: key);
 
   final List<Keyword> keywords;
 

@@ -1,13 +1,13 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/providers/meds.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/screens/search/med_details.dart';
+import 'package:mpibrasil/widgets/drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/svg.dart';
-
-import '../../providers/meds.dart';
-import '../../providers/userpreferences.dart';
-import 'med_details.dart';
-import '../../widgets/drawer.dart';
-import '../../constants.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -19,12 +19,11 @@ class _SearchPageState extends State<SearchPage> {
   var _isLoading = false;
 
   Widget resultPane = Center(
-      child: FractionallySizedBox(
-    widthFactor: 0.9,
-    child: Image.asset(
-      'assets/images/logo_green.png',
+    child: FractionallySizedBox(
+      widthFactor: 0.9,
+      child: Image.asset(MpiAssets.logoMPIGreen),
     ),
-  ));
+  );
 
   @override
   void didChangeDependencies() {
@@ -42,19 +41,18 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
   }
 
-  Widget drawResults(BuildContext context, String query) {
+  Widget drawResults(BuildContext context, String? query) {
     final medsData = Provider.of<Meds>(context, listen: false);
     final meds = medsData.meds;
 
     if (query == null || query.isEmpty) {
       // return image if no query has been done
       return Center(
-          child: FractionallySizedBox(
-        widthFactor: 0.9,
-        child: Image.asset(
-          'assets/images/logo_green.png',
+        child: FractionallySizedBox(
+          widthFactor: 0.9,
+          child: Image.asset(MpiAssets.logoMPIGreen),
         ),
-      ));
+      );
 
       // process query
     } else {
@@ -78,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                   color: kColorMPIRed,
                 ),
                 Text(
-                  "Nenhum resultado encontrado",
+                  S.current.searchResultsNotFound,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -171,7 +169,7 @@ class _SearchPageState extends State<SearchPage> {
 
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -188,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: _queryMed,
               decoration: InputDecoration(
                 fillColor: kColorMPIWhite,
-                hintText: "Pesquisar...",
+                hintText: S.current.searchHintText,
                 suffixIcon: Icon(Icons.search, color: kColorMPIGray),
               ),
             ),
@@ -222,7 +220,7 @@ class _SearchPageState extends State<SearchPage> {
                             AlwaysStoppedAnimation<Color>(kColorMPIGreen),
                       ),
                     ),
-                    Text("Carregando dados..."),
+                    Text(S.current.searchLoadingData),
                   ],
                 )
               : resultPane,

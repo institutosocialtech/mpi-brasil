@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
@@ -14,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // draw util
-  bool _isLoading;
+  bool _isLoading = false;
 
   // auth
   Map<String, String> _authData = {
@@ -28,9 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   // focus nodes
-  FocusNode _fEmail;
-  FocusNode _fPassword;
-  FocusNode _fSubmit;
+  FocusNode? _fEmail;
+  FocusNode? _fPassword;
+  FocusNode? _fSubmit;
 
   // init
   @override
@@ -45,9 +47,9 @@ class _LoginPageState extends State<LoginPage> {
   // dispose
   @override
   void dispose() {
-    _fEmail.dispose();
-    _fPassword.dispose();
-    _fSubmit.dispose();
+    _fEmail!.dispose();
+    _fPassword!.dispose();
+    _fSubmit!.dispose();
     super.dispose();
   }
 
@@ -56,14 +58,14 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.error),
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text("Fechar"),
+            child: Text(S.current.close),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
-              primary: kColorMPIWhite,
+              foregroundColor: kColorMPIWhite,
               backgroundColor: kColorMPIGreen,
             ),
           ),
@@ -73,58 +75,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // validate form entry
-  String _validateEntry(String type, String value) {
-    switch (type) {
-      case 'email':
-        if (value.isEmpty || !value.contains('@')) return 'Email Inválido';
-        break;
+  String? _validateEntry(String type, String? value) {
+    if (value != null) {
+      switch (type) {
+        case 'email':
+          if (value.isEmpty || !value.contains('@'))
+            return S.current.loginErrorInvalidEmail;
+          break;
 
-      case 'password':
-        if (value.isEmpty) return 'Digite sua Senha!';
-        break;
+        case 'password':
+          if (value.isEmpty) return S.current.loginErrorPasswordEmpty;
+          break;
+      }
     }
+
     return null;
   }
 
   // form submit
   Future<void> _submit() async {
     // validate form
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     // save form data
-    _formKey.currentState.save();
+    _formKey.currentState!.save();
     // display progress indicator
     setState(() => _isLoading = true);
 
     // try to login
     try {
       await Provider.of<Auth>(context, listen: false).login(
-        _authData['email'],
-        _authData['password'],
+        _authData['email']!,
+        _authData['password']!,
       );
     } on HttpException catch (error) {
-      var errorMessage = 'A autenticação falhou!';
+      var errorMessage = S.current.loginErrorAuthFailed;
 
       switch (error.toString()) {
         case "INVALID_EMAIL":
-          errorMessage = 'Email inválido!';
+          errorMessage = S.current.loginErrorInvalidEmail;
           break;
         case "EMAIL_NOT_FOUND":
-          errorMessage = 'Email não encontrado!';
+          errorMessage = S.current.loginErrorEmailNotFound;
           break;
         case "EMAIL_EXISTS":
-          errorMessage = 'Email já cadastrado!';
+          errorMessage = S.current.loginErrorEmailExists;
           break;
         case "INVALID_PASSWORD":
-          errorMessage = 'Senha incorreta!';
+          errorMessage = S.current.loginErrorInvalidPassword;
           break;
         case "USER_DISABLED":
-          errorMessage = 'Conta desativada por um administrador!';
+          errorMessage = S.current.loginErrorUserDisabled;
           break;
       }
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage = 'Erro desconhecido, tente novamente mais tarde';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.loginErrorUnknown);
     }
 
     // hide progress indicator
@@ -141,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final _signInButtonStyle = ElevatedButton.styleFrom(
-      primary: kColorMPIGreen,
+      backgroundColor: kColorMPIGreen,
     );
 
     // text styles
@@ -194,14 +199,15 @@ class _LoginPageState extends State<LoginPage> {
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         textInputAction: TextInputAction.next,
-                                        decoration:
-                                            InputDecoration(hintText: "Email"),
+                                        decoration: InputDecoration(
+                                            hintText: S.current
+                                                .loginPageEmailHintText),
                                         validator: (value) =>
                                             _validateEntry('email', value),
                                         onSaved: (value) =>
-                                            _authData['email'] = value,
+                                            _authData['email'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fEmail.unfocus();
+                                          _fEmail!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fPassword);
                                         },
@@ -214,14 +220,15 @@ class _LoginPageState extends State<LoginPage> {
                                         focusNode: _fPassword,
                                         controller: _passwordController,
                                         textInputAction: TextInputAction.done,
-                                        decoration:
-                                            InputDecoration(hintText: "Senha"),
+                                        decoration: InputDecoration(
+                                            hintText: S.current
+                                                .loginPagePasswordHintText),
                                         validator: (value) =>
                                             _validateEntry('password', value),
                                         onSaved: (value) =>
-                                            _authData['password'] = value,
+                                            _authData['password'] = value ?? '',
                                         onFieldSubmitted: (text) {
-                                          _fPassword.unfocus();
+                                          _fPassword!.unfocus();
                                           FocusScope.of(context)
                                               .requestFocus(_fSubmit);
                                         },
@@ -236,8 +243,11 @@ class _LoginPageState extends State<LoginPage> {
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
                                                 context, '/forgot_password'),
-                                            child: Text('Esqueceu a senha?',
-                                                style: _labelStyle),
+                                            child: Text(
+                                              S.current
+                                                  .loginPageForgotPasswordLabel,
+                                              style: _labelStyle,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -250,8 +260,10 @@ class _LoginPageState extends State<LoginPage> {
                                           onPressed: _submit,
                                           focusNode: _fSubmit,
                                           style: _signInButtonStyle,
-                                          child: Text("Entrar",
-                                              style: _buttonTextStyle),
+                                          child: Text(
+                                            S.current.loginPageButtonSignIn,
+                                            style: _buttonTextStyle,
+                                          ),
                                         ),
                                       ),
 
@@ -261,13 +273,17 @@ class _LoginPageState extends State<LoginPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text('Novo usuário? ',
-                                              style: _labelStyle),
+                                          Text(
+                                            S.current.loginPageLabelNewUser,
+                                            style: _labelStyle,
+                                          ),
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
                                                 context, '/signup'),
-                                            child: Text('Cadastre aqui',
-                                                style: _linkStyle),
+                                            child: Text(
+                                              S.current.loginPageLabelSignUp,
+                                              style: _linkStyle,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -302,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
       // background
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg_shadow.png'),
+          image: AssetImage(MpiAssets.bgShadow),
           colorFilter: headerColorFilter,
           alignment: Alignment.topLeft,
           fit: BoxFit.fitWidth,
@@ -310,10 +326,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
 
       // logo
-      child: SvgPicture.asset(
-        'assets/images/group3.svg',
-        fit: BoxFit.scaleDown,
-      ),
+      child: SvgPicture.asset(MpiAssets.imgGroup3, fit: BoxFit.scaleDown),
     );
   }
 
@@ -326,11 +339,11 @@ class _LoginPageState extends State<LoginPage> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               return Text(
-                'v${snapshot.data.version}',
+                'v${snapshot.data!.version}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall!
                     .copyWith(color: kColorMPIGray),
               );
             default:

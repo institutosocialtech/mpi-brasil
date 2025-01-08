@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/models/med.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/widgets/report_problem.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../constants.dart';
-import '../models/med.dart';
-import '../providers/userpreferences.dart';
-import '../widgets/report_problem.dart';
-
 class FloatingMenu extends StatelessWidget {
   final Med med;
-  FloatingMenu({Key key, this.med}) : super(key: key);
+
+  FloatingMenu({Key? key, required this.med}) : super(key: key);
 
   Widget build(BuildContext context) {
     var isFavorite =
@@ -30,8 +31,8 @@ class FloatingMenu extends StatelessWidget {
       curve: Curves.bounceIn,
       overlayColor: Colors.black,
       overlayOpacity: 0.5,
-      tooltip: 'Speed Dial',
-      heroTag: 'speed-dial-hero-tag',
+      tooltip: S.current.floatingMenuTooltip,
+      heroTag: S.current.floatingMenuHeroTag,
       backgroundColor: kColorMPIGreen,
       foregroundColor: kColorMPIWhite,
       elevation: 8.0,
@@ -43,17 +44,21 @@ class FloatingMenu extends StatelessWidget {
               ? Icon(Icons.star, color: kColorMPIWhite)
               : Icon(Icons.star_outline, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: isFavorite ? 'Remover favorito' : 'Adicionar favorito',
+          label: isFavorite ? S.current.delFavorite : S.current.addFavorite,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
             Provider.of<UserPreferences>(context, listen: false)
                 .toggleFavorite(med.id);
-            if (isFavorite) {
-              final snackbar = SnackBar(
-                content: Text('"${med.name}" removido dos favoritos!'),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            }
+
+            final snackbar = SnackBar(
+              content: Text(
+                isFavorite
+                    ? S.current.removedFromFavorites(med.name)
+                    : S.current.addedToFavorites(med.name),
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
           },
         ),
 
@@ -61,34 +66,43 @@ class FloatingMenu extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.share, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: 'Compartilhar',
+          label: S.current.share,
           labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () {
-            String shareCondicoes = "";
-            if (med.conditionsToAvoid != null) {
-              shareCondicoes = "\n\nCondições a serem evitadas:";
-              for (MedAvoidCondition c in med.conditionsToAvoid) {
-                shareCondicoes += "\n* ${c.name}";
-              }
-            }
-            Share.share("${med.name}" +
-                "\n\nClasse Farmacológica:\n${med.medTypesToString()}" +
-                "$shareCondicoes" +
-                "\n\nAcesse em:\nhttps://mpibrasil.codemagic.app");
-          },
+          onTap: () => Share.share(buildShareMsg(context, med)),
         ),
 
         // reportar erro
         SpeedDialChild(
           child: Icon(Icons.report_problem, color: kColorMPIWhite),
           backgroundColor: kColorMPIGreen,
-          label: 'Reportar erro',
+          label: S.current.reportError,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
-            await ReportProblem().showReportDialog(context, "${med.name}");
+            await ReportProblem().showReportDialog(context, med.name);
           },
         ),
       ],
     );
+  }
+
+  String buildShareMsg(BuildContext context, Med med) {
+    final message = StringBuffer();
+
+    message.writeln(S.current.shareMedSection(med.name));
+    message.writeln(S.current.shareMedClassSection(med.medTypesToString()));
+
+    // write avoid conditions if present
+    if (med.hasConditionsToAvoid()) {
+      message.writeln(
+        S.current.shareMedAvoidConditionsSection(
+          med.conditionsToAvoid!
+              .map((condition) => '* ${condition.name}')
+              .join('\n'),
+        ),
+      );
+    }
+
+    message.writeln(S.current.shareAppInfoSection(S.current.appUrl));
+    return message.toString();
   }
 }

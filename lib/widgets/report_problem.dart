@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
-import '../providers/userpreferences.dart';
 
 enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
 class ReportProblem {
   Future<void> showReportDialog(BuildContext context, String medName) async {
-    ReportAction _reportAction;
+    ReportAction? _reportAction;
 
     final action = await showDialog(
       context: context,
@@ -16,14 +17,14 @@ class ReportProblem {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 24,
-          title: Text("Selecione o tipo de erro:"),
+          title: Text(S.current.reportDialogTitle),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SwitchListTile(
-                    title: Text('Informação'),
+                    title: Text(S.current.reportProblemTypeMedInfo),
                     value: _reportAction == ReportAction.MED_INFO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.MED_INFO) {
@@ -35,7 +36,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Ortografia'),
+                    title: Text(S.current.reportProblemTypeSpelling),
                     value: _reportAction == ReportAction.TEXT_TYPO,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.TEXT_TYPO) {
@@ -47,7 +48,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Bug'),
+                    title: Text(S.current.reportProblemTypeAppBug),
                     value: _reportAction == ReportAction.APP_BUG,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.APP_BUG) {
@@ -59,7 +60,7 @@ class ReportProblem {
                     },
                   ),
                   SwitchListTile(
-                    title: Text('Outros'),
+                    title: Text(S.current.reportProblemTypeOther),
                     value: _reportAction == ReportAction.OTHER,
                     onChanged: (value) {
                       if (_reportAction == ReportAction.OTHER) {
@@ -77,14 +78,16 @@ class ReportProblem {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar"),
-              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
+              child: Text(S.current.reportDialogCancel),
+              style: TextButton.styleFrom(
+                foregroundColor: kColorMPIGreenOpaque,
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(_reportAction),
-              child: Text("Enviar"),
+              child: Text(S.current.reportDialogSendReport),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -111,9 +114,8 @@ class ReportProblem {
 
       case ReportAction.OTHER:
         final mailOptions = MailOptions(
-          body:
-              'As informações do medicamento $medName apresentam o seguinte problema: ',
-          subject: "Detectado um problema com o medicamento $medName",
+          body: S.current.reportEmailBody(medName),
+          subject: S.current.reportEmailSubject(medName),
           recipients: ['mpibrasil@socialtech.org.br'],
           isHTML: true,
         );
@@ -126,9 +128,7 @@ class ReportProblem {
     }
 
     // display report info
-    final snackbar = SnackBar(
-      content: Text("Obrigado por contribuir com a app!"),
-    );
+    final snackbar = SnackBar(content: Text(S.current.reportMessageSent));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }

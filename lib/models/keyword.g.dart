@@ -6,15 +6,16 @@ part of 'keyword.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Keyword _$KeywordFromJson(Map<String, dynamic> json) {
-  return Keyword(
-    id: json['id'] as String,
-    word: json['word'] as String,
-    synonyms: (json['synonyms'] as List)?.map((e) => e as String)?.toList(),
-    definition: json['definition'] as String,
-    source: json['source'] as String,
-  );
-}
+Keyword _$KeywordFromJson(Map<String, dynamic> json) => Keyword(
+      id: json['id'] as String,
+      word: json['word'] as String,
+      definition: json['definition'] as String,
+      source: json['source'] as String,
+      synonyms: (json['synonyms'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+    );
 
 Map<String, dynamic> _$KeywordToJson(Keyword instance) => <String, dynamic>{
       'id': instance.id,

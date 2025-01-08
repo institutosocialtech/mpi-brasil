@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../constants.dart';
-import '../../models/med.dart';
-import '../../providers/meds.dart';
-import '../../providers/userpreferences.dart';
-import '../search/med_details.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
+import 'package:mpibrasil/models/med.dart';
+import 'package:mpibrasil/providers/meds.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/screens/search/med_details.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesOverview extends StatelessWidget {
   final headerStyle = TextStyle(
@@ -27,7 +28,7 @@ class FavoritesOverview extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -40,7 +41,7 @@ class FavoritesOverview extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text('FAVORITOS', style: headerStyle),
+            child: Text(S.current.favoritesPageTitle, style: headerStyle),
           ),
         ),
       ),
@@ -91,8 +92,8 @@ class _FavoriteListState extends State<FavoriteList> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SvgPicture.asset("assets/undraw_svg/doctors.svg", width: 192),
-                Text("Você não possui nenhum medicamento favorito."),
+                SvgPicture.asset(MpiAssets.svgUndrawDoctors, width: 192),
+                Text(S.current.favoritesEmptyList),
               ],
             ),
           )
@@ -142,13 +143,12 @@ class _FavoriteListState extends State<FavoriteList> {
                     onPressed: () {
                       userPreferences.toggleFavorite(med.id);
                       final snackbar = SnackBar(
-                        content: Text('"${med.name}" removido dos favoritos.'),
+                        content: Text(S.current.favoriteMedRemoved(med.name)),
                         action: SnackBarAction(
-                          label: 'Desfazer',
+                          label: S.current.undo,
                           textColor: Colors.white,
-                          onPressed: () {
-                            userPreferences.toggleFavorite(med.id);
-                          },
+                          onPressed: () =>
+                              userPreferences.toggleFavorite(med.id),
                         ),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);

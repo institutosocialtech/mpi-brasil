@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../providers/userpreferences.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -18,8 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var userPreferences = Provider.of<UserPreferences>(context, listen: false);
     await userPreferences.fetchUserData();
 
-    if (userPreferences.user.name == null) {
-      print('loading profile setup...');
+    if (!userPreferences.user.isProfileComplete) {
       await appPrefs.setBool('firstBoot', false);
       Navigator.pushReplacementNamed(context, '/profile_setup');
     } else if (_firstBoot) {

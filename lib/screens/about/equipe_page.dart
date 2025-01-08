@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/assets.dart';
+import 'package:mpibrasil/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../constants.dart';
 
 class EquipePage extends StatelessWidget {
   final headerStyle = TextStyle(
@@ -21,7 +21,7 @@ class EquipePage extends StatelessWidget {
         // page appbar
         flexibleSpace: Container(
           child: Image.asset(
-            'assets/images/med_composition.png',
+            MpiAssets.imgMedComposition,
             color: Colors.white.withOpacity(0.15),
             colorBlendMode: BlendMode.multiply,
             fit: BoxFit.cover,
@@ -72,7 +72,7 @@ class EquipePage extends StatelessWidget {
 }
 
 class AboutUsText extends StatelessWidget {
-  const AboutUsText({Key key}) : super(key: key);
+  const AboutUsText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,21 +84,15 @@ class AboutUsText extends StatelessWidget {
       padding: EdgeInsets.only(left: 20, top: 20, bottom: 0, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: MarkdownGenerator(
-          data: aboutText,
-          styleConfig: StyleConfig(
-            pConfig: PConfig(
-              textConfig: TextConfig(textAlign: TextAlign.justify),
-            ),
-          ),
-        ).widgets,
+        // TODO: MarkdownGenerator: fix textConfig(TextAlign.justify)
+        children: MarkdownGenerator().buildWidgets(aboutText),
       ),
     );
   }
 }
 
 class UesbTextImageSide extends StatelessWidget {
-  const UesbTextImageSide({Key key}) : super(key: key);
+  const UesbTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,14 +102,14 @@ class UesbTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
+              launchUrl(
+                  Uri.parse('http://catalogo.uesb.br/cursos/medicina-bac-vc'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                      data:
-                          '**Universidade Estadual do Sudoeste da Bahia (UESB)**')
-                  .widgets,
+              children: MarkdownGenerator().buildWidgets(
+                '**Universidade Estadual do Sudoeste da Bahia (UESB)**',
+              ),
             ),
           ),
           Row(
@@ -124,16 +118,15 @@ class UesbTextImageSide extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  launch('http://catalogo.uesb.br/cursos/medicina-bac-vc');
+                  launchUrl(Uri.parse(
+                      'http://catalogo.uesb.br/cursos/medicina-bac-vc'));
                 },
                 child: Center(
                   child: SizedBox(
                     width: 150,
                     height: 150,
-                    child: Image.asset(
-                      "assets/images/partners/uesb/logo_uesb.png",
-                      fit: BoxFit.scaleDown,
-                    ),
+                    child:
+                        Image.asset(MpiAssets.logoUESB, fit: BoxFit.scaleDown),
                   ),
                 ),
               ),
@@ -145,14 +138,13 @@ class UesbTextImageSide extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                            launch('http://lattes.cnpq.br/6211832014875307');
+                            launchUrl(Uri.parse(
+                                'http://lattes.cnpq.br/6211832014875307'));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora',
-                            ).widgets,
+                            children: MarkdownGenerator().buildWidgets(
+                                '**Dra. Welma Wildes Amorim**\nProfessora de Clínica Médica, Saúde do Idoso e Pesquisadora'),
                           ),
                         ),
                       ]),
@@ -167,7 +159,7 @@ class UesbTextImageSide extends StatelessWidget {
 }
 
 class UfbaTextImageSide extends StatelessWidget {
-  const UfbaTextImageSide({Key key}) : super(key: key);
+  const UfbaTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -177,30 +169,24 @@ class UfbaTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://ims.ufba.br/');
+              launchUrl(Uri.parse('http://ims.ufba.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**Universidade Federal da Bahia (UFBA)**',
-              ).widgets,
+              children: MarkdownGenerator()
+                  .buildWidgets('**Universidade Federal da Bahia (UFBA)**'),
             ),
           ),
           GestureDetector(
             onTap: () {
-              launch('http://ims.ufba.br/');
+              launchUrl(Uri.parse('http://ims.ufba.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data:
-                    'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
-                styleConfig: StyleConfig(
-                  pConfig: PConfig(
-                    textConfig: TextConfig(textAlign: TextAlign.center),
-                  ),
-                ),
-              ).widgets,
+              // TODO: MarkdownGenerator: fix textConfig(TextAlign.center)
+              children: MarkdownGenerator().buildWidgets(
+                'Instituto Multidisciplinar em Saúde\nCampus Anísio Teixeira (IMS-CAT/UFBA)',
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -212,13 +198,13 @@ class UfbaTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 7.0),
                 child: GestureDetector(
                   onTap: () {
-                    launch('http://ims.ufba.br/');
+                    launchUrl(Uri.parse('http://ims.ufba.br/'));
                   },
                   child: SizedBox(
                     width: 120,
                     height: 150,
                     child: Image.asset(
-                      "assets/images/partners/ufba/logo_ufba.png",
+                      MpiAssets.logoUFBA,
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -232,38 +218,36 @@ class UfbaTextImageSide extends StatelessWidget {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/7413684305204869');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/7413684305204869'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador',
-                          ).widgets,
+                          children: MarkdownGenerator().buildWidgets(
+                              '**Dr. Marcio Galvão Oliveira**\nProfessor de Farmácia Clínica e Pesquisador'),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/3049611000844978');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/3049611000844978'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
-                          ).widgets,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Renato Morais Souza**\nFarmacêutico e Pesquisador Colaborador',
+                          ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          launch('http://lattes.cnpq.br/9147688530868098');
+                          launchUrl(Uri.parse(
+                              'http://lattes.cnpq.br/9147688530868098'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator(
-                            data:
-                                '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador',
-                          ).widgets,
+                          children: MarkdownGenerator().buildWidgets(
+                              '**Romana Santos Gama**\nFarmacêutica e Pesquisadora Colaborador'),
                         ),
                       ),
                     ],
@@ -279,7 +263,7 @@ class UfbaTextImageSide extends StatelessWidget {
 }
 
 class PmoSocialTextImageSide extends StatelessWidget {
-  const PmoSocialTextImageSide({Key key}) : super(key: key);
+  const PmoSocialTextImageSide({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -289,24 +273,22 @@ class PmoSocialTextImageSide extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              launch('http://www.socialtech.org.br/');
+              launchUrl(Uri.parse('http://www.socialtech.org.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**Instituto de Gestão de Projetos Sociais**\n',
-              ).widgets,
+              children: MarkdownGenerator().buildWidgets(
+                '**Instituto de Gestão de Projetos Sociais**\n',
+              ),
             ),
           ),
           GestureDetector(
             onTap: () {
-              launch('http://www.socialtech.org.br/');
+              launchUrl(Uri.parse('http://www.socialtech.org.br/'));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: MarkdownGenerator(
-                data: '**(SocialTech)**',
-              ).widgets,
+              children: MarkdownGenerator().buildWidgets('**(SocialTech)**'),
             ),
           ),
           Row(
@@ -317,13 +299,13 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    launch('http://www.socialtech.org.br/');
+                    launchUrl(Uri.parse('http://www.socialtech.org.br/'));
                   },
                   child: SizedBox(
                     width: 120,
                     height: 150,
                     child: Image.asset(
-                      "assets/images/partners/socialtech/logo_socialtech.png",
+                      MpiAssets.logoSocialTech,
                       fit: BoxFit.scaleDown,
                     ),
                   ),
@@ -333,59 +315,60 @@ class PmoSocialTextImageSide extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            launch(
-                                'https://www.linkedin.com/in/wilnara-amorim');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Wilnara Amorim**\nGerente de Projetos Sociais',
-                            ).widgets,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(
+                                'https://www.linkedin.com/in/wilnara-amorim'),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Wilnara Amorim**\nGerente de Projetos Sociais',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launch(
-                                'https://sites.google.com/site/danielporto/');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
-                            ).widgets,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse(
+                                'https://sites.google.com/site/danielporto/'),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launch('http://github.com/diego-ch');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Diego Porto**\nDesenvolvedor Colaborador',
-                            ).widgets,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse('http://github.com/diego-ch'));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Diego Porto**\nDesenvolvedor Colaborador',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            launch('http://github.com/diego-ch');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: MarkdownGenerator(
-                              data:
-                                  '**Fernando Neves**\n UX/UI Designer Colaborador',
-                            ).widgets,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse('http://github.com/diego-ch'));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: MarkdownGenerator().buildWidgets(
+                            '**Fernando Neves**\n UX/UI Designer Colaborador',
                           ),
                         ),
-                      ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

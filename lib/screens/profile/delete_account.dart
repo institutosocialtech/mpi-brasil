@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/http_exception.dart';
 import 'package:mpibrasil/providers/auth.dart';
-import 'package:mpibrasil/screens/common/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 class DeleteAccount extends StatelessWidget {
-  const DeleteAccount({Key key}) : super(key: key);
+  const DeleteAccount({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DeleteAccount extends StatelessWidget {
 }
 
 class DeleteAccountCard extends StatefulWidget {
-  const DeleteAccountCard({Key key}) : super(key: key);
+  const DeleteAccountCard({Key? key}) : super(key: key);
 
   @override
   State<DeleteAccountCard> createState() => _DeleteAccountCardState();
@@ -49,7 +49,7 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Erro"),
+        title: Text(S.current.delAccountErrorDialogTitle),
         content: Container(
           margin: EdgeInsets.only(top: 10),
           child: Text(message),
@@ -57,7 +57,7 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text("OK"),
+            child: Text(S.current.delAccountErrorDialogActionOk),
           ),
         ],
       ),
@@ -78,16 +78,15 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
       await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("MPI Brasil"),
+          title: Text(S.current.appTitle),
           content: Container(
             margin: EdgeInsets.only(top: 10),
-            child: Text(
-                'A sua conta foi excluída com sucesso! Para usar o app novamente, faça um novo cadastro!'),
+            child: Text(S.current.delAccountSuccessMessage),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("OK"),
+              child: Text(S.current.delAccountSuccessDialogActionOk),
             ),
           ],
         ),
@@ -103,27 +102,24 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
 
       switch (error.toString()) {
         case 'INVALID_ID_TOKEN':
-          errorMessage =
-              'Credenciais não são mais válidas. Por favor efetue login novamente';
+          errorMessage = S.current.delAccountErrorInvalidIdToken;
           break;
 
         case 'MISSING_ID_TOKEN':
-          errorMessage = 'Credenciais inválidas!';
+          errorMessage = S.current.delAccountErrorMissingIdToken;
           break;
 
         case 'USER_NOT_FOUND':
-          errorMessage =
-              'Não há registros associados a esse identificador. Usuário pode ter sido excluído!';
+          errorMessage = S.current.delAccountErrorUserNotFound;
           break;
 
         default:
-          errorMessage = 'Falha ao tentar excluir conta!';
+          errorMessage = S.current.delAccountErrorGeneric;
       }
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      final errorMessage = 'Erro desconhecido: ${error.message}';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(S.current.errorUnexpected(error.toString()));
     }
 
     // hide progress indicator
@@ -132,12 +128,6 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
 
   @override
   Widget build(BuildContext context) {
-    final String messageTitle = 'Exclusão de Conta';
-    final String messageBody =
-        'Observe que a confirmação dessa ação resultará na exclusão permanente da sua conta e todos os dados associados a ela.';
-    final String messageFooter =
-        'Caso não queira prosseguir com a exclusão da conta, clique no botão voltar.';
-
     final bodyTextStyle = TextStyle(
       color: kColorMPIGray,
       fontSize: 20,
@@ -166,7 +156,10 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
                   padding: EdgeInsets.only(bottom: 10.0, top: 50.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(messageTitle, style: titleTextStyle),
+                    child: Text(
+                      S.current.delAccountPageTitle,
+                      style: titleTextStyle,
+                    ),
                   ),
                 ),
 
@@ -175,7 +168,10 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(messageBody, style: bodyTextStyle),
+                    child: Text(
+                      S.current.delAccountPageBody,
+                      style: bodyTextStyle,
+                    ),
                   ),
                 ),
 
@@ -183,7 +179,10 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
                   padding: const EdgeInsets.only(bottom: 25.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(messageFooter, style: bodyTextStyle),
+                    child: Text(
+                      S.current.delAccountPageFooter,
+                      style: bodyTextStyle,
+                    ),
                   ),
                 ),
 
@@ -197,19 +196,18 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
                   children: [
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Voltar'),
+                      child: Text(S.current.delAccountPageButtonCancel),
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: kColorMPIGreen,
                         foregroundColor: kColorMPIWhite,
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        _showConfirmDeleteDialog(context);
-                      },
-                      child: Text('Excluir Conta'.toUpperCase()),
+                      onPressed: () => _showConfirmDeleteDialog(context),
+                      child: Text(S.current.delAccountPageButtonConfirm),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: kColorMPIWhite,
                         backgroundColor: kColorMPIRed,
+                        foregroundColor: kColorMPIWhite,
                       ),
                     ),
                   ],
@@ -225,17 +223,16 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: Text('Confirmar Exclusão de Conta'),
-          content: Text(
-              'Deseja realmente excluir a sua conta do MPI Brasil? Esta ação não poderá ser desfeita!'),
+          title: Text(S.current.delAccountConfirmDialogTitle),
+          content: Text(S.current.delAccountConfirmDialogContentText),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text('Voltar'),
+              child: Text(S.current.delAccountConfirmDialogActionCancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Excluir Conta'),
+              child: Text(S.current.delACcountConfirmDialogActionConfirm),
               style: TextButton.styleFrom(foregroundColor: kColorMPIRed),
             ),
           ],

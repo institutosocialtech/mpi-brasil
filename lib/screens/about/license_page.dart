@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 
 class License extends StatelessWidget {
-  final medTitleStyle =
-      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MPI Brasil'),
+        title: Text(S.current.appTitle),
         titleSpacing: 0.0,
         elevation: 0,
       ),
@@ -22,7 +20,14 @@ class License extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text("Licenças", textScaleFactor: 1.5, style: medTitleStyle),
+                Text(
+                  S.current.licensePageTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textScaleFactor: 1.5,
+                ),
               ],
             ),
           ),

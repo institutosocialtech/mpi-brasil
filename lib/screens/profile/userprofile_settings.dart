@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/extensions.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/providers/auth.dart';
 import 'package:mpibrasil/providers/userpreferences.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +34,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil do usuário'),
+        title: Text(S.current.settingsAppBarTitle),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -48,7 +50,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 children: <Widget>[
                   drawSettingsCard(context),
                   ElevatedButton(
-                    child: Text('Sair'),
+                    child: Text(S.current.settingsLogout),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pushReplacementNamed(context, '/');
@@ -76,12 +78,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         children: <Widget>[
           // user name
           ListTile(
-            title: Text('Nome'),
-            subtitle: Text(user.name),
+            title: Text(S.current.settingsNameTileTitle),
+            subtitle: Text(user.name ?? ''),
             leading: Icon(Icons.person, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () => _showEditNameDialog(context, user.name),
+              onPressed: () => _showEditNameDialog(context, user.name ?? ''),
             ),
           ),
 
@@ -91,8 +93,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             visible: false,
             child: ListTile(
               enabled: false,
-              title: Text('Email'),
-              subtitle: Text('mpibrasil@socialtech.org.br'),
+              title: Text(S.current.settingsEmailTileTitle),
+              subtitle: Text(S.current.socialTechEmail),
               leading: Icon(Icons.email, color: kColorMPIGreen),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -107,8 +109,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             visible: false,
             child: ListTile(
               enabled: false,
-              title: Text('Senha'),
-              subtitle: Text('********'),
+              title: Text(S.current.settingsPasswordTileTitle),
+              subtitle: Text(S.current.settingsPasswordTileSubtitle),
               leading: Icon(Icons.key, color: kColorMPIGreen),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -119,40 +121,36 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
           // user birthDate
           ListTile(
-            title: Text('Data de Nascimento'),
-            subtitle: Text(
-              _dateToString(user.birthDate),
-            ),
+            title: Text(S.current.settingsBirthDateTileTitle),
+            subtitle: Text(user.birthDate?.formattedDate ?? ''),
             leading: Icon(Icons.calendar_today, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
               onPressed: () => _showEditBirthDateDialog(
                 context,
-                _dateToString(user.birthDate),
+                user.birthDate?.formattedDate ?? '',
               ),
             ),
           ),
 
           // user occupation
           ListTile(
-            title: Text('Ocupação'),
-            subtitle: Text(_occupationToString(user.occupation)),
+            title: Text(S.current.settingsOccupationTileTitle),
+            subtitle: Text(user.occupationString),
             leading: Icon(Icons.work, color: kColorMPIGreen),
             trailing: IconButton(
               icon: Icon(Icons.edit),
               onPressed: () =>
-                  _showEditOccupationDialog(context, user.occupation),
+                  _showEditOccupationDialog(context, user.occupationString),
             ),
           ),
 
           // delete account
           ListTile(
-            title: Text('Excluir Dados'),
-            subtitle: Text('Excluir permanentemente sua conta'),
+            title: Text(S.current.settingsRedactUserTileTitle),
+            subtitle: Text(S.current.settingsRedactUserTileSubtitle),
             leading: Icon(Icons.delete_forever, color: kColorMPIGreen),
-            onTap: () => {
-              Navigator.of(context).pushNamed('/delete_account'),
-            },
+            onTap: () => Navigator.of(context).pushNamed('/delete_account'),
           ),
         ],
       ),
@@ -160,7 +158,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   }
 
   Future<void> _showEditNameDialog(
-      BuildContext context, String initialValue) async {
+    BuildContext context,
+    String initialValue,
+  ) async {
     final deviceSize = MediaQuery.of(context).size;
 
     var update = await showDialog(
@@ -173,7 +173,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
         // build dialog
         return AlertDialog(
-          title: Text("Editar"),
+          title: Text(S.current.editNameDialogTitle),
           content: Container(
             width: deviceSize.width * 0.85,
             margin: EdgeInsets.symmetric(vertical: 20),
@@ -183,8 +183,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 TextField(
                   controller: controller,
                   decoration: InputDecoration(
-                    hintText: 'Digite seu Nome',
-                    labelText: 'Nome',
+                    hintText: S.current.editNameTextFieldHintText,
+                    labelText: S.current.editNameTextFieldLabelText,
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
@@ -196,18 +196,18 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             // cancel action
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar"),
+              child: Text(S.current.editNameDialogCancel),
               style: TextButton.styleFrom(
-                primary: kColorMPIGreen,
+                foregroundColor: kColorMPIGreen,
               ),
             ),
 
             // save action
             TextButton(
               onPressed: () => Navigator.of(context).pop(controller.text),
-              child: Text("Salvar"),
+              child: Text(S.current.editNameDialogSave),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -223,7 +223,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   }
 
   Future<void> _showEditBirthDateDialog(
-      BuildContext context, String initialValue) async {
+    BuildContext context,
+    String initialValue,
+  ) async {
     final deviceSize = MediaQuery.of(context).size;
 
     var update = await showDialog(
@@ -236,7 +238,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
         // build dialog
         return AlertDialog(
-          title: Text("Editar"),
+          title: Text(S.current.editBirthDateDialogTitle),
           content: Container(
             width: deviceSize.width * 0.85,
             margin: EdgeInsets.symmetric(vertical: 20),
@@ -246,14 +248,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 TextField(
                   controller: controller,
                   inputFormatters: [
+                    // todo validate date input
                     new MaskTextInputFormatter(
                       mask: '##/##/####',
                       filter: {"#": RegExp(r'[0-9]')},
                     ),
                   ],
                   decoration: InputDecoration(
-                    hintText: 'DD/MM/YYYY',
-                    labelText: 'Data de Nascimento',
+                    hintText: S.current.editBirthDateTextFieldHintText,
+                    labelText: S.current.editBirthDateTextFieldLabelText,
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   ),
@@ -262,23 +265,18 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             ),
           ),
           actions: <Widget>[
-            // cancel action
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar"),
-              style: TextButton.styleFrom(
-                primary: kColorMPIGreen,
-              ),
+              child: Text(S.current.editBirthDateDialogCancel),
+              style: TextButton.styleFrom(foregroundColor: kColorMPIGreen),
             ),
-
-            // save action
             TextButton(
               onPressed: () => Navigator.of(context).pop(
                 DateFormat('dd/MM/yyyy').parse(controller.text),
               ),
-              child: Text("Salvar"),
+              child: Text(S.current.editBirthDateDialogSave),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -294,25 +292,36 @@ class _ProfileSettingsState extends State<ProfileSettings> {
   }
 
   Future<void> _showEditOccupationDialog(
-      BuildContext context, String initialValue) async {
+    BuildContext context,
+    String initialValue,
+  ) async {
     final deviceSize = MediaQuery.of(context).size;
 
     var update = await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        String selected = Provider.of<UserPreferences>(context).user.occupation;
+        String? selected =
+            Provider.of<UserPreferences>(context).user.occupation;
 
-        Map<String, String> items = {
-          'Médico(a)': 'medico',
-          'Enfermeiro(a)': 'enfermeiro',
-          'Estudante': 'estudante',
-          'Outros': 'outros',
+        final occupations = {
+          'medico': S.current.jobDoctor,
+          'enfermeiro': S.current.jobNurse,
+          'estudante': S.current.jobStudent,
+          'farmaceutico': S.current.jobPharmacist,
+          'outros': S.current.jobOther,
         };
+
+        final dropDownItems = occupations.entries
+            .map((entry) => DropdownMenuItem(
+                  child: Text(entry.value),
+                  value: entry.key,
+                ))
+            .toList();
 
         // build dialog
         return AlertDialog(
-          title: Text("Escolha sua ocupação:"),
+          title: Text(S.current.editOccupationDialogTitle),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Container(
@@ -321,33 +330,24 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   onChanged: (value) => setState(() => selected = value),
                   isExpanded: true,
                   value: selected,
-                  items: items
-                      .map((text, value) => MapEntry(
-                          text,
-                          DropdownMenuItem(
-                            child: Text(text),
-                            value: value,
-                          )))
-                      .values
-                      .toList(),
+                  items: dropDownItems,
                 ),
               );
             },
           ),
           actions: <Widget>[
-            // cancel action
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("Cancelar"),
-              style: TextButton.styleFrom(primary: kColorMPIGreenOpaque),
+              child: Text(S.current.editOccupationDialogCancel),
+              style: TextButton.styleFrom(
+                foregroundColor: kColorMPIGreenOpaque,
+              ),
             ),
-
-            // save action
             TextButton(
               onPressed: () => Navigator.of(context).pop(selected),
-              child: Text("Salvar"),
+              child: Text(S.current.editOccupationDialogSave),
               style: TextButton.styleFrom(
-                primary: kColorMPIWhite,
+                foregroundColor: kColorMPIWhite,
                 backgroundColor: kColorMPIGreen,
               ),
             ),
@@ -359,27 +359,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     if (update != null) {
       Provider.of<UserPreferences>(context, listen: false)
           .updateUserData(occupation: update);
-    }
-  }
-
-  String _dateToString(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
-  }
-
-  String _occupationToString(String occupation) {
-    switch (occupation) {
-      case 'medico':
-        return 'Médico(a)';
-      case 'enfermeiro':
-        return 'Enfermeiro(a)';
-      case 'farmaceutico':
-        return 'Farmacêutico(a)';
-      case 'estudante':
-        return 'Estudante';
-      case 'outros':
-        return 'Outros';
-      default:
-        return 'Não Identificado';
     }
   }
 }

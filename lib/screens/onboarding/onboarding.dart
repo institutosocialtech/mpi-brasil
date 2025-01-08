@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
+import 'package:mpibrasil/generated/l10n.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override
@@ -22,50 +24,52 @@ class OnboardingScreen extends StatelessWidget {
       // finalidade
       PageViewModel(
         decoration: pageDecoration,
-        title: 'Qual o nosso objetivo?',
-        body:
-            'Auxiliar profissionais de saúde na tomada de decisão clínica e na realização da escolha do medicamento mais apropriado para cada doença específica e para cada paciente em particular.',
+        title: S.current.onboardingObjectivePageTitle,
+        body: S.current.onboardingObjectivePageBody,
         image: Center(
-            child: Image.asset('assets/undraw/doctors.png', height: 175)),
+          child: Image.asset(MpiAssets.imgUndrawDoctors, height: 175),
+        ),
       ),
 
       // medicamentos
       PageViewModel(
         decoration: pageDecoration,
-        title: 'Medicamentos Inapropriados',
-        body:
-            'Acesse as principais informações sobre MPI de acordo com a condição clinica do paciente, com orientações de desprescrição e alternativas terapêuticas mais seguras.',
+        title: S.current.onboardingMpiPageTitle,
+        body: S.current.onboardingMpiPageBody,
         image: Center(
-            child: Image.asset('assets/undraw/medical_care.png', height: 175)),
+          child: Image.asset(MpiAssets.imgUndrawMedicalCare, height: 175),
+        ),
       ),
 
+      // mpi necessario
       PageViewModel(
         decoration: pageDecoration,
-        title: 'E se o MPI for necessário?',
-        body:
-            'Se mesmo assim, o uso do medicamento inapropriado for necessário, obtenha informações de monitoramento para tornar a farmacoterapia mais segura!',
+        title: S.current.onboardingMpiNeededPageTitle,
+        body: S.current.onboardingMpiNeededPageBody,
         image: Center(
-            child: Image.asset('assets/undraw/medicine.png', height: 175)),
+          child: Image.asset(MpiAssets.imgUndrawMedicine, height: 175),
+        ),
       ),
 
       // glossario
       PageViewModel(
         decoration: pageDecoration,
-        title: 'Ficou com dúvida?',
-        body: 'Consulte a FAQ no menu principal do aplicativo.',
+        title: S.current.onboardingKeywordsPageTitle,
+        body: S.current.onboardingKeywordsPageBody,
         image: Center(
-            child: Image.asset('assets/undraw/questions.png', height: 175)),
+          child: Image.asset(MpiAssets.imgUndrawQuestions, height: 175),
+        ),
       ),
     ];
 
     return IntroductionScreen(
       pages: pages,
       next: Text(
-        "Avançar",
+        S.current.onboardingActionNext,
         style: TextStyle(color: kColorMPIGreen, fontWeight: FontWeight.bold),
       ),
       done: Text(
-        "Iniciar",
+        S.current.onboardingActionDone,
         style: TextStyle(color: kColorMPIGreen, fontWeight: FontWeight.bold),
       ),
       globalBackgroundColor: Colors.white,
@@ -79,9 +83,7 @@ class OnboardingScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.0),
         ),
       ),
-      onDone: () {
-        Navigator.pushReplacementNamed(context, '/');
-      },
+      onDone: () => Navigator.pushReplacementNamed(context, '/'),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/keyword.dart';
+import 'package:mpibrasil/models/keyword.dart';
 
 class Keywords with ChangeNotifier {
   List<Keyword> _keywords = [];
@@ -14,7 +14,7 @@ class Keywords with ChangeNotifier {
     return [..._keywords];
   }
 
-  Future<void> fetchKeywordsFromDB({force: false}) async {
+  Future<void> fetchKeywordsFromDB({force = false}) async {
     var url =
         'https://mpibrasil.firebaseio.com/v2_0_0/pt/keywords.json?auth=$authToken';
 
@@ -23,18 +23,16 @@ class Keywords with ChangeNotifier {
     }
 
     try {
-      print("loading keyword db...");
       final uri = Uri.parse(url);
       final response = await http.get(uri);
       final data = json.decode(response.body) as Map<String, dynamic>;
 
-      if (data == null) {
+      if (data['error'] != null) {
         print("error loading keywords: " + response.statusCode.toString());
         return;
       }
 
-      print("keyword db loaded, filling list!");
-      final List<Keyword> loadedKeywords = [];
+      List<Keyword> loadedKeywords = [];
       data.forEach((firebaseId, value) {
         // insert firebaseId
         value['id'] = firebaseId;
@@ -46,7 +44,6 @@ class Keywords with ChangeNotifier {
           .compareTo(removeDiacritics(b.word).toUpperCase()));
       _keywords = loadedKeywords;
 
-      print("done loading keywords.");
       notifyListeners();
     } catch (error) {
       throw (error);
