@@ -30,4 +30,5 @@ class MpiAssets {
 
   // undraw svg
   static String svgUndrawDoctors = "assets/undraw_svg/doctors.svg";
+  static String svgUndrawMedicalCare = "assets/undraw_svg/medical_care.svg";
 }
