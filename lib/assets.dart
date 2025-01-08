@@ -24,6 +24,7 @@ class MpiAssets {
   // undraw images
   static String imgUndrawDoctors = 'assets/undraw/doctors.png';
   static String imgUndrawMedicalCare = 'assets/undraw/medical_care.png';
+  static String imgUndrawMedicalResearch = 'assets/undraw/medical_research.png';
   static String imgUndrawMedicine = 'assets/undraw/medicine.png';
   static String imgUndrawQuestions = 'assets/undraw/questions.png';
   static String imgUndrawAccountAmico = 'assets/undraw/account_amico.png';
