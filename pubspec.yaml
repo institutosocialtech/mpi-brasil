@@ -41,17 +41,17 @@ dev_dependencies:
 
   # dart run build_runner build --delete-conflicting-outputs
   build_runner: ^2.4.12
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: ^0.14.2
   json_serializable: ^6.8.0
 
 # dart run flutter_launcher_icons:main
-flutter_icons:
+flutter_launcher_icons:
   ios: true
   android: true
-  image_path_ios: "assets/images/app_icon_ios.png"
-  image_path_android: "assets/images/app_icon_android.png"
+  image_path: "assets/images/app_icon_ios.png"
+  remove_alpha_ios: true
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/images/app_icon_android.png"
+  adaptive_icon_foreground: "assets/images/app_icon_ios.png"
 
 # dart run intl_utils:generate
 flutter_intl:
