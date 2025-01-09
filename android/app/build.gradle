@@ -51,6 +51,10 @@ android {
     }
 }
 
+dependencies {
+    implementation 'com.google.crypto.tink:tink-android:1.9.0' // required by flutter_secure_storage
+}
+
 flutter {
     source = "../.."
 }
