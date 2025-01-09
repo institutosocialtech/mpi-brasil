@@ -3,7 +3,7 @@ description: Uma aplicação para auxilizar profissionais de saúde na prescriç
 version: 2.2.0+0
 
 environment:
-  sdk: ^3.5.1
+  sdk: ^3.6.0
 
 dependencies:
   flutter:
