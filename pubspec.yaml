@@ -1,6 +1,7 @@
 name: mpibrasil
 description: Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.
 version: 2.2.0+0
+publish_to: 'none'
 
 environment:
   sdk: ^3.6.0
@@ -13,7 +14,7 @@ dependencies:
 
   # app icons
   cupertino_icons: ^1.0.8
-  material_symbols_icons: ^4.2785.1
+  material_symbols_icons: ^4.2801.1
 
   # packages
   diacritic: ^0.1.5
