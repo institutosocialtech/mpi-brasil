@@ -2,7 +2,7 @@
     "name": "MPI Brasil",
     "short_name": "MPI Brasil",
     "start_url": ".",
-    "display": "minimal-ui",
+    "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "Uma aplicação para auxilizar profissionais de saúde na prescrição de medicamentos para idosos.",
