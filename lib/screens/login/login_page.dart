@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: IntrinsicHeight(
                     child: GestureDetector(
                       onTap: () =>
-                          FocusScope.of(context).requestFocus(new FocusNode()),
+                          FocusScope.of(context).requestFocus(FocusNode()),
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,

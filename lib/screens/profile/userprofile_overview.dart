@@ -172,7 +172,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                           TextFormField(
                             controller: _dateController,
                             inputFormatters: [
-                              new MaskTextInputFormatter(
+                              MaskTextInputFormatter(
                                 mask: '##/##/####',
                                 filter: {"#": RegExp(r'[0-9]')},
                               ),

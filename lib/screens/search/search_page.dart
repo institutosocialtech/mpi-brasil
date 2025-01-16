@@ -180,7 +180,7 @@ class _SearchPageState extends State<SearchPage> {
 
       // page content
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           decoration: BoxDecoration(
