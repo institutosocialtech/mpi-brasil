@@ -46,7 +46,7 @@ class Keywords with ChangeNotifier {
 
       notifyListeners();
     } catch (error) {
-      throw (error);
+      rethrow;
     }
   }
 }

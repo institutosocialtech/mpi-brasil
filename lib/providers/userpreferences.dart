@@ -34,7 +34,7 @@ class UserPreferences with ChangeNotifier {
       // initialize user object
       _user = User.fromJson(responseData);
     } catch (error) {
-      throw (error);
+      rethrow;
     }
     // tell listeners to update
     notifyListeners();
@@ -71,7 +71,7 @@ class UserPreferences with ChangeNotifier {
 
       // todo: handle api errors
     } catch (error) {
-      throw (error);
+      rethrow;
     }
     notifyListeners();
   }
@@ -109,7 +109,7 @@ class UserPreferences with ChangeNotifier {
 
         // todo: handle api errors
       } catch (error) {
-        throw (error);
+        rethrow;
       }
     } else {
       // remove favorite
@@ -125,7 +125,7 @@ class UserPreferences with ChangeNotifier {
 
         // todo: handle api errors
       } catch (error) {
-        throw (error);
+        rethrow;
       }
     }
   }
@@ -148,7 +148,7 @@ class UserPreferences with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
     } catch (error) {
-      throw (error);
+      rethrow;
     }
   }
 }
