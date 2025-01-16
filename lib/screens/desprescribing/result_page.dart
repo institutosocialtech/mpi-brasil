@@ -87,6 +87,15 @@ class DespResultPage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 25.0),
                   child: ResultCard(
                     isNumbered: true,
+                    title: S.current.desprescribingOrderTitle,
+                    contentList: S.current.desprescribingOrderList.split('\$'),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25.0),
+                  child: ResultCard(
+                    isNumbered: true,
                     title: S.current.howToMonitorTitle,
                     contentList: S.current.howToMonitorList.split('\$'),
                   ),
