@@ -129,8 +129,8 @@ class _PainCardState extends State {
                         max: 10,
                         divisions: 9,
                         value: painLevel,
-                        onChanged: (_newPainLevel) => setState(() {
-                          painLevel = _newPainLevel;
+                        onChanged: (newPainLevel) => setState(() {
+                          painLevel = newPainLevel;
                           drawPainLevelBody(painLevel);
                         }),
                         label: getPainLevelLabel(painLevel),

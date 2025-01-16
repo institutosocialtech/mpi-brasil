@@ -50,7 +50,7 @@ class ResultCard extends StatelessWidget {
         initiallyExpanded: false,
         collapsedBackgroundColor: kColorMPIWhite,
         title: Text(
-          this.title.toUpperCase(),
+          title.toUpperCase(),
           style: Theme.of(context)
               .textTheme
               .bodyLarge!

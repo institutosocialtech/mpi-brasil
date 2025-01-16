@@ -40,7 +40,7 @@ class User with ChangeNotifier {
       'outros': S.current.jobOther,
     };
 
-    return occupations[this.occupation] ?? S.current.jobUnknown;
+    return occupations[occupation] ?? S.current.jobUnknown;
   }
 
   bool get isProfileComplete {
@@ -62,6 +62,6 @@ class User with ChangeNotifier {
   }
 
   bool get isBetaTester {
-    return this.betaTester ?? false;
+    return betaTester ?? false;
   }
 }

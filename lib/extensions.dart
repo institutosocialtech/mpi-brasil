@@ -1,3 +1,3 @@
 extension DateTimeX on DateTime {
-  String get formattedDate => '${this.day}/${this.month}/${this.year}';
+  String get formattedDate => '$day/$month/$year';
 }

@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState!.save();
 
     // display progress indicator
-    if (this.mounted) setState(() => _isLoading = true);
+    if (mounted) setState(() => _isLoading = true);
 
     // try to login
     try {
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // hide progress indicator
     // check if widget is mounted before calling set state
-    if (this.mounted) setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoading = false);
   }
 
   @override

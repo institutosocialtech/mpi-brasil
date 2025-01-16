@@ -60,7 +60,7 @@ class QuizResultPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 25.0),
                 child: Text(
-                  this.title,
+                  title,
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
