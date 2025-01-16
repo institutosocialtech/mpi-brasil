@@ -67,7 +67,7 @@ class DesprescribingPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 25.0),
                 child: Image.asset(
-                  MpiAssets.imgUndrawDoctors,
+                  MpiAssets.imgUndrawMedicine,
                   height: size.height * 0.20,
                 ),
               ),

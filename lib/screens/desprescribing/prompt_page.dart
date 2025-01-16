@@ -60,7 +60,7 @@ class _DespPromptPageState extends State<DespPromptPage> {
               children: [
                 // image header
                 Image.asset(
-                  MpiAssets.imgUndrawMedicalCare,
+                  MpiAssets.imgUndrawMedicine,
                   height: MediaQuery.of(context).size.height * 0.30,
                 ),
 
