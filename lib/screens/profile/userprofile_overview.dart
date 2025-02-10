@@ -47,7 +47,23 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
 
       Provider.of<UserPreferences>(context, listen: false)
           .fetchUserData()
-          .then((_) => setState(() => _isLoading = false));
+          .then((_) {
+        final user = Provider.of<UserPreferences>(context, listen: false).user;
+
+        // initialize controller text
+        _nameController.text = user.name ?? '';
+        _dateController.text = user.birthDate != null
+            ? DateFormat('dd/MM/yyyy').format(user.birthDate!)
+            : '';
+
+        // initialize occupation dropdown
+        if (user.occupation?.isNotEmpty ?? false) {
+          _userOccupation = user.occupation;
+        }
+
+        // set loading to false
+        setState(() => _isLoading = false);
+      });
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -82,18 +98,6 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
       color: Colors.white,
       fontWeight: FontWeight.bold,
     );
-
-    var userData = Provider.of<UserPreferences>(context, listen: false);
-    var user = userData.user;
-
-    if (user.occupation?.isNotEmpty ?? false) {
-      _userOccupation = user.occupation;
-    }
-
-    _nameController.text = user.name ?? '';
-    _dateController.text = user.birthDate != null
-        ? DateFormat('dd/MM/yyyy').format(user.birthDate!)
-        : '';
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -197,12 +201,12 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                       ),
                       ElevatedButton(
                         onPressed: _submit,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: kColorMPIWhite,
+                        ),
                         child: Text(
                           S.current.profileSetupSubmitButtonText,
                           style: TextStyle(color: kColorMPIGreen),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: kColorMPIWhite,
                         ),
                       ),
                     ],
