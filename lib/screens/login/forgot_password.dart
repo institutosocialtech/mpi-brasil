@@ -80,6 +80,7 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
         content: Text(S.current.forgotPasswordRequestSent),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      Navigator.of(context).pop();
     } on HttpException catch (error) {
       var errorMessage = error.message == "EMAIL_NOT_FOUND"
           ? S.current.forgotPasswordErrorEmailNotFound
