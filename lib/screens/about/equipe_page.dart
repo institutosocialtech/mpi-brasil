@@ -341,29 +341,19 @@ class PmoSocialTextImageSide extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator().buildWidgets(
-                            '**Dr. Daniel Porto**\nPesquisador e Gerente de Tecnologia',
+                            '**Dr. Daniel Porto**\nIn Memoriam\nPesquisador e Gerente de Tecnologia',
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          launchUrl(Uri.parse('http://github.com/diego-ch'));
+                          launchUrl(Uri.parse(
+                              'https://www.linkedin.com/in/diegoporto'));
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: MarkdownGenerator().buildWidgets(
                             '**Diego Porto**\nDesenvolvedor Colaborador',
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          launchUrl(Uri.parse('http://github.com/diego-ch'));
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: MarkdownGenerator().buildWidgets(
-                            '**Fernando Neves**\n UX/UI Designer Colaborador',
                           ),
                         ),
                       ),
