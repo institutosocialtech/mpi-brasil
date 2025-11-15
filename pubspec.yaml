@@ -5,7 +5,6 @@ publish_to: 'none'
 
 environment:
   sdk: ^3.10.0
-  sdk: ^3.10.0
 
 dependencies:
   flutter:
@@ -20,12 +19,10 @@ dependencies:
   # packages
   diacritic: ^0.1.5
   flutter_mailer: ^3.0.1
-  flutter_mailer: ^3.0.1
   flutter_secure_storage: ^9.2.3
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.10+1
   http: ^1.2.2
-  intl: ^0.20.2
   intl: ^0.20.2
   intl_utils: ^2.8.7
   introduction_screen: ^3.1.14
