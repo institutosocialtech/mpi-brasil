@@ -16,7 +16,7 @@ Aplicativo móvel para ajudar pessoas a encontrar informações sobre medicament
     cd frontend-flutter
     ```
 
-2. Limpe e obtenha as dependências do Flutter:
+2. Obtenha as dependências do Flutter:
     ```bash
     flutter clean
     flutter pub get
