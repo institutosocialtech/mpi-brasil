@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821310500228",
+    "project_id": "mpi-brasil-benchmark",
+    "storage_bucket": "mpi-brasil-benchmark.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821310500228:android:52ae742bd10e049a9fc1d1",
+        "android_client_info": {
+          "package_name": "com.example.mpi_brasil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZB_yEIoL4Hdb_IuGymy-HtS49XLwC95M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
