@@ -7,46 +7,50 @@ part of 'med.dart';
 // **************************************************************************
 
 Med _$MedFromJson(Map<String, dynamic> json) => Med(
-      id: json['id'] as String,
-      name: json['active_ingredient'] as String,
-      classification: (json['classes'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      desprescription: json['desprescription'] as String? ?? '',
-      conditionsToAvoid: (json['clinical_conditions_to_avoid']
-                  as List<dynamic>?)
-              ?.map(
-                  (e) => MedAvoidCondition.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      alternatives: (json['alternative_therapies'] as List<dynamic>?)
-              ?.map((e) => MedAlternatives.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      parametersToMonitor: (json['monitored_parameters'] as List<dynamic>?)
-              ?.map((e) => MedMonitor.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      references: (json['references'] as List<dynamic>?)
-              ?.map((e) => MedReference.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
+  id: json['id'] as String,
+  name: json['active_ingredient'] as String,
+  classification:
+      (json['classes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      [],
+  desprescription: json['desprescription'] as String? ?? '',
+  conditionsToAvoid:
+      (json['clinical_conditions_to_avoid'] as List<dynamic>?)
+          ?.map((e) => MedAvoidCondition.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  alternatives:
+      (json['alternative_therapies'] as List<dynamic>?)
+          ?.map((e) => MedAlternatives.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  parametersToMonitor:
+      (json['monitored_parameters'] as List<dynamic>?)
+          ?.map((e) => MedMonitor.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  references:
+      (json['references'] as List<dynamic>?)
+          ?.map((e) => MedReference.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+);
 
 Map<String, dynamic> _$MedToJson(Med instance) => <String, dynamic>{
-      'id': instance.id,
-      'active_ingredient': instance.name,
-      'classes': instance.classification,
-      'desprescription': instance.desprescription,
-      'clinical_conditions_to_avoid':
-          instance.conditionsToAvoid?.map((e) => e.toJson()).toList(),
-      'alternative_therapies':
-          instance.alternatives?.map((e) => e.toJson()).toList(),
-      'monitored_parameters':
-          instance.parametersToMonitor?.map((e) => e.toJson()).toList(),
-      'references': instance.references?.map((e) => e.toJson()).toList(),
-    };
+  'id': instance.id,
+  'active_ingredient': instance.name,
+  'classes': instance.classification,
+  'desprescription': instance.desprescription,
+  'clinical_conditions_to_avoid': instance.conditionsToAvoid
+      ?.map((e) => e.toJson())
+      .toList(),
+  'alternative_therapies': instance.alternatives
+      ?.map((e) => e.toJson())
+      .toList(),
+  'monitored_parameters': instance.parametersToMonitor
+      ?.map((e) => e.toJson())
+      .toList(),
+  'references': instance.references?.map((e) => e.toJson()).toList(),
+};
 
 MedAvoidCondition _$MedAvoidConditionFromJson(Map<String, dynamic> json) =>
     MedAvoidCondition(
@@ -81,9 +85,9 @@ Map<String, dynamic> _$MedAlternativesToJson(MedAlternatives instance) =>
     };
 
 MedMonitor _$MedMonitorFromJson(Map<String, dynamic> json) => MedMonitor(
-      json['monitor_title'] as String?,
-      json['monitor_description'] as String?,
-    );
+  json['monitor_title'] as String?,
+  json['monitor_description'] as String?,
+);
 
 Map<String, dynamic> _$MedMonitorToJson(MedMonitor instance) =>
     <String, dynamic>{
@@ -92,9 +96,9 @@ Map<String, dynamic> _$MedMonitorToJson(MedMonitor instance) =>
     };
 
 MedReference _$MedReferenceFromJson(Map<String, dynamic> json) => MedReference(
-      json['reference_title'] as String?,
-      json['reference_url'] as String?,
-    );
+  json['reference_title'] as String?,
+  json['reference_url'] as String?,
+);
 
 Map<String, dynamic> _$MedReferenceToJson(MedReference instance) =>
     <String, dynamic>{

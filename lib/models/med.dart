@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'med.g.dart'; //where the json parser for this class will be generated
 
 @JsonSerializable(explicitToJson: true)
-class Med with ChangeNotifier {
+class Med {
   @JsonKey(name: 'id')
   final String id;
   @JsonKey(name: 'active_ingredient')

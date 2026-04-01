@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/models/http_exception.dart';
-import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   // draw util
   bool _isLoading = false;
 
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // try to login
     try {
-      await Provider.of<Auth>(context, listen: false).login(
+      await ref.read(authNotifierProvider.notifier).login(
         _authData['email']!,
         _authData['password']!,
       );

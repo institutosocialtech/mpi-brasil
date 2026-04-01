@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/extensions.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/providers/auth.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
-import 'package:provider/provider.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 
-class ProfileSettings extends StatefulWidget {
+class ProfileSettings extends ConsumerStatefulWidget {
   @override
-  _ProfileSettingsState createState() => _ProfileSettingsState();
+  ConsumerState<ProfileSettings> createState() => _ProfileSettingsState();
 }
 
-class _ProfileSettingsState extends State<ProfileSettings> {
-  var _isInit = true;
+class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() => _isLoading = true);
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchUserData();
+    });
+  }
 
-      Provider.of<UserPreferences>(context, listen: false)
-          .fetchUserData()
-          .then((_) => setState(() => _isLoading = false));
+  Future<void> _fetchUserData() async {
+    setState(() => _isLoading = true);
+    await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
+    if (mounted) {
+      setState(() => _isLoading = false);
     }
-    _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
@@ -48,13 +50,11 @@ class _ProfileSettingsState extends State<ProfileSettings> {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  drawSettingsCard(context),
+                  _drawSettingsCard(context),
                   ElevatedButton(
                     child: Text(S.current.settingsLogout),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushReplacementNamed(context, '/');
-                      Provider.of<Auth>(context, listen: false).logout();
+                    onPressed: () async {
+                      await ref.read(authNotifierProvider.notifier).logout();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kColorMPIGreen,
@@ -67,9 +67,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
   }
 
-  Widget drawSettingsCard(BuildContext context) {
-    var userData = Provider.of<UserPreferences>(context, listen: false);
-    var user = userData.user;
+  Widget _drawSettingsCard(BuildContext context) {
+    final user = ref.watch(userPreferencesNotifierProvider);
 
     return Card(
       elevation: 5,
@@ -217,7 +216,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context, listen: false)
+      ref.read(userPreferencesNotifierProvider.notifier)
           .updateUserData(name: update);
     }
   }
@@ -306,7 +305,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context, listen: false)
+      ref.read(userPreferencesNotifierProvider.notifier)
           .updateUserData(birthDate: update);
     }
   }
@@ -320,9 +319,8 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     var update = await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) {
-        String? selected =
-            Provider.of<UserPreferences>(context).user.occupation;
+      builder: (dialogContext) {
+        String? selected = ref.read(userPreferencesNotifierProvider).occupation;
 
         final occupations = {
           'medico': S.current.jobDoctor,
@@ -357,14 +355,14 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(dialogContext).pop(),
               child: Text(S.current.editOccupationDialogCancel),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIGreenOpaque,
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.of(context).pop(selected),
+              onPressed: () => Navigator.of(dialogContext).pop(selected),
               child: Text(S.current.editOccupationDialogSave),
               style: TextButton.styleFrom(
                 foregroundColor: kColorMPIWhite,
@@ -377,7 +375,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
     );
 
     if (update != null) {
-      Provider.of<UserPreferences>(context, listen: false)
+      ref.read(userPreferencesNotifierProvider.notifier)
           .updateUserData(occupation: update);
     }
   }

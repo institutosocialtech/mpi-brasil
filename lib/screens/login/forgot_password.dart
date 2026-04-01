@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/http_exception.dart';
-import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
-import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatelessWidget {
   @override
@@ -34,12 +34,12 @@ class ForgotPassword extends StatelessWidget {
   }
 }
 
-class ForgotPasswordCard extends StatefulWidget {
+class ForgotPasswordCard extends ConsumerStatefulWidget {
   @override
-  _ForgotPasswordCardState createState() => _ForgotPasswordCardState();
+  ConsumerState<ForgotPasswordCard> createState() => _ForgotPasswordCardState();
 }
 
-class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
+class _ForgotPasswordCardState extends ConsumerState<ForgotPasswordCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   var _isLoading = false;
   var email;
@@ -74,7 +74,7 @@ class _ForgotPasswordCardState extends State<ForgotPasswordCard> {
 
     // send request
     try {
-      await Provider.of<Auth>(context, listen: false).forgotPassword(email);
+      await ref.read(authNotifierProvider.notifier).forgotPassword(email);
       // success msg
       final snackbar = SnackBar(
         content: Text(S.current.forgotPasswordRequestSent),

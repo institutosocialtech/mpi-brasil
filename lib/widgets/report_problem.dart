@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
-import 'package:provider/provider.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 
 enum ReportAction { MED_INFO, TEXT_TYPO, APP_BUG, OTHER }
 
 class ReportProblem {
-  Future<void> showReportDialog(BuildContext context, String medName) async {
+  Future<void> showReportDialog(BuildContext context, WidgetRef ref, String medName) async {
     ReportAction? _reportAction;
 
     final action = await showDialog(
@@ -98,17 +98,17 @@ class ReportProblem {
 
     switch (action) {
       case ReportAction.MED_INFO:
-        Provider.of<UserPreferences>(context, listen: false)
+        ref.read(userPreferencesNotifierProvider.notifier)
             .sendReport(medName, 'MED_INFO');
         break;
 
       case ReportAction.TEXT_TYPO:
-        Provider.of<UserPreferences>(context, listen: false)
+        ref.read(userPreferencesNotifierProvider.notifier)
             .sendReport(medName, 'TEXT_TYPO');
         break;
 
       case ReportAction.APP_BUG:
-        Provider.of<UserPreferences>(context, listen: false)
+        ref.read(userPreferencesNotifierProvider.notifier)
             .sendReport(medName, 'APP_BUG');
         break;
 

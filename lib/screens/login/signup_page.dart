@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/models/http_exception.dart';
-import 'package:mpibrasil/providers/auth.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   // draw util
   bool _isLoading = false;
 
@@ -116,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
     // try to signUp
     // try to login
     try {
-      await Provider.of<Auth>(context, listen: false).signup(
+      await ref.read(authNotifierProvider.notifier).signup(
         _authData['email']!,
         _authData['password']!,
       );

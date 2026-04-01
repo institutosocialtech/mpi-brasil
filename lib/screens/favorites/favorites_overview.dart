@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/med.dart';
-import 'package:mpibrasil/providers/meds.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/providers/meds_provider.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 import 'package:mpibrasil/screens/search/med_details.dart';
-import 'package:provider/provider.dart';
 
 class FavoritesOverview extends StatelessWidget {
   final headerStyle = TextStyle(
@@ -68,25 +68,20 @@ class FavoritesOverview extends StatelessWidget {
   }
 }
 
-class FavoriteList extends StatefulWidget {
+class FavoriteList extends ConsumerWidget {
   @override
-  _FavoriteListState createState() => _FavoriteListState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final medList = ref.watch(medsNotifierProvider).valueOrNull ?? [];
+    final userPreferences = ref.watch(userPreferencesNotifierProvider);
 
-class _FavoriteListState extends State<FavoriteList> {
-  @override
-  Widget build(BuildContext context) {
-    List<Med> _favorites = [];
-    final medList = Provider.of<Meds>(context, listen: false).meds;
-    final userPreferences = Provider.of<UserPreferences>(context, listen: true);
-
+    List<Med> favorites = [];
     for (Med med in medList) {
-      if (userPreferences.isFavorite(med.id)) {
-        _favorites.add(med);
+      if (userPreferences.favorites?.containsKey(med.id) ?? false) {
+        favorites.add(med);
       }
     }
 
-    return _favorites.isEmpty
+    return favorites.isEmpty
         // draw empty favorites message
         ? Center(
             child: Column(
@@ -100,11 +95,11 @@ class _FavoriteListState extends State<FavoriteList> {
 
         // draw favorites list
         : ListView.separated(
-            itemCount: _favorites.length,
+            itemCount: favorites.length,
             separatorBuilder: (BuildContext context, int index) =>
                 Divider(color: Colors.transparent),
             itemBuilder: (BuildContext context, int index) {
-              var med = _favorites[index];
+              var med = favorites[index];
 
               return Card(
                 color: kColorMPIGreenOpaque,
@@ -141,14 +136,13 @@ class _FavoriteListState extends State<FavoriteList> {
                     icon: Icon(Icons.star),
                     color: Colors.white,
                     onPressed: () {
-                      userPreferences.toggleFavorite(med.id);
+                      ref.read(userPreferencesNotifierProvider.notifier).toggleFavorite(med.id);
                       final snackbar = SnackBar(
                         content: Text(S.current.favoriteMedRemoved(med.name)),
                         action: SnackBarAction(
                           label: S.current.undo,
                           textColor: Colors.white,
-                          onPressed: () =>
-                              userPreferences.toggleFavorite(med.id),
+                          onPressed: () => ref.read(userPreferencesNotifierProvider.notifier).toggleFavorite(med.id),
                         ),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);

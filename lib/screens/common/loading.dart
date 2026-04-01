@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
-import 'package:provider/provider.dart';
 
-class LoadingScreen extends StatefulWidget {
+class LoadingScreen extends ConsumerStatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  ConsumerState<LoadingScreen> createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _LoadingScreenState extends ConsumerState<LoadingScreen> {
   final _secureStorage = FlutterSecureStorage();
 
   Future _checkFirstBoot() async {
@@ -18,10 +18,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
         await _secureStorage.read(key: 'firstBoot') ?? "true";
     final isFirstBoot = bool.parse(firstBootString);
 
-    var userPreferences = Provider.of<UserPreferences>(context, listen: false);
-    await userPreferences.fetchUserData();
+    await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
+    final user = ref.read(userPreferencesNotifierProvider);
 
-    if (!userPreferences.user.isProfileComplete) {
+    if (!user.isProfileComplete) {
       await _secureStorage.write(key: 'firstBoot', value: "false");
       Navigator.pushReplacementNamed(context, '/profile_setup');
     } else if (isFirstBoot) {
@@ -35,7 +35,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    _checkFirstBoot();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkFirstBoot();
+    });
   }
 
   @override
