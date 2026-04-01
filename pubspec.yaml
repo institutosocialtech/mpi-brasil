@@ -30,7 +30,8 @@ dependencies:
   markdown_widget: ^2.3.2+6
   mask_text_input_formatter: ^2.9.0
   package_info_plus: ^8.0.2
-  provider: ^6.1.2
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
   share_plus: ^10.0.2
   url_launcher: ^6.3.0
   flutter_linkify: ^6.0.0
@@ -42,8 +43,9 @@ dev_dependencies:
 
   # dart run build_runner build --delete-conflicting-outputs
   build_runner: ^2.4.12
+  riverpod_generator: ^2.4.0
   flutter_launcher_icons: ^0.14.2
-  json_serializable: ^6.8.0
+  json_serializable: ^6.9.4
 
 # dart run flutter_launcher_icons:main
 flutter_launcher_icons:
