@@ -1,25 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class User with ChangeNotifier {
+class User {
   @JsonKey(name: 'id')
-  String id;
+  final String id;
   @JsonKey(name: 'name', defaultValue: '')
-  String? name;
+  final String? name;
   @JsonKey(name: 'occupation', defaultValue: '')
-  String? occupation;
+  final String? occupation;
   @JsonKey(name: 'birth_date', defaultValue: null)
-  DateTime? birthDate;
+  final DateTime? birthDate;
   @JsonKey(name: 'favorites', defaultValue: {})
-  Map<String, bool>? favorites;
+  final Map<String, bool>? favorites;
   @JsonKey(name: 'beta_tester', defaultValue: false)
-  bool? betaTester;
+  final bool? betaTester;
 
-  User({
+  const User({
     required this.id,
     this.betaTester,
     this.name,
@@ -28,8 +27,28 @@ class User with ChangeNotifier {
     this.favorites,
   });
 
+  factory User.empty() => const User(id: '', favorites: {});
+
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  User copyWith({
+    String? id,
+    String? name,
+    String? occupation,
+    DateTime? birthDate,
+    Map<String, bool>? favorites,
+    bool? betaTester,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      occupation: occupation ?? this.occupation,
+      birthDate: birthDate ?? this.birthDate,
+      favorites: favorites ?? this.favorites,
+      betaTester: betaTester ?? this.betaTester,
+    );
+  }
 
   String get occupationString {
     final occupations = {
