@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/providers/auth.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
-import 'package:provider/provider.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends ConsumerWidget {
   final tileLabelStyle = TextStyle(
     color: kColorMPIGray,
     fontSize: 14,
     fontWeight: FontWeight.bold,
   );
 
-  void _logout(BuildContext context) async {
+  Future<void> _logout(BuildContext context, WidgetRef ref) async {
     var headerStyle = TextStyle(
       color: kColorMPIGray,
       fontSize: 17,
@@ -59,14 +59,12 @@ class AppDrawer extends StatelessWidget {
     );
 
     if (action) {
-      Navigator.pop(context);
-      Navigator.pushReplacementNamed(context, '/');
-      Provider.of<Auth>(context, listen: false).logout();
+      await ref.read(authNotifierProvider.notifier).logout();
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ClipRRect(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(kDrawerBorderRadius),
@@ -79,7 +77,7 @@ class AppDrawer extends StatelessWidget {
             _buildDrawerHeader(context),
 
             // user info
-            _buildUserTile(context),
+            _buildUserTile(context, ref),
 
             // nav buttons
             Divider(indent: 20, endIndent: 20),
@@ -94,7 +92,7 @@ class AppDrawer extends StatelessWidget {
               leading: Icon(Icons.exit_to_app, color: kColorMPIGray),
               title: Text(S.current.logout),
               titleTextStyle: tileLabelStyle,
-              onTap: () => _logout(context),
+              onTap: () => _logout(context, ref),
             ),
           ],
         ),
@@ -114,13 +112,13 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildUserTile(BuildContext context) {
-    var _userPrefs = Provider.of<UserPreferences>(context, listen: false);
-    var _userName = _userPrefs.user.name ?? '';
+  Widget _buildUserTile(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userPreferencesNotifierProvider);
+    final userName = user.name ?? '';
 
     return ListTile(
       dense: true,
-      title: Text(S.current.drawerGreeting(_userName)),
+      title: Text(S.current.drawerGreeting(userName)),
       titleTextStyle: tileLabelStyle,
       trailing: Icon(Symbols.settings_account_box, color: kColorMPIGray),
       onTap: () => Navigator.of(context).popAndPushNamed('/profile'),

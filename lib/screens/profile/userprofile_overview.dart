@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
-import 'package:provider/provider.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 
-class UserProfileOverview extends StatefulWidget {
+class UserProfileOverview extends ConsumerStatefulWidget {
   @override
-  _UserProfileOverviewState createState() => _UserProfileOverviewState();
+  ConsumerState<UserProfileOverview> createState() => _UserProfileOverviewState();
 }
 
-class _UserProfileOverviewState extends State<UserProfileOverview> {
+class _UserProfileOverviewState extends ConsumerState<UserProfileOverview> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _dateController = TextEditingController();
   var _isLoading = false;
-  var _isInit = true;
 
   String? _userName;
   String? _userOccupation;
@@ -41,32 +40,34 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
   }
 
   @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() => _isLoading = true);
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchUserData();
+    });
+  }
 
-      Provider.of<UserPreferences>(context, listen: false)
-          .fetchUserData()
-          .then((_) {
-        final user = Provider.of<UserPreferences>(context, listen: false).user;
+  Future<void> _fetchUserData() async {
+    setState(() => _isLoading = true);
 
-        // initialize controller text
-        _nameController.text = user.name ?? '';
-        _dateController.text = user.birthDate != null
-            ? DateFormat('dd/MM/yyyy').format(user.birthDate!)
-            : '';
+    await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
+    final user = ref.read(userPreferencesNotifierProvider);
 
-        // initialize occupation dropdown
-        if (user.occupation?.isNotEmpty ?? false) {
-          _userOccupation = user.occupation;
-        }
+    // initialize controller text
+    _nameController.text = user.name ?? '';
+    _dateController.text = user.birthDate != null
+        ? DateFormat('dd/MM/yyyy').format(user.birthDate!)
+        : '';
 
-        // set loading to false
-        setState(() => _isLoading = false);
-      });
+    // initialize occupation dropdown
+    if (user.occupation?.isNotEmpty ?? false) {
+      _userOccupation = user.occupation;
     }
-    _isInit = false;
-    super.didChangeDependencies();
+
+    // set loading to false
+    if (mounted) {
+      setState(() => _isLoading = false);
+    }
   }
 
   // todo: validate name input as chars only
@@ -77,16 +78,13 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
     if (isValid) {
       _formKey.currentState!.save();
       setState(() => _isLoading = true);
-      await Provider.of<UserPreferences>(context, listen: false)
+      await ref.read(userPreferencesNotifierProvider.notifier)
           .updateUserData(
             name: _userName,
             occupation: _userOccupation,
             birthDate: _userBirthdate,
-          )
-          .then(
-            (value) =>
-                Navigator.of(context).pushReplacementNamed('/onboarding'),
           );
+      Navigator.of(context).pushReplacementNamed('/onboarding');
     }
   }
 
@@ -124,7 +122,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                       // top title
                       Text(
                         S.current.profileSetupHeader,
-                        textScaleFactor: 2,
+                        textScaler: TextScaler.linear(2),
                         style: titleStyle,
                       ),
 

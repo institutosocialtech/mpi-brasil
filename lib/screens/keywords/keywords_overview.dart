@@ -1,46 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/keyword.dart';
-import 'package:mpibrasil/providers/keywords.dart';
+import 'package:mpibrasil/providers/keywords_provider.dart';
 import 'package:mpibrasil/screens/keywords/keyword_details.dart';
-import 'package:provider/provider.dart';
 
-class KeywordsOverview extends StatefulWidget {
+class KeywordsOverview extends ConsumerStatefulWidget {
   @override
-  _KeywordsOverviewState createState() => _KeywordsOverviewState();
+  ConsumerState<KeywordsOverview> createState() => _KeywordsOverviewState();
 }
 
-class _KeywordsOverviewState extends State<KeywordsOverview> {
-  var _isInit = true;
+class _KeywordsOverviewState extends ConsumerState<KeywordsOverview> {
   var _isLoading = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchKeywords();
+    });
   }
 
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<Keywords>(context).fetchKeywordsFromDB().then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
+  Future<void> _fetchKeywords() async {
+    setState(() => _isLoading = true);
+    await ref.read(keywordsNotifierProvider.notifier).fetchKeywordsFromDB();
+    if (mounted) {
+      setState(() => _isLoading = false);
     }
-    _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final keywordsData = Provider.of<Keywords>(context, listen: false);
-    final keywords = keywordsData.keywords;
+    final keywords = ref.watch(keywordsNotifierProvider).valueOrNull ?? [];
 
     final headerStyle = TextStyle(
       color: Colors.white,

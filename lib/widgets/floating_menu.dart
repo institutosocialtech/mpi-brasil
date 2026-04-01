@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/med.dart';
-import 'package:mpibrasil/providers/userpreferences.dart';
+import 'package:mpibrasil/providers/user_preferences_provider.dart';
 import 'package:mpibrasil/widgets/report_problem.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-class FloatingMenu extends StatelessWidget {
+class FloatingMenu extends ConsumerWidget {
   final Med med;
 
   FloatingMenu({Key? key, required this.med}) : super(key: key);
 
-  Widget build(BuildContext context) {
-    var isFavorite =
-        Provider.of<UserPreferences>(context, listen: true).isFavorite(med.id);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userPrefs = ref.watch(userPreferencesNotifierProvider);
+    var isFavorite = userPrefs.favorites?.containsKey(med.id) ?? false;
 
     return SpeedDial(
       // both default to 16
@@ -47,7 +48,7 @@ class FloatingMenu extends StatelessWidget {
           label: isFavorite ? S.current.delFavorite : S.current.addFavorite,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () {
-            Provider.of<UserPreferences>(context, listen: false)
+            ref.read(userPreferencesNotifierProvider.notifier)
                 .toggleFavorite(med.id);
 
             final snackbar = SnackBar(
@@ -78,7 +79,7 @@ class FloatingMenu extends StatelessWidget {
           label: S.current.reportError,
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () async {
-            await ReportProblem().showReportDialog(context, med.name);
+            await ReportProblem().showReportDialog(context, ref, med.name);
           },
         ),
       ],

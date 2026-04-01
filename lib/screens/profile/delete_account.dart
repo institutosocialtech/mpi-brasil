@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
 import 'package:mpibrasil/models/http_exception.dart';
-import 'package:mpibrasil/providers/auth.dart';
-import 'package:provider/provider.dart';
+import 'package:mpibrasil/providers/auth_provider.dart';
 
 class DeleteAccount extends StatelessWidget {
   const DeleteAccount({Key? key}) : super(key: key);
@@ -34,14 +34,14 @@ class DeleteAccount extends StatelessWidget {
   }
 }
 
-class DeleteAccountCard extends StatefulWidget {
+class DeleteAccountCard extends ConsumerStatefulWidget {
   const DeleteAccountCard({Key? key}) : super(key: key);
 
   @override
-  State<DeleteAccountCard> createState() => _DeleteAccountCardState();
+  ConsumerState<DeleteAccountCard> createState() => _DeleteAccountCardState();
 }
 
-class _DeleteAccountCardState extends State<DeleteAccountCard> {
+class _DeleteAccountCardState extends ConsumerState<DeleteAccountCard> {
   var _isLoading = false;
   var email;
 
@@ -72,7 +72,7 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
 
     try {
       // delete user account
-      await Provider.of<Auth>(context, listen: false).deleteAccount();
+      await ref.read(authNotifierProvider.notifier).deleteAccount();
 
       // display success message
       await showDialog(
@@ -92,11 +92,8 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
         ),
       );
 
-      Navigator.pop(context);
-      Navigator.pushReplacementNamed(context, '/');
-
-      // register logout
-      await Provider.of<Auth>(context, listen: false).logout();
+      // logout handles state cleanup; main.dart navigates to LoginPage
+      await ref.read(authNotifierProvider.notifier).logout();
     } on HttpException catch (error) {
       String errorMessage;
 
@@ -123,7 +120,7 @@ class _DeleteAccountCardState extends State<DeleteAccountCard> {
     }
 
     // hide progress indicator
-    setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoading = false);
   }
 
   @override
