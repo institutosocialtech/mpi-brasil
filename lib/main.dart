@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // app theme
 import 'theme.dart';
@@ -8,14 +8,9 @@ import 'theme.dart';
 // app translations
 import 'generated/l10n.dart';
 
-// app models
-import 'models/user.dart';
-
 // app providers
-import 'providers/auth.dart';
-import 'providers/keywords.dart';
-import 'providers/meds.dart';
-import 'providers/userpreferences.dart';
+import 'providers/auth_provider.dart';
+import 'providers/auth_state.dart';
 
 // app screens
 import 'screens/about/about_page.dart';
@@ -36,81 +31,53 @@ import 'screens/profile/userprofile_settings.dart';
 import 'screens/profile/userprofile_overview.dart';
 import 'screens/search/search_page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const ProviderScope(child: MyApp()));
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(
-          value: Auth(),
-        ),
-        ChangeNotifierProxyProvider<Auth, UserPreferences>(
-          create: (_) => UserPreferences('', '', User(id: '')),
-          update: (context, auth, previous) => UserPreferences(
-            auth.token ?? '',
-            auth.userId ?? '',
-            previous == null ? User(id: '') : previous.user,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Meds>(
-          create: (_) => Meds('', []),
-          update: (context, auth, previous) => Meds(
-            auth.token ?? '',
-            previous == null ? [] : previous.meds,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Keywords>(
-          create: (_) => Keywords('', []),
-          update: (context, auth, previous) => Keywords(
-            auth.token ?? '',
-            previous == null ? [] : previous.keywords,
-          ),
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authAsync = ref.watch(authNotifierProvider);
+
+    return MaterialApp(
+      title: "MPI Brasil",
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
-      child: Consumer<Auth>(
-        builder: (context, auth, _) => MaterialApp(
-          title: "MPI Brasil",
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          theme: appTheme,
-          home: auth.isAuth
-              ? LoadingScreen()
-              : FutureBuilder(
-                  future: auth.tryAutoLogin(),
-                  builder: (context, authResult) =>
-                      authResult.connectionState == ConnectionState.waiting
-                          ? SplashScreen()
-                          : LoginPage(),
-                ),
-          routes: <String, WidgetBuilder>{
-            '/about': (context) => AboutPage(),
-            '/auth': (context) => LoginPage(),
-            '/desprescribing': (context) => DesprescribingPage(),
-            '/faq': (context) => FAQPage(),
-            '/favorites_overview': (context) => FavoritesOverview(),
-            '/forgot_password': (context) => ForgotPassword(),
-            // '/keyword_details': (context) => KeywordDetails(),
-            '/keywords_overview': (context) => KeywordsOverview(),
-            // '/med_details': (context) => MedDetails(),
-            '/onboarding': (context) => OnboardingScreen(),
-            '/privacy_policy': (context) => PrivacyPolicyPage(),
-            '/profile': (context) => ProfileSettings(),
-            '/profile_setup': (context) => UserProfileOverview(),
-            '/delete_account': (context) => DeleteAccount(),
-            '/search': (context) => SearchPage(),
-            '/signup': (context) => SignUpPage(),
-            '/tos': (context) => TermsOfUsePage(),
-          },
-        ),
+      supportedLocales: S.delegate.supportedLocales,
+      theme: appTheme,
+      home: authAsync.when(
+        loading: () => SplashScreen(),
+        error: (_, __) => LoginPage(),
+        data: (authState) {
+          if (authState is Authenticated) {
+            return LoadingScreen();
+          }
+          return LoginPage();
+        },
       ),
+      routes: <String, WidgetBuilder>{
+        '/about': (context) => AboutPage(),
+        '/auth': (context) => LoginPage(),
+        '/desprescribing': (context) => DesprescribingPage(),
+        '/faq': (context) => FAQPage(),
+        '/favorites_overview': (context) => FavoritesOverview(),
+        '/forgot_password': (context) => ForgotPassword(),
+        '/keywords_overview': (context) => KeywordsOverview(),
+        '/onboarding': (context) => OnboardingScreen(),
+        '/privacy_policy': (context) => PrivacyPolicyPage(),
+        '/profile': (context) => ProfileSettings(),
+        '/profile_setup': (context) => UserProfileOverview(),
+        '/delete_account': (context) => DeleteAccount(),
+        '/search': (context) => SearchPage(),
+        '/signup': (context) => SignUpPage(),
+        '/tos': (context) => TermsOfUsePage(),
+      },
     );
   }
 }
