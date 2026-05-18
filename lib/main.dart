@@ -36,11 +36,30 @@ void main() => runApp(const ProviderScope(child: MyApp()));
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
+  static final _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: refactor with go_router — this listener is a patch on the
+    // imperative Navigator model (popAndPushNamed / pushReplacementNamed
+    // across the app destroys the `/` route, so home: can't react to auth
+    // state on its own). A go_router redirect would replace this entirely.
+    ref.listen<AsyncValue<AuthState>>(authNotifierProvider, (prev, next) {
+      final prevAuth = prev?.valueOrNull;
+      final nextAuth = next.valueOrNull;
+      final nav = _navigatorKey.currentState;
+      if (nav == null) return;
+      if (prevAuth is Authenticated && nextAuth is Unauthenticated) {
+        nav.pushNamedAndRemoveUntil('/auth', (_) => false);
+      } else if (prevAuth is Unauthenticated && nextAuth is Authenticated) {
+        nav.pushNamedAndRemoveUntil('/', (_) => false);
+      }
+    });
+
     final authAsync = ref.watch(authNotifierProvider);
 
     return MaterialApp(
+      navigatorKey: _navigatorKey,
       title: "MPI Brasil",
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [

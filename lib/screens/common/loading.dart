@@ -21,11 +21,15 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
     await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
     final user = ref.read(userPreferencesNotifierProvider);
 
+    if (!mounted) return;
+
     if (!user.isProfileComplete) {
       await _secureStorage.write(key: 'firstBoot', value: "false");
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/profile_setup');
     } else if (isFirstBoot) {
       await _secureStorage.write(key: 'firstBoot', value: "false");
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/onboarding');
     } else {
       Navigator.pushReplacementNamed(context, '/search');
