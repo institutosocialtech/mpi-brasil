@@ -18,10 +18,10 @@ class _LoadingScreenState extends ConsumerState<LoadingScreen> {
         await _secureStorage.read(key: 'firstBoot') ?? "true";
     final isFirstBoot = bool.parse(firstBootString);
 
-    await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
-    final user = ref.read(userPreferencesNotifierProvider);
-
     if (!mounted) return;
+    await ref.read(userPreferencesNotifierProvider.notifier).fetchUserData();
+    if (!mounted) return;
+    final user = ref.read(userPreferencesNotifierProvider);
 
     if (!user.isProfileComplete) {
       await _secureStorage.write(key: 'firstBoot', value: "false");
