@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
@@ -41,9 +39,9 @@ class _DespPromptPageState extends State<DespPromptPage> {
         .length;
   }
 
-  void showResults() {
+  Future<void> showResults() async {
     setState(() => _quiz["result_score"] = scoreCount());
-    sleep(Duration(milliseconds: 200));
+    await Future.delayed(Duration(milliseconds: 500));
     widget.onQuizFinished(_quiz);
   }
 
