@@ -1,0 +1,10 @@
+
+[tools]
+android-sdk = "20"
+flutter = "3.41"
+java = "openjdk-17"
+
+[tasks."sdk:install"]
+description = "installs android sdk dependencies"
+run = "sdkmanager 'build-tools;28.0.3' 'platform-tools' 'tools' 'platforms;android-36'"
+
