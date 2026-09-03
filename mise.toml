@@ -8,3 +8,17 @@ java = "openjdk-17"
 description = "installs android sdk dependencies"
 run = "sdkmanager 'build-tools;28.0.3' 'platform-tools' 'tools' 'platforms;android-36'"
 
+[tasks."version:bump"]
+description = "sets the app version in VERSION, pubspec.yaml and compose.yaml (build number is kept)"
+usage = 'arg "<version>" help="semver, e.g. 2.3.5"'
+run = '''
+set -euo pipefail
+v="$usage_version"
+[[ "$v" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "invalid version: $v (expected X.Y.Z)"; exit 1; }
+printf '%s\n' "$v" > VERSION
+sed -i.bak -E "s/^(version: *)[0-9]+\.[0-9]+\.[0-9]+(\+[0-9]+)?/\1${v}\2/" pubspec.yaml && rm pubspec.yaml.bak
+sed -i.bak -E "s/^( *image: *mpibrasil-flutter:)[0-9]+\.[0-9]+\.[0-9]+/\1${v}/" compose.yaml && rm compose.yaml.bak
+echo "VERSION:      $(cat VERSION)"
+echo "pubspec.yaml: $(grep '^version:' pubspec.yaml)"
+echo "compose.yaml: $(grep 'image:' compose.yaml | xargs)"
+'''
