@@ -72,3 +72,30 @@ Para executar o aplicativo em modo debug no seu dispositivo, execute:
 ```bash
 flutter run --debug
 ```
+### 5. Web com Docker
+A versão web pode ser compilada e servida com Docker, sem instalar o Flutter na máquina.
+O `docker/Dockerfile` baixa o SDK do Flutter direto do GitHub (tag fixada em `FLUTTER_VERSION`),
+compila com `flutter build web --release --wasm` e serve o resultado com Caddy.
+
+#### 5.1 Compilar e executar localmente:
+```bash
+docker compose up --build
+# acesse http://localhost:8080
+```
+
+#### 5.2 Apenas compilar a imagem (`mpibrasil-flutter:<versão>`):
+```bash
+docker compose build
+```
+
+#### 5.3 Atualizar a versão
+A versão fica no arquivo `VERSION`, no `pubspec.yaml` e na tag da imagem em `compose.yaml`.
+A tarefa abaixo atualiza os três de uma vez:
+```bash
+mise run version:bump 2.3.5
+```
+
+#### 5.4 Observações
+- O build WebAssembly exige os cabeçalhos `Cross-Origin-Opener-Policy` e
+  `Cross-Origin-Embedder-Policy`, já configurados em `docker/Caddyfile`. Se a imagem for
+  colocada atrás de outro proxy, mantenha esses cabeçalhos no `index.html`.

@@ -169,7 +169,6 @@ android/key.properties
 .idea/
 .vscode/
 
-pubspec.lock
 
 # l10n
 lib/generated/
