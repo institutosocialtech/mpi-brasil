@@ -6,7 +6,7 @@ services:
       args:
         FLUTTER_VERSION: "3.41.9"
     # Keep in sync with pubspec.yaml; use `mise run version:bump <version>`.
-    image: mpibrasil-flutter:2.3.4
+    image: mpibrasil-flutter:2.3.5
     ports:
       - "8080:80"
     restart: unless-stopped
