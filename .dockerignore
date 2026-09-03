@@ -1,0 +1,30 @@
+# VCS and editors
+.git
+.gitignore
+.idea
+.vscode
+**/.DS_Store
+
+# Build outputs and caches
+build
+.dart_tool
+.pub-cache
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Native platforms are not needed for the web build
+android
+ios
+macos
+linux
+windows
+
+# Docker files themselves
+docker/Dockerfile
+compose.yaml
+.dockerignore
+
+# Secrets
+**/key.properties
+**/*.jks
+**/*.keystore

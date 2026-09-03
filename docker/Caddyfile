@@ -1,0 +1,13 @@
+:80 {
+    root * /srv
+    encode gzip
+    file_server
+
+    # Required by the WebAssembly (dart2wasm) build.
+    header Cross-Origin-Opener-Policy "same-origin"
+    header Cross-Origin-Embedder-Policy "require-corp"
+
+    # Entry points must not be cached so new deploys take effect immediately.
+    @entry path / /index.html /flutter_bootstrap.js /flutter_service_worker.js /version.json
+    header @entry Cache-Control "no-cache"
+}
