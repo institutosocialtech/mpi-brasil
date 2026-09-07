@@ -94,11 +94,15 @@ class FavoriteList extends ConsumerWidget {
           )
 
         // draw favorites list
-        : ListView.separated(
-            itemCount: favorites.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                Divider(color: Colors.transparent),
-            itemBuilder: (BuildContext context, int index) {
+        :    GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 6, 
+	),
+	itemCount: favorites.length,
+	itemBuilder: (BuildContext context, int index) {
               var med = favorites[index];
 
               return Card(
@@ -159,6 +163,6 @@ class FavoriteList extends ConsumerWidget {
                 ),
               );
             },
-          );
+); 
   }
 }

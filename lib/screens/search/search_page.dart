@@ -145,15 +145,19 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       );
     }
 
-    return ListView.separated(
-      itemCount: filteredMeds.length,
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(color: Colors.transparent),
-      itemBuilder: (BuildContext context, int index) {
+    return GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 6, 
+	),
+	itemCount: filteredMeds.length,
+	itemBuilder: (BuildContext context, int index) {
         final med = filteredMeds[index];
         return _MedListTile(med: med);
       },
-    );
+); 
   }
 }
 

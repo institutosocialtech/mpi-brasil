@@ -107,11 +107,14 @@ class KeywordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // keyword list
-      child: ListView.separated(
+      child: GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 6, 
+	),
         itemCount: keywords.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            Divider(color: Colors.transparent),
-
         // draw keywords
         itemBuilder: (BuildContext context, int index) {
           return Card(

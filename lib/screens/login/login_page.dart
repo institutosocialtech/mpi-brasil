@@ -191,56 +191,75 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   key: _formKey,
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       // email field
-                                      TextFormField(
-                                        focusNode: _fEmail,
-                                        textAlignVertical: null,
-                                        controller: _emailController,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                            hintText: S.current
-                                                .loginPageEmailHintText),
-                                        validator: (value) =>
-                                            _validateEntry('email', value),
-                                        onSaved: (value) =>
-                                            _authData['email'] = value ?? '',
-                                        onFieldSubmitted: (text) {
-                                          _fEmail!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fPassword);
-                                        },
+                                      SizedBox(
+                                        width:400,
+                                        child: TextFormField(
+                                          focusNode: _fEmail,
+                                          textAlignVertical: null,
+                                          controller: _emailController,
+                                          
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          textInputAction: TextInputAction.next,
+                                          decoration: InputDecoration(
+                                              
+                                              hintText: S.current
+                                                  .loginPageEmailHintText,
+                                                  enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: kColorMPIGreen,
+                                            ),
+                                            ),
+                                            ),
+                                          validator: (value) =>
+                                              _validateEntry('email', value),
+                                          onSaved: (value) =>
+                                              _authData['email'] = value ?? '',
+                                          onFieldSubmitted: (text) {
+                                            _fEmail!.unfocus();
+                                            FocusScope.of(context)
+                                                .requestFocus(_fPassword);
+                                          },
+                                        ),
                                       ),
 
                                       // password field
                                       SizedBox(height: 20.0),
-                                      TextFormField(
-                                        obscureText: true,
-                                        focusNode: _fPassword,
-                                        controller: _passwordController,
-                                        textInputAction: TextInputAction.done,
-                                        decoration: InputDecoration(
-                                            hintText: S.current
-                                                .loginPagePasswordHintText),
-                                        validator: (value) =>
-                                            _validateEntry('password', value),
-                                        onSaved: (value) =>
-                                            _authData['password'] = value ?? '',
-                                        onFieldSubmitted: (text) {
-                                          _fPassword!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fSubmit);
-                                        },
+                                      SizedBox(
+                                        width:400,
+                                        child: TextFormField(
+                                          obscureText: true,
+                                          focusNode: _fPassword,
+                                          controller: _passwordController,
+                                          textInputAction: TextInputAction.done,
+                                          decoration: InputDecoration(
+                                              hintText: S.current
+                                                  .loginPagePasswordHintText,
+                                                  enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: kColorMPIGreen,
+                                            ),
+                                          ),),
+                                          validator: (value) =>
+                                              _validateEntry('password', value),
+                                          onSaved: (value) =>
+                                              _authData['password'] = value ?? '',
+                                          onFieldSubmitted: (text) {
+                                            _fPassword!.unfocus();
+                                            FocusScope.of(context)
+                                                .requestFocus(_fSubmit);
+                                          },
+                                        ),
                                       ),
 
                                       // forgot password
                                       SizedBox(height: 10.0),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                             onTap: () => Navigator.pushNamed(
