@@ -57,7 +57,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     final medsAsync = ref.watch(medsNotifierProvider);
     final meds = medsAsync.valueOrNull ?? [];
     final filteredMeds = _getFilteredMeds(meds);
-
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: kColorMPIGreenOpaque,
       // page appbar
@@ -120,13 +120,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     Text(S.current.searchLoadingData),
                   ],
                 )
-              : _buildResultPane(filteredMeds),
+              : _buildResultPane(filteredMeds, screenWidth),
         ),
       ),
     );
   }
 
-  Widget _buildResultPane(List<Med> filteredMeds) {
+  Widget _buildResultPane(List<Med> filteredMeds,double screenWidth) {
     if (filteredMeds.isEmpty && _searchQuery.isNotEmpty) {
       return Center(
         child: Text(
@@ -147,10 +147,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     return GridView.builder(
 	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      childAspectRatio: 6, 
+      crossAxisCount: screenWidth<600? 1: 2, 
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 15, 
+      childAspectRatio: 3.6,
 	),
 	itemCount: filteredMeds.length,
 	itemBuilder: (BuildContext context, int index) {

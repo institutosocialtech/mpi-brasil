@@ -73,7 +73,7 @@ class FavoriteList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final medList = ref.watch(medsNotifierProvider).valueOrNull ?? [];
     final userPreferences = ref.watch(userPreferencesNotifierProvider);
-
+    final screenWidth = MediaQuery.of(context).size.width;
     List<Med> favorites = [];
     for (Med med in medList) {
       if (userPreferences.favorites?.containsKey(med.id) ?? false) {
@@ -96,10 +96,10 @@ class FavoriteList extends ConsumerWidget {
         // draw favorites list
         :    GridView.builder(
 	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
+      crossAxisCount: screenWidth < 600 ? 1 : 2,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
-      childAspectRatio: 6, 
+      childAspectRatio: 4, 
 	),
 	itemCount: favorites.length,
 	itemBuilder: (BuildContext context, int index) {
