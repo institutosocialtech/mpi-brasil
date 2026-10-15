@@ -1,74 +1,160 @@
 # MPI Brasil
-A mobile application to help people find information about medications and their effects on elderly patients.
 
-## Development
+[Português](README.md)
 
-### 1. Development Environment
+A Flutter app that helps health professionals prescribe medication for older
+patients. It provides information on potentially inappropriate medications
+(MPI in Portuguese) to support clinical decision-making.
 
-#### 1.1 Windows 11
-```bash
-# start the ubuntu wsl installation, then follow the ubuntu-26.04-lts environment steps
-wsl --install Ubuntu-26.04
-````
+The app still calls Firebase Realtime Database (`mpibrasil.firebaseio.com`)
+and Firebase Authentication through Identity Toolkit directly. The backend
+replacement is in progress; starting the local backend does not redirect app
+requests. The plan and contracts live in `docs/contracts/` in the MPI Brasil
+workspace, outside this repository.
 
-#### 1.2 Ubuntu 26.04 LTS
-```bash
-# update the system
-sudo apt update && sudo apt upgrade -y
+## Requirements
 
-# install the flutter linux dependencies
-sudo apt install -y curl fzf ripgrep yq
-sudo apt install -y build-essential clang cmake ninja-build pkg-config libgtk-3-dev
+- For development: mise and the tools in `mise.toml`: Flutter 3.41,
+  Java OpenJDK 17, and `android-sdk = "20"`.
+- For Android: Android SDK and a configured device or emulator.
+- For iOS: macOS with Xcode and a configured iOS environment.
+- To build and serve only the web version: Docker with Docker Compose;
+  Flutter does not need to be installed on the host.
 
-# install mise
-curl -fsSL https://mise.run | sh
-echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-```
+## Running
 
-### 2. Fetch the repository and dependencies
+### 1. Clone the repository and prepare the environment
 
-#### 2.1. Clone the repository:
-```bash
-mkdir ~/repos
-git checkout -b develop https://github.com/institutosocialtech/mpi-brasil.git ~/repos/mpibrasil
+With mise installed and activated in your shell:
+
+```sh
+mkdir -p ~/repos
+git clone -b develop https://github.com/institutosocialtech/mpi-brasil.git ~/repos/mpibrasil
 cd ~/repos/mpibrasil
-```
-
-#### 2.2. Install the dependencies with mise:
-```bash
 mise trust
 mise install
+```
+
+To prepare the Android components declared by the repository task:
+
+```sh
 mise run sdk:install
 ```
 
-#### 2.3. Get the Flutter dependencies:
-```bash
-flutter clean
+This task calls `sdkmanager` to install build-tools 28.0.3, platform-tools,
+tools, and platforms;android-36. Check your platform environment with
+`flutter doctor` before building.
+
+### 2. Dependencies and code generation
+
+```sh
 flutter pub get
 dart run intl_utils:generate
 ```
 
-### 3. Building for Debug
-To build the debug version of the app, run:
+Translations live in `lib/l10n/*.arb`; localization code is generated in
+`lib/generated/` (ignored by Git). After changing JSON models or annotated
+providers, also regenerate the `.g.dart` files:
 
-#### 3.1 Android:
-```bash
+```sh
+dart run build_runner build --delete-conflicting-outputs
+```
+
+The `.g.dart` files in `lib/models/` and `lib/providers/` are tracked.
+Review and include the corresponding generated changes in your PR.
+
+### 3. Run in debug mode
+
+```sh
+flutter devices
+flutter run --debug -d <device-id>
+```
+
+Replace `<device-id>` with an identifier from `flutter devices`.
+For web with WebAssembly:
+
+```sh
+flutter run -d chrome --wasm
+```
+
+### 4. Build in debug mode
+
+Run the command for your target platform with its environment configured:
+
+```sh
 flutter build apk --debug
-```
-
-#### 3.2 iOS:
-```bash
 flutter build ios --debug
-```
-
-#### 3.3 Web:
-```bash
 flutter build web --debug --wasm
 ```
 
-### 4. Running the Application
-To run the app in debug mode on your device, execute:
+The iOS build depends on the macOS/Xcode environment and signing configuration.
+TODO: document provisioning and distribution for Android/iOS releases.
 
-```bash
-flutter run --debug
+### 5. Web with Docker
+
+```sh
+docker compose up --build
 ```
+
+Open `http://localhost:8080`. Compose uses `docker/Dockerfile`, downloads Flutter
+3.41.9, generates translations, builds with `flutter build web --release --wasm`,
+and serves the result with Caddy. To build the image only:
+
+```sh
+docker compose build
+```
+
+The image is `mpibrasil-flutter:<version>`, with its tag defined in `compose.yaml`.
+The Dockerfile does not run `build_runner`: keep the tracked `.g.dart` files current.
+
+The WebAssembly build requires the `Cross-Origin-Opener-Policy: same-origin` and
+`Cross-Origin-Embedder-Policy: require-corp` headers configured in `docker/Caddyfile`.
+Preserve these response headers when placing another proxy in front of Caddy.
+
+The domains planned in the workspace infrastructure draft are
+`app.mpibrasil.dev` and `app.staging.mpibrasil.dev`. This does not confirm an active
+deployment. TODO: document the deployment workflow once it is defined.
+
+## Version
+
+The version lives in `VERSION`, `pubspec.yaml`, and the image tag in `compose.yaml`.
+To update all three together, preserving the pubspec build number:
+
+```sh
+mise run version:bump <X.Y.Z>
+```
+
+Replace `<X.Y.Z>` with the new version, for example `2.3.6`.
+
+## Verification
+
+```sh
+flutter analyze
+```
+
+The repository does not yet have a `test/` directory or a CI workflow. Record
+analysis results and manual checks per platform in the PR, including failures
+and checks that were not run.
+
+## Structure
+
+```text
+lib/main.dart       application entry point
+lib/screens/        screens
+lib/widgets/        UI components
+lib/providers/      state and Firebase access
+lib/models/         models and generated JSON serialization
+lib/l10n/           ARB translations
+assets/             documents, images, and fonts
+android/, ios/      native projects
+web/                web bootstrap files
+docker/             web build and Caddy configuration
+```
+
+## Contributing
+
+The default branch is `develop`; target it in PRs. Use a conventional commit
+title, such as `fix: correct medication search`. PR and issue templates live
+in `.github/`. Include screenshots per platform for UI changes and describe
+version, translation, generated code, and data contract changes. Keep this
+README and the [Portuguese README](README.md) in sync.
