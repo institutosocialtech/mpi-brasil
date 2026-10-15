@@ -1,0 +1,33 @@
+name: Solicitação de funcionalidade
+description: Proponha uma funcionalidade ou mudança no comportamento do aplicativo.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pesquise as issues existentes e descreva uma proposta por issue.
+        Este repositório é público. Não inclua tokens ou dados pessoais,
+        incluindo dados de pacientes e capturas de tela que os exponham.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: O que não é possível fazer hoje e quem precisa disso?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+      description: O que deve mudar? Indique as plataformas afetadas (Android/iOS/Web) e eventuais mudanças na fonte de dados ou no contrato da API.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas

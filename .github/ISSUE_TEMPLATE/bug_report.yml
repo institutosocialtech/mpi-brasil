@@ -1,0 +1,93 @@
+name: Relato de bug
+description: Relate falhas, regressões ou comportamento incorreto do aplicativo.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pesquise as issues existentes e descreva um problema por relato.
+        Este repositório é público. Remova senhas, tokens e dados pessoais
+        (incluindo dados de pacientes) de textos, capturas de tela e logs.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Plataforma
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - Web
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Versão do aplicativo
+      description: Informe também o número de build ou commit, se conhecido.
+      placeholder: 2.3.5+1
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Dispositivo e sistema operacional
+      description: Na web, inclua também o navegador e sua versão.
+      placeholder: Modelo do dispositivo, versão do sistema e navegador
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Ambiente
+      options:
+        - Local
+        - Homologação
+        - Produção
+        - Não sei
+    validations:
+      required: true
+
+  - type: input
+    id: origin
+    attributes:
+      label: Origem da instalação ou URL
+      description: Loja, APK, build local ou URL acessada (sem tokens ou dados pessoais).
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. Abra o aplicativo
+        2. Acesse a tela ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento esperado
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamento observado
+      description: Inclua capturas de tela, se ajudarem, sem dados pessoais.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs ou stack traces
+      description: Cole apenas os trechos relevantes, removendo tokens e dados pessoais.
+      render: text
