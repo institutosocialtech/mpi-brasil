@@ -200,68 +200,92 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       // email field
-                                      TextFormField(
-                                        focusNode: _fEmail,
-                                        controller: _emailController,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          hintText: S.current
-                                              .signUpPageEmailTextFieldHintText,
+                                      SizedBox(
+                                        width: 400,
+                                        child: TextFormField(
+                                          focusNode: _fEmail,
+                                          controller: _emailController,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          textInputAction: TextInputAction.next,
+                                          decoration: InputDecoration(
+                                            hintText: S.current
+                                                .signUpPageEmailTextFieldHintText,
+                                                enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: kColorMPIGreen,
+                                            ),
+                                            ),
+                                          ),
+                                          validator: (String? value) =>
+                                              _validateEntry('email', value),
+                                          onSaved: (String? value) =>
+                                              _authData['email'] = value ?? '',
+                                          onFieldSubmitted: (text) {
+                                            _fEmail!.unfocus();
+                                            FocusScope.of(context)
+                                                .requestFocus(_fPwd);
+                                          },
                                         ),
-                                        validator: (String? value) =>
-                                            _validateEntry('email', value),
-                                        onSaved: (String? value) =>
-                                            _authData['email'] = value ?? '',
-                                        onFieldSubmitted: (text) {
-                                          _fEmail!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fPwd);
-                                        },
                                       ),
 
                                       // password field
-                                      TextFormField(
-                                        obscureText: true,
-                                        focusNode: _fPwd,
-                                        controller: _pwdController,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: InputDecoration(
-                                          hintText: S.current
-                                              .signUpPagePasswordTextFieldHintText,
+                                      SizedBox(
+                                        width:400,
+                                        child: TextFormField(
+                                          obscureText: true,
+                                          focusNode: _fPwd,
+                                          controller: _pwdController,
+                                          textInputAction: TextInputAction.next,
+                                          decoration: InputDecoration(
+                                            hintText: S.current
+                                                .signUpPagePasswordTextFieldHintText,
+                                                 enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: kColorMPIGreen,
+                                            ),
+                                            ), 
+                                          ),
+                                          validator: (value) =>
+                                              _validateEntry('password', value),
+                                          onSaved: (value) =>
+                                              _authData['password'] = value ?? '',
+                                          onFieldSubmitted: (value) {
+                                            _fPwd!.unfocus();
+                                            FocusScope.of(context)
+                                                .requestFocus(_fPwdVerify);
+                                          },
                                         ),
-                                        validator: (value) =>
-                                            _validateEntry('password', value),
-                                        onSaved: (value) =>
-                                            _authData['password'] = value ?? '',
-                                        onFieldSubmitted: (value) {
-                                          _fPwd!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fPwdVerify);
-                                        },
                                       ),
 
                                       // password verify field
-                                      TextFormField(
-                                        obscureText: true,
-                                        focusNode: _fPwdVerify,
-                                        controller: _pwdVerifyController,
-                                        textInputAction: TextInputAction.done,
-                                        decoration: InputDecoration(
-                                          hintText: S.current
-                                              .signUpPagePasswordVerifyTextFieldHintText,
+                                      SizedBox(
+                                        width:400,
+                                        child: TextFormField(
+                                          obscureText: true,
+                                          focusNode: _fPwdVerify,
+                                          controller: _pwdVerifyController,
+                                          textInputAction: TextInputAction.done,
+                                          decoration: InputDecoration(
+                                            hintText: S.current
+                                                .signUpPagePasswordVerifyTextFieldHintText,
+                                                enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: kColorMPIGreen,
+                                            ),
+                                            ),
+                                          ),
+                                          validator: (value) =>
+                                              _validateEntry('passVerify', value),
+                                          onFieldSubmitted: (text) {
+                                            _fPwdVerify!.unfocus();
+                                            FocusScope.of(context)
+                                                .requestFocus(_fSubmit);
+                                          },
                                         ),
-                                        validator: (value) =>
-                                            _validateEntry('passVerify', value),
-                                        onFieldSubmitted: (text) {
-                                          _fPwdVerify!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fSubmit);
-                                        },
                                       ),
 
                                       // sign up button

@@ -100,18 +100,22 @@ class _KeywordsOverviewState extends ConsumerState<KeywordsOverview> {
 
 class KeywordList extends StatelessWidget {
   const KeywordList({Key? key, required this.keywords}) : super(key: key);
-
+ 
   final List<Keyword> keywords;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       // keyword list
-      child: ListView.separated(
+      child: GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: screenWidth < 600 ? 1 : 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 4, 
+	),
         itemCount: keywords.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            Divider(color: Colors.transparent),
-
         // draw keywords
         itemBuilder: (BuildContext context, int index) {
           return Card(

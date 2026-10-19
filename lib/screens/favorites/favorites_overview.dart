@@ -73,7 +73,7 @@ class FavoriteList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final medList = ref.watch(medsNotifierProvider).valueOrNull ?? [];
     final userPreferences = ref.watch(userPreferencesNotifierProvider);
-
+    final screenWidth = MediaQuery.of(context).size.width;
     List<Med> favorites = [];
     for (Med med in medList) {
       if (userPreferences.favorites?.containsKey(med.id) ?? false) {
@@ -94,11 +94,15 @@ class FavoriteList extends ConsumerWidget {
           )
 
         // draw favorites list
-        : ListView.separated(
-            itemCount: favorites.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                Divider(color: Colors.transparent),
-            itemBuilder: (BuildContext context, int index) {
+        :    GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: screenWidth < 600 ? 1 : 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 4, 
+	),
+	itemCount: favorites.length,
+	itemBuilder: (BuildContext context, int index) {
               var med = favorites[index];
 
               return Card(
@@ -159,6 +163,6 @@ class FavoriteList extends ConsumerWidget {
                 ),
               );
             },
-          );
+); 
   }
 }

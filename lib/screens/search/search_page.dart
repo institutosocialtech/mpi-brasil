@@ -57,7 +57,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     final medsAsync = ref.watch(medsNotifierProvider);
     final meds = medsAsync.valueOrNull ?? [];
     final filteredMeds = _getFilteredMeds(meds);
-
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: kColorMPIGreenOpaque,
       // page appbar
@@ -120,13 +120,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     Text(S.current.searchLoadingData),
                   ],
                 )
-              : _buildResultPane(filteredMeds),
+              : _buildResultPane(filteredMeds, screenWidth),
         ),
       ),
     );
   }
 
-  Widget _buildResultPane(List<Med> filteredMeds) {
+  Widget _buildResultPane(List<Med> filteredMeds,double screenWidth) {
     if (filteredMeds.isEmpty && _searchQuery.isNotEmpty) {
       return Center(
         child: Text(
@@ -145,15 +145,19 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       );
     }
 
-    return ListView.separated(
-      itemCount: filteredMeds.length,
-      separatorBuilder: (BuildContext context, int index) =>
-          Divider(color: Colors.transparent),
-      itemBuilder: (BuildContext context, int index) {
+    return GridView.builder(
+	  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: screenWidth<600? 1: 2, 
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 15, 
+      childAspectRatio: 3.6,
+	),
+	itemCount: filteredMeds.length,
+	itemBuilder: (BuildContext context, int index) {
         final med = filteredMeds[index];
         return _MedListTile(med: med);
       },
-    );
+); 
   }
 }
 
