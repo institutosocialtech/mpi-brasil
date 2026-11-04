@@ -1,6 +1,7 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mpibrasil/app_bar_component.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
@@ -57,28 +58,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     final medsAsync = ref.watch(medsNotifierProvider);
     final meds = medsAsync.valueOrNull ?? [];
     final filteredMeds = _getFilteredMeds(meds);
-
     return Scaffold(
       backgroundColor: kColorMPIGreenOpaque,
       // page appbar
-      appBar: AppBar(
-        backgroundColor: kColorMPIGreen,
-
-        flexibleSpace: Container(
-          child: Image.asset(
-            MpiAssets.imgMedComposition,
-            color: Colors.white.withOpacity(0.15),
-            colorBlendMode: BlendMode.multiply,
-            fit: BoxFit.cover,
-          ),
-        ),
-
-        // page title
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: TextField(
+      appBar: 
+    PreferredSize(
+    preferredSize: const Size.fromHeight(136.0),
+    child: AppBarSec(child:TextField(
               autofocus: false,
               onChanged: _queryMed,
               decoration: InputDecoration(
@@ -87,9 +73,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 suffixIcon: Icon(Icons.search, color: kColorMPIGray),
               ),
             ),
-          ),
-        ),
-      ),
+            ),
+            ), 
 
       // app drawer
       drawer: AppDrawer(),
