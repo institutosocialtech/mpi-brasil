@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import 'package:mpibrasil/app_bar_component.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
@@ -21,29 +22,10 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kColorMPIGreenOpaque,
-      appBar: AppBar(
-        backgroundColor: kColorMPIGreen,
-
-        // page appbar
-        flexibleSpace: Container(
-          child: Image.asset(
-            MpiAssets.imgMedComposition,
-            color: Colors.white.withOpacity(0.15),
-            colorBlendMode: BlendMode.multiply,
-            fit: BoxFit.cover,
-          ),
-        ),
-
-        // page title
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 20.0, bottom: 40),
-            child: Text(S.current.aboutPageTitle, style: headerStyle),
-          ),
-        ),
-      ),
+      appBar:  PreferredSize(
+    preferredSize: const Size.fromHeight(136.0),
+    child: AppBarCustomized(child: Text(S.current.aboutPageTitle, style: headerStyle))
+  ),
 
       // page content
       body: Container(
