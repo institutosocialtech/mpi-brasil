@@ -10,6 +10,8 @@ import 'package:mpibrasil/providers/auth_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 
 class SignUpPage extends ConsumerStatefulWidget {
+  const SignUpPage({super.key});
+
   @override
   ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
@@ -19,10 +21,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   bool _isLoading = false;
 
   // auth
-  Map<String, String> _authData = {
-    'email': '',
-    'password': '',
-  };
+  final Map<String, String> _authData = {'email': '', 'password': ''};
 
   // controllers
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -66,12 +65,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text(S.current.close),
             onPressed: () => Navigator.of(context).pop(),
             style: TextButton.styleFrom(
               foregroundColor: kColorMPIWhite,
               backgroundColor: kColorMPIGreen,
             ),
+            child: Text(S.current.close),
           ),
         ],
       ),
@@ -83,8 +82,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     if (value != null) {
       switch (type) {
         case 'email':
-          if (value.isEmpty || !value.contains('@'))
+          if (value.isEmpty || !value.contains('@')) {
             return S.current.signUpErrorInvalidEmail;
+          }
           break;
 
         case 'password':
@@ -95,8 +95,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
         case 'passVerify':
           if (value.isEmpty) return S.current.signUpErrorPasswordEmpty;
           if (value.length < 6) return S.current.signUpErrorPasswordWeak;
-          if (value != _pwdController.text)
+          if (value != _pwdController.text) {
             return S.current.signUpErrorPasswordMismatch;
+          }
           break;
       }
     }
@@ -105,74 +106,74 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   }
 
   // submit signUp
+
   Future<void> _submit() async {
-    // validate form
     if (!_formKey.currentState!.validate()) return;
-    // save form data
+
     _formKey.currentState!.save();
-    // display progress indicator
+
     setState(() => _isLoading = true);
 
-    // try to signUp
-    // try to login
     try {
-      await ref.read(authNotifierProvider.notifier).signup(
-        _authData['email']!,
-        _authData['password']!,
-      );
+      await ref
+          .read(authNotifierProvider.notifier)
+          .signup(_authData['email']!, _authData['password']!);
     } on HttpException catch (error) {
-      var errorMessage;
+      if (!mounted) return;
+
+      String errorMessage;
 
       switch (error.message) {
-        case "INVALID_EMAIL":
+        case 'INVALID_EMAIL':
           errorMessage = S.current.signUpErrorInvalidEmail;
           break;
-        case "EMAIL_EXISTS":
+        case 'EMAIL_EXISTS':
           errorMessage = S.current.signUpErrorEmailExists;
           break;
-        case "WEAK_PASSWORD":
+        case 'WEAK_PASSWORD':
           errorMessage = S.current.signUpErrorPasswordWeak;
+          break;
+        case 'NETWORK_ERROR':
+        case 'NETWORK_TIMEOUT':
+          errorMessage =
+              'Não foi possível conectar ao serviço. Verifique sua internet e tente novamente.';
           break;
         default:
           errorMessage = S.current.signUpErrorAuthFailed;
-          break;
       }
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      _showErrorDialog(S.current.signUpErrorUnknown);
-    }
+      if (!mounted) return;
 
-    // hide progress indicator
-    setState(() => _isLoading = false);
+      _showErrorDialog(S.current.signUpErrorUnknown);
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   // draw screen
   @override
   Widget build(BuildContext context) {
     // sign in button text style
-    final _buttonTextStyle = TextStyle(
+    final buttonTextStyle = TextStyle(
       color: kColorMPIWhite,
       fontSize: 18,
       fontWeight: FontWeight.bold,
     );
 
     // sign in button appearance
-    final _signUpButtonStyle = ElevatedButton.styleFrom(
+    final signUpButtonStyle = ElevatedButton.styleFrom(
       backgroundColor: kColorMPIGreen,
     );
 
     // text styles
-    final _labelStyle = TextStyle(
-      color: kColorMPIGray,
-      fontSize: 15,
-    );
+    final labelStyle = TextStyle(color: kColorMPIGray, fontSize: 15);
 
     // link styles
-    final _linkStyle = TextStyle(
-      color: kColorMPIGreen,
-      fontSize: 15,
-    );
+    final linkStyle = TextStyle(color: kColorMPIGreen, fontSize: 15);
 
     return Scaffold(
       body: _isLoading
@@ -210,7 +211,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                             TextInputType.emailAddress,
                                         textInputAction: TextInputAction.next,
                                         decoration: InputDecoration(
-                                          hintText: S.current
+                                          hintText: S
+                                              .current
                                               .signUpPageEmailTextFieldHintText,
                                         ),
                                         validator: (String? value) =>
@@ -219,8 +221,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                             _authData['email'] = value ?? '',
                                         onFieldSubmitted: (text) {
                                           _fEmail!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fPwd);
+                                          FocusScope.of(
+                                            context,
+                                          ).requestFocus(_fPwd);
                                         },
                                       ),
 
@@ -231,7 +234,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                         controller: _pwdController,
                                         textInputAction: TextInputAction.next,
                                         decoration: InputDecoration(
-                                          hintText: S.current
+                                          hintText: S
+                                              .current
                                               .signUpPagePasswordTextFieldHintText,
                                         ),
                                         validator: (value) =>
@@ -240,8 +244,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                             _authData['password'] = value ?? '',
                                         onFieldSubmitted: (value) {
                                           _fPwd!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fPwdVerify);
+                                          FocusScope.of(
+                                            context,
+                                          ).requestFocus(_fPwdVerify);
                                         },
                                       ),
 
@@ -252,15 +257,17 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                         controller: _pwdVerifyController,
                                         textInputAction: TextInputAction.done,
                                         decoration: InputDecoration(
-                                          hintText: S.current
+                                          hintText: S
+                                              .current
                                               .signUpPagePasswordVerifyTextFieldHintText,
                                         ),
                                         validator: (value) =>
                                             _validateEntry('passVerify', value),
                                         onFieldSubmitted: (text) {
                                           _fPwdVerify!.unfocus();
-                                          FocusScope.of(context)
-                                              .requestFocus(_fSubmit);
+                                          FocusScope.of(
+                                            context,
+                                          ).requestFocus(_fSubmit);
                                         },
                                       ),
 
@@ -269,10 +276,10 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                         height: 55,
                                         child: ElevatedButton(
                                           onPressed: _submit,
-                                          style: _signUpButtonStyle,
+                                          style: signUpButtonStyle,
                                           child: Text(
                                             S.current.signUpPageButtonSubmit,
-                                            style: _buttonTextStyle,
+                                            style: buttonTextStyle,
                                           ),
                                         ),
                                       ),
@@ -283,12 +290,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                                         children: [
                                           Text(
                                             S.current.signUpPageHasAccountLabel,
-                                            style: _labelStyle,
+                                            style: labelStyle,
                                           ),
                                           InkWell(
                                             child: Text(
                                               S.current.signUpPageLoginLabel,
-                                              style: _linkStyle,
+                                              style: linkStyle,
                                             ),
                                             onTap: () =>
                                                 Navigator.of(context).pop(),
@@ -350,10 +357,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
               return Text(
                 'v${snapshot.data!.version}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: kColorMPIGray),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall!.copyWith(color: kColorMPIGray),
               );
             default:
               return Text('');

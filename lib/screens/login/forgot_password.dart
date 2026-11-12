@@ -8,6 +8,8 @@ import 'package:mpibrasil/providers/auth_provider.dart';
 import 'package:mpibrasil/screens/common/splashscreen.dart';
 
 class ForgotPassword extends StatelessWidget {
+  const ForgotPassword({super.key});
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -15,7 +17,7 @@ class ForgotPassword extends StatelessWidget {
     return Scaffold(
       backgroundColor: kColorMPIWhite,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: deviceSize.height,
           width: deviceSize.width,
           child: Column(
@@ -35,22 +37,24 @@ class ForgotPassword extends StatelessWidget {
 }
 
 class ForgotPasswordCard extends ConsumerStatefulWidget {
+  const ForgotPasswordCard({super.key});
+
   @override
   ConsumerState<ForgotPasswordCard> createState() => _ForgotPasswordCardState();
 }
 
 class _ForgotPasswordCardState extends ConsumerState<ForgotPasswordCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  var _isLoading = false;
-  var email;
+  bool _isLoading = false;
+  String email = '';
 
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(S.current.error),
-        content: Container(
-          margin: EdgeInsets.only(top: 10),
+        content: Padding(
+          padding: const EdgeInsets.only(top: 10),
           child: Text(message),
         ),
         actions: <Widget>[
@@ -64,116 +68,107 @@ class _ForgotPasswordCardState extends ConsumerState<ForgotPasswordCard> {
   }
 
   Future<void> _submit() async {
-    // validate form
     if (!_formKey.currentState!.validate()) return;
-    // save form data
+
     _formKey.currentState!.save();
 
-    // display progress indicator
     setState(() => _isLoading = true);
 
-    // send request
     try {
       await ref.read(authNotifierProvider.notifier).forgotPassword(email);
-      // success msg
-      final snackbar = SnackBar(
-        content: Text(S.current.forgotPasswordRequestSent),
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.current.forgotPasswordRequestSent)),
       );
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
       Navigator.of(context).pop();
     } on HttpException catch (error) {
-      var errorMessage = error.message == "EMAIL_NOT_FOUND"
+      if (!mounted) return;
+
+      final errorMessage = error.message == 'EMAIL_NOT_FOUND'
           ? S.current.forgotPasswordErrorEmailNotFound
           : S.current.forgotPasswordErrorGeneric;
 
       _showErrorDialog(errorMessage);
     } catch (error) {
-      _showErrorDialog(S.current.errorUnexpected(error));
-    }
+      if (!mounted) return;
 
-    // hide progress indicator
-    setState(() => _isLoading = false);
+      _showErrorDialog(S.current.errorUnexpected(error));
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var titleStyle = TextStyle(
+    final titleStyle = TextStyle(
       color: kColorMPIGray,
       fontSize: 22,
       fontWeight: FontWeight.bold,
     );
 
-    var messageStyle = TextStyle(
-      color: kColorMPIGray,
-      fontSize: 18,
-    );
+    final messageStyle = TextStyle(color: kColorMPIGray, fontSize: 18);
 
     return _isLoading
         ? SplashScreen()
         : Container(
-            padding: EdgeInsets.all(35.0),
+            padding: const EdgeInsets.all(35.0),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  // image
                   Image.asset(
                     MpiAssets.imgUndrawAccountAmico,
                     height: 256,
                     width: 256,
                   ),
-
-                  // title
                   Text(S.current.forgotPasswordPageTitle, style: titleStyle),
-
-                  // message
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     S.current.forgotPasswordPageBody,
                     style: messageStyle,
                     textAlign: TextAlign.center,
                   ),
-
-                  // email field
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   TextFormField(
-                    obscureText: false,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: S.current.forgotPasswordEmailHintText,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null ||
                           value.isEmpty ||
-                          !value.contains('@'))
+                          !value.contains('@')) {
                         return S.current.forgotPasswordErrorInvalidEmail;
-                      else
-                        return null;
+                      }
+                      return null;
                     },
-                    onSaved: (value) => email = value,
+                    onSaved: (value) => email = value ?? '',
                   ),
-
-                  // submit button
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       ElevatedButton(
                         onPressed: _submit,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: kColorMPIGreen,
+                        ),
                         child: Text(
                           S.current.forgotPasswordPageButtonSubmit,
                           style: TextStyle(color: kColorMPIWhite),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: kColorMPIGreen,
-                        ),
                       ),
-
-                      // login button
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       InkWell(
                         onTap: () => Navigator.of(context).pop(),
                         child: Text(

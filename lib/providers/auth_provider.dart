@@ -16,8 +16,21 @@ part 'auth_provider.g.dart';
 @Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
   final _secureStorage = const FlutterSecureStorage();
+
   final _authBaseUrl = 'https://identitytoolkit.googleapis.com/v1';
-  final _apiKey = 'AIzaSyC-5nNIwn2nrGNCiMM2yFbj-lDqqmqR-YA';
+
+  String get _apiKey {
+    const apiKey = String.fromEnvironment('FIREBASE_API_KEY');
+
+    if (apiKey.isEmpty) {
+      throw StateError(
+        'Chave Firebase não configurada. '
+        'Execute o app com --dart-define=FIREBASE_API_KEY=...',
+      );
+    }
+
+    return apiKey;
+  }
 
   Timer? _authTimer;
 
@@ -27,40 +40,46 @@ class AuthNotifier extends _$AuthNotifier {
       _authTimer?.cancel();
     });
 
-    // Try auto-login on initialization
     final result = await _tryAutoLogin();
     return result;
   }
 
   Future<AuthState> _tryAutoLogin() async {
     final data = await _secureStorage.read(key: 'userData');
-    if (data == null) return const Unauthenticated();
+
+    if (data == null) {
+      return const Unauthenticated();
+    }
 
     final localData = json.decode(data) as Map<String, dynamic>;
+
     final token = localData['token'] as String?;
     final refreshToken = localData['refreshToken'] as String?;
     final userId = localData['userId'] as String?;
     final expirationDateString = localData['expirationDate'] as String?;
 
-    if (token == null || refreshToken == null || userId == null || expirationDateString == null) {
+    if (token == null ||
+        refreshToken == null ||
+        userId == null ||
+        expirationDateString == null) {
       return const Unauthenticated();
     }
 
     final expirationDate = DateTime.parse(expirationDateString);
 
-    // Check if token is expired
     if (expirationDate.isBefore(DateTime.now())) {
-      // Try to refresh
       final refreshResult = await _refreshAuth(refreshToken, userId);
+
       if (refreshResult == null) {
         await _secureStorage.delete(key: 'userData');
         return const Unauthenticated();
       }
+
       return refreshResult;
     }
 
-    // Token is still valid
-    _setAutoLogoutTimer(expirationDate);
+    _setAutoRefreshTimer(expirationDate, refreshToken, userId);
+
     return Authenticated(
       token: token,
       userId: userId,
@@ -69,7 +88,10 @@ class AuthNotifier extends _$AuthNotifier {
     );
   }
 
-  Future<Authenticated?> _refreshAuth(String refreshToken, String userId) async {
+  Future<Authenticated?> _refreshAuth(
+    String refreshToken,
+    String userId,
+  ) async {
     final url = 'https://securetoken.googleapis.com/v1/token?key=$_apiKey';
 
     try {
@@ -78,16 +100,32 @@ class AuthNotifier extends _$AuthNotifier {
         'refresh_token': refreshToken,
       });
 
-      final response = await http.post(Uri.parse(url), body: requestBody);
+      late http.Response response;
+
+      try {
+        response = await http
+            .post(Uri.parse(url), body: requestBody)
+            .timeout(const Duration(seconds: 15));
+      } on http.ClientException {
+        throw HttpException('NETWORK_ERROR');
+      } on TimeoutException {
+        throw HttpException('NETWORK_TIMEOUT');
+      }
+
       final responseData = json.decode(response.body);
 
-      if (responseData['error'] != null) return null;
+      if (responseData['error'] != null) {
+        return null;
+      }
 
       final newToken = responseData['id_token'] as String;
       final newRefreshToken = responseData['refresh_token'] as String;
       final newUserId = responseData['user_id'] as String;
       final expiresIn = int.parse(responseData['expires_in'] as String);
-      final newExpirationDate = DateTime.now().add(Duration(seconds: expiresIn));
+
+      final newExpirationDate = DateTime.now().add(
+        Duration(seconds: expiresIn),
+      );
 
       await _storeLocalData(
         idToken: newToken,
@@ -96,7 +134,7 @@ class AuthNotifier extends _$AuthNotifier {
         expirationDate: newExpirationDate,
       );
 
-      _setAutoLogoutTimer(newExpirationDate);
+      _setAutoRefreshTimer(newExpirationDate, newRefreshToken, newUserId);
 
       return Authenticated(
         token: newToken,
@@ -125,15 +163,37 @@ class AuthNotifier extends _$AuthNotifier {
     await _secureStorage.write(key: 'userData', value: data);
   }
 
-  void _setAutoLogoutTimer(DateTime expirationDate) {
+  void _setAutoRefreshTimer(
+    DateTime expirationDate,
+    String refreshToken,
+    String userId,
+  ) {
     _authTimer?.cancel();
-    final timeToExpiry = expirationDate.difference(DateTime.now()).inSeconds;
-    if (timeToExpiry > 0) {
-      _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
-    }
+
+    final refreshTime = expirationDate
+        .subtract(const Duration(minutes: 5))
+        .difference(DateTime.now());
+
+    _authTimer = Timer(
+      refreshTime.isNegative ? Duration.zero : refreshTime,
+      () async {
+        final refreshedAuth = await _refreshAuth(refreshToken, userId);
+
+        if (refreshedAuth == null) {
+          await logout();
+          return;
+        }
+
+        state = AsyncData(refreshedAuth);
+      },
+    );
   }
 
-  Future<void> _authenticate(String email, String password, String urlSegment) async {
+  Future<void> _authenticate(
+    String email,
+    String password,
+    String urlSegment,
+  ) async {
     final url = '$_authBaseUrl/accounts:$urlSegment?key=$_apiKey';
 
     final requestBody = json.encode({
@@ -143,6 +203,7 @@ class AuthNotifier extends _$AuthNotifier {
     });
 
     final response = await http.post(Uri.parse(url), body: requestBody);
+
     final responseData = json.decode(response.body);
 
     if (responseData['error'] != null) {
@@ -153,6 +214,7 @@ class AuthNotifier extends _$AuthNotifier {
     final refreshToken = responseData['refreshToken'] as String;
     final userId = responseData['localId'] as String;
     final expiresIn = int.parse(responseData['expiresIn'] as String);
+
     final expirationDate = DateTime.now().add(Duration(seconds: expiresIn));
 
     await _storeLocalData(
@@ -162,14 +224,16 @@ class AuthNotifier extends _$AuthNotifier {
       expirationDate: expirationDate,
     );
 
-    _setAutoLogoutTimer(expirationDate);
+    _setAutoRefreshTimer(expirationDate, refreshToken, userId);
 
-    state = AsyncData(Authenticated(
-      token: token,
-      userId: userId,
-      refreshToken: refreshToken,
-      expirationDate: expirationDate,
-    ));
+    state = AsyncData(
+      Authenticated(
+        token: token,
+        userId: userId,
+        refreshToken: refreshToken,
+        expirationDate: expirationDate,
+      ),
+    );
   }
 
   Future<void> login(String email, String password) async {
@@ -182,10 +246,13 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> logout() async {
     _authTimer?.cancel();
+
     await _secureStorage.delete(key: 'userData');
+
     ref.read(keywordsNotifierProvider.notifier).reset();
     ref.read(medsNotifierProvider.notifier).reset();
     ref.read(userPreferencesNotifierProvider.notifier).reset();
+
     state = const AsyncData(Unauthenticated());
   }
 
@@ -198,6 +265,7 @@ class AuthNotifier extends _$AuthNotifier {
     });
 
     final response = await http.post(Uri.parse(url), body: requestBody);
+
     final responseData = json.decode(response.body);
 
     if (responseData['error'] != null) {
@@ -207,6 +275,7 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> deleteAccount() async {
     final currentState = state.valueOrNull;
+
     if (currentState is! Authenticated) {
       throw HttpException('MISSING_ID_TOKEN');
     }
