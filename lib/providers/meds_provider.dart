@@ -12,6 +12,8 @@ part 'meds_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class MedsNotifier extends _$MedsNotifier {
+  static const _baseUrl = 'https://api-staging.mpibrasil.dev';
+
   @override
   Future<List<Med>> build() async {
     return [];
@@ -34,26 +36,34 @@ class MedsNotifier extends _$MedsNotifier {
     final token = _authToken;
     if (token == null) return;
 
-    final url = 'https://mpibrasil.firebaseio.com/v2_0_0/pt/meds.json?auth=$token';
+    final uri = Uri.parse('$_baseUrl/v2_0_0/pt/meds.json');
 
-    final uri = Uri.parse(url);
-    final response = await http.get(uri);
-    final data = json.decode(response.body) as Map<String, dynamic>;
+    final response = await http.get(
+      uri,
+      headers: {'Authorization': 'Bearer $token'},
+    );
 
-    if (data['error'] != null) {
-      return;
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Erro ao buscar medicamentos: ${response.statusCode} - ${response.body}',
+      );
     }
 
-    List<Med> loadedMeds = [];
+    final data = json.decode(response.body) as Map<String, dynamic>;
 
-    data.forEach((firebaseId, value) {
-      value['id'] = firebaseId;
-      loadedMeds.add(Med.fromJson(value));
+    final List<Med> loadedMeds = [];
+
+    data.forEach((medId, value) {
+      final medData = Map<String, dynamic>.from(value as Map);
+      medData['id'] = medId;
+      loadedMeds.add(Med.fromJson(medData));
     });
 
-    loadedMeds.sort((a, b) => removeDiacritics(a.name)
-        .toUpperCase()
-        .compareTo(removeDiacritics(b.name).toUpperCase()));
+    loadedMeds.sort(
+      (a, b) => removeDiacritics(
+        a.name,
+      ).toUpperCase().compareTo(removeDiacritics(b.name).toUpperCase()),
+    );
 
     state = AsyncData(loadedMeds);
   }
@@ -61,6 +71,7 @@ class MedsNotifier extends _$MedsNotifier {
   Med? findById(String medId) {
     final meds = state.valueOrNull;
     if (meds == null) return null;
+
     try {
       return meds.firstWhere((element) => element.id == medId);
     } catch (_) {

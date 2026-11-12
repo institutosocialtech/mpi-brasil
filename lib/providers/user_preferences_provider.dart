@@ -11,6 +11,8 @@ part 'user_preferences_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class UserPreferencesNotifier extends _$UserPreferencesNotifier {
+  static const _baseUrl = 'https://api-staging.mpibrasil.dev';
+
   @override
   User build() {
     return User.empty();
@@ -18,30 +20,54 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
 
   String? get _authToken {
     final authState = ref.read(authNotifierProvider).valueOrNull;
+
     if (authState is Authenticated) {
       return authState.token;
     }
+
     return null;
   }
 
   String? get _userId {
     final authState = ref.read(authNotifierProvider).valueOrNull;
+
     if (authState is Authenticated) {
       return authState.userId;
     }
+
     return null;
+  }
+
+  Map<String, String> get _headers {
+    return {
+      'Authorization': 'Bearer $_authToken',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+  }
+
+  void _checkResponse(http.Response response, String operation) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception(
+        'Erro ao $operation: '
+        '${response.statusCode} - ${response.body}',
+      );
+    }
   }
 
   Future<void> fetchUserData() async {
     final token = _authToken;
     final userId = _userId;
+
     if (token == null || userId == null) return;
 
-    final url = 'https://mpibrasil.firebaseio.com/users/$userId.json?auth=$token';
+    final uri = Uri.parse('$_baseUrl/users/$userId.json');
 
-    final uri = Uri.parse(url);
-    final response = await http.get(uri);
-    final Map<String, dynamic> responseData = response.body == 'null'
+    final response = await http.get(uri, headers: _headers);
+
+    _checkResponse(response, 'buscar dados do usuário');
+
+    final Map<String, dynamic> responseData = response.body.trim() == 'null'
         ? {}
         : json.decode(response.body) as Map<String, dynamic>;
 
@@ -57,26 +83,41 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   }) async {
     final token = _authToken;
     final userId = _userId;
+
     if (token == null || userId == null) return;
 
-    final url = 'https://mpibrasil.firebaseio.com/users/$userId.json?auth=$token';
+    final previousState = state;
 
-    // Update locally first
+    final uri = Uri.parse('$_baseUrl/users/$userId.json');
+
+    final requestData = {
+      if (name != null) 'name': name,
+      if (occupation != null) 'occupation': occupation,
+      if (birthDate != null)
+        'birth_date':
+            '${birthDate.year.toString().padLeft(4, '0')}-'
+            '${birthDate.month.toString().padLeft(2, '0')}-'
+            '${birthDate.day.toString().padLeft(2, '0')}',
+    };
+
     state = state.copyWith(
       name: name ?? state.name,
       occupation: occupation ?? state.occupation,
       birthDate: birthDate ?? state.birthDate,
     );
 
-    final uri = Uri.parse(url);
-    await http.patch(
-      uri,
-      body: json.encode({
-        if (name != null) 'name': name,
-        if (occupation != null) 'occupation': occupation,
-        if (birthDate != null) 'birth_date': birthDate.toString(),
-      }),
-    );
+    try {
+      final response = await http.patch(
+        uri,
+        headers: _headers,
+        body: json.encode(requestData),
+      );
+
+      _checkResponse(response, 'atualizar dados do usuário');
+    } catch (_) {
+      state = previousState;
+      rethrow;
+    }
   }
 
   bool isFavorite(String medId) {
@@ -86,39 +127,40 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   Future<void> toggleFavorite(String medId) async {
     final token = _authToken;
     final userId = _userId;
+
     if (token == null || userId == null) return;
 
-    final url =
-        'https://mpibrasil.firebaseio.com/users/$userId/favorites/$medId.json?auth=$token';
+    if (int.tryParse(medId) == null) {
+      throw ArgumentError('O ID do medicamento deve ser numérico.');
+    }
 
+    final previousState = state;
     final currentStatus = isFavorite(medId);
     final newStatus = !currentStatus;
 
-    // Update local state first
+    final uri = Uri.parse('$_baseUrl/users/$userId/favorites/$medId.json');
+
     final newFavorites = Map<String, bool>.from(state.favorites ?? {});
+
     if (newStatus) {
       newFavorites[medId] = true;
     } else {
       newFavorites.remove(medId);
     }
+
     state = state.copyWith(favorites: newFavorites);
 
     try {
-      final uri = Uri.parse(url);
-      if (newStatus) {
-        await http.put(uri, body: json.encode(newStatus));
-      } else {
-        await http.delete(uri);
-      }
-    } catch (error) {
-      // Revert on error
-      final revertedFavorites = Map<String, bool>.from(state.favorites ?? {});
-      if (currentStatus) {
-        revertedFavorites[medId] = true;
-      } else {
-        revertedFavorites.remove(medId);
-      }
-      state = state.copyWith(favorites: revertedFavorites);
+      final response = newStatus
+          ? await http.put(uri, headers: _headers, body: json.encode(true))
+          : await http.delete(uri, headers: _headers);
+
+      _checkResponse(
+        response,
+        newStatus ? 'adicionar favorito' : 'remover favorito',
+      );
+    } catch (_) {
+      state = previousState;
       rethrow;
     }
   }
@@ -126,10 +168,13 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   Future<void> sendReport(String medName, String errorType) async {
     final token = _authToken;
     final userId = _userId;
+
     if (token == null || userId == null) return;
 
     final url = 'https://mpibrasil.firebaseio.com/app_reports.json?auth=$token';
+
     final uri = Uri.parse(url);
+
     await http.post(
       uri,
       body: json.encode({
