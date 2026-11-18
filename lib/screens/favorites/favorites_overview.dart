@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mpibrasil/app_bar_component.dart';
+import 'package:mpibrasil/components/app_bar_component.dart';
 import 'package:mpibrasil/assets.dart';
 import 'package:mpibrasil/constants.dart';
 import 'package:mpibrasil/generated/l10n.dart';
