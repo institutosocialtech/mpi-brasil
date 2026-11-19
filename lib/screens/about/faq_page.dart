@@ -54,7 +54,7 @@ class FAQPage extends StatelessWidget {
       backgroundColor: kColorMPIGreenOpaque,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(136.0),
-        child: AppBarCustomized(child: Text('EQUIPE', style: headerStyle))
+        child: AppBarCustomized(child: Text(S.current.faqPageTitle, style: headerStyle))
   ),
 
       // page content
