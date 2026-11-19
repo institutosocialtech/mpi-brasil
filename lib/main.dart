@@ -24,7 +24,7 @@ import 'screens/favorites/favorites_overview.dart';
 import 'screens/keywords/keywords_overview.dart';
 import 'screens/login/forgot_password.dart';
 import 'screens/login/login_page.dart';
-import 'screens/login/signup_page.dart';
+import 'screens/login/signup_page.dart'; 
 import 'screens/onboarding/onboarding.dart';
 import 'screens/profile/delete_account.dart';
 import 'screens/profile/userprofile_settings.dart';
